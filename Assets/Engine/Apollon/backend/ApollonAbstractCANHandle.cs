@@ -611,6 +611,6 @@ namespace Labsim.apollon.backend
 
         #endregion
 
-    } /* class ApollonAbstractNativeHandle */
+    } /* class ApollonAbstractCANHandle */
 
 } /* } namespace */

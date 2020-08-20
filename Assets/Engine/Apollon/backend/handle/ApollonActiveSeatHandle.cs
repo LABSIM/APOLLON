@@ -4,7 +4,7 @@
 namespace Labsim.apollon.backend.handle
 {
 
-    class ApollonActiveSeatHandle
+    public class ApollonActiveSeatHandle
         : ApollonAbstractCANHandle
     {
 

@@ -27,28 +27,28 @@ namespace Labsim.apollon.backend
         private readonly System.Collections.Generic.Dictionary<HandleIDType, (bool, ApollonAbstractHandle)> _handleState
             = new System.Collections.Generic.Dictionary<HandleIDType, (bool, ApollonAbstractHandle)>();
         
-        private void RegisterAllAvailableHandle()
+        private void RegisterAllAvailableHandle<T>()
         {
 
-            // register all profile
+            // register all native backend handle
             foreach (System.Type type
-                in System.Reflection.Assembly.GetAssembly(typeof(ApollonAbstractHandle)).GetTypes()
+                in System.Reflection.Assembly.GetAssembly(typeof(T)).GetTypes()
                 .Where(
                     myType => myType.IsClass
                     && !myType.IsAbstract
                     && !myType.IsGenericType
-                    && myType.IsSubclassOf(typeof(ApollonAbstractHandle))
+                    && myType.IsSubclassOf(typeof(T))
                 )
             )
             {
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=blue>Info: </color> ApollonBackendManager.RegisterAllAvailableHandle() : found handle ["
+                    "<color=blue>Info: </color> ApollonBackendManager.RegisterAllAvailableHandle<" + typeof(T) + ">() : found handle ["
                     + type.FullName
                     + "]."
                 );
-                
+
                 // get "Instance" property
                 ApollonAbstractHandle handle = null;
                 if ((handle = System.Activator.CreateInstance(type) as ApollonAbstractHandle) != null)
@@ -56,18 +56,18 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=blue>Info: </color> ApollonBackendManager.RegisterAllAvailableHandle() : success to create instance of handle ["
+                        "<color=blue>Info: </color> ApollonBackendManager.RegisterAllAvailableHandle<" + typeof(T) + ">() : success to create instance of handle ["
                         + type.FullName
                         + "]."
                     );
 
                     // check
-                    System.Enum.TryParse(type.FullName, out HandleIDType handleID);
+                    System.Enum.TryParse(type.Name, out HandleIDType handleID);
                     if (this._handleState.ContainsKey(handleID))
                     {
 
                         UnityEngine.Debug.LogError(
-                             "<color=red>Error: </color> ApollonBackendManager.RegisterAllAvailableHandle("
+                             "<color=red>Error: </color> ApollonBackendManager.RegisterAllAvailableHandle<" + typeof(T) + ">("
                              + type.FullName
                              + ") : profile key already found ..."
                         );
@@ -84,7 +84,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=blue>Info: </color> ApollonBackendManager.RegisterAllAvailableHandle() : handle ["
+                        "<color=blue>Info: </color> ApollonBackendManager.RegisterAllAvailableHandle<" + typeof(T) + ">() : handle ["
                         + type.FullName
                         + "], registration ok !"
                     );
@@ -95,7 +95,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonBackendManager.RegisterAllAvailableHandle() : could not create instance ["
+                        "<color=Red>Error: </color> ApollonBackendManager.RegisterAllAvailableHandle<" + typeof(T) + ">() : could not create instance ["
                         + type.FullName
                         + "]. fail."
                     );
@@ -104,6 +104,14 @@ namespace Labsim.apollon.backend
 
             } /* foreach() */
 
+        } /* RegisterAllAvailableHandle<T>() */
+
+        private void RegisterAllAvailableHandle()
+        {
+
+            this.RegisterAllAvailableHandle<ApollonAbstractNativeHandle>();
+            this.RegisterAllAvailableHandle<ApollonAbstractCANHandle>();
+            
         } /* RegisterAllAvailableHandle() */
 
         public ApollonAbstractHandle GetValidHandle(HandleIDType ID)
@@ -261,7 +269,8 @@ namespace Labsim.apollon.backend
 
             this._handleState = new System.Collections.Generic.Dictionary<HandleIDType, (bool, ApollonAbstractHandle)>
             {
-                { HandleIDType.ApollonRobulabHandle, (false, null) }
+                //{ HandleIDType.ApollonRobulabHandle, (false, null) },
+                //{ HandleIDType.ApollonActiveSeatHandle, (false, null) }
             };
 
             // registering
