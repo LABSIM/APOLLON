@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 namespace Labsim.apollon.gameplay.device.sensor
 {
 
-    public class ApollonHOTASWarthogThrottleSensorBehaviour : UnityEngine.MonoBehaviour
+    public class ApollonHOTASWarthogThrottleSensorBehaviour 
+        : UnityEngine.MonoBehaviour
     {
 
         #region properties/members

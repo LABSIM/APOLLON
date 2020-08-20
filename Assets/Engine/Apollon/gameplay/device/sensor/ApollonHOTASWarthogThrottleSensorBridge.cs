@@ -6,7 +6,8 @@ using System.Linq;
 namespace Labsim.apollon.gameplay.device.sensor
 {
 
-    public class ApollonHOTASWarthogThrottleSensorBridge : ApollonAbstractGameplayBridge
+    public class ApollonHOTASWarthogThrottleSensorBridge 
+        : ApollonAbstractGameplayBridge
     {
 
         //ctor

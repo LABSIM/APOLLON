@@ -6,7 +6,7 @@ namespace Labsim.apollon.backend.handle
 {
 
     public class ApollonRobulabHandle
-        : ApollonAbstractInteroperabilityHandle
+        : ApollonAbstractNativeHandle
     {
 
         // ctor

@@ -1,4 +1,4 @@
-﻿// using  directives 
+﻿// using directives 
 using System.Runtime.InteropServices;
 using System.Runtime.ConstrainedExecution;
 using System.Security.Permissions;
@@ -9,7 +9,7 @@ using Microsoft.Win32.SafeHandles;
 namespace Labsim.apollon.backend
 {
 
-    public abstract class ApollonAbstractInteroperabilityHandle
+    public abstract class ApollonAbstractNativeHandle
         : ApollonAbstractHandle
     {
 
@@ -93,7 +93,7 @@ namespace Labsim.apollon.backend
         #endregion
 
         // ctor
-        public ApollonAbstractInteroperabilityHandle()
+        public ApollonAbstractNativeHandle()
             : base()
         { }
 
@@ -107,7 +107,7 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> ApollonAbstractInteroperabilityHandle.Dispose(" + bDisposing + ") : failed to dispose library. "
+                    "<color=Red>Error: </color> ApollonAbstractNativeHandle.Dispose(" + bDisposing + ") : failed to dispose library. "
                     + Marshal.GetLastWin32Error()
                 );
 
@@ -139,7 +139,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractInteroperabilityHandle.onHandleActivationRequested() : failed to load library. "
+                        "<color=Red>Error: </color> ApollonAbstractNativeHandle.onHandleActivationRequested() : failed to load library. "
                         + Marshal.GetLastWin32Error()
                     );
 
@@ -154,7 +154,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractInteroperabilityHandle.onHandleActivationRequested() : failed to bind library entries to delegates. "
+                        "<color=Red>Error: </color> ApollonAbstractNativeHandle.onHandleActivationRequested() : failed to bind library entries to delegates. "
                         + Marshal.GetLastWin32Error()
                     );
 
@@ -169,7 +169,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractInteroperabilityHandle.onHandleActivationRequested() : failed to construct library. "
+                        "<color=Red>Error: </color> ApollonAbstractNativeHandle.onHandleActivationRequested() : failed to construct library. "
                         + Marshal.GetLastWin32Error()
                     );
 
@@ -205,6 +205,6 @@ namespace Labsim.apollon.backend
 
         #endregion
 
-    } /* class ApollonAbstractInteroperabilityHandle */
+    } /* class ApollonAbstractNativeHandle */
 
 } /* } namespace */
