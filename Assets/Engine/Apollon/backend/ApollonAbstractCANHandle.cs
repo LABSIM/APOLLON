@@ -13,7 +13,7 @@ namespace Labsim.apollon.backend
         
         // Reference to the used VCI device.
         private Ixxat.Vci4.IVciDevice m_VCIDevice;
-        
+
         // Reference to the CAN controller.
         private Ixxat.Vci4.Bal.Can.ICanControl m_CANController;
         
@@ -22,21 +22,21 @@ namespace Labsim.apollon.backend
         
         // Reference to the CAN message scheduler.
         private Ixxat.Vci4.Bal.Can.ICanScheduler m_CANScheduler;
-        
+
         // Reference to the message writer of the CAN message channel.
-        private Ixxat.Vci4.Bal.Can.ICanMessageWriter m_CANMessageWriter;
-        
+        protected Ixxat.Vci4.Bal.Can.ICanMessageWriter m_CANMessageWriter;
+
         // Reference to the message reader of the CAN message channel.
-        private Ixxat.Vci4.Bal.Can.ICanMessageReader m_CANMessageReader;
+        protected Ixxat.Vci4.Bal.Can.ICanMessageReader m_CANMessageReader;
         
         // Thread that handles the message reception.
         private System.Threading.Thread m_RxThread;
-        
+
         // Quit flag for the receive thread.
-        private long m_RxEnd = 0;
-        
+        protected long m_RxEnd = 0;
+
         // Event that's set if at least one message was received.
-        private System.Threading.AutoResetEvent m_RxEvent;
+        protected System.Threading.AutoResetEvent m_RxEvent;
 
         #endregion
 
@@ -241,187 +241,10 @@ namespace Labsim.apollon.backend
 
         #endregion
 
-        #region CAN message transmission/reception
+        #region CAN abstract callback interface
 
-        ///// <summary>
-        //// Transmits a CAN message with ID 0x100.
-        ///// </summary>
-        //static void TransmitData()
-        //{
-        //    IMessageFactory factory = VciServer.Instance().MsgFactory;
-        //    ICanMessage canMsg = (ICanMessage)factory.CreateMsg(typeof(ICanMessage));
-
-        //    canMsg.TimeStamp = 0;
-        //    canMsg.Identifier = 0x100;
-        //    canMsg.FrameType = CanMsgFrameType.Data;
-        //    canMsg.DataLength = 8;
-        //    canMsg.SelfReceptionRequest = true;  // show this message in the console window
-
-        //    for (Byte i = 0; i < canMsg.DataLength; i++)
-        //    {
-        //        canMsg[i] = i;
-        //    }
-
-        //    // Write the CAN message into the transmit FIFO
-        //    mWriter.SendMessage(canMsg);
-        //}
-
-
-        ////************************************************************************
-        ///// <summary>
-        ///// Print a CAN message
-        ///// </summary>
-        ///// <param name="canMessage"></param>
-        ////************************************************************************
-        //static void PrintMessage(ICanMessage canMessage)
-        //{
-        //    switch (canMessage.FrameType)
-        //    {
-        //        //
-        //        // show data frames
-        //        //
-        //        case CanMsgFrameType.Data:
-        //            {
-        //                if (!canMessage.RemoteTransmissionRequest)
-        //                {
-        //                    Console.Write("\nTime: {0,10}  ID: {1,3:X}  DLC: {2,1}  Data:",
-        //                                  canMessage.TimeStamp,
-        //                                  canMessage.Identifier,
-        //                                  canMessage.DataLength);
-
-        //                    for (int index = 0; index < canMessage.DataLength; index++)
-        //                    {
-        //                        Console.Write(" {0,2:X}", canMessage[index]);
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    Console.Write("\nTime: {0,10}  ID: {1,3:X}  DLC: {2,1}  Remote Frame",
-        //                                  canMessage.TimeStamp,
-        //                                  canMessage.Identifier,
-        //                                  canMessage.DataLength);
-        //                }
-        //                break;
-        //            }
-
-        //        //
-        //        // show informational frames
-        //        //
-        //        case CanMsgFrameType.Info:
-        //            {
-        //                switch ((CanMsgInfoValue)canMessage[0])
-        //                {
-        //                    case CanMsgInfoValue.Start:
-        //                        Console.Write("\nCAN started...");
-        //                        break;
-        //                    case CanMsgInfoValue.Stop:
-        //                        Console.Write("\nCAN stopped...");
-        //                        break;
-        //                    case CanMsgInfoValue.Reset:
-        //                        Console.Write("\nCAN reseted...");
-        //                        break;
-        //                }
-        //                break;
-        //            }
-
-        //        //
-        //        // show error frames
-        //        //
-        //        case CanMsgFrameType.Error:
-        //            {
-        //                switch ((CanMsgError)canMessage[0])
-        //                {
-        //                    case CanMsgError.Stuff:
-        //                        Console.Write("\nstuff error...");
-        //                        break;
-        //                    case CanMsgError.Form:
-        //                        Console.Write("\nform error...");
-        //                        break;
-        //                    case CanMsgError.Acknowledge:
-        //                        Console.Write("\nacknowledgment error...");
-        //                        break;
-        //                    case CanMsgError.Bit:
-        //                        Console.Write("\nbit error...");
-        //                        break;
-        //                    case CanMsgError.Fdb:
-        //                        Console.Write("\nfast data bit error...");
-        //                        break;
-        //                    case CanMsgError.Crc:
-        //                        Console.Write("\nCRC error...");
-        //                        break;
-        //                    case CanMsgError.Dlc:
-        //                        Console.Write("\nData length error...");
-        //                        break;
-        //                    case CanMsgError.Other:
-        //                        Console.Write("\nother error...");
-        //                        break;
-        //                }
-        //                break;
-        //            }
-        //    }
-        //}
-
-        ////************************************************************************
-        ///// <summary>
-        ///// Demonstrate reading messages via MsgReader::ReadMessages() function
-        ///// </summary>
-        ////************************************************************************
-        //static void ReadMultipleMsgsViaReadMessages()
-        //{
-        //    ICanMessage[] msgArray;
-
-        //    do
-        //    {
-        //        // Wait 100 msec for a message reception
-        //        if (mRxEvent.WaitOne(100, false))
-        //        {
-        //            if (mReader.ReadMessages(out msgArray) > 0)
-        //            {
-        //                foreach (ICanMessage entry in msgArray)
-        //                {
-        //                    PrintMessage(entry);
-        //                }
-        //            }
-        //        }
-        //    } while (0 == mMustQuit);
-        //}
-
-        ////************************************************************************
-        ///// <summary>
-        ///// Demonstrate reading messages via MsgReader::ReadMessage() function
-        ///// </summary>
-        ////************************************************************************
-        //static void ReadMsgsViaReadMessage()
-        //{
-        //    ICanMessage canMessage;
-
-        //    do
-        //    {
-        //        // Wait 100 msec for a message reception
-        //        if (mRxEvent.WaitOne(100, false))
-        //        {
-        //            // read a CAN message from the receive FIFO
-        //            while (mReader.ReadMessage(out canMessage))
-        //            {
-        //                PrintMessage(canMessage);
-        //            }
-        //        }
-        //    } while (0 == mMustQuit);
-        //}
-
-        ////************************************************************************
-        ///// <summary>
-        //// This method is the works as receive thread.
-        ///// </summary>
-        ////************************************************************************
-        //static void ReceiveThreadFunc()
-        //{
-        //    ReadMsgsViaReadMessage();
-        //    //
-        //    // alternative: use ReadMultipleMsgsViaReadMessages();
-        //    //
-        //}
-
+        // This method is the works as receive thread.
+        protected abstract void AsynCANReaderCallback();
 
         #endregion
 
@@ -582,8 +405,33 @@ namespace Labsim.apollon.backend
             // check
             if (this.ID == arg.HandleID)
             {
-                
 
+                // select device
+                this.SelectDevice();
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
+                );
+
+                // init connection
+                if (!this.InitSocket(0))
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
+                    );
+
+                    // abort
+                    this.Dispose();
+
+                } /* if() */
+                
+                // bind & start the receive thread
+                this.m_RxThread = new System.Threading.Thread(new System.Threading.ThreadStart(this.AsynCANReaderCallback));
+                this.m_RxThread.Start();
+                
                 // finally register
                 ApollonBackendManager.Instance.RegisterHandle(this.ID, this);
 
@@ -598,6 +446,12 @@ namespace Labsim.apollon.backend
             // check
             if (this.ID == arg.HandleID)
             {
+                
+                // tell receive thread to quit
+                System.Threading.Interlocked.Exchange(ref this.m_RxEnd, 1);
+                
+                // wait for termination of receive thread
+                this.m_RxThread.Join();
 
                 // unplug it
                 this.Dispose();
