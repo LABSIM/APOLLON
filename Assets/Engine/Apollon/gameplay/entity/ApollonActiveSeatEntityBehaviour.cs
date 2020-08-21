@@ -138,7 +138,16 @@ namespace Labsim.apollon.gameplay.entity
                 {
 
                     // send Acceleration signal to HW
-                    // TODO 
+                    // send event to active chair over CAN bus
+                    (
+                        backend.ApollonBackendManager.Instance.GetValidHandle(
+                            backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                        ) as backend.handle.ApollonActiveSeatHandle
+                    ).Start(
+                        this._parent.AngularAcceleration.magnitude,
+                        this._parent.AngularVelocitySaturation.magnitude,
+                        this._parent.Duration
+                    );
 
                 } /* if() */
 
@@ -354,7 +363,12 @@ namespace Labsim.apollon.gameplay.entity
                     );
 
                     // send Stop order to HW
-                    // TODO 
+                    // send event to active chair over CAN bus
+                    (
+                        backend.ApollonBackendManager.Instance.GetValidHandle(
+                            backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                        ) as backend.handle.ApollonActiveSeatHandle
+                    ).Stop();
 
                 } /* if() */
                
@@ -461,7 +475,12 @@ namespace Labsim.apollon.gameplay.entity
                     );
 
                     // send reset signal to HW
-                    // TODO  
+                    // send event to active chair over CAN bus
+                    (
+                        backend.ApollonBackendManager.Instance.GetValidHandle(
+                            backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                        ) as backend.handle.ApollonActiveSeatHandle
+                    ).Reset();
 
                 } /* if() */
 

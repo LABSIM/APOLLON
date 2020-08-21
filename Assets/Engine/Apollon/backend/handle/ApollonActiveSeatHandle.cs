@@ -86,7 +86,7 @@ namespace Labsim.apollon.backend.handle
 
                 public System.Double dAngularAcceleration;      // m/s^2 (SI)
                 public System.Double dAngularSpeedSaturation;   // m/s (SI)
-                public System.UInt32 uMaxStimDuration;          // ms
+                public System.Double dMaxStimDuration;          // ms
 
             }; /* struct PayloadStartEvent */
 
@@ -170,7 +170,7 @@ namespace Labsim.apollon.backend.handle
 
         } /* EndSession() */
 
-        public void Start(double AngularAcceleration, double AngularSpeedSaturation, uint MaxStimDuration)
+        public void Start(double AngularAcceleration, double AngularSpeedSaturation, double MaxStimDuration)
         {
 
             // build up the transmitted data
@@ -187,7 +187,7 @@ namespace Labsim.apollon.backend.handle
                         {
                             dAngularAcceleration = AngularAcceleration,
                             dAngularSpeedSaturation = AngularSpeedSaturation,
-                            uMaxStimDuration = MaxStimDuration
+                            dMaxStimDuration = MaxStimDuration
                         }
                     )
                 }

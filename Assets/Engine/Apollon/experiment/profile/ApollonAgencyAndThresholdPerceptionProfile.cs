@@ -550,6 +550,18 @@ namespace Labsim.apollon.experiment.profile
         public override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
+            // activate the active chair backend
+            backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
+                backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+            );
+
+            // send event to active chair over CAN bus
+            (
+                backend.ApollonBackendManager.Instance.GetValidHandle(
+                    backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                ) as backend.handle.ApollonActiveSeatHandle
+            ).BeginSession();
+
             // base call
             base.onExperimentSessionBegin(sender, arg);
 
@@ -561,6 +573,18 @@ namespace Labsim.apollon.experiment.profile
             // base call
             base.onExperimentSessionEnd(sender, arg);
 
+            // send event to active chair over CAN bus
+            (
+                backend.ApollonBackendManager.Instance.GetValidHandle(
+                    backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                ) as backend.handle.ApollonActiveSeatHandle
+            ).EndSession();
+
+            // deactivate the active chair backend
+            backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
+                backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+            );
+
         } /* onExperimentSessionEnd() */
         
         public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
@@ -570,6 +594,13 @@ namespace Labsim.apollon.experiment.profile
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : begin"
             );
 
+            // send event to active chair over CAN bus
+            (
+                backend.ApollonBackendManager.Instance.GetValidHandle(
+                    backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                ) as backend.handle.ApollonActiveSeatHandle
+            ).BeginTrial();
+            
             // activate audio recording if any available
             if (UnityEngine.Microphone.devices.Length != 0)
             {
@@ -682,6 +713,13 @@ namespace Labsim.apollon.experiment.profile
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : begin"
             );
+
+            // send event to active chair over CAN bus
+            (
+                backend.ApollonBackendManager.Instance.GetValidHandle(
+                    backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                ) as backend.handle.ApollonActiveSeatHandle
+            ).EndTrial();
 
             // stop audio recording & save it, if any available...
             if (UnityEngine.Microphone.devices.Length != 0)

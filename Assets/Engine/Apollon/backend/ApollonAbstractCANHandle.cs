@@ -52,22 +52,23 @@ namespace Labsim.apollon.backend
             System.Collections.IEnumerator deviceEnum = null;
 
             // encapsulate
-            try {
-                
+            try
+            {
+
                 // Get device manager from VCI server
                 deviceManager = Ixxat.Vci4.VciServer.Instance().DeviceManager;
 
                 // Get the list of installed VCI devices
                 deviceList = deviceManager.GetDeviceList();
-                
+
                 // Get enumerator for the list of devices
                 deviceEnum = deviceList.GetEnumerator();
-                
+
                 // Get first CAN device
                 // #TODO be more specific to select the apropriate device in list
                 deviceEnum.MoveNext();
                 this.m_VCIDevice = deviceEnum.Current as Ixxat.Vci4.IVciDevice;
-                
+
                 // print the bus type, controller type, device name and serial number of first found controller
                 Ixxat.Vci4.IVciCtrlInfo info = this.m_VCIDevice.Equipment[0];
                 object serialNumberGuid = this.m_VCIDevice.UniqueHardwareId;
@@ -83,8 +84,10 @@ namespace Labsim.apollon.backend
                     + serialNumberText
                     + " }]"
                 );
-                
-            } catch (System.Exception ex) {
+
+            }
+            catch (System.Exception ex)
+            {
 
                 // log
                 UnityEngine.Debug.LogError(
@@ -94,7 +97,9 @@ namespace Labsim.apollon.backend
                     + ex.StackTrace
                 );
 
-            } finally {
+            }
+            finally
+            {
 
                 // Dispose device manager ; it's no longer needed.
                 ApollonAbstractCANHandle.DisposeVciObject(deviceManager);
