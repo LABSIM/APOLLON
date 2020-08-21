@@ -24,19 +24,19 @@ namespace Labsim.apollon.backend
         private Ixxat.Vci4.Bal.Can.ICanScheduler m_CANScheduler;
 
         // Reference to the message writer of the CAN message channel.
-        protected Ixxat.Vci4.Bal.Can.ICanMessageWriter m_CANMessageWriter;
+        private Ixxat.Vci4.Bal.Can.ICanMessageWriter m_CANMessageWriter;
 
         // Reference to the message reader of the CAN message channel.
-        protected Ixxat.Vci4.Bal.Can.ICanMessageReader m_CANMessageReader;
+        private Ixxat.Vci4.Bal.Can.ICanMessageReader m_CANMessageReader;
         
         // Thread that handles the message reception.
         private System.Threading.Thread m_RxThread;
 
         // Quit flag for the receive thread.
-        protected long m_RxEnd = 0;
+        private long m_RxEnd = 0;
 
         // Event that's set if at least one message was received.
-        protected System.Threading.AutoResetEvent m_RxEvent;
+        private System.Threading.AutoResetEvent m_RxEvent;
 
         #endregion
 
@@ -241,14 +241,139 @@ namespace Labsim.apollon.backend
 
         #endregion
 
-        #region CAN abstract callback interface
+        #region CAN send/receive definition
+
+        protected void TransmitData<T>(T obj)
+            where T : struct
+        {
+
+            // get factory & instanciate en emplty shell message
+            Ixxat.Vci4.IMessageFactory factory
+                = Ixxat.Vci4.VciServer.Instance().MsgFactory;
+            Ixxat.Vci4.Bal.Can.ICanMessage canMsg
+                = (Ixxat.Vci4.Bal.Can.ICanMessage)factory.CreateMsg(typeof(Ixxat.Vci4.Bal.Can.ICanMessage));
+
+            // build up the data from object serializing
+            byte[] data = ApollonAbstractCANHandle.Serialize<T>(obj);
+
+            // configure the empty shell
+            canMsg.TimeStamp = 0;
+            canMsg.Identifier = 0x100;
+            canMsg.FrameType = Ixxat.Vci4.Bal.Can.CanMsgFrameType.Data;
+            canMsg.DataLength = (byte)data.Length;
+            canMsg.SelfReceptionRequest = true;  // show this message in the console window
+
+            // fill up the data  
+            for (int idx = 0; idx < data.Length; ++idx)
+            {
+                canMsg[idx] = data[idx];
+            }
+
+            // Write the CAN message into the transmit FIFO
+            this.m_CANMessageWriter.SendMessage(canMsg);
+
+        } /* TransmitData() */
 
         // This method is the works as receive thread.
-        protected abstract void AsynCANReaderCallback();
+        protected void AsynCANReaderCallback()
+        {
+
+            // buffer
+            Ixxat.Vci4.Bal.Can.ICanMessage[] msgArray;
+
+            // loop
+            do
+            {
+
+                // Wait 100 msec for a message reception
+                if (this.m_RxEvent.WaitOne(100, false))
+                {
+
+                    // take all messages
+                    if (this.m_CANMessageReader.ReadMessages(out msgArray) > 0)
+                    {
+
+                        // flush FIFO
+                        foreach (Ixxat.Vci4.Bal.Can.ICanMessage entry in msgArray)
+                        {
+
+                            // do nothing actually see Frank for status ?
+
+                        } /* foreach() */
+
+                    } /* if() */
+
+                } /* if() */
+
+            } while (0 == this.m_RxEnd);
+
+        } /* AsynCANReaderCallback() */
 
         #endregion
 
         #region CAN utility methods
+
+        // Serialize arbitrary data to byte array
+        // for more info, see [https://www.genericgamedev.com/general/converting-between-structs-and-byte-arrays/]
+        protected static byte[] Serialize<T>(T obj)
+            where T : struct
+        {
+            
+            // determine the byte size of our structs
+            int objectSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
+
+            // allocating raw segment
+            byte[] array = new byte[objectSize];
+
+            // allocate a pointer to an unmanaged memory space
+            System.IntPtr buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(objectSize);
+
+            // marshal (copy) our structure to the allocated unmanaged memory
+            System.Runtime.InteropServices.Marshal.StructureToPtr(
+                structure: 
+                    obj, 
+                ptr:
+                    buffer, 
+                fDeleteOld:
+                    /* a voir si false (?)... */ true
+            );
+
+            // "memcopy" - copy between the unmanaged memory and our byte array
+            System.Runtime.InteropServices.Marshal.Copy(buffer, array, 0, objectSize);
+
+            // clean unmanaged memory
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
+
+            // result
+            return array;
+
+        } /* Serialize() */
+
+        // Deserialize arbitrary data from byte array
+        // for more info, see [https://www.genericgamedev.com/general/converting-between-structs-and-byte-arrays/]
+        protected static T Deserialize<T>(byte[] array)
+            where T : struct
+        {
+
+            // determine the byte size of our structs
+            int objectSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
+
+            // allocate a pointer to an unmanaged memory space
+            System.IntPtr buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(objectSize);
+
+            // "memcopy" - copy between our byte array and the unmanaged memory 
+            System.Runtime.InteropServices.Marshal.Copy(array, 0, buffer, objectSize);
+
+            // marshal (copy) the allocated unmanaged memory to our structure
+            T obj = System.Runtime.InteropServices.Marshal.PtrToStructure<T>(buffer);
+
+            // clean unmanaged memory
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
+
+            // result
+            return obj;
+
+        } /* Deserialize() */
 
         // Returns the UniqueHardwareID GUID number as string which
         // shows the serial number.

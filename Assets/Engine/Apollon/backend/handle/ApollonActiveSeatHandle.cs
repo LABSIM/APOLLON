@@ -7,208 +7,230 @@ namespace Labsim.apollon.backend.handle
     public class ApollonActiveSeatHandle
         : ApollonAbstractCANHandle
     {
-        #region CAN message transmission/reception implementation
 
-        ///// <summary>
-        //// Transmits a CAN message with ID 0x100.
-        ///// </summary>
-        //static void TransmitData()
-        //{
-        //    IMessageFactory factory = VciServer.Instance().MsgFactory;
-        //    ICanMessage canMsg = (ICanMessage)factory.CreateMsg(typeof(ICanMessage));
+        #region CAN messages definition
 
-        //    canMsg.TimeStamp = 0;
-        //    canMsg.Identifier = 0x100;
-        //    canMsg.FrameType = CanMsgFrameType.Data;
-        //    canMsg.DataLength = 8;
-        //    canMsg.SelfReceptionRequest = true;  // show this message in the console window
-
-        //    for (Byte i = 0; i < canMsg.DataLength; i++)
-        //    {
-        //        canMsg[i] = i;
-        //    }
-
-        //    // Write the CAN message into the transmit FIFO
-        //    mWriter.SendMessage(canMsg);
-        //}
-
-
-        ////************************************************************************
-        ///// <summary>
-        ///// Print a CAN message
-        ///// </summary>
-        ///// <param name="canMessage"></param>
-        ////************************************************************************
-        //static void PrintMessage(ICanMessage canMessage)
-        //{
-        //    switch (canMessage.FrameType)
-        //    {
-        //        //
-        //        // show data frames
-        //        //
-        //        case CanMsgFrameType.Data:
-        //            {
-        //                if (!canMessage.RemoteTransmissionRequest)
-        //                {
-        //                    Console.Write("\nTime: {0,10}  ID: {1,3:X}  DLC: {2,1}  Data:",
-        //                                  canMessage.TimeStamp,
-        //                                  canMessage.Identifier,
-        //                                  canMessage.DataLength);
-
-        //                    for (int index = 0; index < canMessage.DataLength; index++)
-        //                    {
-        //                        Console.Write(" {0,2:X}", canMessage[index]);
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    Console.Write("\nTime: {0,10}  ID: {1,3:X}  DLC: {2,1}  Remote Frame",
-        //                                  canMessage.TimeStamp,
-        //                                  canMessage.Identifier,
-        //                                  canMessage.DataLength);
-        //                }
-        //                break;
-        //            }
-
-        //        //
-        //        // show informational frames
-        //        //
-        //        case CanMsgFrameType.Info:
-        //            {
-        //                switch ((CanMsgInfoValue)canMessage[0])
-        //                {
-        //                    case CanMsgInfoValue.Start:
-        //                        Console.Write("\nCAN started...");
-        //                        break;
-        //                    case CanMsgInfoValue.Stop:
-        //                        Console.Write("\nCAN stopped...");
-        //                        break;
-        //                    case CanMsgInfoValue.Reset:
-        //                        Console.Write("\nCAN reseted...");
-        //                        break;
-        //                }
-        //                break;
-        //            }
-
-        //        //
-        //        // show error frames
-        //        //
-        //        case CanMsgFrameType.Error:
-        //            {
-        //                switch ((CanMsgError)canMessage[0])
-        //                {
-        //                    case CanMsgError.Stuff:
-        //                        Console.Write("\nstuff error...");
-        //                        break;
-        //                    case CanMsgError.Form:
-        //                        Console.Write("\nform error...");
-        //                        break;
-        //                    case CanMsgError.Acknowledge:
-        //                        Console.Write("\nacknowledgment error...");
-        //                        break;
-        //                    case CanMsgError.Bit:
-        //                        Console.Write("\nbit error...");
-        //                        break;
-        //                    case CanMsgError.Fdb:
-        //                        Console.Write("\nfast data bit error...");
-        //                        break;
-        //                    case CanMsgError.Crc:
-        //                        Console.Write("\nCRC error...");
-        //                        break;
-        //                    case CanMsgError.Dlc:
-        //                        Console.Write("\nData length error...");
-        //                        break;
-        //                    case CanMsgError.Other:
-        //                        Console.Write("\nother error...");
-        //                        break;
-        //                }
-        //                break;
-        //            }
-        //    }
-        //}
-
-        ////************************************************************************
-        ///// <summary>
-        ///// Demonstrate reading messages via MsgReader::ReadMessages() function
-        ///// </summary>
-        ////************************************************************************
-        //static void ReadMultipleMsgsViaReadMessages()
-        //{
-        //    ICanMessage[] msgArray;
-
-        //    do
-        //    {
-        //        // Wait 100 msec for a message reception
-        //        if (mRxEvent.WaitOne(100, false))
-        //        {
-        //            if (mReader.ReadMessages(out msgArray) > 0)
-        //            {
-        //                foreach (ICanMessage entry in msgArray)
-        //                {
-        //                    PrintMessage(entry);
-        //                }
-        //            }
-        //        }
-        //    } while (0 == mMustQuit);
-        //}
-
-        ////************************************************************************
-        ///// <summary>
-        ///// Demonstrate reading messages via MsgReader::ReadMessage() function
-        ///// </summary>
-        ////************************************************************************
-        //static void ReadMsgsViaReadMessage()
-        //{
-        //    ICanMessage canMessage;
-
-        //    do
-        //    {
-        //        // Wait 100 msec for a message reception
-        //        if (mRxEvent.WaitOne(100, false))
-        //        {
-        //            // read a CAN message from the receive FIFO
-        //            while (mReader.ReadMessage(out canMessage))
-        //            {
-        //                PrintMessage(canMessage);
-        //            }
-        //        }
-        //    } while (0 == mMustQuit);
-        //}
-        
-        protected override void AsynCANReaderCallback()
+        public struct CAN
         {
 
-            // buffer
-            Ixxat.Vci4.Bal.Can.ICanMessage[] msgArray;
+            #region enums
 
-            // loop
-            do
+            public enum EventType : byte
             {
 
-                // Wait 100 msec for a message reception
-                if (this.m_RxEvent.WaitOne(100, false))
-                { 
+                APOLLON_EVENT_BEGINSESSION  = 0, // session begining event -> ADWin init
+                APOLLON_EVENT_ENDSESSION    = 1, // session end event -> ADWin closure
+                APOLLON_EVENT_BEGINTRIAL    = 2, // trial begin event -> ADWin start streaming status (optionnal)
+                APOLLON_EVENT_ENDTRIAL      = 3, // trial end event -> ADWin stop streaming status (optionnal)
+                APOLLON_EVENT_START         = 4, // start stimulus event -> ADWin start action immediately after reception
+                APOLLON_EVENT_STOP          = 5, // stop stimulus event -> ADWin stop/freeze action immediately after reception
+                APOLLON_EVENT_RESET         = 6, // reset event -> ADwin reset position to initial condition immediately after reception
+                APOLLON_EVENT_UNKNOWN
 
-                    // take all messages
-                    if (this.m_CANMessageReader.ReadMessages(out msgArray) > 0)
+            } /* enum EventType */
+
+            public enum FlagType : byte
+            {
+
+                APOLLON_FLAG_NONE = 0, // empty flag
+                APOLLON_FLAG_UNKNOWN
+
+            } /* enum FlagType */
+
+            #endregion
+
+            #region messages
+
+            [System.Runtime.InteropServices.StructLayout(
+                System.Runtime.InteropServices.LayoutKind.Sequential,
+                CharSet = System.Runtime.InteropServices.CharSet.Ansi,
+                Pack = 1
+            )]
+            public struct MsgInfo
+            {
+
+                public byte bEvent; // type (see EventType::APOLLON_EVENT_* constants)
+                public byte bFlags; // additional flags (see FlagType::APOLLON_FLAG_* constants)
+
+            }; /* struct MsgInfo */
+
+            [System.Runtime.InteropServices.StructLayout(
+                System.Runtime.InteropServices.LayoutKind.Sequential,
+                CharSet = System.Runtime.InteropServices.CharSet.Ansi,
+                Pack = 1
+            )]
+            public struct Msg
+            {
+
+                public MsgInfo info; // message information
+
+                [System.Runtime.InteropServices.MarshalAs(
+                    System.Runtime.InteropServices.UnmanagedType.ByValArray,
+                    ArraySubType = System.Runtime.InteropServices.UnmanagedType.U1
+                )]
+                public byte[] payload; // payload type is dependant of MsgInfo.bEvent
+
+            }; /* struct Msg */
+
+            #endregion
+
+            #region payloads
+            
+            [System.Runtime.InteropServices.StructLayout(
+                System.Runtime.InteropServices.LayoutKind.Sequential,
+                CharSet = System.Runtime.InteropServices.CharSet.Ansi,
+                Pack = 1
+            )]
+            public struct PayloadStartEvent
+            {
+
+                public System.Double dAngularAcceleration;      // m/s^2 (SI)
+                public System.Double dAngularSpeedSaturation;   // m/s (SI)
+                public System.UInt32 uMaxStimDuration;          // ms
+
+            }; /* struct PayloadStartEvent */
+
+            #endregion
+
+        }; /* CAN */
+
+        #endregion 
+
+        #region CAN event implementation
+
+        public void BeginSession()
+        {
+
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
                     {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_BEGINSESSION,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = null
+                }
+            );
 
-                        // flush FIFO
-                        foreach (Ixxat.Vci4.Bal.Can.ICanMessage entry in msgArray)
+        } /* BeginSession() */
+
+        public void EndSession()
+        {
+
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
+                    {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_ENDSESSION,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = null
+                }
+            );
+
+        } /* EndSession() */
+
+        public void BeginTrial()
+        {
+
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
+                    {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_BEGINTRIAL,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = null
+                }
+            );
+
+        } /* EndSession() */
+
+        public void EndTrial()
+        {
+
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
+                    {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_ENDTRIAL,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = null
+                }
+            );
+
+        } /* EndSession() */
+
+        public void Start(double AngularAcceleration, double AngularSpeedSaturation, uint MaxStimDuration)
+        {
+
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
+                    {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_START,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = ApollonAbstractCANHandle.Serialize(
+                        new CAN.PayloadStartEvent()
                         {
+                            dAngularAcceleration = AngularAcceleration,
+                            dAngularSpeedSaturation = AngularSpeedSaturation,
+                            uMaxStimDuration = MaxStimDuration
+                        }
+                    )
+                }
+            );
 
-                            // do
+        } /* EndSession() */
 
-                        } /* foreach() */
+        public void Stop()
+        {
 
-                    } /* if() */
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
+                    {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_STOP,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = null
+                }
+            );
 
-                } /* if() */
+        } /* EndSession() */
 
-            } while (0 == this.m_RxEnd);
+        public void Reset()
+        {
 
-        } /* AsynCANReaderCallback() */
+            // build up the transmitted data
+            this.TransmitData(
+                new CAN.Msg()
+                {
+                    info = new CAN.MsgInfo()
+                    {
+                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_RESET,
+                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+                    },
+                    payload = null
+                }
+            );
 
+        } /* EndSession() */
+        
         #endregion
 
         // ctor
