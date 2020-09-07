@@ -132,6 +132,12 @@ namespace Labsim.apollon.gameplay.entity
 
                 // start chrono
                 this._parent.Chrono.Restart();
+
+                // setup max angular velocity aka. saturation point & Center of Rotation offset
+                this._rigidbody.centerOfMass =
+                    UnityEngine.Vector3.up
+                    * experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("setup_center_of_rotation_height_offset_m");
+                this._rigidbody.maxAngularVelocity = this._parent.AngularVelocitySaturation.magnitude;
                 
                 // check
                 if (!this._parent.InhibitVestibularMotion)
@@ -166,7 +172,7 @@ namespace Labsim.apollon.gameplay.entity
                 {
 
                     // check if saturation point is reached
-                    if (this._rigidbody.velocity.magnitude > this._parent.AngularVelocitySaturation.magnitude)
+                    if (this._rigidbody.angularVelocity.magnitude >= this._parent.AngularVelocitySaturation.magnitude)
                     {
 
                         // log
@@ -175,7 +181,7 @@ namespace Labsim.apollon.gameplay.entity
                         );
 
                         // saturate
-                        this._rigidbody.AddTorque(this._parent.AngularVelocitySaturation, UnityEngine.ForceMode.VelocityChange);
+                        //this._rigidbody.AddTorque(this._parent.AngularVelocitySaturation, UnityEngine.ForceMode.VelocityChange);
 
                         // notify saturation event
                         this._parent.Bridge.Dispatcher.RaiseSaturation();

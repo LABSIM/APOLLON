@@ -252,30 +252,30 @@ namespace Labsim.apollon.backend
             where T : struct
         {
 
-            // get factory & instanciate en emplty shell message
-            Ixxat.Vci4.IMessageFactory factory
-                = Ixxat.Vci4.VciServer.Instance().MsgFactory;
-            Ixxat.Vci4.Bal.Can.ICanMessage canMsg
-                = (Ixxat.Vci4.Bal.Can.ICanMessage)factory.CreateMsg(typeof(Ixxat.Vci4.Bal.Can.ICanMessage));
+            //// get factory & instanciate en emplty shell message
+            //Ixxat.Vci4.IMessageFactory factory
+            //    = Ixxat.Vci4.VciServer.Instance().MsgFactory;
+            //Ixxat.Vci4.Bal.Can.ICanMessage canMsg
+            //    = (Ixxat.Vci4.Bal.Can.ICanMessage)factory.CreateMsg(typeof(Ixxat.Vci4.Bal.Can.ICanMessage));
 
-            // build up the data from object serializing
-            byte[] data = ApollonAbstractCANHandle.Serialize<T>(obj);
+            //// build up the data from object serializing
+            //byte[] data = ApollonAbstractCANHandle.Serialize<T>(obj);
 
-            // configure the empty shell
-            canMsg.TimeStamp = 0;
-            canMsg.Identifier = 0x100;
-            canMsg.FrameType = Ixxat.Vci4.Bal.Can.CanMsgFrameType.Data;
-            canMsg.DataLength = (byte)data.Length;
-            canMsg.SelfReceptionRequest = true;  // show this message in the console window
+            //// configure the empty shell
+            //canMsg.TimeStamp = 0;
+            //canMsg.Identifier = 0x100;
+            //canMsg.FrameType = Ixxat.Vci4.Bal.Can.CanMsgFrameType.Data;
+            //canMsg.DataLength = (byte)data.Length;
+            //canMsg.SelfReceptionRequest = true;  // show this message in the console window
 
-            // fill up the data  
-            for (int idx = 0; idx < data.Length; ++idx)
-            {
-                canMsg[idx] = data[idx];
-            }
+            //// fill up the data  
+            //for (int idx = 0; idx < data.Length; ++idx)
+            //{
+            //    canMsg[idx] = data[idx];
+            //}
 
-            // Write the CAN message into the transmit FIFO
-            this.m_CANMessageWriter.SendMessage(canMsg);
+            //// Write the CAN message into the transmit FIFO
+            //this.m_CANMessageWriter.SendMessage(canMsg);
 
         } /* TransmitData() */
 
@@ -283,34 +283,34 @@ namespace Labsim.apollon.backend
         protected void AsynCANReaderCallback()
         {
 
-            // buffer
-            Ixxat.Vci4.Bal.Can.ICanMessage[] msgArray;
+            //// buffer
+            //Ixxat.Vci4.Bal.Can.ICanMessage[] msgArray;
 
-            // loop
-            do
-            {
+            //// loop
+            //do
+            //{
 
-                // Wait 100 msec for a message reception
-                if (this.m_RxEvent.WaitOne(100, false))
-                {
+            //    // Wait 100 msec for a message reception
+            //    if (this.m_RxEvent.WaitOne(100, false))
+            //    {
 
-                    // take all messages
-                    if (this.m_CANMessageReader.ReadMessages(out msgArray) > 0)
-                    {
+            //        // take all messages
+            //        if (this.m_CANMessageReader.ReadMessages(out msgArray) > 0)
+            //        {
 
-                        // flush FIFO
-                        foreach (Ixxat.Vci4.Bal.Can.ICanMessage entry in msgArray)
-                        {
+            //            // flush FIFO
+            //            foreach (Ixxat.Vci4.Bal.Can.ICanMessage entry in msgArray)
+            //            {
 
-                            // do nothing actually see Frank for status ?
+            //                // do nothing actually see Frank for status ?
 
-                        } /* foreach() */
+            //            } /* foreach() */
 
-                    } /* if() */
+            //        } /* if() */
 
-                } /* if() */
+            //    } /* if() */
 
-            } while (0 == this.m_RxEnd);
+            //} while (0 == this.m_RxEnd);
 
         } /* AsynCANReaderCallback() */
 

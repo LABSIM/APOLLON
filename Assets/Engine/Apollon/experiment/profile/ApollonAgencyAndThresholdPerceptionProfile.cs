@@ -656,8 +656,8 @@ namespace Labsim.apollon.experiment.profile
             this.CurrentSettings.phase_B_begin_stim_timeout           = arg.Trial.settings.GetFloat("phase_B_begin_stim_timeout_ms");
             this.CurrentSettings.phase_C_max_stim_duration            = arg.Trial.settings.GetFloat("phase_C_max_stim_duration_ms");
             this.CurrentSettings.phase_C_max_stim_angle               = arg.Trial.settings.GetFloat("phase_C_max_stim_angle_deg");
-            this.CurrentSettings.phase_C_angular_acceleration         = arg.Trial.settings.GetFloat("phase_C_angular_acceleration_ms2");
-            this.CurrentSettings.phase_C_angular_saturation_speed     = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_ms");
+            this.CurrentSettings.phase_C_angular_acceleration         = arg.Trial.settings.GetFloat("phase_C_angular_acceleration_deg_per_s2");
+            this.CurrentSettings.phase_C_angular_saturation_speed     = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s");
             this.CurrentSettings.phase_D_duration                     = arg.Trial.settings.GetFloat("phase_D_duration_ms");
             
             // log the

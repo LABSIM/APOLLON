@@ -513,8 +513,8 @@ namespace Labsim.apollon.gameplay.entity
             var behaviour = this.Behaviour as ApollonActiveSeatEntityBehaviour;
 
             // set internal settings
-            behaviour.AngularVelocitySaturation = new UnityEngine.Vector3(1.0f, 0.0f, 0.0f) * args.AngularVelocitySaturation;
-            behaviour.AngularAcceleration = new UnityEngine.Vector3(1.0f, 0.0f, 0.0f) * args.AngularAcceleration;
+            behaviour.AngularVelocitySaturation = UnityEngine.Vector3.right * UnityEngine.Mathf.Deg2Rad * args.AngularVelocitySaturation;
+            behaviour.AngularAcceleration = UnityEngine.Vector3.right * UnityEngine.Mathf.Deg2Rad * args.AngularAcceleration;
             behaviour.Duration = args.Duration;
             behaviour.StopAngle = args.StopAngle;
             behaviour.InhibitVestibularMotion = args.InhibitVestibularMotion;
