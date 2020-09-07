@@ -178,8 +178,8 @@ namespace Labsim.apollon.backend
 
                 } /* if() */
 
-                // finally register
-                ApollonBackendManager.Instance.RegisterHandle(this.ID, this);
+                // pull-up
+                base.onHandleActivationRequested(sender, arg);
 
             } /* if() */
 
@@ -193,11 +193,8 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                // unplug it
-                this.Dispose();
-
-                // unregister
-                ApollonBackendManager.Instance.UnregisterHandle(this.ID, this);
+                // pull-up
+                base.onHandleDeactivationRequested(sender, arg);
 
             } /* if() */
 

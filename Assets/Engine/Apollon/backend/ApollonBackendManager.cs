@@ -158,17 +158,18 @@ namespace Labsim.apollon.backend
 
         } /* GetHandle() */
 
-        public void RegisterHandle(HandleIDType ID, ApollonAbstractHandle handle)
+        public void ValidateHandle(HandleIDType ID, ApollonAbstractHandle handle)
         {
 
             // check 
             if (this._handleState.ContainsKey(ID))
             {
 
-                if (!this._handleState[ID].Item1 && this._handleState[ID].Item2 == null)
+                // if inactive && same ref
+                if (!this._handleState[ID].Item1 && this._handleState[ID].Item2 == handle)
                 {
 
-                    // register
+                    // then, validate
                     this._handleState[ID] = (true, handle);
 
                 }
@@ -177,7 +178,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                         "<color=orange>Warning: </color> ApollonBackendManager.RegisterHandle("
+                         "<color=orange>Warning: </color> ApollonBackendManager.ValidateHandle("
                          + ApollonEngine.GetEnumDescription(ID)
                          + ") : requested ID is already registered..."
                     );
@@ -190,7 +191,7 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                     "<color=orange>Warning: </color> ApollonBackendManager.RegisterHandle("
+                     "<color=orange>Warning: </color> ApollonBackendManager.ValidateHandle("
                      + ApollonEngine.GetEnumDescription(ID)
                      + ") : requested ID not found ..."
                 );
@@ -199,10 +200,10 @@ namespace Labsim.apollon.backend
 
             // failed
             return;
-            
-        } /* RegisterHandle() */
 
-        public void UnregisterHandle(HandleIDType ID, ApollonAbstractHandle handle)
+        } /* ValidateHandle() */
+
+        public void InvalidateHandle(HandleIDType ID, ApollonAbstractHandle handle)
         {
 
             // check 
@@ -213,7 +214,7 @@ namespace Labsim.apollon.backend
                 {
 
                     // unregister
-                    this._handleState[ID] = (false, null);
+                    this._handleState[ID] = (false, handle);
 
                 }
                 else
@@ -221,7 +222,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                         "<color=orange>Warning: </color> ApollonBackendManager.UnregisterHandle("
+                         "<color=orange>Warning: </color> ApollonBackendManager.InvalidateHandle("
                          + ApollonEngine.GetEnumDescription(ID)
                          + ") : requested args aren't corresponding to internal settings..."
                     );
@@ -234,7 +235,7 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                     "<color=orange>Warning: </color> ApollonBackendManager.UnregisterHandle("
+                     "<color=orange>Warning: </color> ApollonBackendManager.InvalidateHandle("
                      + ApollonEngine.GetEnumDescription(ID)
                      + ") : requested ID not found ..."
                 );
@@ -244,8 +245,8 @@ namespace Labsim.apollon.backend
             // failed
             return;
 
-        } /* UnregisterHandle() */
-        
+        } /* InvalidateHandle() */
+
         #endregion
 
         #region lazy init singleton pattern

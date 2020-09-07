@@ -30,14 +30,7 @@ namespace Labsim.apollon.backend
 
         } /* Dispose() */
 
-        protected virtual void Dispose(bool bDisposing = true)
-        {
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractHandle.Dispose(" + bDisposing + ") : called."
-            );
-
-        } /* Dispose(bool) */
+        protected abstract void Dispose(bool bDisposing = true);
 
         #region event handling 
 
@@ -48,8 +41,8 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                // register
-                ApollonBackendManager.Instance.RegisterHandle(this.ID, this);
+                // validate
+                ApollonBackendManager.Instance.ValidateHandle(this.ID, this);
 
             } /* if() */
 
@@ -63,11 +56,11 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                // unplug it
-                this.Dispose();
+                // unplug - comment: it let the system doing it's job
+                //this.Dispose();
 
-                // unregister
-                ApollonBackendManager.Instance.UnregisterHandle(this.ID, this);
+                // unvalidate
+                ApollonBackendManager.Instance.InvalidateHandle(this.ID, this);
 
             } /* if() */
 
