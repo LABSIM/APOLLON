@@ -133,11 +133,16 @@ namespace Labsim.apollon.gameplay.entity
                 // start chrono
                 this._parent.Chrono.Restart();
 
-                // setup max angular velocity aka. saturation point & Center of Rotation offset
+                // virtual world setup
+                // - max angular velocity aka. saturation point
+                // - CenterOf -Rotation/Mass offset --> chair settings
+                // - perfect world == no dampening/drag & no gravity 
+                this._rigidbody.maxAngularVelocity = this._parent.AngularVelocitySaturation.magnitude;
                 this._rigidbody.centerOfMass =
                     UnityEngine.Vector3.up
                     * experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("setup_center_of_rotation_height_offset_m");
-                this._rigidbody.maxAngularVelocity = this._parent.AngularVelocitySaturation.magnitude;
+                this._rigidbody.angularDrag = 0.0f;
+                this._rigidbody.useGravity = false;
                 
                 // check
                 if (!this._parent.InhibitVestibularMotion)
@@ -180,7 +185,7 @@ namespace Labsim.apollon.gameplay.entity
                             "<color=Blue>Info: </color> ApollonActiveSeatEntityBehaviour.AccelerateController.FixedUpdate() : angular saturation velocity reached, raise saturation event"
                         );
 
-                        // saturate
+                        // fix saturatation speed (useless)
                         //this._rigidbody.AddTorque(this._parent.AngularVelocitySaturation, UnityEngine.ForceMode.VelocityChange);
 
                         // notify saturation event

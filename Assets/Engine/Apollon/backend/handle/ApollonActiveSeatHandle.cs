@@ -102,17 +102,17 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_BEGINSESSION,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = null
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_BEGINSESSION,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = null
+            //    }
+            //);
 
         } /* BeginSession() */
 
@@ -120,17 +120,17 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_ENDSESSION,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = null
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_ENDSESSION,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = null
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -138,17 +138,17 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_BEGINTRIAL,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = null
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_BEGINTRIAL,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = null
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -156,17 +156,17 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_ENDTRIAL,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = null
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_ENDTRIAL,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = null
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -174,24 +174,24 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_START,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = ApollonAbstractCANHandle.Serialize(
-                        new CAN.PayloadStartEvent()
-                        {
-                            dAngularAcceleration = AngularAcceleration,
-                            dAngularSpeedSaturation = AngularSpeedSaturation,
-                            dMaxStimDuration = MaxStimDuration
-                        }
-                    )
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_START,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = ApollonAbstractCANHandle.Serialize(
+            //            new CAN.PayloadStartEvent()
+            //            {
+            //                dAngularAcceleration = AngularAcceleration,
+            //                dAngularSpeedSaturation = AngularSpeedSaturation,
+            //                dMaxStimDuration = MaxStimDuration
+            //            }
+            //        )
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -199,17 +199,17 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_STOP,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = null
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_STOP,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = null
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -217,17 +217,17 @@ namespace Labsim.apollon.backend.handle
         {
 
             // build up the transmitted data
-            this.TransmitData(
-                new CAN.Msg()
-                {
-                    info = new CAN.MsgInfo()
-                    {
-                        bEvent = (byte)CAN.EventType.APOLLON_EVENT_RESET,
-                        bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
-                    },
-                    payload = null
-                }
-            );
+            //this.TransmitData(
+            //    new CAN.Msg()
+            //    {
+            //        info = new CAN.MsgInfo()
+            //        {
+            //            bEvent = (byte)CAN.EventType.APOLLON_EVENT_RESET,
+            //            bFlags = (byte)CAN.FlagType.APOLLON_FLAG_NONE
+            //        },
+            //        payload = null
+            //    }
+            //);
 
         } /* EndSession() */
         

@@ -425,6 +425,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedFrameGUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3335209438990928268, guid: 308b1321a36ed7c48b43ed7ba8d2201b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3335209438990928271, guid: 308b1321a36ed7c48b43ed7ba8d2201b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1958,6 +1963,16 @@ PrefabInstance:
     - target: {fileID: 1713753092102422908, guid: 7b5c28fc30a3ef24191b1101852b6f3c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713753092102422910, guid: 7b5c28fc30a3ef24191b1101852b6f3c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713753092102422910, guid: 7b5c28fc30a3ef24191b1101852b6f3c,
+        type: 3}
+      propertyPath: m_AngularDrag
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
