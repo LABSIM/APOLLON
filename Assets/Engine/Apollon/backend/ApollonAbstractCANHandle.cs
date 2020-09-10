@@ -536,27 +536,27 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                //    // select device
-                //    this.SelectDevice();
+                //// select device
+                //this.SelectDevice();
+
+                //// log
+                //UnityEngine.Debug.Log(
+                //    "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
+                //);
+
+                //// init connection
+                //if (!this.InitSocket(0))
+                //{
 
                 //    // log
-                //    UnityEngine.Debug.Log(
-                //        "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
+                //    UnityEngine.Debug.LogError(
+                //        "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
                 //    );
 
-                //    // init connection
-                //    if (!this.InitSocket(0))
-                //    {
+                //    // abort
+                //    this.Dispose();
 
-                //        // log
-                //        UnityEngine.Debug.LogError(
-                //            "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
-                //        );
-
-                //        // abort
-                //        this.Dispose();
-
-                //    } /* if() */
+                //} /* if() */
 
                 //    // bind & start the receive thread
                 //    this.m_RxThread = new System.Threading.Thread(new System.Threading.ThreadStart(this.AsynCANReaderCallback));

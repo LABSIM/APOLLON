@@ -149,7 +149,7 @@ PlayerSettings:
       glCacheMaxFileSize: 8388608
     oculus:
       sharedDepthBuffer: 1
-      dashSupport: 1
+      dashSupport: 0
       lowOverheadMode: 0
       protectedContext: 0
       v2Signing: 0
@@ -342,7 +342,6 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices:
     - OpenVR
-    - Oculus
   - m_BuildTarget: 
     m_Enabled: 1
     m_Devices: []
@@ -592,7 +591,7 @@ PlayerSettings:
   managedStrippingLevel:
     Standalone: 0
   incrementalIl2cppBuild: {}
-  allowUnsafeCode: 0
+  allowUnsafeCode: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 0
