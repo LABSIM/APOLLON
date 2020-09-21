@@ -2,7 +2,7 @@
   "source": "Unity",
   "applications": [
     {
-      "app_key": "application.generated.unity.newunityproject.exe",
+      "app_key": "application.generated.unity.apollon.exe",
       "launch_type": "url",
       "url": "steam://launch/",
       "action_manifest_path": "C:\\Users\\LABSIM\\LABSIM\\unity\\APOLLON\\Assets\\StreamingAssets\\SteamVR\\actions.json",
