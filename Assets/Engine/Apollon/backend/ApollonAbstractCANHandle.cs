@@ -10,38 +10,42 @@ namespace Labsim.apollon.backend
     {
 
         #region CAN members
-        
+
         // Reference to the used VCI device.
         private Ixxat.Vci4.IVciDevice m_VCIDevice;
 
         // Reference to the CAN controller.
         private Ixxat.Vci4.Bal.Can.ICanControl m_CANController;
-        
+
         // Reference to the CAN message communication channel.
         private Ixxat.Vci4.Bal.Can.ICanChannel m_CANChannel;
-        
+
         // Reference to the CAN message scheduler.
         private Ixxat.Vci4.Bal.Can.ICanScheduler m_CANScheduler;
 
         // Reference to the message writer of the CAN message channel.
         private Ixxat.Vci4.Bal.Can.ICanMessageWriter m_CANMessageWriter;
 
+        // v1.0
         // Reference to the message reader of the CAN message channel.
-        private Ixxat.Vci4.Bal.Can.ICanMessageReader m_CANMessageReader;
-        
-        // Thread that handles the message reception.
-        private System.Threading.Thread m_RxThread;
+        //private Ixxat.Vci4.Bal.Can.ICanMessageReader m_CANMessageReader;
 
+        // v1.0
+        // Thread that handles the message reception.
+        //private System.Threading.Thread m_RxThread;
+
+        // v1.0
         // Quit flag for the receive thread.
         private long m_RxEnd = 0;
 
+        // v1.0
         // Event that's set if at least one message was received.
-        private System.Threading.AutoResetEvent m_RxEvent;
+        //private System.Threading.AutoResetEvent m_RxEvent;
 
         #endregion
 
         #region CAN device selection
-        
+
         // Select the first CAN adapter.
         private void SelectDevice()
         {
@@ -73,6 +77,8 @@ namespace Labsim.apollon.backend
                 Ixxat.Vci4.IVciCtrlInfo info = this.m_VCIDevice.Equipment[0];
                 object serialNumberGuid = this.m_VCIDevice.UniqueHardwareId;
                 string serialNumberText = ApollonAbstractCANHandle.GetSerialNumberText(ref serialNumberGuid);
+
+                // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonAbstractCANHandle.SelectDevice() : found CAN device [{ BusType: "
                     + info.BusType
@@ -133,38 +139,55 @@ namespace Labsim.apollon.backend
 
                 // Open bus access layer
                 bal = this.m_VCIDevice.OpenBusAccessLayer();
-                
+
                 // Open a message channel for the CAN controller
                 this.m_CANChannel = bal.OpenSocket(canNo, typeof(Ixxat.Vci4.Bal.Can.ICanChannel)) as Ixxat.Vci4.Bal.Can.ICanChannel;
-                
+
                 // Open the scheduler of the CAN controller
                 this.m_CANScheduler = bal.OpenSocket(canNo, typeof(Ixxat.Vci4.Bal.Can.ICanScheduler)) as Ixxat.Vci4.Bal.Can.ICanScheduler;
 
                 // Initialize the message channel
+
+                // v1.0
+                //this.m_CANChannel.Initialize(
+                //    receiveFifoSize:
+                //        1024,
+                //    transmitFifoSize:
+                //        128,
+                //    exclusive:
+                //        false
+                //);
+
+                // v2.0
+                // dont need buffer as there isnt on ADwin side
                 this.m_CANChannel.Initialize(
                     receiveFifoSize:
-                        1024,
-                    transmitFifoSize: 
-                        128,
+                        1,
+                    transmitFifoSize:
+                        1,
                     exclusive:
-                        false
+                        true
                 );
 
-                // Get a message reader object
-                this.m_CANMessageReader = this.m_CANChannel.GetMessageReader();
+                // v1.0
+                //// Get a message reader object
+                //this.m_CANMessageReader = this.m_CANChannel.GetMessageReader();
 
-                // Initialize message reader
-                this.m_CANMessageReader.Threshold = 1;
+                // v1.0
+                //// Initialize message reader
+                //this.m_CANMessageReader.Threshold = 1;
 
-                // Create and assign the event that's set if at least one message was received.
-                this.m_RxEvent = new System.Threading.AutoResetEvent(false);
-                this.m_CANMessageReader.AssignEvent(this.m_RxEvent);
+                // v1.0
+                //// Create and assign the event that's set if at least one message was received.
+                //this.m_RxEvent = new System.Threading.AutoResetEvent(false);
+                //this.m_CANMessageReader.AssignEvent(this.m_RxEvent);
 
                 // Get a message wrtier object
                 this.m_CANMessageWriter = this.m_CANChannel.GetMessageWriter();
 
-                // Initialize message writer
-                this.m_CANMessageWriter.Threshold = 1;
+                // v1.0
+                //// Initialize message writer
+                //this.m_CANMessageWriter.Threshold = 1;
 
                 // Activate the message channel
                 this.m_CANChannel.Activate();
@@ -173,11 +196,22 @@ namespace Labsim.apollon.backend
                 this.m_CANController = bal.OpenSocket(canNo, typeof(Ixxat.Vci4.Bal.Can.ICanControl)) as Ixxat.Vci4.Bal.Can.ICanControl;
 
                 // Initialize the CAN controller
+
+                // v1.0 
+                //this.m_CANController.InitLine(
+                //    operatingMode:
+                //        Ixxat.Vci4.Bal.Can.CanOperatingModes.Standard
+                //        | Ixxat.Vci4.Bal.Can.CanOperatingModes.Extended
+                //        | Ixxat.Vci4.Bal.Can.CanOperatingModes.ErrFrame,
+                //    bitrate:
+                //        Ixxat.Vci4.Bal.Can.CanBitrate.Cia125KBit
+                //);
+
+                // v2.0 
+                // Dont need extended mode (11 bits is enought)
                 this.m_CANController.InitLine(
                     operatingMode:
-                        Ixxat.Vci4.Bal.Can.CanOperatingModes.Standard 
-                        | Ixxat.Vci4.Bal.Can.CanOperatingModes.Extended
-                        | Ixxat.Vci4.Bal.Can.CanOperatingModes.ErrFrame,
+                        Ixxat.Vci4.Bal.Can.CanOperatingModes.Standard,
                     bitrate:
                         Ixxat.Vci4.Bal.Can.CanBitrate.Cia125KBit
                 );
@@ -189,25 +223,27 @@ namespace Labsim.apollon.backend
                     + " }]"
                 );
 
-                // Set the acceptance filter for std identifiers
-                this.m_CANController.SetAccFilter(
-                    select:
-                        Ixxat.Vci4.Bal.Can.CanFilter.Std,
-                    code:
-                        (uint)Ixxat.Vci4.Bal.Can.CanAccCode.All,
-                    mask:
-                        (uint)Ixxat.Vci4.Bal.Can.CanAccMask.All
-                );
+                // v1.0
+                //// Set the acceptance filter for std identifiers
+                //this.m_CANController.SetAccFilter(
+                //    select:
+                //        Ixxat.Vci4.Bal.Can.CanFilter.Std,
+                //    code:
+                //        (uint)Ixxat.Vci4.Bal.Can.CanAccCode.All,
+                //    mask:
+                //        (uint)Ixxat.Vci4.Bal.Can.CanAccMask.All
+                //);
 
-                // Set the acceptance filter for ext identifiers
-                this.m_CANController.SetAccFilter(
-                    select:
-                        Ixxat.Vci4.Bal.Can.CanFilter.Ext,
-                    code:
-                        (uint)Ixxat.Vci4.Bal.Can.CanAccCode.All,
-                    mask:
-                        (uint)Ixxat.Vci4.Bal.Can.CanAccMask.All
-                );
+                // v1.0
+                //// Set the acceptance filter for ext identifiers
+                //this.m_CANController.SetAccFilter(
+                //    select:
+                //        Ixxat.Vci4.Bal.Can.CanFilter.Ext,
+                //    code:
+                //        (uint)Ixxat.Vci4.Bal.Can.CanAccCode.All,
+                //    mask:
+                //        (uint)Ixxat.Vci4.Bal.Can.CanAccMask.All
+                //);
 
                 // Start the CAN controller
                 this.m_CANController.StartLine();
@@ -226,7 +262,7 @@ namespace Labsim.apollon.backend
                     + "] => "
                     + ex.StackTrace
                 );
-                
+
                 // fail
                 bRslt = false;
 
@@ -279,40 +315,70 @@ namespace Labsim.apollon.backend
 
         } /* TransmitData() */
 
-        // This method is the works as receive thread.
-        protected void AsynCANReaderCallback()
+        protected void TransmitRawData(byte[] data)
         {
 
-            // buffer
-            Ixxat.Vci4.Bal.Can.ICanMessage[] msgArray;
+            // get factory & instanciate en emplty shell message
+            Ixxat.Vci4.IMessageFactory factory
+                = Ixxat.Vci4.VciServer.Instance().MsgFactory;
+            Ixxat.Vci4.Bal.Can.ICanMessage canMsg
+                = (Ixxat.Vci4.Bal.Can.ICanMessage)factory.CreateMsg(typeof(Ixxat.Vci4.Bal.Can.ICanMessage));
 
-            // loop
-            do
+            // configure the empty shell
+            canMsg.Identifier = 1; // Message ID
+            canMsg.TimeStamp = 0; // No delay
+            canMsg.ExtendedFrameFormat = false; // 11 bits
+            canMsg.RemoteTransmissionRequest = false;
+            canMsg.SelfReceptionRequest = false;  // do not show this message in the console window
+            canMsg.FrameType = Ixxat.Vci4.Bal.Can.CanMsgFrameType.Data; // Will allways be a data frame
+            canMsg.DataLength = (byte)data.Length;
+
+            // fill up the data  
+            for (int idx = 0; idx < data.Length; ++idx)
             {
+                canMsg[idx] = data[idx];
+            }
 
-                // Wait 100 msec for a message reception
-                if (this.m_RxEvent.WaitOne(100, false))
-                {
+            // Write the CAN message into the transmit FIFO
+            this.m_CANMessageWriter.SendMessage(canMsg);
 
-                    // take all messages
-                    if (this.m_CANMessageReader.ReadMessages(out msgArray) > 0)
-                    {
+        } /* TransmitRawData() */
 
-                        // flush FIFO
-                        foreach (Ixxat.Vci4.Bal.Can.ICanMessage entry in msgArray)
-                        {
+        // v1.0
+        //// This method is the works as receive thread.
+        //protected void AsynCANReaderCallback()
+        //{
 
-                            // do nothing actually see Frank for status ?
+        //    // buffer
+        //    Ixxat.Vci4.Bal.Can.ICanMessage[] msgArray;
 
-                        } /* foreach() */
+        //    // loop
+        //    do
+        //    {
 
-                    } /* if() */
+        //        // Wait 100 msec for a message reception
+        //        if (this.m_RxEvent.WaitOne(100, false))
+        //        {
 
-                } /* if() */
+        //            // take all messages
+        //            if (this.m_CANMessageReader.ReadMessages(out msgArray) > 0)
+        //            {
 
-            } while (0 == this.m_RxEnd);
+        //                // flush FIFO
+        //                foreach (Ixxat.Vci4.Bal.Can.ICanMessage entry in msgArray)
+        //                {
 
-        } /* AsynCANReaderCallback() */
+        //                    // do nothing actually see Frank for status ?
+
+        //                } /* foreach() */
+
+        //            } /* if() */
+
+        //        } /* if() */
+
+        //    } while (0 == this.m_RxEnd);
+
+        //} /* AsynCANReaderCallback() */
 
         #endregion
 
@@ -323,7 +389,7 @@ namespace Labsim.apollon.backend
         protected static byte[] Serialize<T>(T obj)
             where T : struct
         {
-            
+
             // determine the byte size of our structs
             int objectSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
 
@@ -335,10 +401,10 @@ namespace Labsim.apollon.backend
 
             // marshal (copy) our structure to the allocated unmanaged memory
             System.Runtime.InteropServices.Marshal.StructureToPtr(
-                structure: 
-                    obj, 
+                structure:
+                    obj,
                 ptr:
-                    buffer, 
+                    buffer,
                 fDeleteOld:
                     /* a voir si false (?)... */ true
             );
@@ -468,7 +534,7 @@ namespace Labsim.apollon.backend
             return resultText;
 
         } /* GetSerialNumberText() */
-       
+
         // This method tries to dispose the specified object.
         // The VCI interfaces provide access to native driver resources. 
         // Because the .NET garbage collector is only designed to manage memory, 
@@ -502,7 +568,7 @@ namespace Labsim.apollon.backend
         public ApollonAbstractCANHandle()
             : base()
         { }
-        
+
         protected override void Dispose(bool bDisposing = true)
         {
 
@@ -510,8 +576,9 @@ namespace Labsim.apollon.backend
             // Dispose all hold VCI objects.
             //
 
+            // v1.0
             // Dispose message reader
-            ApollonAbstractCANHandle.DisposeVciObject(this.m_CANMessageReader);
+            //ApollonAbstractCANHandle.DisposeVciObject(this.m_CANMessageReader);
 
             // Dispose message writer 
             ApollonAbstractCANHandle.DisposeVciObject(this.m_CANMessageWriter);
@@ -536,31 +603,31 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                //// select device
-                //this.SelectDevice();
+                // select device
+                this.SelectDevice();
 
-                //// log
-                //UnityEngine.Debug.Log(
-                //    "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
-                //);
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
+                );
 
-                //// init connection
-                //if (!this.InitSocket(0))
-                //{
+                // init connection
+                if (!this.InitSocket(0))
+                {
 
-                //    // log
-                //    UnityEngine.Debug.LogError(
-                //        "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
-                //    );
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
+                    );
 
-                //    // abort
-                //    this.Dispose();
+                    // abort
+                    this.Dispose();
 
-                //} /* if() */
+                } /* if() */
 
-                //    // bind & start the receive thread
-                //    this.m_RxThread = new System.Threading.Thread(new System.Threading.ThreadStart(this.AsynCANReaderCallback));
-                //    this.m_RxThread.Start();
+                // bind & start the receive thread
+                //this.m_RxThread = new System.Threading.Thread(new System.Threading.ThreadStart(this.AsynCANReaderCallback));
+                //this.m_RxThread.Start();
 
                 // pull-up
                 base.onHandleActivationRequested(sender, arg);
@@ -577,11 +644,11 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                //    // tell receive thread to quit
-                //    System.Threading.Interlocked.Exchange(ref this.m_RxEnd, 1);
+                // tell receive thread to quit
+                System.Threading.Interlocked.Exchange(ref this.m_RxEnd, 1);
 
-                //    // wait for termination of receive thread
-                //    this.m_RxThread.Join();
+                // wait for termination of receive thread
+                //this.m_RxThread.Join();
 
                 // pull-up
                 base.onHandleDeactivationRequested(sender, arg);
