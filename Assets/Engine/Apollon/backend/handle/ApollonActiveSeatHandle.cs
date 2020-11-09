@@ -126,11 +126,11 @@ namespace Labsim.apollon.backend.handle
             //);
 
             // v2.0 - raw
-            this.TransmitRawData(
-                new byte[] {
-                    (byte)CAN.EventType.APOLLON_EVENT_BEGINSESSION
-                }
-            );
+            //this.TransmitRawData(
+            //    new byte[] {
+            //        (byte)CAN.EventType.APOLLON_EVENT_BEGINSESSION
+            //    }
+            //);
 
         } /* BeginSession() */
 
@@ -153,11 +153,11 @@ namespace Labsim.apollon.backend.handle
             //);
 
             // v2.0 - raw
-            this.TransmitRawData(
-                new byte[] {
-                    (byte)CAN.EventType.APOLLON_EVENT_ENDSESSION
-                }
-            );
+            //this.TransmitRawData(
+            //    new byte[] {
+            //        (byte)CAN.EventType.APOLLON_EVENT_ENDSESSION
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -180,11 +180,11 @@ namespace Labsim.apollon.backend.handle
             //);
 
             // v2.0 - raw
-            this.TransmitRawData(
-                new byte[] {
-                    (byte)CAN.EventType.APOLLON_EVENT_BEGINTRIAL
-                }
-            );
+            //this.TransmitRawData(
+            //    new byte[] {
+            //        (byte)CAN.EventType.APOLLON_EVENT_BEGINTRIAL
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -207,11 +207,11 @@ namespace Labsim.apollon.backend.handle
             //);
 
             // v2.0 - raw
-            this.TransmitRawData(
-                new byte[] {
-                    (byte)CAN.EventType.APOLLON_EVENT_ENDTRIAL
-                }
-            );
+            //this.TransmitRawData(
+            //    new byte[] {
+            //        (byte)CAN.EventType.APOLLON_EVENT_ENDTRIAL
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -247,157 +247,157 @@ namespace Labsim.apollon.backend.handle
             // 0x04 0x01 bytes representation of (AngularSpeedSaturation)
             // 0x04 0x02 bytes representation of (MaxStimDuration)
 
-            byte[]
-                angular_acceleration_msg = new byte[1 + 1 + 4],
-                angular_speed_saturation_msg = new byte[1 + 1 + 4],
-                max_stim_duration_msg = new byte[1 + 1 + 4];
+            //byte[]
+            //    angular_acceleration_msg = new byte[1 + 1 + 4],
+            //    angular_speed_saturation_msg = new byte[1 + 1 + 4],
+            //    max_stim_duration_msg = new byte[1 + 1 + 4];
 
             // Allways 0x04
 
-            System.Buffer.BlockCopy(
-                src:
-                    new byte[] {
-                        (byte)CAN.EventType.APOLLON_EVENT_START
-                    },
-                srcOffset:
-                    0,
-                dst:
-                    angular_acceleration_msg,
-                dstOffset:
-                    0,
-                count:
-                    1
-            );
-            System.Buffer.BlockCopy(
-                src:
-                    new byte[] {
-                        (byte)CAN.EventType.APOLLON_EVENT_START
-                    },
-                srcOffset:
-                    0,
-                dst:
-                    angular_speed_saturation_msg,
-                dstOffset:
-                    0,
-                count:
-                    1
-            );
-            System.Buffer.BlockCopy(
-                src:
-                    new byte[] {
-                        (byte)CAN.EventType.APOLLON_EVENT_START
-                    },
-                srcOffset:
-                    0,
-                dst:
-                    max_stim_duration_msg,
-                dstOffset:
-                    0,
-                count:
-                    1
-            );
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        new byte[] {
+            //            (byte)CAN.EventType.APOLLON_EVENT_START
+            //        },
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        angular_acceleration_msg,
+            //    dstOffset:
+            //        0,
+            //    count:
+            //        1
+            //);
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        new byte[] {
+            //            (byte)CAN.EventType.APOLLON_EVENT_START
+            //        },
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        angular_speed_saturation_msg,
+            //    dstOffset:
+            //        0,
+            //    count:
+            //        1
+            //);
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        new byte[] {
+            //            (byte)CAN.EventType.APOLLON_EVENT_START
+            //        },
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        max_stim_duration_msg,
+            //    dstOffset:
+            //        0,
+            //    count:
+            //        1
+            //);
 
             // Convert args types to their bytes representation
 
-            System.Buffer.BlockCopy(
-                src:
-                    new byte[] {
-                        (byte)CAN.EventArgType.APOLLON_EVENT_ARG_ANGULAR_ACCELERATION // 0x00 : it's accel
-                    },
-                srcOffset:
-                    0,
-                dst:
-                    angular_acceleration_msg,
-                dstOffset:
-                    1,
-                count:
-                    1
-            );
-            System.Buffer.BlockCopy(
-                src:
-                    new byte[] {
-                        (byte)CAN.EventArgType.APOLLON_EVENT_ARG_ANGULAR_SPEED_SATURATION // 0x01 : it's speed
-                    },
-                srcOffset:
-                    0,
-                dst:
-                    angular_speed_saturation_msg,
-                dstOffset:
-                    1,
-                count:
-                    1
-            );
-            System.Buffer.BlockCopy(
-                src:
-                    new byte[] {
-                        (byte)CAN.EventArgType.APOLLON_EVENT_ARG_MAX_STIM_DURATION // 0x02 : it's duration
-                    },
-                srcOffset:
-                    0,
-                dst:
-                    max_stim_duration_msg,
-                dstOffset:
-                    1,
-                count:
-                    1
-            );
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        new byte[] {
+            //            (byte)CAN.EventArgType.APOLLON_EVENT_ARG_ANGULAR_ACCELERATION // 0x00 : it's accel
+            //        },
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        angular_acceleration_msg,
+            //    dstOffset:
+            //        1,
+            //    count:
+            //        1
+            //);
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        new byte[] {
+            //            (byte)CAN.EventArgType.APOLLON_EVENT_ARG_ANGULAR_SPEED_SATURATION // 0x01 : it's speed
+            //        },
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        angular_speed_saturation_msg,
+            //    dstOffset:
+            //        1,
+            //    count:
+            //        1
+            //);
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        new byte[] {
+            //            (byte)CAN.EventArgType.APOLLON_EVENT_ARG_MAX_STIM_DURATION // 0x02 : it's duration
+            //        },
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        max_stim_duration_msg,
+            //    dstOffset:
+            //        1,
+            //    count:
+            //        1
+            //);
 
             // Convert args values to their bytes representation
 
-            System.Buffer.BlockCopy(
-                src:
-                    System.BitConverter.GetBytes(
-                        System.Convert.ToSingle(
-                            AngularAcceleration
-                        )
-                    ),
-                srcOffset:
-                    0,
-                dst:
-                    angular_acceleration_msg,
-                dstOffset:
-                    2,
-                count:
-                    4
-            );
-            System.Buffer.BlockCopy(
-                src:
-                    System.BitConverter.GetBytes(
-                        System.Convert.ToSingle(
-                            AngularSpeedSaturation
-                        )
-                    ),
-                srcOffset:
-                    0,
-                dst:
-                    angular_speed_saturation_msg,
-                dstOffset:
-                    2,
-                count:
-                    4
-            );
-            System.Buffer.BlockCopy(
-                src:
-                    System.BitConverter.GetBytes(
-                        System.Convert.ToSingle(
-                            MaxStimDuration
-                        )
-                    ),
-                srcOffset:
-                    0,
-                dst:
-                    max_stim_duration_msg,
-                dstOffset:
-                    2,
-                count:
-                    4
-            );
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        System.BitConverter.GetBytes(
+            //            System.Convert.ToSingle(
+            //                AngularAcceleration
+            //            )
+            //        ),
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        angular_acceleration_msg,
+            //    dstOffset:
+            //        2,
+            //    count:
+            //        4
+            //);
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        System.BitConverter.GetBytes(
+            //            System.Convert.ToSingle(
+            //                AngularSpeedSaturation
+            //            )
+            //        ),
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        angular_speed_saturation_msg,
+            //    dstOffset:
+            //        2,
+            //    count:
+            //        4
+            //);
+            //System.Buffer.BlockCopy(
+            //    src:
+            //        System.BitConverter.GetBytes(
+            //            System.Convert.ToSingle(
+            //                MaxStimDuration
+            //            )
+            //        ),
+            //    srcOffset:
+            //        0,
+            //    dst:
+            //        max_stim_duration_msg,
+            //    dstOffset:
+            //        2,
+            //    count:
+            //        4
+            //);
 
             // send messages
             //System.Threading.Thread.Sleep(10); //Wait 10ms just to be sure can bus transmition is complete
-            this.TransmitRawData(angular_acceleration_msg);
-            this.TransmitRawData(angular_speed_saturation_msg);
-            this.TransmitRawData(max_stim_duration_msg);
+            //this.TransmitRawData(angular_acceleration_msg);
+            //this.TransmitRawData(angular_speed_saturation_msg);
+            //this.TransmitRawData(max_stim_duration_msg);
 
         } /* EndSession() */
 
@@ -420,11 +420,11 @@ namespace Labsim.apollon.backend.handle
             //);
 
             // v2.0 - raw
-            this.TransmitRawData(
-                new byte[] {
-                    (byte)CAN.EventType.APOLLON_EVENT_STOP
-                }
-            );
+            //this.TransmitRawData(
+            //    new byte[] {
+            //        (byte)CAN.EventType.APOLLON_EVENT_STOP
+            //    }
+            //);
 
         } /* EndSession() */
 
@@ -447,11 +447,11 @@ namespace Labsim.apollon.backend.handle
             //);
 
             // v2.0 - raw
-            this.TransmitRawData(
-                new byte[] {
-                    (byte)CAN.EventType.APOLLON_EVENT_RESET
-                }
-            );
+            //this.TransmitRawData(
+            //    new byte[] {
+            //        (byte)CAN.EventType.APOLLON_EVENT_RESET
+            //    }
+            //);
 
         } /* EndSession() */
 

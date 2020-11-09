@@ -603,27 +603,27 @@ namespace Labsim.apollon.backend
             if (this.ID == arg.HandleID)
             {
 
-                // select device
-                this.SelectDevice();
+                //// select device
+                //this.SelectDevice();
 
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
-                );
+                //// log
+                //UnityEngine.Debug.Log(
+                //    "<color=Blue>Info: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : device selected"
+                //);
 
-                // init connection
-                if (!this.InitSocket(0))
-                {
+                //// init connection
+                //if (!this.InitSocket(0))
+                //{
 
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
-                    );
+                //    // log
+                //    UnityEngine.Debug.LogError(
+                //        "<color=Red>Error: </color> ApollonAbstractCANHandle.onHandleActivationRequested() : failed to initialize connection, exit"
+                //    );
 
-                    // abort
-                    this.Dispose();
+                //    // abort
+                //    this.Dispose();
 
-                } /* if() */
+                //} /* if() */
 
                 // bind & start the receive thread
                 //this.m_RxThread = new System.Threading.Thread(new System.Threading.ThreadStart(this.AsynCANReaderCallback));
@@ -645,7 +645,7 @@ namespace Labsim.apollon.backend
             {
 
                 // tell receive thread to quit
-                System.Threading.Interlocked.Exchange(ref this.m_RxEnd, 1);
+                //System.Threading.Interlocked.Exchange(ref this.m_RxEnd, 1);
 
                 // wait for termination of receive thread
                 //this.m_RxThread.Join();
