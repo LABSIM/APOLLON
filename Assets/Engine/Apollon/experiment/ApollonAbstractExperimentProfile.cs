@@ -1,6 +1,5 @@
 ﻿// using directives
 using UXF;
-using Valve.VR;
 using System.Linq;
 
 // avoid namespace pollution
@@ -242,19 +241,19 @@ namespace Labsim.apollon.experiment
         {
 
             // set start color
-            SteamVR_Fade.Start(UnityEngine.Color.clear, 0f);
+            Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.clear, 0f);
             // set and start fade to
-            SteamVR_Fade.Start(UnityEngine.Color.black, duration_in_ms / 1000.0f);
+            Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.black, duration_in_ms / 1000.0f);
 
         } /* DoFadeIn() */
 
         public void DoFadeOut(float duration_in_ms)
         {
-            
+
             //set start color
-            SteamVR_Fade.Start(UnityEngine.Color.black, 0f);
+            Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.black, 0f);
             //set and start fade to
-            SteamVR_Fade.Start(UnityEngine.Color.clear, duration_in_ms / 1000.0f);
+            Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.clear, duration_in_ms / 1000.0f);
 
         } /* DoFadeOut() */
 
