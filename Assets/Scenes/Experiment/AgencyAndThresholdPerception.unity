@@ -406,7 +406,7 @@ MonoBehaviour:
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1713753090357844413}
 --- !u!1001 &421317227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -700,39 +700,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &584328599 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1363197602275048, guid: 0a3b6392f04558844bd340e68ced1ff9,
-    type: 3}
-  m_PrefabInstance: {fileID: 924018349}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &584328608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584328599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 081aba3052b62fc42b908b9d1a65a0f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventKey: 27
-  onKeypress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1802051421}
-        m_MethodName: End
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
 --- !u!43 &669890054
 Mesh:
   m_ObjectHideFlags: 0
@@ -1194,6 +1161,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114129450733786412, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114751166818340394, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onKeypress.m_PersistentCalls.m_Calls.Array.size
@@ -1217,6 +1189,11 @@ PrefabInstance:
     - target: {fileID: 114751166818340394, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onKeypress.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114751166818340394, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
@@ -2213,18 +2190,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1713753090357844412}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1802051421 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
-    type: 3}
-  m_PrefabInstance: {fileID: 924018349}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9f2505d11cc9e4aa44357b47b12905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1865278462
 GameObject:
   m_ObjectHideFlags: 0
