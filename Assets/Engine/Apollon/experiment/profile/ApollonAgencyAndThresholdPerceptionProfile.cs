@@ -252,7 +252,7 @@ namespace Labsim.apollon.experiment.profile
                 {
 
                     // null command 
-                    this.FSM.CurrentResults.user_command = 0;
+                    this.FSM.CurrentResults.user_command = 1;
                     
                 } /* if() */
 
