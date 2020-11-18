@@ -1,8 +1,6 @@
 {
   "APOLLON_profile": "AgencyAndThresholdPerception",
 
-  "setup_center_of_rotation_height_offset_m" : 0.5,
-
   "trial_final_fade_in_duration_ms": 1500.0,
   "trial_initial_fade_out_duration_ms": 1500.0,
   "trial_inter_sleep_duration_ms": 5000.0,
