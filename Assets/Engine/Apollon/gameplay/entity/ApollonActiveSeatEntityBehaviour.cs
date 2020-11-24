@@ -3,9 +3,6 @@ using System;
 using System.Text;
 using System.Collections;
 using System.Threading;
-using Ixxat.Vci4;
-using Ixxat.Vci4.Bal;
-using Ixxat.Vci4.Bal.Can;
 
 // avoid namespace pollution
 namespace Labsim.apollon.gameplay.entity
