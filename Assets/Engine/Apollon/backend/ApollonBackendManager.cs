@@ -110,7 +110,7 @@ namespace Labsim.apollon.backend
         {
 
             this.RegisterAllAvailableHandle<ApollonAbstractNativeHandle>();
-            this.RegisterAllAvailableHandle<ApollonAbstractAnonymousPipeHandle>();
+            this.RegisterAllAvailableHandle<ApollonAbstractTCPSocketHandle>();
             
         } /* RegisterAllAvailableHandle() */
 

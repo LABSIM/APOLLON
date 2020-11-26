@@ -4,33 +4,37 @@ namespace Labsim.apollon.backend.handle
 
 
     public class ApollonActiveSeatHandle
-        : ApollonAbstractAnonymousPipeHandle
+        : ApollonAbstractTCPSocketHandle
     {
-        
+
+        public enum messageID : short
+        {
+            NoMoreData = -1,
+            BeginSession,
+            EndSession,
+            BeginTrial,
+            EndTrial,
+            Start,
+            Stop,
+            Reset
+        }
+
         public void BeginSession()
         {
 
-            this.PipeBuffer.WriteLine("BeginSession");
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.BeginSession));
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.onHandleActivationRequested() : sended [BeginSession]."
-            );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.onHandleActivationRequested() : pipe drained."
             );
 
         } /* BeginSession() */
 
         public void EndSession()
         {
-            
-            this.PipeBuffer.WriteLine("EndSession");
+
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.EndSession));
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.EndSession() : sended [EndSession]."
-            );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.EndSession() : pipe drained."
             );
 
         } /* EndSession() */
@@ -38,13 +42,9 @@ namespace Labsim.apollon.backend.handle
         public void BeginTrial()
         {
 
-            this.PipeBuffer.WriteLine("BeginTrial");
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.BeginTrial));
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.BeginTrial() : sended [BeginTrial]."
-            );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.BeginTrial() : pipe drained."
             );
 
         } /* EndSession() */
@@ -52,24 +52,20 @@ namespace Labsim.apollon.backend.handle
         public void EndTrial()
         {
 
-            this.PipeBuffer.WriteLine("EndTrial");
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.EndTrial));
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.EndTrial() : sended [EndTrial]."
-            );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.EndTrial() : pipe drained."
             );
 
         } /* EndSession() */
 
         public void Start(double AngularAcceleration, double AngularSpeedSaturation, double MaxStimDuration)
         {
-
-            this.PipeBuffer.WriteLine("Start");
-            this.PipeBuffer.WriteLine(AngularAcceleration);
-            this.PipeBuffer.WriteLine(AngularSpeedSaturation);
-            this.PipeBuffer.WriteLine(MaxStimDuration);
+            
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.Start));
+            this.TCPStream.Write(System.BitConverter.GetBytes(AngularAcceleration), 0, 8);
+            this.TCPStream.Write(System.BitConverter.GetBytes(AngularSpeedSaturation), 0, 8);
+            this.TCPStream.Write(System.BitConverter.GetBytes(MaxStimDuration), 0, 8);
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.Start() : sended [Start] with args [dAngularAcceleration:"
                 + AngularAcceleration
@@ -79,23 +75,15 @@ namespace Labsim.apollon.backend.handle
                 + MaxStimDuration
                 + "] !"
             );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.Start() : pipe drained."
-            );
             
         } /* EndSession() */
 
         public void Stop()
         {
 
-            this.PipeBuffer.WriteLine("Stop");
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.Stop));
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.Stop() : sended [Stop]."
-            );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.Stop() : pipe drained."
             );
 
         } /* EndSession() */
@@ -103,13 +91,9 @@ namespace Labsim.apollon.backend.handle
         public void Reset()
         {
 
-            this.PipeBuffer.WriteLine("Reset");
+            this.TCPStream.WriteByte(System.Convert.ToByte(messageID.Reset));
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.Reset() : sended [Reset]."
-            );
-            this.PipeServer.WaitForPipeDrain();
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonActiveSeatHandle.Reset() : pipe drained."
             );
 
         } /* EndSession() */
