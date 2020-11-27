@@ -228,13 +228,27 @@ namespace Labsim.apollon.gameplay.entity
 
         #region raise events
 
-        public void RaiseAccelerate(float angular_acceleration_value, float angular_velocity_saturation_value, float duration_value, float stop_angle_value)
-        {
+        public void RaiseAccelerate(
+            float angular_acceleration_value, 
+            float angular_velocity_saturation_value, 
+            float duration_value, 
+            float stop_angle_value,
+            bool without_motion
+        ) {
 
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<EventArgs>)this._eventTable["Accelerate"];
-                callback?.Invoke(this, new EventArgs(ang_acc: angular_acceleration_value, ang_vel_sat: angular_velocity_saturation_value, duration: duration_value, stop_angle: stop_angle_value));
+                callback?.Invoke(
+                    this, 
+                    new EventArgs(
+                        ang_acc: angular_acceleration_value, 
+                        ang_vel_sat: angular_velocity_saturation_value, 
+                        duration: duration_value, 
+                        stop_angle: stop_angle_value,
+                        inhibit_vestibular_motion: without_motion
+                    )
+                );
             }
 
         } /* RaiseAccelerate() */

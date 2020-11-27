@@ -597,7 +597,7 @@ PlayerSettings:
     1: HOVER_INPUT_LEAPMOTION
   platformArchitecture: {}
   scriptingBackend:
-    Standalone: 1
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel:
     Standalone: 1

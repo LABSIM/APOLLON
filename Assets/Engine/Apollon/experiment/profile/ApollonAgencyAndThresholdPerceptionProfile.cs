@@ -393,7 +393,8 @@ namespace Labsim.apollon.experiment.profile
                         this.FSM.CurrentResults.user_command * System.Math.Abs(this.FSM.CurrentSettings.phase_C_angular_acceleration),
                         this.FSM.CurrentResults.user_command * System.Math.Abs(this.FSM.CurrentSettings.phase_C_angular_saturation_speed),
                         this.FSM.CurrentSettings.phase_C_max_stim_duration,
-                        this.FSM.CurrentSettings.phase_C_max_stim_angle
+                        this.FSM.CurrentSettings.phase_C_max_stim_angle,
+                        (this.FSM.CurrentSettings.scenario_type == Settings.ScenarioIDType.VisualOnly ? true : false)
                     );
 
                     UnityEngine.Debug.Log(

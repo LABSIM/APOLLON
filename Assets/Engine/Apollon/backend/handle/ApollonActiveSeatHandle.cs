@@ -4,7 +4,7 @@ namespace Labsim.apollon.backend.handle
 
 
     public class ApollonActiveSeatHandle
-        : ApollonAbstractTCPSocketHandle
+        : ApollonAbstractTCPStreamHandle
     {
 
         public enum messageID : short
@@ -47,7 +47,7 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.BeginTrial() : sended [BeginTrial]."
             );
 
-        } /* EndSession() */
+        } /* BeginTrial() */
 
         public void EndTrial()
         {
@@ -57,7 +57,7 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.EndTrial() : sended [EndTrial]."
             );
 
-        } /* EndSession() */
+        } /* EndTrial() */
 
         public void Start(double AngularAcceleration, double AngularSpeedSaturation, double MaxStimDuration)
         {
@@ -75,8 +75,8 @@ namespace Labsim.apollon.backend.handle
                 + MaxStimDuration
                 + "] !"
             );
-            
-        } /* EndSession() */
+
+        } /* Start() */
 
         public void Stop()
         {
@@ -86,7 +86,7 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.Stop() : sended [Stop]."
             );
 
-        } /* EndSession() */
+        } /* Stop() */
 
         public void Reset()
         {
@@ -96,8 +96,8 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.Reset() : sended [Reset]."
             );
 
-        } /* EndSession() */
-        
+        } /* Reset() */
+
         // ctor
         public ApollonActiveSeatHandle()
             : base()

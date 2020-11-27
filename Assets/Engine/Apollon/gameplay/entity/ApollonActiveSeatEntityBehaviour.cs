@@ -414,10 +414,10 @@ namespace Labsim.apollon.gameplay.entity
                 else
                 {
 
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=blue>Info: </color> ApollonActiveSeatEntityBehaviour.StopController.OnEnable() : received stop acquittal from Hardware"
-                    );
+                    //// log
+                    //UnityEngine.Debug.Log(
+                    //    "<color=blue>Info: </color> ApollonActiveSeatEntityBehaviour.StopController.OnEnable() : received stop acquittal from Hardware"
+                    //);
 
                     // wait stop acquittal from HW
                     // TODO  
@@ -526,10 +526,10 @@ namespace Labsim.apollon.gameplay.entity
                 else
                 {
 
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=blue>Info: </color> ApollonActiveSeatEntityBehaviour.ResetController.OnEnable() : received reset acquittal from Hardware"
-                    );
+                    //// log
+                    //UnityEngine.Debug.Log(
+                    //    "<color=blue>Info: </color> ApollonActiveSeatEntityBehaviour.ResetController.OnEnable() : received reset acquittal from Hardware"
+                    //);
 
                     // wait reset acquittal from HW
                     // TODO  

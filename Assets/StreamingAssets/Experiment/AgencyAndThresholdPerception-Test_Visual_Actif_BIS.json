@@ -19,7 +19,7 @@
     "test_VisualOnly_trial_A1": {
       "is_catch_try_condition": false,
       "is_active_condition": true,
-      "scenario_name": "visual-only",
+      "scenario_name": "visuo-vestibular",
       "phase_A_duration_ms": 750.0,
       "phase_B_begin_stim_timeout_ms": 500.0,
       "phase_C_max_stim_duration_ms": 10000.0,
