@@ -29,6 +29,10 @@ namespace Labsim.apollon.backend
             private set => m_TCPClientProcess = value;
         }
 
+        #endregion
+
+        #region TCP/IP init/close methods
+
         private bool Initialize()
         {
             // log
@@ -58,28 +62,29 @@ namespace Labsim.apollon.backend
                         "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : server is async waiting for connection, launch client."
                     );
 
-                    // Configure the client process. 
-                    this.TCPClientProcess = new System.Diagnostics.Process();
-                    this.TCPClientProcess.StartInfo.FileName
+                    // Configure the client process.
+                    var info = new System.Diagnostics.ProcessStartInfo();
+                    info.FileName
                         = System.IO.Path.Combine(
                             UnityEngine.Application.streamingAssetsPath,
                             "Apollon-feature-IxxatCAN/Apollon-feature-IxxatCAN-client.exe"
                         );
-                    this.TCPClientProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                    this.TCPClientProcess.StartInfo.UseShellExecute = false;
-                    this.TCPClientProcess.StartInfo.RedirectStandardOutput = true;
-
+                    info.CreateNoWindow = true;
+                    info.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    info.UseShellExecute = false;
+                    info.RedirectStandardOutput = true;
+                   
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess instantiated & initialized."
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess configured."
                     );
 
                     // launch client process
-                    this.TCPClientProcess.Start();
+                    this.TCPClientProcess = System.Diagnostics.Process.Start(info);
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess started"
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess instantiated & started"
                     );
 
                     // wait for client completion 
@@ -146,11 +151,12 @@ namespace Labsim.apollon.backend
                             System.IO.Path.Combine(
                                 UnityEngine.Application.streamingAssetsPath,
                                 "Apollon-feature-IxxatCAN/Apollon-feature-IxxatCAN-client.log"
-                            )
+                            ),
+                            /* overriding */ false,
+                            System.Text.Encoding.UTF8
                         )
                 )
                 {
-
                     log_file.Write(
                         this.TCPClientProcess.StandardOutput.ReadToEnd()
                     );

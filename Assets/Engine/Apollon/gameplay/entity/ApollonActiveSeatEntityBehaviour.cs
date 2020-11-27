@@ -168,8 +168,8 @@ namespace Labsim.apollon.gameplay.entity
                             backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
                         ) as backend.handle.ApollonActiveSeatHandle
                     ).Start(
-                        this._parent.AngularAcceleration.magnitude,
-                        this._parent.AngularVelocitySaturation.magnitude,
+                        this._parent.AngularAcceleration.x,
+                        this._parent.AngularVelocitySaturation.x,
                         this._parent.Duration
                     );
 
