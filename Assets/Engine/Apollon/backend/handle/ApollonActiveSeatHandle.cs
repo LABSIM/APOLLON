@@ -63,9 +63,13 @@ namespace Labsim.apollon.backend.handle
         {
             
             this.TCPStream.WriteByte(System.Convert.ToByte(messageID.Start));
+
+            // payload
             this.TCPStream.Write(System.BitConverter.GetBytes(AngularAcceleration), 0, 8);
             this.TCPStream.Write(System.BitConverter.GetBytes(AngularSpeedSaturation), 0, 8);
             this.TCPStream.Write(System.BitConverter.GetBytes(MaxStimDuration), 0, 8);
+
+            // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonActiveSeatHandle.Start() : sended [Start] with args [dAngularAcceleration:"
                 + AngularAcceleration

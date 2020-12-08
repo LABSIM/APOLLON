@@ -398,14 +398,18 @@ namespace Labsim.apollon.experiment
             // inactivate all
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
             gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
-
-            // fade out
-            this.DoFadeOut(this._trial_fade_out_duration);
-
+            
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionEnd() : fade out (from black) ok"
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionEnd() : definitive end ok"
             );
+
+            // stop
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.ExitPlaymode();
+#else
+            Application.Quit();
+#endif	
 
         } /* onExperimentSessionEnd() */
 

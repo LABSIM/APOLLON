@@ -67,24 +67,56 @@ namespace Labsim.apollon.backend
                     info.FileName
                         = System.IO.Path.Combine(
                             UnityEngine.Application.streamingAssetsPath,
-                            "Apollon-feature-IxxatCAN/Apollon-feature-IxxatCAN-client.exe"
+                            "Apollon-feature-IxxatCAN/Apollon-gateway-ActiveSeat.exe"
                         );
                     info.CreateNoWindow = true;
                     info.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                     info.UseShellExecute = false;
                     info.RedirectStandardOutput = true;
-                   
+                    info.RedirectStandardError = true;
+
                     // log
                     UnityEngine.Debug.Log(
                         "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess configured."
                     );
 
                     // launch client process
-                    this.TCPClientProcess = System.Diagnostics.Process.Start(info);
+                    this.TCPClientProcess = new System.Diagnostics.Process();
+                    this.TCPClientProcess.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(
+                        (sender, e) => {
+
+                            UnityEngine.Debug.Log(
+                               "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process output message ["
+                               + e.Data
+                               + "]"
+                           );
+                        }
+                    );
+                    this.TCPClientProcess.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(
+                        (sender, e) => {
+
+                            UnityEngine.Debug.LogError(
+                               "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process error message ["
+                               + e.Data
+                               + "]"
+                           );
+                        }
+                    );
+                    this.TCPClientProcess.StartInfo = info;
+                    this.TCPClientProcess.Start();
 
                     // log
                     UnityEngine.Debug.Log(
                         "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess instantiated & started"
+                    );
+
+                    // start redirection
+                    this.TCPClientProcess.BeginOutputReadLine();
+                    this.TCPClientProcess.BeginErrorReadLine();
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess output/error redirected"
                     );
 
                     // wait for client completion 
@@ -144,29 +176,29 @@ namespace Labsim.apollon.backend
             try
             {
 
-                // save output to file
-                using (
-                    System.IO.StreamWriter log_file
-                        = new System.IO.StreamWriter(
-                            System.IO.Path.Combine(
-                                UnityEngine.Application.streamingAssetsPath,
-                                "Apollon-feature-IxxatCAN/Apollon-feature-IxxatCAN-client.log"
-                            ),
-                            /* overriding */ false,
-                            System.Text.Encoding.UTF8
-                        )
-                )
-                {
-                    log_file.Write(
-                        this.TCPClientProcess.StandardOutput.ReadToEnd()
-                    );
+                //// save output to file
+                //using (
+                //    System.IO.StreamWriter log_file
+                //        = new System.IO.StreamWriter(
+                //            System.IO.Path.Combine(
+                //                UnityEngine.Application.streamingAssetsPath,
+                //                "Apollon-feature-IxxatCAN/Apollon-feature-IxxatCAN-client.log"
+                //            ),
+                //            /* overriding */ false,
+                //            System.Text.Encoding.UTF8
+                //        )
+                //)
+                //{
+                //    log_file.Write(
+                //        this.TCPClientProcess.StandardOutput.ReadToEnd()
+                //    );
 
-                } /* using */
+                //} /* using */
 
                 // close
-                TCPStream.Close();
+                this.TCPStream.Close();
                 _server.Stop();
-                TCPClientProcess.Close();
+                this.TCPClientProcess.Close();
 
                 // log
                 UnityEngine.Debug.Log(

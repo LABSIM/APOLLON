@@ -16,7 +16,7 @@
 
   "trial_pattern": {
 
-    "test_VisualOnly_trial_A1": {
+    "test_VisualOnly_trial_A10": {
       "is_catch_try_condition": false,
       "is_active_condition": true,
       "scenario_name": "visuo-vestibular",
@@ -24,8 +24,32 @@
       "phase_B_begin_stim_timeout_ms": 500.0,
       "phase_C_max_stim_duration_ms": 10000.0,
       "phase_C_max_stim_angle_deg": 25.0,
-      "phase_C_angular_acceleration_deg_per_s2": 50.0,
-      "phase_C_angular_saturation_speed_deg_per_s": 5.5,
+      "phase_C_angular_acceleration_deg_per_s2": 0.50,
+      "phase_C_angular_saturation_speed_deg_per_s": 5.0,
+      "phase_D_duration_ms": 2500.0
+    },
+    "test_VisualOnly_trial_A11": {
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "phase_A_duration_ms": 750.0,
+      "phase_B_begin_stim_timeout_ms": 500.0,
+      "phase_C_max_stim_duration_ms": 10000.0,
+      "phase_C_max_stim_angle_deg": 25.0,
+      "phase_C_angular_acceleration_deg_per_s2": 0.25,
+      "phase_C_angular_saturation_speed_deg_per_s": 5.0,
+      "phase_D_duration_ms": 2500.0
+    },
+    "test_VisualOnly_trial_A12": {
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "phase_A_duration_ms": 750.0,
+      "phase_B_begin_stim_timeout_ms": 500.0,
+      "phase_C_max_stim_duration_ms": 10000.0,
+      "phase_C_max_stim_angle_deg": 25.0,
+      "phase_C_angular_acceleration_deg_per_s2": 0.10,
+      "phase_C_angular_saturation_speed_deg_per_s": 5.0,
       "phase_D_duration_ms": 2500.0
     },
     "test_VisualOnly_trial_A2": {
@@ -124,18 +148,6 @@
       "phase_C_angular_saturation_speed_deg_per_s": 0.5,
       "phase_D_duration_ms": 2500.0
     },
-    "test_VisualOnly_trial_A10": {
-      "is_catch_try_condition": false,
-      "is_active_condition": true,
-      "scenario_name": "visual-only",
-      "phase_A_duration_ms": 750.0,
-      "phase_B_begin_stim_timeout_ms": 500.0,
-      "phase_C_max_stim_duration_ms": 10000.0,
-      "phase_C_max_stim_angle_deg": 25.0,
-      "phase_C_angular_acceleration_deg_per_s2": 0,
-      "phase_C_angular_saturation_speed_deg_per_s": 0,
-      "phase_D_duration_ms": 2500.0
-    },
     "practice_trial_00": {
       "is_catch_try_condition": false,
       "is_active_condition": false,
@@ -179,10 +191,15 @@
   "block_pattern": {
 
     "test_VisualOnly_block": {
-      "is_practice_condition": true,
+      "is_practice_condition": false,
       "is_sequence_randomized": true,
       "trial_sequence": [
-        "test_VisualOnly_trial_A1"
+        "test_VisualOnly_trial_A10",
+        "test_VisualOnly_trial_A10",
+        "test_VisualOnly_trial_A11",
+        "test_VisualOnly_trial_A11",
+        "test_VisualOnly_trial_A12",
+        "test_VisualOnly_trial_A12"
       ]
     },
 
@@ -216,14 +233,6 @@
   },
 
   "block_sequence": [
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
-    "test_VisualOnly_block",
     "test_VisualOnly_block",
     "test_VisualOnly_block"
   ]

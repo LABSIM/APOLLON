@@ -481,7 +481,7 @@ namespace Labsim.apollon.experiment.profile
                 } /* if() */
 
                 // reset
-                seat_bridge.Dispatcher.RaiseStop();
+                //seat_bridge.Dispatcher.RaiseStop();
                 seat_bridge.Dispatcher.RaiseReset();
                 
                 // fade out from black for vestibular-only scenario

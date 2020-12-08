@@ -131,28 +131,35 @@ namespace Labsim.apollon.gameplay.entity
                 this._parent.Chrono.Restart();
 
                 // virtual world setup
+                // - user dependant PoV offset : height + depth
                 // - max angular velocity aka. saturation point
                 // - CenterOf -Rotation/Mass offset --> chair settings
                 // - perfect world == no dampening/drag & no gravity 
-                float PoV_offset = 0.0f;
-                if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_offset"].ToString(), out PoV_offset))
-                {
+                float PoV_height_offset = 0.0f, PoV_depth_offset = 0.0f;
+                if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
+                    || !float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
+                ) {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Yellow>Warning: </color> ApollonActiveSeatEntityBehaviour.AccelerateController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset to default value [ "
-                        + PoV_offset
+                        "<color=Yellow>Warning: </color> ApollonActiveSeatEntityBehaviour.AccelerateController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
+                        + PoV_height_offset 
+                        + ","
+                        + PoV_depth_offset
                         + " ]"
                     );
 
                 } /* if() */
-                
-                this._rigidbody.maxAngularVelocity = this._parent.AngularVelocitySaturation.magnitude;
+                this._rigidbody.maxAngularVelocity = this._parent.AngularVelocitySaturation.x;
                 this._rigidbody.centerOfMass 
-                    = UnityEngine.Vector3.up 
-                    * ( 
-                        /* absolute center of view */ 2.0f 
-                        /* offset PoV to meter     */- ( PoV_offset / 100.0f ) 
+                    = (
+                        UnityEngine.Vector3.up 
+                        * ( 
+                            /* absolute center of view */ 2.0f 
+                            /* offset PoV to meter     */- ( PoV_height_offset / 100.0f ) 
+                        )
+                    ) + (
+                        UnityEngine.Vector3.forward * (PoV_depth_offset / 100.0f)
                     );
                 this._rigidbody.angularDrag = 0.0f;
                 this._rigidbody.useGravity = false;
@@ -216,13 +223,13 @@ namespace Labsim.apollon.gameplay.entity
                             "<color=Blue>Info: </color> ApollonActiveSeatEntityBehaviour.AccelerateController.FixedUpdate() : stimulation duration/angle reached, raise stop event"
                         );
 
-                        // notify saturation event
+                        // notify stop event
                         this._parent.Bridge.Dispatcher.RaiseStop();
                     }
                     else
                     {
                         
-                        // continuous accel
+                        // continuous perfect world acceleration
                         this._rigidbody.AddTorque(this._parent.AngularAcceleration, UnityEngine.ForceMode.Acceleration);
 
                     } /* if() */
