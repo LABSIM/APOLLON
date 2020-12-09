@@ -195,10 +195,7 @@
       "is_sequence_randomized": true,
       "trial_sequence": [
         "test_VisualOnly_trial_A10",
-        "test_VisualOnly_trial_A10",
         "test_VisualOnly_trial_A11",
-        "test_VisualOnly_trial_A11",
-        "test_VisualOnly_trial_A12",
         "test_VisualOnly_trial_A12"
       ]
     },

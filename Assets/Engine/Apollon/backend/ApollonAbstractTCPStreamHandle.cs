@@ -86,9 +86,9 @@ namespace Labsim.apollon.backend
                         (sender, e) => {
 
                             UnityEngine.Debug.Log(
-                               "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process output message ["
+                               "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process output message {"
                                + e.Data
-                               + "]"
+                               + "}"
                            );
                         }
                     );
@@ -96,9 +96,9 @@ namespace Labsim.apollon.backend
                         (sender, e) => {
 
                             UnityEngine.Debug.LogError(
-                               "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process error message ["
+                               "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process error message {"
                                + e.Data
-                               + "]"
+                               + "}"
                            );
                         }
                     );
@@ -175,34 +175,39 @@ namespace Labsim.apollon.backend
             // encapsulate
             try
             {
+                
+                // wait for process end
+                if (!this.TCPClientProcess.HasExited)
+                {
 
-                //// save output to file
-                //using (
-                //    System.IO.StreamWriter log_file
-                //        = new System.IO.StreamWriter(
-                //            System.IO.Path.Combine(
-                //                UnityEngine.Application.streamingAssetsPath,
-                //                "Apollon-feature-IxxatCAN/Apollon-feature-IxxatCAN-client.log"
-                //            ),
-                //            /* overriding */ false,
-                //            System.Text.Encoding.UTF8
-                //        )
-                //)
-                //{
-                //    log_file.Write(
-                //        this.TCPClientProcess.StandardOutput.ReadToEnd()
-                //    );
+                    // discard cached information about the process.
+                    this.TCPClientProcess.Refresh();
+                    this.TCPClientProcess.WaitForExit();
 
-                //} /* using */
+                } /* if() */
 
-                // close
-                this.TCPStream.Close();
-                _server.Stop();
+                // cancel output/error redirection
+                this.TCPClientProcess.CancelOutputRead();
+                this.TCPClientProcess.CancelErrorRead();
+
+                // close process by sending a close message to its main window.
+                this.TCPClientProcess.CloseMainWindow();
+
+                // free resources associated with process.
                 this.TCPClientProcess.Close();
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Close() : close TCP system system OK !"
+                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Close() : close client process OK !"
+                );
+
+                // end server
+                this.TCPStream.Close();
+                _server.Stop();
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Close() : close TCP server OK !"
                 );
 
                 // success

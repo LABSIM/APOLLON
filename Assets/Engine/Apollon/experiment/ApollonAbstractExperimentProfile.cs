@@ -408,8 +408,8 @@ namespace Labsim.apollon.experiment
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
 #else
-            Application.Quit();
-#endif	
+            UnityEngine.Application.Quit();
+#endif
 
         } /* onExperimentSessionEnd() */
 
