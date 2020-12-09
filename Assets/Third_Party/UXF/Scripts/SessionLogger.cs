@@ -17,6 +17,21 @@ namespace UXF
 		private FileIOManager fileIOManager;
 		private DataTable table;
 
+        private int m_mainThreadID;
+        private bool IsMainThread
+        {
+            get
+            {
+                return (
+                    System.Threading.Thread.CurrentThread.ManagedThreadId == this.m_mainThreadID
+                );
+            }
+        }
+        private void Start()
+        {
+            this.m_mainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+        }
+
         void Awake()
 		{
 			AttachReferences(
@@ -44,8 +59,11 @@ namespace UXF
 		{
 			table = new DataTable();
 			table.Columns.Add(
-				new DataColumn("timestamp", typeof(string))
+				new DataColumn("host_timestamp", typeof(string))
 			);
+            table.Columns.Add(
+                new DataColumn("unity_timestamp", typeof(float))
+            );
             table.Columns.Add(
                 new DataColumn("log_type", typeof(string))
             );
@@ -63,7 +81,8 @@ namespace UXF
             // instantiate a row
 			DataRow row = table.NewRow();
 
-            row["timestamp"] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            row["host_timestamp"] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            row["unity_timestamp"] = this.IsMainThread ? UnityEngine.Time.time : -1.0f;
             row["log_type"] = type.ToString();
             row["message"] = logString.Replace(",", string.Empty);
             

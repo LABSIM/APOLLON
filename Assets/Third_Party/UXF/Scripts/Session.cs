@@ -334,7 +334,7 @@ namespace UXF
         /// <summary>
         /// The headers that are always included in the trial_results output.
         /// </summary>
-        static List<string> baseHeaders = new List<string> { "directory", "experiment", "ppid", "session_num", "trial_num", "block_num", "trial_num_in_block", "start_time", "end_time" };
+        static List<string> baseHeaders = new List<string> { "directory", "experiment", "ppid", "session_num", "trial_num", "block_num", "trial_num_in_block", "host_start_time", "host_end_time", "unity_start_time", "unity_end_time" };
 
         /// <summary>
         /// Reference to the associated FileIOManager which deals with inputting and outputting files.

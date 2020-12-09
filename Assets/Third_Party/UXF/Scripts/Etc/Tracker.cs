@@ -53,9 +53,10 @@ namespace UXF
         { 
             get
             {
-                var newHeader = new string[customHeader.Length + 1];
-                newHeader[0] = "time";
-                customHeader.CopyTo(newHeader, 1);
+                var newHeader = new string[customHeader.Length + 2];
+                newHeader[0] = "host_time";
+                newHeader[1] = "unity_time";
+                customHeader.CopyTo(newHeader, 2);
                 return newHeader;
             }
         } 
@@ -85,10 +86,11 @@ namespace UXF
                 if (values.Length != customHeader.Length)
                     throw new System.InvalidOperationException(string.Format("GetCurrentValues provided {0} values but expected the same as the number of headers! {1}", values.Length, customHeader.Length));
 
-                string[] row = new string[values.Length + 1];
+                string[] row = new string[values.Length + 2];
 
-                row[0] = Time.time.ToString();
-                values.CopyTo(row, 1);
+                row[0] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+                row[1] = Time.time.ToString();
+                values.CopyTo(row, 2);
 
                 data.Add(row);
             }

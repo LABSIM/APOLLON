@@ -66,7 +66,10 @@ namespace Labsim.apollon.experiment.profile
                 user_command;
 
             public float
-                user_perception_timestamp;
+                user_perception_unity_timestamp;
+
+            public string
+                user_perception_host_timestamp;
 
             public UnityEngine.AudioClip
                 user_clip;
@@ -374,11 +377,11 @@ namespace Labsim.apollon.experiment.profile
                     } /* if() */
 
                     // synchronisation mechanism (TCS + local function)
-                    TaskCompletionSource<(bool, float)> sync_point = new TaskCompletionSource<(bool, float)>();
+                    TaskCompletionSource<(bool, float, string)> sync_point = new TaskCompletionSource<(bool, float, string)>();
                     void sync_user_response_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
-                        => sync_point?.TrySetResult((true, UnityEngine.Time.time));
+                        => sync_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
                     void sync_end_stim_local_function(object sender, gameplay.entity.ApollonActiveSeatEntityDispatcher.EventArgs e)
-                        => sync_point?.TrySetResult((false, -1.0f));
+                        => sync_point?.TrySetResult((false, -1.0f, "-1"));
 
                     // register our synchronisation function
                     hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
@@ -402,13 +405,19 @@ namespace Labsim.apollon.experiment.profile
                     );
 
                     // wait synchronisation point indefinitely & reset it once hit
-                    (this.FSM.CurrentResults.user_response, this.FSM.CurrentResults.user_perception_timestamp) = await sync_point.Task;
+                    (
+                        this.FSM.CurrentResults.user_response, 
+                        this.FSM.CurrentResults.user_perception_unity_timestamp,
+                        this.FSM.CurrentResults.user_perception_host_timestamp
+                    ) = await sync_point.Task;
 
                     UnityEngine.Debug.Log(
                         "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.PhaseC.OnEntry() : end stim, result [user_response:"
                         + this.FSM.CurrentResults.user_response
-                        + ",user_perception_timestamp:"
-                        + this.FSM.CurrentResults.user_perception_timestamp
+                        + ",user_perception_unity_timestamp:"
+                        + this.FSM.CurrentResults.user_perception_unity_timestamp
+                        + ",user_perception_host_timestamp:"
+                        + this.FSM.CurrentResults.user_perception_host_timestamp
                         + "]"
                     );
 
@@ -748,7 +757,8 @@ namespace Labsim.apollon.experiment.profile
 
             // write result
             ApollonExperimentManager.Instance.Trial.result["user_response"] = this.CurrentResults.user_response;
-            ApollonExperimentManager.Instance.Trial.result["user_perception_timestamp"] = this.CurrentResults.user_perception_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_host_timestamp"] = this.CurrentResults.user_perception_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_unity_timestamp"] = this.CurrentResults.user_perception_unity_timestamp;
 
             // base call
             base.onExperimentTrialEnd(sender, arg);

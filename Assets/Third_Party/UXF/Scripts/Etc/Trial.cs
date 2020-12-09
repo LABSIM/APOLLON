@@ -82,7 +82,7 @@ namespace UXF
             session.currentBlockNum = block.number;
 
             status = TrialStatus.InProgress;
-            startTime = Time.time;
+            //startTime = Time.time;
             result = new ResultsDictionary(session.Headers, session.adHocHeaderAdd);
 
             result["directory"] = Extensions.CombinePaths(session.experimentName, session.ppid, session.FolderName).Replace('\\', '/');
@@ -92,7 +92,8 @@ namespace UXF
             result["trial_num"] = number;
             result["block_num"] = block.number;
             result["trial_num_in_block"] = numberInBlock;
-            result["start_time"] = startTime;
+            result["host_start_time"] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            result["unity_start_time"] = UnityEngine.Time.time;
 
             foreach (Tracker tracker in session.trackedObjects)
             {
@@ -107,8 +108,10 @@ namespace UXF
         public void End()
         {
             status = TrialStatus.Done;
-            endTime = Time.time;
-            result["end_time"] = endTime;            
+            //endTime = Time.time;
+
+            result["host_end_time"] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            result["unity_end_time"] = UnityEngine.Time.time;
 
             // log tracked objects
             foreach (Tracker tracker in session.trackedObjects)
