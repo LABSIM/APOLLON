@@ -86,9 +86,9 @@ namespace Labsim.apollon.backend
                         (sender, e) => {
 
                             UnityEngine.Debug.Log(
-                               "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process output message {"
-                               + e.Data
-                               + "}"
+                                "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process output message {"
+                                + e.Data
+                                + "}"
                             );
                         }
                     );
@@ -96,9 +96,9 @@ namespace Labsim.apollon.backend
                         (sender, e) => {
 
                             UnityEngine.Debug.LogError(
-                               "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process error message {"
+                                "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process error message {"
                                 + e.Data
-                               + "}"
+                                + "}"
                             );
                         }
                     );
