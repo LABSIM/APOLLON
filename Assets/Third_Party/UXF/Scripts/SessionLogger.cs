@@ -17,7 +17,7 @@ namespace UXF
 		private FileIOManager fileIOManager;
 		private DataTable table;
 
-		void Awake()
+        void Awake()
 		{
 			AttachReferences(
 				newFileIOManager: GetComponent<FileIOManager>(),
@@ -44,7 +44,7 @@ namespace UXF
 		{
 			table = new DataTable();
 			table.Columns.Add(
-				new DataColumn("timestamp", typeof(float))
+				new DataColumn("timestamp", typeof(string))
 			);
             table.Columns.Add(
                 new DataColumn("log_type", typeof(string))
@@ -53,24 +53,31 @@ namespace UXF
                 new DataColumn("message", typeof(string))
             );
 
-            Application.logMessageReceived += HandleLog;
+            Application.logMessageReceivedThreaded += HandleLog;
 			session.cleanUp += Finalise; // finalise logger when cleaning up the session
-		}		
 
-		void HandleLog(string logString, string stackTrace, LogType type)
-		{
-			DataRow row = table.NewRow();
-			row["timestamp"] = Time.time;
-			row["log_type"] = type.ToString();
-			row["message"] = logString.Replace(",", string.Empty);
-			table.Rows.Add(row);
 		}
+        
+        void HandleLog(string logString, string stackTrace, LogType type)
+		{
+            // instantiate a row
+			DataRow row = table.NewRow();
+
+            row["timestamp"] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            row["log_type"] = type.ToString();
+            row["message"] = logString.Replace(",", string.Empty);
+            
+            // finally
+			table.Rows.Add(row);
+
+        } /* HandleLog() */
 
         /// <summary>
         /// Finalises the session logger, saving the data and detaching its logging method from handling Debug.Log messages  
         /// </summary>
         public void Finalise()
 		{
+
             WriteFileInfo fileInfo = new WriteFileInfo(
                 WriteFileType.Log,
                 session.BasePath,
@@ -81,10 +88,11 @@ namespace UXF
                 );
 
 			fileIOManager.ManageInWorker(() => fileIOManager.WriteCSV(table, fileInfo));
-            Application.logMessageReceived -= HandleLog;
+            Application.logMessageReceivedThreaded -= HandleLog;
 			session.cleanUp -= Finalise;
-        }
 
-	}
+        } /* Finalise() */
+
+    }
 
 }

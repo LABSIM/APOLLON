@@ -89,7 +89,7 @@ namespace Labsim.apollon.backend
                                "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process output message {"
                                + e.Data
                                + "}"
-                           );
+                            );
                         }
                     );
                     this.TCPClientProcess.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(
@@ -97,9 +97,9 @@ namespace Labsim.apollon.backend
 
                             UnityEngine.Debug.LogError(
                                "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.TCPClientProcess : process error message {"
-                               + e.Data
+                                + e.Data
                                + "}"
-                           );
+                            );
                         }
                     );
                     this.TCPClientProcess.StartInfo = info;

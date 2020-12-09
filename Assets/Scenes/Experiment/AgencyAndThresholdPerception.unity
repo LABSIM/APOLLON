@@ -1251,6 +1251,11 @@ PrefabInstance:
       propertyPath: _participantDataPoints.Array.data[6].dataType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114463456143749708, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114751166818340394, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onKeypress.m_PersistentCalls.m_Calls.Array.size
@@ -1284,7 +1289,7 @@ PrefabInstance:
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_ReferencePixelsPerUnit
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -1299,22 +1304,22 @@ PrefabInstance:
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_ScreenMatchMode
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_MatchWidthOrHeight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_ReferenceResolution.x
-      value: 1920
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 114779690502013180, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_ReferenceResolution.y
-      value: 1080
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -1354,6 +1359,11 @@ PrefabInstance:
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: endAfterLastTrial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 222123881884579258, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 223012249118332234, guid: 0a3b6392f04558844bd340e68ced1ff9,
