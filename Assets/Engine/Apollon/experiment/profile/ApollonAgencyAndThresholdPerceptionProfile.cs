@@ -611,23 +611,23 @@ namespace Labsim.apollon.experiment.profile
                 ) as backend.handle.ApollonActiveSeatHandle
             ).BeginTrial();
             
-            // activate audio recording if any available
-            if (UnityEngine.Microphone.devices.Length != 0)
-            {
-                // use default device
-                this.CurrentResults.user_clip
-                = UnityEngine.Microphone.Start(
-                    null,
-                    true,
-                    45,
-                    44100
-                );
-            }
+            //// activate audio recording if any available
+            //if (UnityEngine.Microphone.devices.Length != 0)
+            //{
+            //    // use default device
+            //    this.CurrentResults.user_clip
+            //    = UnityEngine.Microphone.Start(
+            //        null,
+            //        true,
+            //        45,
+            //        44100
+            //    );
+            //}
 
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : audio recording started"
-            );
+            //// log
+            //UnityEngine.Debug.Log(
+            //    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : audio recording started"
+            //);
 
             // local
             int currentIdx = ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
@@ -731,29 +731,29 @@ namespace Labsim.apollon.experiment.profile
                 ) as backend.handle.ApollonActiveSeatHandle
             ).EndTrial();
 
-            // stop audio recording & save it, if any available...
-            if (UnityEngine.Microphone.devices.Length != 0)
-            {
+            //// stop audio recording & save it, if any available...
+            //if (UnityEngine.Microphone.devices.Length != 0)
+            //{
 
-                UnityEngine.Microphone.End(null);
-                common.ApollonWavRecorder recorder = new common.ApollonWavRecorder();
-                recorder.Save(
-                    ApollonExperimentManager.Instance.Session.FullPath
-                    + string.Format(
-                        "/{0}_{1}_T{2:000}.wav",
-                        "audioClip",
-                        "DefaultMicrophone",
-                        ApollonExperimentManager.Instance.Session.currentTrialNum
-                    ),
-                    this.CurrentResults.user_clip
-                );
+            //    UnityEngine.Microphone.End(null);
+            //    common.ApollonWavRecorder recorder = new common.ApollonWavRecorder();
+            //    recorder.Save(
+            //        ApollonExperimentManager.Instance.Session.FullPath
+            //        + string.Format(
+            //            "/{0}_{1}_T{2:000}.wav",
+            //            "audioClip",
+            //            "DefaultMicrophone",
+            //            ApollonExperimentManager.Instance.Session.currentTrialNum
+            //        ),
+            //        this.CurrentResults.user_clip
+            //    );
 
-            } /* if() */
+            //} /* if() */
 
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : audio recording stopped, writing result"
-            );
+            //// log
+            //UnityEngine.Debug.Log(
+            //    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : audio recording stopped, writing result"
+            //);
 
             // write result
             ApollonExperimentManager.Instance.Trial.result["user_response"] = this.CurrentResults.user_response;

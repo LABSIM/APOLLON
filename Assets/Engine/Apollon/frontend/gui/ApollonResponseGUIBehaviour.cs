@@ -21,21 +21,21 @@ namespace Labsim.apollon.frontend.gui
 
         void OnEnable()
         {
-            gameObject.GetComponent<Hover.InterfaceModules.Panel.HoverpanelRowTransitioner>().OnRowSwitched(Hover.InterfaceModules.Panel.HoverpanelRowSwitchingInfo.RowEntryType.SlideFromBottom);
+            //gameObject.GetComponent<Hover.InterfaceModules.Panel.HoverpanelRowTransitioner>().OnRowSwitched(Hover.InterfaceModules.Panel.HoverpanelRowSwitchingInfo.RowEntryType.SlideFromBottom);
         }
 
         void OnDisable()
         {
-            gameObject.GetComponent<Hover.InterfaceModules.Panel.HoverpanelRowTransitioner>().TransitionProgress = 0.0f;
+            //gameObject.GetComponent<Hover.InterfaceModules.Panel.HoverpanelRowTransitioner>().TransitionProgress = 0.0f;
         }
 
-        public void OnItemSelected(Hover.Core.Items.Types.IItemDataSelectable item)
-        {
+        //public void OnItemSelected(Hover.Core.Items.Types.IItemDataSelectable item)
+        //{
 
-            // follow call !
-            (experiment.ApollonExperimentManager.Instance.Profile as experiment.profile.ApollonAgencyAndTBWExperimentProfile).DoRespondToUserResponse(item.Id);
+        //    // follow call !
+        //    (experiment.ApollonExperimentManager.Instance.Profile as experiment.profile.ApollonAgencyAndTBWExperimentProfile).DoRespondToUserResponse(item.Id);
 
-        } /* OnItemSelected() */
+        //} /* OnItemSelected() */
 
     } /* public class ApollonResponseGUIBehaviour */
 
