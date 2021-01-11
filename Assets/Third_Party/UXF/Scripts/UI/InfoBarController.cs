@@ -12,7 +12,7 @@ namespace UXF
 
         public Session session;
 
-        public Text trialStatus, folder, blockNum, trialNum;
+        public Text trialStatus, folder, blockNum, trialNum, userCommand;
 
         /// <summary>
 		/// Awake is called when the script instance is being loaded.
@@ -40,6 +40,7 @@ namespace UXF
             trialStatus.text = "Awaiting session start";
             trialNum.text = FormatProgress("Trial", 0, 0);
 			blockNum.text = FormatProgress("Block", 0, 0);
+            userCommand.text = "User Command (+/-) ??/??";
         }
 
         void SessionBegin(Session session)
@@ -57,7 +58,23 @@ namespace UXF
 
         void TrialEnd(Trial trial)
         {
-            trialStatus.text = "Trial finished";
+            trialStatus.text 
+                = "Trial finished";
+            userCommand.text
+                = "User Command (+/-) "
+                + (
+                    (Labsim.apollon.experiment.profile.ApollonAgencyAndThresholdPerceptionProfile)
+                    Labsim.apollon.experiment.ApollonExperimentManager.Instance.getBridge(
+                        Labsim.apollon.experiment.ApollonExperimentManager.ProfileIDType.AgencyAndThresholdPerception
+                    )
+                ).positiveConditionCount
+                + "/"
+                + (
+                    (Labsim.apollon.experiment.profile.ApollonAgencyAndThresholdPerceptionProfile)
+                    Labsim.apollon.experiment.ApollonExperimentManager.Instance.getBridge(
+                        Labsim.apollon.experiment.ApollonExperimentManager.ProfileIDType.AgencyAndThresholdPerception
+                    )
+                ).negativeConditionCount;
         }
 
         void SessionEnd(Session session)

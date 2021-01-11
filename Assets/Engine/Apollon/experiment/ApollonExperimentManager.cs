@@ -68,7 +68,7 @@ namespace Labsim.apollon.experiment
                     } /* if() */
 
                     // add to tables
-                    this._experimentTable.Add(type.FullName, profile);
+                    this._experimentTable.Add(profile.ID.ToString(), profile);
                     this._experimentState.Add(profile.ID, false);
 
                     // bind event

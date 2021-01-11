@@ -5,7 +5,6 @@ namespace Labsim.apollon.experiment.profile
     
     public class ApollonAgencyAndTBWExperimentProfile : ApollonAbstractExperimentProfile
     {
-        
         // Ctor
         public ApollonAgencyAndTBWExperimentProfile()
             : base()

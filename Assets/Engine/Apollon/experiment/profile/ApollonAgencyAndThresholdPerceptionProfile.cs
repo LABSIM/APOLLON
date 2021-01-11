@@ -47,7 +47,8 @@ namespace Labsim.apollon.experiment.profile
 
             public float
                 phase_A_duration,
-                phase_B_begin_stim_timeout,
+                phase_B_begin_stim_timeout_lower_bound,
+                phase_B_begin_stim_timeout_upper_bound,
                 phase_C_max_stim_duration,
                 phase_C_max_stim_angle,
                 phase_C_angular_acceleration,
@@ -81,6 +82,11 @@ namespace Labsim.apollon.experiment.profile
         // properties
         public Settings CurrentSettings { get; } = new Settings();
         public Results CurrentResults { get; set; } = new Results();
+
+        // fast hack
+        public uint
+            positiveConditionCount = 0,
+            negativeConditionCount = 0;
 
         #endregion
 
@@ -233,6 +239,16 @@ namespace Labsim.apollon.experiment.profile
                     // wait synchronisation point indefinitely & reset it once hit
                     this.FSM.CurrentResults.user_command = await sync_point.Task;
 
+                    // hack
+                    if (this.FSM.CurrentResults.user_command > 0)
+                    {
+                        this.FSM.positiveConditionCount++;
+                    }
+                    else
+                    {
+                        this.FSM.negativeConditionCount++;
+                    }
+
                     // unregister our synchronisation function
                     (
                         gameplay.ApollonGameplayManager.Instance.getBridge(
@@ -303,8 +319,22 @@ namespace Labsim.apollon.experiment.profile
                     "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.PhaseB.OnEntry() : begin"
                 );
 
-                // wait a certain amout of time
-                await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_B_begin_stim_timeout);
+                // get a (Unity) bounded random amount of time to wait
+                float bounded_random_timeout
+                    = UnityEngine.Random.Range(
+                        this.FSM.CurrentSettings.phase_B_begin_stim_timeout_lower_bound,
+                        this.FSM.CurrentSettings.phase_B_begin_stim_timeout_upper_bound
+                    );
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.PhaseB.OnEntry() : will wait " 
+                    + bounded_random_timeout
+                    + " ms"
+                );
+
+                // wait a certain amout of time between each bound
+                await this.FSM.DoSleep(bounded_random_timeout);
 
                 // log
                 UnityEngine.Debug.Log(
@@ -507,7 +537,7 @@ namespace Labsim.apollon.experiment.profile
                 } /* if() */
 
                 // reset
-                //seat_bridge.Dispatcher.RaiseStop();
+                seat_bridge.Dispatcher.RaiseStop();
                 seat_bridge.Dispatcher.RaiseReset();
                 
                 // fade out from black for vestibular-only scenario
@@ -677,15 +707,16 @@ namespace Labsim.apollon.experiment.profile
             } /* switch() */
 
             // extract trial settings
-            this.CurrentSettings.bIsTryCatch                          = arg.Trial.settings.GetBool("is_catch_try_condition");
-            this.CurrentSettings.bIsActive                            = arg.Trial.settings.GetBool("is_active_condition");
-            this.CurrentSettings.phase_A_duration                     = arg.Trial.settings.GetFloat("phase_A_duration_ms");
-            this.CurrentSettings.phase_B_begin_stim_timeout           = arg.Trial.settings.GetFloat("phase_B_begin_stim_timeout_ms");
-            this.CurrentSettings.phase_C_max_stim_duration            = arg.Trial.settings.GetFloat("phase_C_max_stim_duration_ms");
-            this.CurrentSettings.phase_C_max_stim_angle               = arg.Trial.settings.GetFloat("phase_C_max_stim_angle_deg");
-            this.CurrentSettings.phase_C_angular_acceleration         = arg.Trial.settings.GetFloat("phase_C_angular_acceleration_deg_per_s2");
-            this.CurrentSettings.phase_C_angular_saturation_speed     = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s");
-            this.CurrentSettings.phase_D_duration                     = arg.Trial.settings.GetFloat("phase_D_duration_ms");
+            this.CurrentSettings.bIsTryCatch                            = arg.Trial.settings.GetBool("is_catch_try_condition");
+            this.CurrentSettings.bIsActive                              = arg.Trial.settings.GetBool("is_active_condition");
+            this.CurrentSettings.phase_A_duration                       = arg.Trial.settings.GetFloat("phase_A_duration_ms");
+            this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound = arg.Trial.settings.GetFloat("phase_B_begin_stim_timeout_lower_bound_ms");
+            this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound = arg.Trial.settings.GetFloat("phase_B_begin_stim_timeout_upper_bound_ms");
+            this.CurrentSettings.phase_C_max_stim_duration              = arg.Trial.settings.GetFloat("phase_C_max_stim_duration_ms");
+            this.CurrentSettings.phase_C_max_stim_angle                 = arg.Trial.settings.GetFloat("phase_C_max_stim_angle_deg");
+            this.CurrentSettings.phase_C_angular_acceleration           = arg.Trial.settings.GetFloat("phase_C_angular_acceleration_deg_per_s2");
+            this.CurrentSettings.phase_C_angular_saturation_speed       = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s");
+            this.CurrentSettings.phase_D_duration                       = arg.Trial.settings.GetFloat("phase_D_duration_ms");
             
             // log the
             UnityEngine.Debug.Log(
@@ -696,7 +727,8 @@ namespace Labsim.apollon.experiment.profile
                 + "\n - bIsActive : " + this.CurrentSettings.bIsActive
                 + "\n - scenario_name : " + ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
                 + "\n - phase_A_duration : " + this.CurrentSettings.phase_A_duration
-                + "\n - phase_B_begin_stim_timeout : " + this.CurrentSettings.phase_B_begin_stim_timeout
+                + "\n - phase_B_begin_stim_timeout_lower_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound
+                + "\n - phase_B_begin_stim_timeout_upper_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound
                 + "\n - phase_C_max_stim_duration : " + this.CurrentSettings.phase_C_max_stim_duration
                 + "\n - phase_C_max_stim_angle : " + this.CurrentSettings.phase_C_max_stim_angle
                 + "\n - phase_C_angular_acceleration : " + this.CurrentSettings.phase_C_angular_acceleration
