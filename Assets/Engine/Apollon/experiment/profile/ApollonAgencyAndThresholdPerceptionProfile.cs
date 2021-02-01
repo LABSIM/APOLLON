@@ -111,35 +111,41 @@ namespace Labsim.apollon.experiment.profile
                     "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.Phase0.OnEntry() : begin"
                 );
 
-                // synchronisation mechanism (TCS + local function)
-                TaskCompletionSource<bool> sync_point = new TaskCompletionSource<bool>();
-                void sync_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
-                    => sync_point?.TrySetResult(true);
+                // if active condition 
+                if (this.FSM.CurrentSettings.bIsActive)
+                {
 
-                // register our synchronisation function
-                (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
-                    ) as gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorBridge
-                ).Dispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
+                    // synchronisation mechanism (TCS + local function)
+                    TaskCompletionSource<bool> sync_point = new TaskCompletionSource<bool>();
+                    void sync_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
+                        => sync_point?.TrySetResult(true);
 
-                // show grey cross & frame
-                frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
-                frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+                    // register our synchronisation function
+                    (
+                        gameplay.ApollonGameplayManager.Instance.getBridge(
+                            gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
+                        ) as gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorBridge
+                    ).Dispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
 
-                // wait synchronisation point indefinitely & reset it once hit
-                await sync_point.Task;
+                    // show grey cross & frame
+                    frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+                    frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
 
-                // hide grey cross & frame
-                frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
-                frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
-                
-                // unregister our synchronisation function
-                (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
-                    ) as gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorBridge
-                ).Dispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
+                    // wait synchronisation point indefinitely & reset it once hit
+                    await sync_point.Task;
+
+                    // hide grey cross & frame
+                    frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+                    frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+
+                    // unregister our synchronisation function
+                    (
+                        gameplay.ApollonGameplayManager.Instance.getBridge(
+                            gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
+                        ) as gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorBridge
+                    ).Dispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
+
+                } /* if() */
 
                 // log
                 UnityEngine.Debug.Log(
@@ -536,9 +542,8 @@ namespace Labsim.apollon.experiment.profile
 
                 } /* if() */
 
-                // reset
+                // stop movement
                 seat_bridge.Dispatcher.RaiseStop();
-                seat_bridge.Dispatcher.RaiseReset();
                 
                 // fade out from black for vestibular-only scenario
                 if (this.FSM.CurrentSettings.scenario_type == Settings.ScenarioIDType.VestibularOnly)
@@ -582,6 +587,29 @@ namespace Labsim.apollon.experiment.profile
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.PhaseD.OnExit() : begin"
                 );
+
+                // get bridge
+                gameplay.entity.ApollonActiveSeatEntityBridge seat_bridge
+                    = gameplay.ApollonGameplayManager.Instance.getBridge(
+                        gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
+                    ) as gameplay.entity.ApollonActiveSeatEntityBridge;
+
+                // check
+                if (seat_bridge == null)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> ApollonAgencyAndThresholdPerceptionProfile.PhaseD.OnExit() : Could not find corresponding gameplay bridge !"
+                    );
+
+                    // fail
+                    return;
+
+                } /* if() */
+
+                // finally reset
+                seat_bridge.Dispatcher.RaiseReset();
 
                 // log
                 UnityEngine.Debug.Log(

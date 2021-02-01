@@ -302,11 +302,14 @@ namespace Labsim.apollon.experiment
 
             } /* if () */
 
-            // check chrono && start a certain amount of time after session begin
+            // check chrono && start a certain amount of time after session begin exept for the first one
             if ((this._trial_chrono_is_running)
-                && (this._trial_chrono.ElapsedMilliseconds >= this._trial_sleep_duration)
-            )
-            {
+                && (
+                    (this._trial_chrono.ElapsedMilliseconds >= this._trial_sleep_duration)
+                    || (this._trial_requested_type == TrialType.First)
+                )
+            ) {
+
                 // stop & reset chrono then fall running
                 this._trial_chrono.Stop();
                 this._trial_chrono.Reset();
@@ -370,20 +373,20 @@ namespace Labsim.apollon.experiment
         public virtual void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
-            // fade in
-            this.DoFadeIn(this._trial_fade_in_duration);
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionBegin() : fade in (to black) ok"
-            );
-
             // call config factories
             this.DoSessionConfiguration(arg.Session);
 
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionBegin() : configuration ok"
+            );
+
+            // fade in
+            this.DoFadeIn(this._trial_fade_in_duration);
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionBegin() : fade in (to black) ok"
             );
 
             // request
