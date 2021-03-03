@@ -82,7 +82,7 @@ namespace Labsim.apollon.gameplay.device.sensor
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).OnEnable();
 
                 // add them a bridge delegate
-                //(this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["ValueChanged"].performed += this.OnAxisZValueChanged;
+                (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["ValueChanged"].performed += this.OnAxisZValueChanged;
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["NeutralCommandTriggered"].performed += this.OnUserNeutralCommandTriggered;
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["PositiveCommandTriggered"].performed += this.OnUserPositiveCommandTriggered;
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["NegativeCommandTriggered"].performed += this.OnUserNegativeCommandTriggered;
@@ -96,7 +96,7 @@ namespace Labsim.apollon.gameplay.device.sensor
                 if (!this.Behaviour.isActiveAndEnabled) { return; }
 
                 // remove them from bridge delegate
-                //(this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["ValueChanged"].performed -= this.OnAxisZValueChanged;
+                (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["ValueChanged"].performed -= this.OnAxisZValueChanged;
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["NeutralCommandTriggered"].performed -= this.OnUserNeutralCommandTriggered;
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["PositiveCommandTriggered"].performed -= this.OnUserPositiveCommandTriggered;
                 (this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour).ActionMap["NegativeCommandTriggered"].performed -= this.OnUserNegativeCommandTriggered;
@@ -123,15 +123,22 @@ namespace Labsim.apollon.gameplay.device.sensor
         private void OnAxisZValueChanged(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
            
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonHOTASWarthogThrottleSensorBridge.OnAxisZValueChanged() : event triggered ! [value:"
-                + context.ReadValue<float>()
-                + "]"
-            );
-
             // dispatch event
             this.Dispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
+
+            // update filtered tracker pos:rot
+            var behaviour = this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour;
+            if(behaviour && behaviour.FilteredZAxisTracker) 
+            {
+                behaviour.FilteredZAxisTracker.transform.SetPositionAndRotation(
+                    /* default */ 
+                    behaviour.FilteredZAxisTracker.transform.position,
+                    /* invert Z axe */
+                    UnityEngine.Quaternion.Euler( 
+                        UnityEngine.Vector3.right * context.ReadValue<float>()
+                    )
+                );
+            }
 
         } /* OnAxisZValueChanged() */
 

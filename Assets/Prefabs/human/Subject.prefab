@@ -71,6 +71,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -86,6 +91,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -98,16 +108,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1429728536131650682, guid: c116b7497ab8ca34c9188965d4295e27,
         type: 3}
@@ -136,13 +136,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4789619294268497533, guid: c116b7497ab8ca34c9188965d4295e27,
         type: 3}
-      propertyPath: m_RequestedTrackingMode
+      propertyPath: m_TrackingSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789619294268497533, guid: c116b7497ab8ca34c9188965d4295e27,
+        type: 3}
+      propertyPath: m_TrackingOriginMode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4789619294268497533, guid: c116b7497ab8ca34c9188965d4295e27,
         type: 3}
-      propertyPath: m_TrackingSpace
-      value: 1
+      propertyPath: m_RequestedTrackingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5843497292548984443, guid: c116b7497ab8ca34c9188965d4295e27,
         type: 3}

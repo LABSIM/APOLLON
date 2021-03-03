@@ -191,6 +191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -206,6 +211,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -218,16 +228,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2396646484106929530, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
@@ -251,13 +251,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7046300139819953046, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
-      propertyPath: m_RequestedTrackingMode
-      value: 2
+      propertyPath: m_TrackingSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7046300139819953046, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
-      propertyPath: m_TrackingSpace
-      value: 1
+      propertyPath: m_RequestedTrackingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8253775142010470573, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}

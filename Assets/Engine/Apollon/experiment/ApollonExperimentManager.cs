@@ -259,10 +259,13 @@ namespace Labsim.apollon.experiment
             None = 0,
 
             [System.ComponentModel.Description("AgencyAndTBW")]
-            AgencyAndTBW = 1,
+            AgencyAndTBW,
 
             [System.ComponentModel.Description("AgencyAndThresholdPerception")]
-            AgencyAndThresholdPerception = 2
+            AgencyAndThresholdPerception,
+
+            [System.ComponentModel.Description("CAVIAR")]
+            CAVIAR
 
         } /* enum*/
 
@@ -408,22 +411,45 @@ namespace Labsim.apollon.experiment
             // switch to active profile
             switch(this.Session.settings.GetString("APOLLON_profile"))
             {
-                case "AgencyAndTBW":
-                {
+
+                 // Agency And TBW
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndTBW), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+
                     UnityEngine.Debug.Log(
                         "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [AgencyAndTBW]"
                     );
                     this.setActiveProfile(ProfileIDType.AgencyAndTBW);
                     break;
                 }
-                case "AgencyAndThresholdPerception":
-                {
+
+                 // AgencyAndThresholdPerception
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndThresholdPerception), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
                     UnityEngine.Debug.Log(
                         "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [AgencyAndThresholdPerception]"
                     );
                     this.setActiveProfile(ProfileIDType.AgencyAndThresholdPerception);
                     break;
                 }
+
+                 // CAVIAR
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.CAVIAR), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [CAVIAR]"
+                    );
+                    this.setActiveProfile(ProfileIDType.CAVIAR);
+                    break;
+                }
+
                 default:
                 {
                     UnityEngine.Debug.LogError(
