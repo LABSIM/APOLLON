@@ -150,17 +150,11 @@ namespace Labsim.apollon.gameplay.entity
                     );
 
                 } /* if() */
+                // setup current user Center of mass relative to actual transform position in order to keep Line of Sight aligned with crosses
+                this._rigidbody.centerOfMass
+                    += (UnityEngine.Vector3.down * (PoV_height_offset / 100.0f))
+                    + (UnityEngine.Vector3.forward * (PoV_depth_offset / 100.0f));
                 this._rigidbody.maxAngularVelocity = this._parent.AngularVelocitySaturation.x;
-                this._rigidbody.centerOfMass 
-                    = (
-                        UnityEngine.Vector3.up 
-                        * ( 
-                            /* absolute center of view */ 2.0f 
-                            /* offset PoV to meter     */- ( PoV_height_offset / 100.0f ) 
-                        )
-                    ) + (
-                        UnityEngine.Vector3.forward * (PoV_depth_offset / 100.0f)
-                    );
                 this._rigidbody.angularDrag = 0.0f;
                 this._rigidbody.useGravity = false;
                 
