@@ -291,7 +291,10 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.SimulatedRobosoftEntity, false },
                 { GameplayIDType.RealRobosoftEntity, false },
                 { GameplayIDType.ActiveSeatEntity, false },
+                { GameplayIDType.CAVIAREntity, false },
                 { GameplayIDType.HOTASWarthogThrottleSensor, false },
+                { GameplayIDType.RadioSondeSensor, false },
+                { GameplayIDType.FogElement, false },
                 { GameplayIDType.All, false }
             };
 
@@ -320,6 +323,9 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("WorldElement")]
             WorldElement,
 
+            [System.ComponentModel.Description("FogElement")]
+            FogElement,
+
             [System.ComponentModel.Description("SimulatedRobosoftEntity")]
             SimulatedRobosoftEntity,
 
@@ -329,8 +335,14 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("ActiveSeatEntity")]
             ActiveSeatEntity,
 
+            [System.ComponentModel.Description("CAVIAREntity")]
+            CAVIAREntity,
+
             [System.ComponentModel.Description("HOTASWarthogThrottleSensor")]
             HOTASWarthogThrottleSensor,
+
+            [System.ComponentModel.Description("RadioSondeSensor")]
+            RadioSondeSensor,
 
             [System.ComponentModel.Description("All")]
             All

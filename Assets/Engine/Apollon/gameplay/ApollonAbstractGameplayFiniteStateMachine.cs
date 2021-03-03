@@ -36,6 +36,6 @@ namespace Labsim.apollon.gameplay
             
         } /* SetState() */
 
-    } /* actract class ApollonAbstractGameplayFiniteStateMachine */
+    } /* abstract class ApollonAbstractGameplayFiniteStateMachine */
 
 } /* namespace Labsim.apollon.gameplay */

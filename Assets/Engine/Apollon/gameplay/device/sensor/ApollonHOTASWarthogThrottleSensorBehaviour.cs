@@ -9,6 +9,11 @@ namespace Labsim.apollon.gameplay.device.sensor
         : UnityEngine.MonoBehaviour
     {
 
+        [UnityEngine.SerializeField]
+        public UnityEngine.GameObject RawZAxisTracker = null; 
+        [UnityEngine.SerializeField]
+        public UnityEngine.GameObject FilteredZAxisTracker = null; 
+
         #region properties/members
 
         public UnityEngine.InputSystem.Users.InputUser User { private set; get; }
@@ -142,26 +147,22 @@ namespace Labsim.apollon.gameplay.device.sensor
 
             // instantiate actions 
 
-            //this.ActionMap.AddAction(
-            //    name: "ValueChanged",
-            //    type: UnityEngine.InputSystem.InputActionType.Value
-            //).AddBinding(
-            //    this.Z
-            //).WithProcessors(
-            //     "DualNormalize(positive_min="
-            //    + System.Math.Abs(this.m_settings_neutral_value)
-            //    + ",positive_max="
-            //    + this.m_settings_maximum_value
-            //    + ",negative_min="
-            //    + (-System.Math.Abs(this.m_settings_neutral_value))
-            //    + ",negative_max="
-            //    + this.m_settings_minimum_value
-            //    + "),AxisDeadzone(min="
-            //    + (this.Threshold / 2.0f)
-            //    + ",max="
-            //    + (1.0f - this.Threshold)
-            //    + "),Invert()"
-            //);
+            this.ActionMap.AddAction(
+               name: "ValueChanged",
+               type: UnityEngine.InputSystem.InputActionType.Value
+            ).AddBinding(
+               this.Z
+            ).WithProcessors(
+                "DualNormalize(positive_min="
+               + System.Math.Abs(this.m_settings_neutral_value)
+               + ",positive_max="
+               + this.m_settings_maximum_value
+               + ",negative_min="
+               + (-System.Math.Abs(this.m_settings_neutral_value))
+               + ",negative_max="
+               + this.m_settings_minimum_value
+               + "),Invert()"
+            );
 
             this.ActionMap.AddAction(
                 name: "NeutralCommandTriggered",
@@ -307,6 +308,23 @@ namespace Labsim.apollon.gameplay.device.sensor
         {
 
         }
+
+        private void FixedUpdate() 
+        {
+
+            if(this.RawZAxisTracker) 
+            {
+                this.RawZAxisTracker.transform.SetPositionAndRotation(
+                    /* default */ 
+                    this.RawZAxisTracker.transform.position,
+                    /* invert Z axe */
+                    UnityEngine.Quaternion.Euler( 
+                        UnityEngine.Vector3.right * this.Z.ReadValue()
+                    )
+                );
+            } /* if() */
+
+        } /* FixedUpdate() */
 
         private void Awake()
         {

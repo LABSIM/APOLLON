@@ -43,3 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ab17d78dcd99d40926212f4c10e343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RawZAxisTracker: {fileID: 0}
+  FilteredZAxisTracker: {fileID: 0}
