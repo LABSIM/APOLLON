@@ -84,9 +84,9 @@ namespace Labsim.apollon.gameplay.entity
                 } /* if() */
 
                 // initialize our rigidbody
-                this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, this._parent.InitialRotation);
                 this._rigidbody.ResetCenterOfMass();
                 this._rigidbody.ResetInertiaTensor();
+                this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, this._parent.InitialRotation);
                 this._rigidbody.constraints 
                     = (
                         UnityEngine.RigidbodyConstraints.FreezePositionX 
@@ -96,6 +96,8 @@ namespace Labsim.apollon.gameplay.entity
                 this._rigidbody.useGravity = this._rigidbody.isKinematic = false;
                 this._rigidbody.interpolation = UnityEngine.RigidbodyInterpolation.None;
                 this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
+                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
                 this._rigidbody.velocity = this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
                 // log
@@ -156,6 +158,7 @@ namespace Labsim.apollon.gameplay.entity
         {
 
             private ApollonCAVIAREntityBehaviour _parent = null;
+            private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
             {
@@ -174,7 +177,9 @@ namespace Labsim.apollon.gameplay.entity
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null
+                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                )
                 {
 
                     // log
@@ -191,6 +196,11 @@ namespace Labsim.apollon.gameplay.entity
 
                 } /* if() */
                 
+                // zero velocity, acceleration & enforce velocity
+                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                this._rigidbody.velocity = UnityEngine.Vector3.zero;
+
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnEnable() : end"
@@ -333,19 +343,21 @@ namespace Labsim.apollon.gameplay.entity
 
             private void FixedUpdate()
             {
-
-                // check if saturation point is reached
-                if (this._rigidbody.velocity.magnitude <= this._parent.TargetLinearVelocity.magnitude)
-                {
+                
+                // check if saturation point is reached or if == 0.0
+                if ((this._rigidbody.velocity.magnitude <= this._parent.TargetLinearVelocity.magnitude)
+                    || (this._rigidbody.velocity.z <= 0.0f)
+                ) {
                     
                     // check if empty speed
-                    if (this._parent.TargetLinearVelocity.magnitude < 0.01f)
+                    if (this._parent.TargetLinearVelocity.magnitude < 0.1f)
                     {
 
                         // log
                         UnityEngine.Debug.Log(
                             "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.DecelerateController.FixedUpdate() : linear saturation velocity reached with no speed detected, raise idle event"
                         );
+                        
 
                         // notify Idle event
                         this._parent.Bridge.Dispatcher.RaiseIdle();
@@ -466,7 +478,7 @@ namespace Labsim.apollon.gameplay.entity
         {
             
             // skip if it hasn't been initialized 
-            if (!this.m_bHasInitialized)
+            if (this.m_bHasInitialized)
             {
 
                 // log

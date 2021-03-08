@@ -62,11 +62,6 @@ namespace Labsim.apollon.experiment.phase
                 + "]"
             );
 
-            // inactivate HOTAS
-            gameplay.ApollonGameplayManager.Instance.setInactive(
-                gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
-            );
-
             // show red cross
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 

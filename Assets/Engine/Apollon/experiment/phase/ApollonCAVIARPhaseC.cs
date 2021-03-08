@@ -57,26 +57,70 @@ namespace Labsim.apollon.experiment.phase
 
                 // projected grid
                 default:
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Grille: {
-                    we_behaviour.References["GridProjector"].SetActive(true);
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Grille:
+                {
+                    we_behaviour.References["VCTag_Grid"].SetActive(true);
+                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
+                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
+                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
+                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 
-                // 3D object
-                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet3D: {
-                    we_behaviour.References["GridProjector"].SetActive(false);
+                // 3D object - tetrahedre [default]
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet3D_Tetrahedre:
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet3D:
+                {
+                    we_behaviour.References["VCTag_Grid"].SetActive(false);
+                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(true);
+                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
+                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
+                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 
-                // 2D object
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet2D: {
-                    we_behaviour.References["GridProjector"].SetActive(false);
+                // 3D object - cube
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet3D_Cube:
+                {
+                    we_behaviour.References["VCTag_Grid"].SetActive(false);
+                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
+                    we_behaviour.References["VCTag_3DCube"].SetActive(true);
+                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
+                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
+                    break;
+                }
+
+                // 2D object - square [default]
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet2D_Square:
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet2D:
+                {
+                    we_behaviour.References["VCTag_Grid"].SetActive(false);
+                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
+                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
+                    we_behaviour.References["VCTag_2DSquare"].SetActive(true);
+                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
+                    break;
+                }
+
+                // 2D object - circle
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Objet2D_Circle:
+                {
+                    we_behaviour.References["VCTag_Grid"].SetActive(false);
+                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
+                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
+                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
+                    we_behaviour.References["VCTag_2DCircle"].SetActive(true);
                     break;
                 }
 
                 // Controle
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Controle: {
-                    we_behaviour.References["GridProjector"].SetActive(false);
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Controle:
+                {
+                    we_behaviour.References["VCTag_Grid"].SetActive(false);
+                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
+                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
+                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
+                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 

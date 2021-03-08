@@ -38,8 +38,20 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("Objet3D")]
                 Objet3D,
 
+                [System.ComponentModel.Description("Objet3D_Tetrahedre")]
+                Objet3D_Tetrahedre,
+
+                [System.ComponentModel.Description("Objet3D_Cube")]
+                Objet3D_Cube,
+
                 [System.ComponentModel.Description("Objet2D")]
                 Objet2D,
+
+                [System.ComponentModel.Description("Objet2D_Circle")]
+                Objet2D_Circle,
+
+                [System.ComponentModel.Description("Objet2D_Square")]
+                Objet2D_Square
 
             } /* enum */
                 
@@ -132,7 +144,9 @@ namespace Labsim.apollon.experiment.profile
 
             // activate current database
             var db_str = arg.Session.settings.GetString("database_name");
-            
+            var db_origin_position = arg.Session.settings.GetFloatList("database_origin_position");
+            var db_origin_orientation = arg.Session.settings.GetFloatList("database_origin_orientation");
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : found settings database name ["
@@ -152,7 +166,22 @@ namespace Labsim.apollon.experiment.profile
                     "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : found game object, activating"
                 );
 
+                we_behaviour.References["DBTag_Default"].SetActive(false);
                 we_behaviour.References[db_str].SetActive(true);
+                we_behaviour.References[db_str].transform.SetPositionAndRotation(
+                    new UnityEngine.Vector3(
+                        db_origin_position[0],
+                        db_origin_position[1],
+                        db_origin_position[2]
+                    ),
+                    UnityEngine.Quaternion.Euler(
+                        new UnityEngine.Vector3(
+                            db_origin_orientation[0],
+                            db_origin_orientation[1],
+                            db_origin_orientation[2]
+                        )
+                    )
+                );
 
             } 
             else 
@@ -234,7 +263,25 @@ namespace Labsim.apollon.experiment.profile
                         break;
                     }
 
-                    // 3D object
+                    // 3D object - cube
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet3D_Cube),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        current_cue = Settings.VisualCueIDType.Objet3D_Cube;
+                        break;
+                    }
+
+                    // 3D object - tetrahedre
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet3D_Tetrahedre),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        current_cue = Settings.VisualCueIDType.Objet3D_Tetrahedre;
+                        break;
+                    }
+
+                    // 3D object - default
                     case string param when param.Equals(
                         ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet3D), 
                         System.StringComparison.InvariantCultureIgnoreCase
@@ -243,7 +290,26 @@ namespace Labsim.apollon.experiment.profile
                         break;
                     }
 
-                    // 2D object
+                    // 2D object - circle
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet2D_Circle),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        current_cue = Settings.VisualCueIDType.Objet2D_Circle;
+                        break;
+                    }
+
+
+                    // 2D object - square
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet2D_Square),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        current_cue = Settings.VisualCueIDType.Objet2D_Square;
+                        break;
+                    }
+
+                    // 2D object - default
                     case string param when param.Equals(
                         ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet2D), 
                         System.StringComparison.InvariantCultureIgnoreCase

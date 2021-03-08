@@ -139,8 +139,8 @@ namespace Labsim.apollon.experiment.phase
 
             // apply fog
             fog_bridge.Dispatcher.RaiseSmoothLinearFogRequested(
-                this.FSM.CurrentSettings.phase_C_settings.First().fog_start_distance,
-                this.FSM.CurrentSettings.phase_C_settings.First().fog_end_distance,
+                this.FSM.CurrentSettings.phase_C_settings[this.NextID].fog_start_distance,
+                this.FSM.CurrentSettings.phase_C_settings[this.NextID].fog_end_distance,
                 UnityEngine.Color.white,
                 phase_duration
             );

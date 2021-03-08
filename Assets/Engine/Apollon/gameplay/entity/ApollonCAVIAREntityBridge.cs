@@ -25,7 +25,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
+                    "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.WrapBehaviour() : could not find object of type behaviour.ApollonCAVIAREntityBehaviour from Unity."
                 );
 
                 return null;
@@ -115,7 +115,7 @@ namespace Labsim.apollon.gameplay.entity
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
                 this.Behaviour.enabled = false;
-
+                
             } /* if() */
 
         } /* SetActive() */

@@ -25,10 +25,8 @@ namespace Labsim.apollon.experiment.phase
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseF.OnEntry() : begin"
             );
 
-            // inactivate entity
-            gameplay.ApollonGameplayManager.Instance.setInactive(
-                gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity
-            );
+            // inactivate HOTAS
+            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor);
 
             // show grey cross & frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
@@ -40,6 +38,9 @@ namespace Labsim.apollon.experiment.phase
             // hide grey cross & frame
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+
+            // inactivate 
+            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity);
 
             // log
             UnityEngine.Debug.Log(
@@ -55,7 +56,7 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseF.OnExit() : begin"
             );
-            
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseF.OnExit() : end"
