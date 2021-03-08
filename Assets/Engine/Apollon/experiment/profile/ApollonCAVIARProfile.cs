@@ -30,28 +30,28 @@ namespace Labsim.apollon.experiment.profile
                 Undefined = 0,
 
                 [System.ComponentModel.Description("Controle")]
-                Controle,
-
-                [System.ComponentModel.Description("Grille")]
-                Grille,
+                Control,
 
                 [System.ComponentModel.Description("Objet3D")]
-                Objet3D,
+                VC3D,
 
                 [System.ComponentModel.Description("Objet3D_Tetrahedre")]
-                Objet3D_Tetrahedre,
+                VC3DTetrahedre,
 
                 [System.ComponentModel.Description("Objet3D_Cube")]
-                Objet3D_Cube,
+                VC3DCube,
 
                 [System.ComponentModel.Description("Objet2D")]
-                Objet2D,
+                VC2D,
 
-                [System.ComponentModel.Description("Objet2D_Circle")]
-                Objet2D_Circle,
+                [System.ComponentModel.Description("Objet2D_Grille")]
+                VC2DGrid,
 
-                [System.ComponentModel.Description("Objet2D_Square")]
-                Objet2D_Square
+                [System.ComponentModel.Description("Objet2D_Cercle")]
+                VC2DCircle,
+
+                [System.ComponentModel.Description("Objet2D_Carre")]
+                VC2DSquare
 
             } /* enum */
                 
@@ -135,38 +135,67 @@ namespace Labsim.apollon.experiment.profile
 
         #region abstract implementation
 
-        public override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        //public override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        //{
+        //    // log
+        //    UnityEngine.Debug.Log(
+        //        "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : begin"
+        //    );
+            
+        //    // base call
+        //    base.onExperimentSessionBegin(sender, arg);
+
+            
+        //    // log
+        //    UnityEngine.Debug.Log(
+        //        "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : end"
+        //    );
+
+        //} /* onExperimentSessionBegin() */
+
+        public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
+
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : begin"
+                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : begin"
             );
 
             // activate current database
-            var db_str = arg.Session.settings.GetString("database_name");
-            var db_origin_position = arg.Session.settings.GetFloatList("database_origin_position");
-            var db_origin_orientation = arg.Session.settings.GetFloatList("database_origin_orientation");
+            var db_str = arg.Trial.settings.GetString("database_name");
+            var db_origin_position = arg.Trial.settings.GetFloatList("database_origin_position");
+            var db_origin_orientation = arg.Trial.settings.GetFloatList("database_origin_orientation");
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : found settings database name ["
+                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found settings database name ["
                     + db_str
                 + "], try finding the only associated game object tag"
             );
-            
+
+            // get bridge
             var we_behaviour
                  = gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
                 ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
-            if(we_behaviour.References[db_str] != null) 
+            
+            // LINQ request
+            foreach (var db_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("DBTag_")).Select(kvp => kvp.Value))
             {
-                
+                // inactivate all first
+                db_ref.SetActive(false);
+            }
+
+            // then activate only requested
+            if (we_behaviour.References[db_str] != null)
+            {
+
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : found game object, activating"
+                    "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found game object, activating"
                 );
 
-                we_behaviour.References["DBTag_Default"].SetActive(false);
+                //we_behaviour.References["DBTag_Default"].SetActive(false);
                 we_behaviour.References[db_str].SetActive(true);
                 we_behaviour.References[db_str].transform.SetPositionAndRotation(
                     new UnityEngine.Vector3(
@@ -183,35 +212,17 @@ namespace Labsim.apollon.experiment.profile
                     )
                 );
 
-            } 
-            else 
+            }
+            else
             {
 
                 // log
                 UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : could not find requested game object by name, error..."
+                    "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : could not find requested game object by name, error..."
                 );
 
             } /* if() */
 
-            // base call
-            base.onExperimentSessionBegin(sender, arg);
-
-            
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : end"
-            );
-
-        } /* onExperimentSessionBegin() */
-
-        public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
-        {
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : begin"
-            );
-            
             //// activate audio recording if any available
             //if (UnityEngine.Microphone.devices.Length != 0)
             //{
@@ -254,76 +265,76 @@ namespace Labsim.apollon.experiment.profile
                 switch (arg.Trial.settings.GetString("phase_C" + idx + "_visual_cue_type_string"))
                 {
 
-                    // projected grid
-                    case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Grille), 
-                        System.StringComparison.InvariantCultureIgnoreCase
-                    ) : {
-                        current_cue = Settings.VisualCueIDType.Grille;
-                        break;
-                    }
-
                     // 3D object - cube
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet3D_Cube),
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3DCube),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Objet3D_Cube;
+                        current_cue = Settings.VisualCueIDType.VC3DCube;
                         break;
                     }
 
                     // 3D object - tetrahedre
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet3D_Tetrahedre),
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3DTetrahedre),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Objet3D_Tetrahedre;
+                        current_cue = Settings.VisualCueIDType.VC3DTetrahedre;
                         break;
                     }
 
                     // 3D object - default
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet3D), 
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3D), 
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Objet3D;
+                        current_cue = Settings.VisualCueIDType.VC3D;
+                        break;
+                    }
+
+                    // 2D object - grid
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DGrid),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        current_cue = Settings.VisualCueIDType.VC2DGrid;
                         break;
                     }
 
                     // 2D object - circle
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet2D_Circle),
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DCircle),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Objet2D_Circle;
+                        current_cue = Settings.VisualCueIDType.VC2DCircle;
                         break;
                     }
 
 
                     // 2D object - square
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet2D_Square),
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DSquare),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Objet2D_Square;
+                        current_cue = Settings.VisualCueIDType.VC2DSquare;
                         break;
                     }
 
                     // 2D object - default
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Objet2D), 
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2D), 
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Objet2D;
+                        current_cue = Settings.VisualCueIDType.VC2D;
                         break;
                     }
 
                     // Controle
                     case string param when param.Equals(
-                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Controle), 
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Control), 
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        current_cue = Settings.VisualCueIDType.Controle;
+                        current_cue = Settings.VisualCueIDType.Control;
                         break;
                     }
 
@@ -382,7 +393,7 @@ namespace Labsim.apollon.experiment.profile
             gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
            
-            // activate world, CAVIAR entity, Radiosonde sensor, HOTAS Trotthle
+            // activate world, CAVIAR entity, Radiosonde sensor, HOTAS Throttle
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity);
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor);

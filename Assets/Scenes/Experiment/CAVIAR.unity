@@ -1433,7 +1433,7 @@ Projector:
   m_FieldOfView: 90
   m_AspectRatio: 1
   m_Orthographic: 1
-  m_OrthographicSize: 20
+  m_OrthographicSize: 5
   m_Material: {fileID: 2100000, guid: f2799ff84ee50d4488822e63a888e56d, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
@@ -2454,7 +2454,7 @@ Projector:
   m_FieldOfView: 90
   m_AspectRatio: 1
   m_Orthographic: 1
-  m_OrthographicSize: 20
+  m_OrthographicSize: 0.5
   m_Material: {fileID: 2100000, guid: 179b9ffeeb5c00840ae0bac38d845efb, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
@@ -3116,7 +3116,7 @@ Projector:
   m_FieldOfView: 90
   m_AspectRatio: 1
   m_Orthographic: 1
-  m_OrthographicSize: 20
+  m_OrthographicSize: 25
   m_Material: {fileID: 2100000, guid: c7d1a73cf0f423947bae4e238665d9c5, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2

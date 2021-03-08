@@ -514,13 +514,13 @@ namespace Labsim.apollon.gameplay.entity
             UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : begin");
             
             // skip if no experimental setup is found necessary
-            if (experiment.ApollonExperimentManager.Instance.Session == null) return;
+            if (experiment.ApollonExperimentManager.Instance.Trial == null) return;
 
             // get global session settings
             this.m_settings_pilotable_target_elevation_value
-                = experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("pilotable_target_elevation_meter");
+                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_target_elevation_meter");
             this.m_settings_pilotable_half_range_value
-                = experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("pilotable_half_range_meter");
+                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_half_range_meter");
 
             // instantiate state controller components
             var idle = this.gameObject.AddComponent<IdleController>();
