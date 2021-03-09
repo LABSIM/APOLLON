@@ -51,39 +51,28 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
                 ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
 
-            // setup visual cue
-            switch(phase_settings.visual_cue_type)
+            // inactivate all visual cues through LINQ request
+            foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
             {
-                // 3D object - all
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3D:
-                {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(false);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(true);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(true);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
-                    break;
-                }
+                vc_ref.SetActive(false);
+            }
 
-                // 3D object - tetrahedre
+            // setup visual cue
+            switch (phase_settings.visual_cue_type)
+            {
+
+                // 3D object - tetrahedre / default
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3D:
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DTetrahedre:
                 {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(false);
                     we_behaviour.References["VCTag_3DTetrahedre"].SetActive(true);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 
                 // 3D object - cube
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DCube:
                 {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(false);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
                     we_behaviour.References["VCTag_3DCube"].SetActive(true);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 
@@ -91,11 +80,7 @@ namespace Labsim.apollon.experiment.phase
                 // 2D Object - all
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2D:
                 {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(true);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(true);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(true);
+                    we_behaviour.References["VCTag_2DCombined"].SetActive(true);
                     break;
                 }
 
@@ -104,31 +89,19 @@ namespace Labsim.apollon.experiment.phase
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DGrid:
                 {
                     we_behaviour.References["VCTag_2DGrid"].SetActive(true);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 
                 // 2D object - square
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DSquare:
                 {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(false);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
                     we_behaviour.References["VCTag_2DSquare"].SetActive(true);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 
                 // 2D object - circle
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DCircle:
                 {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(false);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
                     we_behaviour.References["VCTag_2DCircle"].SetActive(true);
                     break;
                 }
@@ -136,11 +109,6 @@ namespace Labsim.apollon.experiment.phase
                 // Controle
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Control:
                 {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(false);
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(false);
-                    we_behaviour.References["VCTag_3DCube"].SetActive(false);
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(false);
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(false);
                     break;
                 }
 

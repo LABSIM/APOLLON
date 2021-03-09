@@ -256,8 +256,12 @@ namespace Labsim.apollon.experiment.profile
                 + "\n - phase_E_distance : " + this.CurrentSettings.phase_E_distance 
                 + "\n - phase_F_duration : " + this.CurrentSettings.phase_F_duration;
 
+            // clean arrays
+            this.CurrentSettings.phase_C_settings.Clear();
+            this.CurrentResults.phase_C_results.Clear();
+
             // instantiate loopable phase ([C -> D] -> [C -> D] -> ...) 
-            for(ushort idx = 0; idx < ApollonCAVIARProfile.InternalPhaseLoopCount; ++idx) 
+            for (ushort idx = 0; idx < ApollonCAVIARProfile.InternalPhaseLoopCount; ++idx) 
             {
 
                 // get current visual cue identifier

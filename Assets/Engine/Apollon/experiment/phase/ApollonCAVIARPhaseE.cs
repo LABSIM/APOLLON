@@ -65,6 +65,16 @@ namespace Labsim.apollon.experiment.phase
             // show red cross
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
+            // inactivate all visual cues through LINQ request
+            var we_behaviour
+                 = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
+            foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
+            {
+                vc_ref.SetActive(false);
+            }
+            
             // decelerate up to stop
             caviar_bridge.Dispatcher.RaiseDecelerate(linear_absolute_deceleration,0.0f);
 
