@@ -82,7 +82,9 @@ namespace Labsim.apollon.gameplay.element
 
     } /* public class ApollonWorldElementBehaviour */
 
-    
+// protect
+#if UNITY_EDITOR
+
     [UnityEditor.CustomEditor(typeof(ApollonWorldElementBehaviour))]
     public class ApollonWorldElementBehaviourEditor 
         : UnityEditor.Editor
@@ -152,5 +154,7 @@ namespace Labsim.apollon.gameplay.element
         } /* OnInspectorGUI() */
 
     } /* class ApollonWorldElementBehaviourEditor */
+
+#endif // UNITY_EDITOR
 
 } /* } Labsim.apollon.ui.element.behaviour */
