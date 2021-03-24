@@ -78,7 +78,7 @@ PlayerSettings:
   hideHomeButton: 0
   submitAnalytics: 1
   usePlayerLog: 1
-  bakeCollisionMeshes: 0
+  bakeCollisionMeshes: 1
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
   resizableWindow: 1
@@ -128,6 +128,10 @@ PlayerSettings:
   bundleVersion: 0.1
   preloadedAssets:
   - {fileID: 11400000, guid: a2a5b738ccd670a4eadf69140c9c8585, type: 2}
+  - {fileID: 919132149155446097, guid: 5ee42110bc5ab9e458514db67715ad38, type: 3}
+  - {fileID: 919132149155446097, guid: e6c82b4537ba4f74e8fe75551c4fc404, type: 3}
+  - {fileID: 919132149155446097, guid: 9b2106bf32078f7499e9b36d4ffe4161, type: 3}
+  - {fileID: 919132149155446097, guid: c64feddb5cff7964c980b436227fae69, type: 3}
   - {fileID: 2360517247514329909, guid: 70aa3c1f569a7f14b8745d27fe11fc44, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0

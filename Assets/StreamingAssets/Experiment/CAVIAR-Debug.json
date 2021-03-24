@@ -18,109 +18,54 @@
 
     "test_3D_debug_trial": {
 
-      "pilotable_target_elevation_meter": 40.0,
-      "pilotable_half_range_meter": 20.0,
+      "pilotable_elevation_above_terrain_meter": 40.0,
+      "pilotable_climb_rate_meter_per_second": 50.0,
 
-      "database_name": "DBTag_CAVIAR_P24TB",
+      "database_name": "DBTag_CAVIAR_P27TB",
       "database_origin_position": [ 0.0, 0.0, 0.0 ],
       "database_origin_orientation": [ 0.0, 0.0, 0.0 ],
-      "database_tree_seed_file": "Arbres_test2",
+      "database_tree_seed_file": "Arbres_densX2",
       "database_object_seed_file": "Objets3D_test2",
 
       "phase_B_distance_meter": 100.0,
 
-      "phase_C0_visual_cue_type_string": "objet3D_tetrahedre",
-      "phase_C0_total_distance_meter": 500.0,
+      "phase_C0_visual_cue_type_string": [ "objet3D_cube", "objet3D_tetrahedre" ],
+      "phase_C0_total_distance_meter": 1000.0,
       "phase_C0_target_velocity_meter_per_s": 30.0,
       "phase_C0_stim_begin_distance_meter": 300.0,
-      "phase_C0_stim_acceleration_meter_per_s2": 3.0,
+      "phase_C0_stim_acceleration_meter_per_s2": 10.0,
       "phase_C0_stim_velocity_meter_per_s": 60.0,
       "phase_C0_fog_start_distance_meter": 0.0,
       "phase_C0_fog_end_distance_meter": 150.0,
 
-      "phase_C1_visual_cue_type_string": "objet3D_cube",
+      "phase_C1_visual_cue_type_string": [ "controle" ],
       "phase_C1_total_distance_meter": 500.0,
       "phase_C1_target_velocity_meter_per_s": 20.0,
       "phase_C1_stim_begin_distance_meter": -1.0,
       "phase_C1_stim_acceleration_meter_per_s2": -1.0,
       "phase_C1_stim_velocity_meter_per_s": -1.0,
       "phase_C1_fog_start_distance_meter": 0.0,
-      "phase_C1_fog_end_distance_meter": 3000.0,
+      "phase_C1_fog_end_distance_meter": 1500.0,
 
-      "phase_C2_visual_cue_type_string": "objet3D_tetrahedre",
-      "phase_C2_total_distance_meter": 500.0,
+      "phase_C2_visual_cue_type_string": [ "objet2D_grille", "objet2D_cercle", "objet2D_carre" ],
+      "phase_C2_total_distance_meter": 1000.0,
       "phase_C2_target_velocity_meter_per_s": 30.0,
       "phase_C2_stim_begin_distance_meter": 300.0,
-      "phase_C2_stim_acceleration_meter_per_s2": 3.0,
+      "phase_C2_stim_acceleration_meter_per_s2": 10.0,
       "phase_C2_stim_velocity_meter_per_s": 60.0,
       "phase_C2_fog_start_distance_meter": 0.0,
       "phase_C2_fog_end_distance_meter": 150.0,
 
-      "phase_C3_visual_cue_type_string": "objet3D_cube",
+      "phase_C3_visual_cue_type_string": [ "controle" ],
       "phase_C3_total_distance_meter": 500.0,
-      "phase_C3_target_velocity_meter_per_s": 60.0,
+      "phase_C3_target_velocity_meter_per_s": 20.0,
       "phase_C3_stim_begin_distance_meter": -1.0,
       "phase_C3_stim_acceleration_meter_per_s2": -1.0,
       "phase_C3_stim_velocity_meter_per_s": -1.0,
       "phase_C3_fog_start_distance_meter": 0.0,
-      "phase_C3_fog_end_distance_meter": 3000.0,
+      "phase_C3_fog_end_distance_meter": 1500.0,
 
-      "phase_D_distance_meter": 50.0,
-      "phase_E_distance_meter": 100.0,
-      "phase_F_duration_ms": 1000.0
-
-    },
-
-    "test_2D_debug_trial": {
-
-      "pilotable_target_elevation_meter": 40.0,
-      "pilotable_half_range_meter": 20.0,
-
-      "database_name": "DBTag_CAVIAR_P20TA",
-      "database_origin_position": [ 0.0, 0.0, 0.0 ],
-      "database_origin_orientation": [ 0.0, 0.0, 0.0 ],
-      "database_tree_seed_file": "Arbres_test2",
-      "database_object_seed_file": "Objets3D_test2",
-
-      "phase_B_distance_meter": 100.0,
-
-      "phase_C0_visual_cue_type_string": "objet2D",
-      "phase_C0_total_distance_meter": 500.0,
-      "phase_C0_target_velocity_meter_per_s": 30.0,
-      "phase_C0_stim_begin_distance_meter": 300.0,
-      "phase_C0_stim_acceleration_meter_per_s2": 3.0,
-      "phase_C0_stim_velocity_meter_per_s": 60.0,
-      "phase_C0_fog_start_distance_meter": 0.0,
-      "phase_C0_fog_end_distance_meter": 150.0,
-
-      "phase_C1_visual_cue_type_string": "objet2D_grille",
-      "phase_C1_total_distance_meter": 500.0,
-      "phase_C1_target_velocity_meter_per_s": 20.0,
-      "phase_C1_stim_begin_distance_meter": -1.0,
-      "phase_C1_stim_acceleration_meter_per_s2": -1.0,
-      "phase_C1_stim_velocity_meter_per_s": -1.0,
-      "phase_C1_fog_start_distance_meter": 0.0,
-      "phase_C1_fog_end_distance_meter": 3000.0,
-
-      "phase_C2_visual_cue_type_string": "objet2D_cercle",
-      "phase_C2_total_distance_meter": 500.0,
-      "phase_C2_target_velocity_meter_per_s": 30.0,
-      "phase_C2_stim_begin_distance_meter": 300.0,
-      "phase_C2_stim_acceleration_meter_per_s2": 3.0,
-      "phase_C2_stim_velocity_meter_per_s": 60.0,
-      "phase_C2_fog_start_distance_meter": 0.0,
-      "phase_C2_fog_end_distance_meter": 150.0,
-
-      "phase_C3_visual_cue_type_string": "objet2D_carre",
-      "phase_C3_total_distance_meter": 500.0,
-      "phase_C3_target_velocity_meter_per_s": 60.0,
-      "phase_C3_stim_begin_distance_meter": -1.0,
-      "phase_C3_stim_acceleration_meter_per_s2": -1.0,
-      "phase_C3_stim_velocity_meter_per_s": -1.0,
-      "phase_C3_fog_start_distance_meter": 0.0,
-      "phase_C3_fog_end_distance_meter": 3000.0,
-
-      "phase_D_distance_meter": 50.0,
+      "phase_D_distance_meter": 100.0,
       "phase_E_distance_meter": 100.0,
       "phase_F_duration_ms": 1000.0
 
@@ -135,7 +80,7 @@
       "is_sequence_randomized": false,
       "trial_sequence": [
         "test_3D_debug_trial",
-        "test_2D_debug_trial"
+        "test_3D_debug_trial"
       ]
     }
 
