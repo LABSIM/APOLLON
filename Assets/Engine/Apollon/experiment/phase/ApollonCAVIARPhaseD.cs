@@ -34,6 +34,10 @@ namespace Labsim.apollon.experiment.phase
                 + "].OnEntry() : begin"
             );
 
+            // save timestamps
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
+           
             // get our entity bridge & settings
             var caviar_bridge
                 = (
@@ -170,7 +174,11 @@ namespace Labsim.apollon.experiment.phase
                 + this.PreviousID + "," + this.NextID 
                 + "].OnExit() : begin"
             );
-            
+
+            // save timestamps
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseD["

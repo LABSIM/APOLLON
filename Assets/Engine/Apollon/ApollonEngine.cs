@@ -698,7 +698,7 @@ namespace Labsim.apollon
 
         #region static useful method
 
-        public static string GetEnumDescription(object enumerationValue)
+        public static string GetEnumDescription<T>(T enumerationValue)
         {
             System.Type type = enumerationValue.GetType();
             if (!type.IsEnum)

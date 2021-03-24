@@ -235,7 +235,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // activate 
                 controller.enabled = true;
-
+                
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.IdleState.OnEntry() : end"
@@ -268,7 +268,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // inactivate 
                 controller.enabled = false;
-
+                
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.IdleState.OnExit() : end"
@@ -312,7 +312,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // activate 
                 controller.enabled = true;
-
+                
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.AccelerateState.OnEntry() : end"
@@ -516,7 +516,7 @@ namespace Labsim.apollon.gameplay.entity
         {
 
             // get behaviour & update altitude
-            (this.Behaviour as ApollonCAVIAREntityBehaviour).SetAltitudeFromThrottleAxisZValue(args.Z);
+            (this.Behaviour as ApollonCAVIAREntityBehaviour).SetUserThrottleAxisZValue(args.Z);
 
         } /* OnThrotthleAxisZValueChanged() */
 

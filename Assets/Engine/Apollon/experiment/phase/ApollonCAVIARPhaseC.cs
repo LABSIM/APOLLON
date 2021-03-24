@@ -30,7 +30,11 @@ namespace Labsim.apollon.experiment.phase
                     + this.CurrentID
                 + "].OnEntry() : begin"
             );
-
+            
+            // save timestamps
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
+           
             // get our entity bridge & our settings
             var caviar_bridge
                 = (
@@ -58,61 +62,65 @@ namespace Labsim.apollon.experiment.phase
             }
 
             // setup visual cue
-            switch (phase_settings.visual_cue_type)
+            foreach (var cue in phase_settings.visual_cue_type)
             {
 
-                // 3D object - tetrahedre / default
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3D:
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DTetrahedre:
+                switch (cue)
                 {
-                    we_behaviour.References["VCTag_3DTetrahedre"].SetActive(true);
-                    break;
-                }
 
-                // 3D object - cube
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DCube:
-                {
-                    we_behaviour.References["VCTag_3DCube"].SetActive(true);
-                    break;
-                }
+                    // 3D object - tetrahedre / default
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3D:
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DTetrahedre:
+                    {
+                        we_behaviour.References["VCTag_3DTetrahedre"].SetActive(true);
+                        break;
+                    }
 
+                    // 3D object - cube
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DCube:
+                    {
+                        we_behaviour.References["VCTag_3DCube"].SetActive(true);
+                        break;
+                    }
+                        
+                    // 2D Object - all
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2D:
+                    {
+                        we_behaviour.References["VCTag_2DCombined"].SetActive(true);
+                        break;
+                    }
 
-                // 2D Object - all
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2D:
-                {
-                    we_behaviour.References["VCTag_2DCombined"].SetActive(true);
-                    break;
-                }
+                    // 2D Object - grid [default]
+                    default:
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DGrid:
+                    {
+                        we_behaviour.References["VCTag_2DGrid"].SetActive(true);
+                        break;
+                    }
 
-                // 2D Object - grid [default]
-                default:
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DGrid:
-                {
-                    we_behaviour.References["VCTag_2DGrid"].SetActive(true);
-                    break;
-                }
+                    // 2D object - square
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DSquare:
+                    {
+                        we_behaviour.References["VCTag_2DSquare"].SetActive(true);
+                        break;
+                    }
 
-                // 2D object - square
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DSquare:
-                {
-                    we_behaviour.References["VCTag_2DSquare"].SetActive(true);
-                    break;
-                }
+                    // 2D object - circle
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DCircle:
+                    {
+                        we_behaviour.References["VCTag_2DCircle"].SetActive(true);
+                        break;
+                    }
 
-                // 2D object - circle
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DCircle:
-                {
-                    we_behaviour.References["VCTag_2DCircle"].SetActive(true);
-                    break;
-                }
+                    // Controle
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Control:
+                    {
+                        break;
+                    }
 
-                // Controle
-                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Control:
-                {
-                    break;
-                }
+                } /* switch() */
 
-            } /* switch() */
+            } /* foreach() */
             
             // save our local origin to world coord depth point
             float current_phase_start_distance
@@ -150,7 +158,7 @@ namespace Labsim.apollon.experiment.phase
             
                 // get our stim begin timestamp from actual target velocity
                 float stim_begin_timestamp = (phase_settings.stim_begin_distance / phase_settings.target_velocity) * 1000.0f;
-                        
+
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
@@ -172,9 +180,14 @@ namespace Labsim.apollon.experiment.phase
                         + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
                     + "]"
                 );
+                
+                // save stim results
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_distance = caviar_bridge.Behaviour.transform.TransformPoint(0.0f, 0.0f, 0.0f).z;
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_unity_timestamp = UnityEngine.Time.time;
 
                 // accelerate/decelerate up to the stim settings or nothing :)
-                if(phase_settings.stim_velocity > phase_settings.target_velocity) 
+                if (phase_settings.stim_velocity > phase_settings.target_velocity) 
                 {
 
                     // log
@@ -233,8 +246,8 @@ namespace Labsim.apollon.experiment.phase
 
             } /* if() */
 
-            // async request notification until
-            await caviar_bridge.DoNotifyWhenWaypointReached(
+            // async task
+            var waypoint_reached_task = caviar_bridge.DoNotifyWhenWaypointReached(
                 current_phase_start_distance + phase_settings.total_distance
             );
 
@@ -250,12 +263,35 @@ namespace Labsim.apollon.experiment.phase
             hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
             caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
             
+            // whatever, we should wait this completion in all cases
+            if (!waypoint_reached_task.IsCompleted)
+            {
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                        + this.CurrentID
+                    + "].OnEntry() : it seems user detected something, wait for waypoint reached."
+                );
+
+                // await waypoint is reached
+                await waypoint_reached_task;
+
+            } /* if() */
+            
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
                     + this.CurrentID
                 + "].OnEntry() : end, current distance["
                     + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
+                + "], phase results ["
+                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_response
+                + ","
+                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance
+                + ","
+                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp
+                + ","
+                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp
                 + "]"
             );
 
@@ -270,7 +306,11 @@ namespace Labsim.apollon.experiment.phase
                     + this.CurrentID
                 + "].OnExit() : begin"
             );
-            
+
+            // save timestamps
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseC["

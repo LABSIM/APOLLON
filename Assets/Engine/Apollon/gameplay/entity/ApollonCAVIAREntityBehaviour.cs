@@ -24,19 +24,13 @@ namespace Labsim.apollon.gameplay.entity
         public ApollonCAVIAREntityBridge Bridge { get; set; }
 
         private bool m_bHasInitialized = false;
-
-        private float 
+        private float
             // altitude de l'appareil {meter}
-            m_settings_pilotable_target_elevation_value = 0.0f,
-            // permet la definition du range de pilotage en altitude {meter}
-            // [
-            //     (session_user_base_elevation - abs(session_user_pilotable_elevation));
-            //     (session_user_base_elevation + abs(session_user_pilotable_elevation))
-            // ]
-            m_settings_pilotable_half_range_value = 0.0f,
+            m_settings_pilotable_elevation_above_terrain = 0.0f,
+            // taux de montee {m.s}
+            m_settings_pilotable_climb_rate = 0.0f,
             // current user command
             m_user_throttle_axis_z_command = 0.0f;
-
 
         #endregion
 
@@ -87,18 +81,21 @@ namespace Labsim.apollon.gameplay.entity
                 this._rigidbody.ResetCenterOfMass();
                 this._rigidbody.ResetInertiaTensor();
                 this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, this._parent.InitialRotation);
-                this._rigidbody.constraints 
+                this._rigidbody.constraints
                     = (
-                        UnityEngine.RigidbodyConstraints.FreezePositionX 
+                        UnityEngine.RigidbodyConstraints.FreezePositionX
                         | UnityEngine.RigidbodyConstraints.FreezeRotation
                     );
-                this._rigidbody.drag = this._rigidbody.angularDrag = 0.0f;
-                this._rigidbody.useGravity = this._rigidbody.isKinematic = false;
+                this._rigidbody.drag = 0.0f;
+                this._rigidbody.angularDrag = 0.0f;
+                this._rigidbody.useGravity = false;
+                this._rigidbody.isKinematic = false;
                 this._rigidbody.interpolation = UnityEngine.RigidbodyInterpolation.None;
                 this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                this._rigidbody.velocity = this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
+                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
 
                 // log
                 UnityEngine.Debug.Log(
@@ -127,11 +124,7 @@ namespace Labsim.apollon.gameplay.entity
                 } /* if() */
                 this._rigidbody.centerOfMass 
                     = (
-                        UnityEngine.Vector3.up 
-                        * ( 
-                            /* absolute center of view */ 2.0f 
-                            /* offset PoV to meter     */- ( PoV_height_offset / 100.0f ) 
-                        )
+                        UnityEngine.Vector3.down * ( PoV_height_offset / 100.0f )
                     ) + (
                         UnityEngine.Vector3.forward * (PoV_depth_offset / 100.0f)
                     );
@@ -195,10 +188,12 @@ namespace Labsim.apollon.gameplay.entity
                     return;
 
                 } /* if() */
-                
+
                 // zero velocity, acceleration & enforce velocity
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
                 this._rigidbody.velocity = UnityEngine.Vector3.zero;
 
                 // log
@@ -207,7 +202,40 @@ namespace Labsim.apollon.gameplay.entity
                 );
 
             } /* OnEnable()*/
-            
+
+            private void OnDisable()
+            {
+                
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnDisable() : begin"
+                );
+
+                // preliminary
+                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                    );
+
+                    // disable
+                    this.gameObject.SetActive(false);
+                    this.enabled = false;
+
+                    // return
+                    return;
+
+                } /* if() */
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnDisable() : end"
+                );
+
+            } /* OnDisable() */
+
         } /* class IdleController */
 
         internal class AccelerateController
@@ -263,8 +291,8 @@ namespace Labsim.apollon.gameplay.entity
             private void FixedUpdate()
             {
 
-                // check if target velocity is reached
-                if (this._rigidbody.velocity.magnitude >= this._parent.TargetLinearVelocity.magnitude)
+                // check if linear target velocity is reached
+                if (this._rigidbody.velocity.z >= this._parent.TargetLinearVelocity.z)
                 {
 
                     // log
@@ -278,12 +306,26 @@ namespace Labsim.apollon.gameplay.entity
                 }
                 else
                 {
-                    
-                    // continuous perfect world acceleration
-                    this._rigidbody.AddForce(
-                        this._parent.TargetLinearAcceleration, 
-                        UnityEngine.ForceMode.Acceleration
-                    );
+
+                    // calculate user command acceleration vector
+                    var user_command_acc
+                        = UnityEngine.Vector3.up
+                            * (
+                                (
+                                    (
+                                        this._parent.m_settings_pilotable_climb_rate 
+                                        * this._parent.m_user_throttle_axis_z_command
+                                    ) 
+                                    - this._rigidbody.velocity.y
+                                )
+                                / UnityEngine.Time.fixedDeltaTime
+                            );
+
+                    // sum up = continuous perfect world acceleration + user command
+                    var final_acc = this._parent.TargetLinearAcceleration + user_command_acc;
+
+                    // assign
+                    this._rigidbody.AddForce(final_acc, UnityEngine.ForceMode.Acceleration);
 
                 } /* if() */
 
@@ -345,7 +387,7 @@ namespace Labsim.apollon.gameplay.entity
             {
                 
                 // check if saturation point is reached or if == 0.0
-                if ((this._rigidbody.velocity.magnitude <= this._parent.TargetLinearVelocity.magnitude)
+                if ((this._rigidbody.velocity.z <= this._parent.TargetLinearVelocity.z)
                     || (this._rigidbody.velocity.z <= 0.0f)
                 ) {
                     
@@ -379,13 +421,27 @@ namespace Labsim.apollon.gameplay.entity
                 }
                 else
                 {
-                    
-                    // continuous perfect world acceleration
-                    this._rigidbody.AddForce(
-                        -1.0f * this._parent.TargetLinearAcceleration, 
-                        UnityEngine.ForceMode.Acceleration
-                    );
 
+                    // calculate user command acceleration vector
+                    var user_command_acc
+                        = UnityEngine.Vector3.up
+                            * (
+                                (
+                                    (
+                                        this._parent.m_settings_pilotable_climb_rate
+                                        * this._parent.m_user_throttle_axis_z_command
+                                    )
+                                    - this._rigidbody.velocity.y
+                                )
+                                / UnityEngine.Time.fixedDeltaTime
+                            );
+
+                    // sum up = continuous perfect world deceleration + user command
+                    var final_acc = (-1.0f * this._parent.TargetLinearAcceleration) + user_command_acc;
+
+                    // assign
+                    this._rigidbody.AddForce(final_acc, UnityEngine.ForceMode.Acceleration);
+                    
                 } /* if() */
 
             } /* FixedUpdate() */
@@ -442,6 +498,28 @@ namespace Labsim.apollon.gameplay.entity
 
             } /* OnEnable()*/
 
+            private void FixedUpdate()
+            {
+
+                // calculate user command acceleration vector
+                var user_command_acc
+                    = UnityEngine.Vector3.up
+                        * (
+                            (
+                                (
+                                    this._parent.m_settings_pilotable_climb_rate
+                                    * this._parent.m_user_throttle_axis_z_command
+                                )
+                                - this._rigidbody.velocity.y
+                            )
+                            / UnityEngine.Time.fixedDeltaTime
+                        );
+
+                // assign
+                this._rigidbody.AddForce(user_command_acc, UnityEngine.ForceMode.Acceleration);
+
+            } /* FixedUpdate() */
+
         } /* class HoldController */
 
         #endregion
@@ -490,20 +568,7 @@ namespace Labsim.apollon.gameplay.entity
             } /* if() */
 
         } /* OnDisable() */
-
-        private void FixedUpdate()
-        {
-
-            // update altitude only
-            var updated = this.Reference.transform.position;
-            updated.y 
-                = this.m_settings_pilotable_target_elevation_value + (
-                    this.m_user_throttle_axis_z_command * this.m_settings_pilotable_half_range_value
-                );
-            this.Reference.transform.position = updated;
-
-        } /* FixedUpdate() */
-
+        
         #endregion
 
         // Init
@@ -517,27 +582,60 @@ namespace Labsim.apollon.gameplay.entity
             if (experiment.ApollonExperimentManager.Instance.Trial == null) return;
 
             // get global session settings
-            this.m_settings_pilotable_target_elevation_value
-                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_target_elevation_meter");
-            this.m_settings_pilotable_half_range_value
-                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_half_range_meter");
+            this.m_settings_pilotable_elevation_above_terrain
+                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_elevation_above_terrain_meter");
+            this.m_settings_pilotable_climb_rate
+                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_climb_rate_meter_per_second");
 
             // instantiate state controller components
-            var idle = this.gameObject.AddComponent<IdleController>();
-            var accelerate = this.gameObject.AddComponent<AccelerateController>();
-            var decelerate = this.gameObject.AddComponent<DecelerateController>();
-            var hold = this.gameObject.AddComponent<HoldController>();
-            
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");
+            this.gameObject.AddComponent<IdleController>();
+            this.gameObject.AddComponent<AccelerateController>();
+            this.gameObject.AddComponent<DecelerateController>();
+            this.gameObject.AddComponent<HoldController>();
+            this.gameObject.AddComponent<InitController>();
+
+            // intersect DB
+            UnityEngine.RaycastHit hit;
+            if (
+                !(
+                    UnityEngine.Physics.Raycast(
+                        origin:
+                            this.Reference.transform.position + (UnityEngine.Vector3.up * 200.0f),
+                        direction:
+                            UnityEngine.Vector3.down,
+                        maxDistance:
+                            UnityEngine.Mathf.Infinity,
+                        hitInfo:
+                            out hit
+                    )
+                )
+            )
+            {
+
+                // log
+                UnityEngine.Debug.LogError("<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.Initialize() : failed to raycast elevation above terrain... exiting.");
+
+                // exit
+                return;
+
+            } /* if() */
+
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : get hit point for elevation above terrain: " + hit.point);
 
             // set & save initial orientation/position
             this.Reference.transform.SetPositionAndRotation(
-                UnityEngine.Vector3.up * this.m_settings_pilotable_target_elevation_value,
+                new UnityEngine.Vector3(
+                    this.Reference.transform.position.x,
+                    (hit.point.y + this.m_settings_pilotable_elevation_above_terrain),
+                    this.Reference.transform.position.z
+                ),
                 UnityEngine.Quaternion.identity
             );
             this.InitialPosition = this.Reference.transform.position;
             this.InitialRotation = this.Reference.transform.rotation;
-
+            
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : state controller added as gameObject's component and position initialized, mark as initialized");
+            
             // switch state
             this.m_bHasInitialized = true;
 
@@ -561,7 +659,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* Close() */
 
-        public void SetAltitudeFromThrottleAxisZValue(float value)
+        public void SetUserThrottleAxisZValue(float value)
         {
 
             // save user command

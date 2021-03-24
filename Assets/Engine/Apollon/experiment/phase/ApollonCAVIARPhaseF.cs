@@ -24,6 +24,10 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseF.OnEntry() : begin"
             );
+            
+            // save timestamps
+            this.FSM.CurrentResults.phase_F_results.timing_on_entry_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_F_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // inactivate HOTAS
             gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor);
@@ -56,6 +60,10 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseF.OnExit() : begin"
             );
+
+            // save timestamps
+            this.FSM.CurrentResults.phase_F_results.timing_on_exit_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_F_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log
             UnityEngine.Debug.Log(

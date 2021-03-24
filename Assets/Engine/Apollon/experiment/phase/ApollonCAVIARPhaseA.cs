@@ -25,6 +25,10 @@ namespace Labsim.apollon.experiment.phase
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnEntry() : begin"
             );
 
+            // save timestamps
+            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
+            
             // synchronisation mechanism (TCS + local function)
             TaskCompletionSource<bool> sync_point = new TaskCompletionSource<bool>();
             void sync_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
@@ -103,7 +107,11 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnExit() : begin"
             );
-            
+
+            // save timestamps
+            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            this.FSM.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnExit() : end"
