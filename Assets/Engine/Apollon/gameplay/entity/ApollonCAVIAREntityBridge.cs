@@ -557,7 +557,7 @@ namespace Labsim.apollon.gameplay.entity
             var behaviour = this.Behaviour as ApollonCAVIAREntityBehaviour;
 
             // set internal settings
-            behaviour.TargetLinearAcceleration = UnityEngine.Vector3.forward * args.LinearAcceleration;
+            behaviour.TargetLinearAcceleration = UnityEngine.Vector3.back * args.LinearAcceleration;
             behaviour.TargetLinearVelocity = UnityEngine.Vector3.forward * args.LinearVelocity;
 
             // activate state

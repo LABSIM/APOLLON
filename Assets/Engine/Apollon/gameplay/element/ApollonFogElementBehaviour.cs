@@ -56,6 +56,7 @@ namespace Labsim.apollon.gameplay.element
                         this.CurrentFogEndDistance = UnityEngine.RenderSettings.fogEndDistance += this.FogEndDistanceIncrement;
                         this.CurrentFogColor = UnityEngine.RenderSettings.fogColor += this.FogColorIncrement;
 
+                        // stop
                         break;
 
                     } /* -default- Linear */

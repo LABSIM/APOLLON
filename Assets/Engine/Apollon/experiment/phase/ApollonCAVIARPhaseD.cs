@@ -52,7 +52,7 @@ namespace Labsim.apollon.experiment.phase
                     ) as gameplay.element.ApollonFogElementBridge
                 );
 
-            // instantate vars & save our local origin to world coord depth point
+            // instantiate vars & save our local origin to world coord depth point
             float 
                 phase_acceleration = 0.0f, 
                 phase_duration = 0.0f,
@@ -62,10 +62,13 @@ namespace Labsim.apollon.experiment.phase
             if(
                 ( 
                     this.FSM.CurrentSettings.phase_C_settings[this.NextID].target_velocity 
-                    - this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].target_velocity
+                    - ( 
+                        (this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].stim_velocity != -1.0f) 
+                        ? this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].stim_velocity
+                        : this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].target_velocity
+                    ) 
                 ) != 0.0f
-            )
-            {
+            ) {
 
                 // get our acceleration value & timestamp
 
@@ -74,7 +77,14 @@ namespace Labsim.apollon.experiment.phase
                     = (
                         (
                             UnityEngine.Mathf.Pow(this.FSM.CurrentSettings.phase_C_settings[this.NextID].target_velocity, 2.0f)
-                            - UnityEngine.Mathf.Pow(this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].target_velocity, 2.0f)
+                            - UnityEngine.Mathf.Pow(
+                                (
+                                    (this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].stim_velocity != -1.0f)
+                                    ? this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].stim_velocity
+                                    : this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].target_velocity
+                                ), 
+                                2.0f
+                            )
                         ) / ( 2.0f *  this.FSM.CurrentSettings.phase_D_distance )
                     );
 
@@ -83,14 +93,19 @@ namespace Labsim.apollon.experiment.phase
                     = ( 
                         (
                             this.FSM.CurrentSettings.phase_C_settings[this.NextID].target_velocity 
-                            -  this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].target_velocity  
+                            - (
+                                (this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].stim_velocity != -1.0f)
+                                ? this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].stim_velocity
+                                : this.FSM.CurrentSettings.phase_C_settings[this.PreviousID].target_velocity
+                            )
                         ) / phase_acceleration 
                     ) * 1000.0f;
                         
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARPhaseD.OnEntry() : calculated following parameter ["
-                    + "phase_acceleration:" 
+                    "<color=Blue>Info: </color>  ApollonCAVIARPhaseD["
+                        + this.PreviousID + "," + this.NextID
+                    + "].OnEntry() : calculated following parameter [phase_acceleration:" 
                         + phase_acceleration 
                     + ",phase_duration:" 
                         + phase_duration

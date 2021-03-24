@@ -437,7 +437,7 @@ namespace Labsim.apollon.gameplay.entity
                             );
 
                     // sum up = continuous perfect world deceleration + user command
-                    var final_acc = (-1.0f * this._parent.TargetLinearAcceleration) + user_command_acc;
+                    var final_acc = (this._parent.TargetLinearAcceleration) + user_command_acc;
 
                     // assign
                     this._rigidbody.AddForce(final_acc, UnityEngine.ForceMode.Acceleration);
