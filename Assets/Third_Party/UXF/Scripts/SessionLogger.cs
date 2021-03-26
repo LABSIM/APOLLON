@@ -18,6 +18,7 @@ namespace UXF
 		private DataTable table;
 
         private int m_mainThreadID;
+
         private bool IsMainThread
         {
             get
@@ -81,7 +82,15 @@ namespace UXF
             // instantiate a row
 			DataRow row = table.NewRow();
 
-            row["host_timestamp"] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+            row["host_timestamp"] = (
+                // from ref point
+                new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
+                    // then add elapsed ticks to ns to ms
+                    UXF.FileIOManager._hr_timer.ElapsedTicks
+                    * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
+                    / 1000000.0
+                )
+            ).ToString("HH:mm:ss.fffffff");
             row["unity_timestamp"] = this.IsMainThread ? UnityEngine.Time.time : -1.0f;
             row["log_type"] = type.ToString();
             row["message"] = logString.Replace(",", string.Empty);

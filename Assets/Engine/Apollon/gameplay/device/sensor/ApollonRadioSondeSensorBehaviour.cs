@@ -8,7 +8,8 @@ namespace Labsim.apollon.gameplay.device.sensor
     {
         
         [UnityEngine.SerializeField]
-        public UnityEngine.GameObject HitPointTracker = null; 
+        public UnityEngine.GameObject HitPointTracker = null;
+        public RadiosondeFrontend RadiosondeFrontend = null;
 
         #region properties/members
 
@@ -106,6 +107,14 @@ namespace Labsim.apollon.gameplay.device.sensor
                     );
 
                 } /* if() */
+
+                if(this.RadiosondeFrontend)
+                {
+                    this.RadiosondeFrontend.SetValue(
+                        //this.transform.position.y - hit.point.y
+                        hit.distance
+                    );
+                }
 
                 // dispatch event
                 this.Bridge.Dispatcher.RaiseHitChangedEvent(

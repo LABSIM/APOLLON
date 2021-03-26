@@ -32,6 +32,9 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("Controle")]
                 Control,
 
+                [System.ComponentModel.Description("HUD_Radiosonde")]
+                VCHUDRadiosonde,
+
                 [System.ComponentModel.Description("Objet3D")]
                 VC3D,
 
@@ -388,6 +391,15 @@ namespace Labsim.apollon.experiment.profile
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.Control);
+                            break;
+                        }
+
+                        // Controle
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDRadiosonde),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VCHUDRadiosonde);
                             break;
                         }
 

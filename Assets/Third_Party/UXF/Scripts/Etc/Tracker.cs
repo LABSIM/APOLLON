@@ -9,7 +9,8 @@ namespace UXF
     /// Create a new class that inherits from this component to create custom tracking behaviour on a frame-by-frame basis.
     /// </summary>
     public abstract class Tracker : MonoBehaviour
-    {
+    { 
+        
         /// <summary>
         /// Name of the object used in saving
         /// </summary>
@@ -68,8 +69,13 @@ namespace UXF
             SetupDescriptorAndHeader();
         }
 
-        // called by unity just before rendering the frame
-        void LateUpdate()
+        //// called by unity just before rendering the frame
+        //void LateUpdate()
+        //{
+        //    RecordRow();
+        //}
+        
+        void FixedUpdate()
         {
             RecordRow();
         }
@@ -88,7 +94,15 @@ namespace UXF
 
                 string[] row = new string[values.Length + 2];
 
-                row[0] = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+                row[0] = (
+                    // from ref point
+                    new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
+                        // then add elapsed ticks to ns to ms
+                        UXF.FileIOManager._hr_timer.ElapsedTicks
+                        * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
+                        / 1000000.0
+                    )
+                ).ToString("HH:mm:ss.fffffff");
                 row[1] = Time.time.ToString();
                 values.CopyTo(row, 2);
 

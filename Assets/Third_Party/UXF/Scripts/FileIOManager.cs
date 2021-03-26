@@ -16,6 +16,11 @@ namespace UXF
     /// </summary>
     public class FileIOManager : MonoBehaviour
     {
+
+        // setup high resolution timer & setup refpoint
+        public static readonly System.DateTime _hr_refpoint = System.DateTime.Now;
+        public static readonly System.Diagnostics.Stopwatch _hr_timer = System.Diagnostics.Stopwatch.StartNew();
+
         /// <summary>
         /// Enable to print debug messages to the console.
         /// </summary>
@@ -49,7 +54,7 @@ namespace UXF
 
 
         void Awake()
-        {   
+        {
             if (!IsActive) Begin();
         }
 

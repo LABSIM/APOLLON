@@ -29,7 +29,7 @@
 
       "phase_B_distance_meter": 100.0,
 
-      "phase_C0_visual_cue_type_string": [ "objet3D_cube" ],
+      "phase_C0_visual_cue_type_string": [ "objet3D_cube", "HUD_radiosonde" ],
       "phase_C0_total_distance_meter": 1000.0,
       "phase_C0_target_velocity_meter_per_s": 30.0,
       "phase_C0_stim_begin_distance_meter": 300.0,
@@ -47,7 +47,7 @@
       "phase_C1_fog_start_distance_meter": 0.0,
       "phase_C1_fog_end_distance_meter": 1500.0,
 
-      "phase_C2_visual_cue_type_string": [ "objet3D_tetrahedre", "objet2D_carre" ],
+      "phase_C2_visual_cue_type_string": [ "objet3D_tetrahedre", "objet2D_carre", "HUD_radiosonde" ],
       "phase_C2_total_distance_meter": 1000.0,
       "phase_C2_target_velocity_meter_per_s": 30.0,
       "phase_C2_stim_begin_distance_meter": 300.0,
