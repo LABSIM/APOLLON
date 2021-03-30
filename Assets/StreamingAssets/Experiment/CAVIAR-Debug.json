@@ -18,10 +18,10 @@
 
     "test_3D_debug_trial": {
 
-      "pilotable_elevation_above_terrain_meter": 20.0,
-      "pilotable_climb_rate_meter_per_second": 40.0,
+      "pilotable_elevation_above_terrain_meter": 15.0,
+      "pilotable_climb_rate_meter_per_second": 25.0,
 
-      "database_name": "DBTag_CAVIAR_P27TA",
+      "database_name": "DBTag_CAVIAR_P30TB",
       "database_origin_position": [ 0.0, 0.0, 0.0 ],
       "database_origin_orientation": [ 0.0, 0.0, 0.0 ],
       "database_tree_seed_file": "Arbres_densX2",
