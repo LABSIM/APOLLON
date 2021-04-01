@@ -1,6 +1,4 @@
-using UXF;
 using System.Linq;
-using System.Threading.Tasks;
 
 // avoid namespace pollution
 namespace Labsim.apollon.experiment.phase
@@ -32,15 +30,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = (
-                // from ref point
-                new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
-                    // then add elapsed ticks to ns to ms
-                    UXF.FileIOManager._hr_timer.ElapsedTicks
-                    * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
-                    / 1000000.0
-                )
-            ).ToString("HH:mm:ss.fffffff");
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = UXF.FileIOManager.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // get our entity bridge & our settings
@@ -142,7 +132,7 @@ namespace Labsim.apollon.experiment.phase
                 = caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z;
 
             // synchronisation mechanism (TCS + local function)
-            TaskCompletionSource<(bool, float,float, string)> sync_point = new TaskCompletionSource<(bool, float, float, string)>();
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
             void sync_user_response_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
                 => sync_point?.TrySetResult((
                     /* detection!  */ 
@@ -198,15 +188,7 @@ namespace Labsim.apollon.experiment.phase
                 
                 // save stim results
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_distance = caviar_bridge.Behaviour.transform.TransformPoint(0.0f, 0.0f, 0.0f).z;
-                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = (
-                    // from ref point
-                    new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
-                        // then add elapsed ticks to ns to ms
-                        UXF.FileIOManager._hr_timer.ElapsedTicks
-                        * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
-                        / 1000000.0
-                    )
-                ).ToString("HH:mm:ss.fffffff");
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = UXF.FileIOManager.CurrentHighResolutionTime;
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_unity_timestamp = UnityEngine.Time.time;
 
                 // accelerate/decelerate up to the stim settings or nothing :)
@@ -331,15 +313,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = (
-                // from ref point
-                new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
-                    // then add elapsed ticks to ns to ms
-                    UXF.FileIOManager._hr_timer.ElapsedTicks
-                    * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
-                    / 1000000.0
-                )
-            ).ToString("HH:mm:ss.fffffff");
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = UXF.FileIOManager.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

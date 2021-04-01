@@ -1,6 +1,4 @@
-using UXF;
 using System.Linq;
-using System.Threading.Tasks;
 
 // avoid namespace pollution
 namespace Labsim.apollon.experiment.phase
@@ -26,15 +24,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = (
-                // from ref point
-                new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
-                    // then add elapsed ticks to ns to ms
-                    UXF.FileIOManager._hr_timer.ElapsedTicks
-                    * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
-                    / 1000000.0
-                )
-            ).ToString("HH:mm:ss.fffffff");
+            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = UXF.FileIOManager.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // get our entity bridge & settings
@@ -128,15 +118,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = (
-                // from ref point
-                new System.DateTime(UXF.FileIOManager._hr_refpoint.Ticks).AddMilliseconds(
-                    // then add elapsed ticks to ns to ms
-                    UXF.FileIOManager._hr_timer.ElapsedTicks
-                    * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
-                    / 1000000.0
-                )
-            ).ToString("HH:mm:ss.fffffff");
+            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = UXF.FileIOManager.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

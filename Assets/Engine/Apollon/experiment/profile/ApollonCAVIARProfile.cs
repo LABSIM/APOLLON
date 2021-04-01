@@ -1,7 +1,4 @@
-﻿using UXF;
-using System.Linq;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Linq;
 
 // avoid namespace pollution
 namespace Labsim.apollon.experiment.profile

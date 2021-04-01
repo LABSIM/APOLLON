@@ -18,8 +18,40 @@ namespace UXF
     {
 
         // setup high resolution timer & setup refpoint
-        public static readonly System.DateTime _hr_refpoint = System.DateTime.Now;
-        public static readonly System.Diagnostics.Stopwatch _hr_timer = System.Diagnostics.Stopwatch.StartNew();
+        private static readonly System.DateTime _hr_refpoint = System.DateTime.Now;
+        private static readonly System.Diagnostics.Stopwatch _hr_timer = System.Diagnostics.Stopwatch.StartNew();
+        public static string CurrentHighResolutionTime
+        {
+            get
+            {
+                // use DateTime facility
+                return new System.DateTime(
+
+                    // from ref point
+                    UXF.FileIOManager._hr_refpoint.Ticks
+
+                //).AddMilliseconds(
+
+                //    // then add elapsed ticks to ns to ms
+                //    UXF.FileIOManager._hr_timer.ElapsedTicks
+                //        * ((1000L * 1000L * 1000L) / System.Diagnostics.Stopwatch.Frequency)
+                //        / 1000000.0
+                ).AddTicks(
+
+                    // then add elapsed ticks to ns to ms
+                    UXF.FileIOManager._hr_timer.ElapsedTicks
+
+                ).ToString(
+                    
+                    // finally, format as a string 
+                    "HH:mm:ss.ffffff"
+
+                );
+                
+            } /* get */
+
+        } /* CurrentHighResolutionTime */
+
 
         /// <summary>
         /// Enable to print debug messages to the console.
