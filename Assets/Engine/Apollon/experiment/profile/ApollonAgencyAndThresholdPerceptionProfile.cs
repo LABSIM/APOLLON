@@ -172,22 +172,35 @@ namespace Labsim.apollon.experiment.profile
             // local
             int currentIdx = ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
 
+            // inactivate all visual cues through LINQ request
+            var we_behaviour
+                 = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
+            foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
+            {
+                vc_ref.SetActive(false);
+            }
+
             // current scenario
             switch (arg.Trial.settings.GetString("scenario_name"))
             {
 
                 case "visual-only":
                 {
+                    we_behaviour.References["VCTag_Fan"].SetActive(true);
                     this.CurrentSettings.scenario_type = Settings.ScenarioIDType.VisualOnly;
                     break;
                 }
                 case "vestibular-only":
                 {
+                    we_behaviour.References["VCTag_Spot"].SetActive(true);
                     this.CurrentSettings.scenario_type = Settings.ScenarioIDType.VestibularOnly;
                     break;
                 }
                 case "visuo-vestibular":
                 {
+                    we_behaviour.References["VCTag_Fan"].SetActive(true);
                     this.CurrentSettings.scenario_type = Settings.ScenarioIDType.VisuoVestibular;
                     break;
                 }
@@ -208,7 +221,10 @@ namespace Labsim.apollon.experiment.profile
             this.CurrentSettings.phase_C_max_stim_duration              = arg.Trial.settings.GetFloat("phase_C_max_stim_duration_ms");
             this.CurrentSettings.phase_C_max_stim_angle                 = arg.Trial.settings.GetFloat("phase_C_max_stim_angle_deg");
             this.CurrentSettings.phase_C_angular_acceleration           = arg.Trial.settings.GetFloat("phase_C_angular_acceleration_deg_per_s2");
-            this.CurrentSettings.phase_C_angular_saturation_speed       = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s");
+            this.CurrentSettings.phase_C_angular_saturation_speed       
+                = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s") == 0.0f 
+                    ? (this.CurrentSettings.phase_C_angular_acceleration * (this.CurrentSettings.phase_C_max_stim_duration / 1000.0f))
+                    : arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s");
             this.CurrentSettings.phase_D_duration                       = arg.Trial.settings.GetFloat("phase_D_duration_ms");
             
             // log the
@@ -233,7 +249,6 @@ namespace Labsim.apollon.experiment.profile
             arg.Trial.result["scenario"] = ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
             arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
            
-
             // activate world, Active seat, HOTAS
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity);

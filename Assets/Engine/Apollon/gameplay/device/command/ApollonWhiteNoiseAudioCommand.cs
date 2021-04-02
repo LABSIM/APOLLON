@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿
 [UnityEngine.RequireComponent(typeof(UnityEngine.AudioLowPassFilter))]
 public class ApollonWhiteNoiseAudioCommand
     : UnityEngine.MonoBehaviour
@@ -50,6 +48,8 @@ public class ApollonWhiteNoiseAudioCommand
         for (int i = 0; i < data.Length; i++)
         {
 
+            // White
+
             // noise
             noisePart = noiseRatio * (float)(rand.NextDouble() * 2.0 - 1.0 + offset);
 
@@ -58,7 +58,7 @@ public class ApollonWhiteNoiseAudioCommand
 
             // tone
             tonalPart = (1f - noiseRatio) * (float)(gain * UnityEngine.Mathf.Sin(phase));
-            
+
             // together
             data[i] = noisePart + tonalPart;
 
@@ -68,14 +68,14 @@ public class ApollonWhiteNoiseAudioCommand
                 data[i + 1] = data[i];
                 i++;
             }
-
+            
         }
 
-    }
+    } /* OnAudioFilterRead() */
 
     void Update()
     {
         lowPassFilter.cutoffFrequency = cutOff ? cutoffOn : cutoffOff;
     }
 
-}
+} /* public class ApollonWhiteNoiseAudioCommand */
