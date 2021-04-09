@@ -242,23 +242,25 @@ namespace Labsim.apollon.experiment.profile
 
         #region abstract implementation
 
-        //public override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
-        //{
-        //    // log
-        //    UnityEngine.Debug.Log(
-        //        "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : begin"
-        //    );
-            
-        //    // base call
-        //    base.onExperimentSessionBegin(sender, arg);
+        public async override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        {
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : begin"
+            );
 
-            
-        //    // log
-        //    UnityEngine.Debug.Log(
-        //        "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : end"
-        //    );
+            // fade in
+            await this.DoFadeIn(2500.0f, false);
 
-        //} /* onExperimentSessionBegin() */
+            // base call
+            base.onExperimentSessionBegin(sender, arg);
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : end"
+            );
+
+        } /* onExperimentSessionBegin() */
 
         public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
@@ -546,6 +548,9 @@ namespace Labsim.apollon.experiment.profile
             // base call
             base.onExperimentTrialBegin(sender, arg);
 
+            // fade out
+            await this.DoFadeOut(this._trial_fade_out_duration, false);
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : end"
@@ -568,7 +573,7 @@ namespace Labsim.apollon.experiment.profile
             
         } /* onExperimentTrialBegin() */
 
-        public override void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -685,6 +690,9 @@ namespace Labsim.apollon.experiment.profile
                 = this.CurrentResults.phase_F_results.timing_on_entry_host_timestamp;
             ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_F_results.timing_on_exit_host_timestamp;
+
+            // fade in
+            await this.DoFadeIn(this._trial_fade_in_duration, false);
 
             // base call
             base.onExperimentTrialEnd(sender, arg);

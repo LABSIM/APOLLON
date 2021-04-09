@@ -97,8 +97,13 @@ namespace Labsim.apollon.experiment.profile
 
         } /* onUpdate() */
 
-        public override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public async override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentSessionBegin() : begin"
+            );
 
             // activate the active chair backend
             backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
@@ -112,13 +117,26 @@ namespace Labsim.apollon.experiment.profile
                 ) as backend.handle.ApollonActiveSeatHandle
             ).BeginSession();
 
+            // fade in
+            await this.DoFadeIn(2500.0f, false);
+
             // base call
             base.onExperimentSessionBegin(sender, arg);
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentSessionBegin() : end"
+            );
+
         } /* onExperimentSessionBegin() */
 
-        public override void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentSessionEnd() : begin"
+            );
 
             // base call
             base.onExperimentSessionEnd(sender, arg);
@@ -135,8 +153,14 @@ namespace Labsim.apollon.experiment.profile
                 backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
             );
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentSessionEnd() : end"
+            );
+
+
         } /* onExperimentSessionEnd() */
-        
+
         public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
             // log
@@ -253,13 +277,16 @@ namespace Labsim.apollon.experiment.profile
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity);
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor);
-            
+
             // base call
             base.onExperimentTrialBegin(sender, arg);
 
+            // fade out
+            await this.DoFadeOut(this._trial_fade_out_duration, false);
+
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : end"
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : end " + UnityEngine.Time.fixedTime
             );
 
             // build protocol
@@ -273,7 +300,7 @@ namespace Labsim.apollon.experiment.profile
             
         } /* onExperimentTrialBegin() */
 
-        public override void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -319,9 +346,12 @@ namespace Labsim.apollon.experiment.profile
             ApollonExperimentManager.Instance.Trial.result["user_perception_host_timestamp"] = this.CurrentResults.user_perception_host_timestamp;
             ApollonExperimentManager.Instance.Trial.result["user_perception_unity_timestamp"] = this.CurrentResults.user_perception_unity_timestamp;
 
+            // fade in
+            await this.DoFadeIn(this._trial_fade_in_duration, false);
+
             // base call
             base.onExperimentTrialEnd(sender, arg);
-
+            
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : end"

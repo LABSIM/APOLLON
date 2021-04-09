@@ -237,23 +237,43 @@ namespace Labsim.apollon.experiment
 
         } /* DoSessionConfiguration() */
     
-        public void DoFadeIn(float duration_in_ms)
+        public async System.Threading.Tasks.Task DoFadeIn(float duration_in_ms, bool bASync = true)
         {
 
             // set start color
             Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.clear, 0f);
+
             // set and start fade to
             Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.black, duration_in_ms / 1000.0f);
 
+            // synchronous
+            if (!bASync)
+            {
+
+                // synchronous wait
+                await this.DoSleep(duration_in_ms);
+
+            } /* if() */
+            
         } /* DoFadeIn() */
 
-        public void DoFadeOut(float duration_in_ms)
+        public async System.Threading.Tasks.Task DoFadeOut(float duration_in_ms, bool bASync = true)
         {
 
-            //set start color
+            // set start color
             Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.black, 0f);
-            //set and start fade to
+
+            // set and start fade to
             Valve.VR.SteamVR_Fade.Start(UnityEngine.Color.clear, duration_in_ms / 1000.0f);
+
+            // synchronous
+            if (!bASync)
+            {
+
+                // synchronous wait
+                await this.DoSleep(duration_in_ms);
+
+            } /* if() */
 
         } /* DoFadeOut() */
 
@@ -261,13 +281,11 @@ namespace Labsim.apollon.experiment
         {
         
             // wait a certain amout of time
-            System.Diagnostics.Stopwatch chrono = new System.Diagnostics.Stopwatch();
-            chrono.Start();
+            var chrono = System.Diagnostics.Stopwatch.StartNew();
             while (chrono.ElapsedMilliseconds < duration_in_ms)
             {
                 await System.Threading.Tasks.Task.Delay(10);
             }
-            chrono.Stop();
 
         } /* DoSleep() */
 
@@ -375,27 +393,14 @@ namespace Labsim.apollon.experiment
 
             // call config factories
             this.DoSessionConfiguration(arg.Session);
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionBegin() : configuration ok"
-            );
-
-            // fade in
-            this.DoFadeIn(this._trial_fade_in_duration);
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentSessionBegin() : fade in (to black) ok"
-            );
-
+            
             // request
             this._trial_requested_type = TrialType.First;
             this._trial_requested = true;
 
         } /* onExperimentSessionBegin() */
 
-        public virtual void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public virtual async void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // inactivate all
@@ -419,27 +424,11 @@ namespace Labsim.apollon.experiment
         public virtual void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
-            // fade out
-            this.DoFadeOut(this._trial_fade_out_duration);
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialBegin() : fade out (from black) ok"
-            );
-
         } /* onExperimentTrialBegin() */
 
         public virtual void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
-
-            // fade in
-            this.DoFadeIn(this._trial_fade_in_duration);
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : fade in (to black) ok"
-            );
-
+            
             // check if there is any trial left
             if (ApollonExperimentManager.Instance.Session.CurrentTrial == ApollonExperimentManager.Instance.Session.LastTrial)
             {
