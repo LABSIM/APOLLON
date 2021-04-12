@@ -51,7 +51,7 @@ namespace Labsim.apollon.experiment.phase
             {
 
                 // run it asynchronously
-                System.Threading.Tasks.Task.Run(() => this.FSM.DoFadeOut(this.FSM.CurrentSettings.phase_D_duration));
+                this.FSM.DoFadeOut(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
 
             } /* if() */
 
