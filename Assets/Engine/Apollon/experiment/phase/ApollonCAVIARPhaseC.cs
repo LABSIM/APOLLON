@@ -131,6 +131,16 @@ namespace Labsim.apollon.experiment.phase
             float current_phase_start_distance
                 = caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z;
 
+            // determine if there is a stim
+            bool bHasStim 
+                = (
+                    !(
+                        (phase_settings.stim_begin_distance == -1.0f)
+                        && (phase_settings.stim_velocity == -1.0f)
+                        && (phase_settings.stim_acceleration == -1.0f)
+                    )
+                ) ? true : false;
+
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
             void sync_user_response_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
@@ -141,8 +151,8 @@ namespace Labsim.apollon.experiment.phase
                     (caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z - current_phase_start_distance),
                     /* unity render timestamp */
                     UnityEngine.Time.time,
-                    /* host timestamp */ 
-                    System.DateTime.Now.ToString("HH:mm:ss.ffffff")
+                    /* host timestamp */
+                    UXF.FileIOManager.CurrentHighResolutionTime
                 ));
             void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
@@ -151,32 +161,76 @@ namespace Labsim.apollon.experiment.phase
             hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
             caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
 
-            // check if there is a stim
-            if( 
-                !(
-                    (phase_settings.stim_begin_distance == -1.0f)
-                    && (phase_settings.stim_velocity == -1.0f)
-                    && (phase_settings.stim_acceleration == -1.0f)
-                )
-            ) 
+            // if stim, phase C [begin; stim]
+            if(bHasStim)
             {
-            
-                // get our stim begin timestamp from actual target velocity
-                float stim_begin_timestamp = (phase_settings.stim_begin_distance / phase_settings.target_velocity) * 1000.0f;
 
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
-                        + this.CurrentID
-                    + "].OnEntry() : stim detected, calculated following parameter ["
-                    + "stim_begin_timestamp:" 
-                        + stim_begin_timestamp 
-                    + "], will wait"
+                // request async notification
+                caviar_bridge.DoNotifyWhenWaypointReached(
+                    current_phase_start_distance + phase_settings.stim_begin_distance
                 );
+            
+                bool bRequestEndStimLoop = false;
+                do
+                {
 
-                // wait a certain amout of time
-                await this.FSM.DoSleep(stim_begin_timestamp);
-                
+                    // wait result
+                    (bool, float, float, string) result = await sync_point.Task;
+
+                    // check result boolean value
+                    if(result.Item1) 
+                    {
+
+                        // it's a hit then
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                    
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                                + this.CurrentID
+                            + "].OnEntry() : it seems user detected something["
+                                + result.Item2
+                            + ","
+                                + result.Item3
+                            + ","
+                                + result.Item4
+                            + "], wait for stim begin waypoint reached or another detection."
+                        );
+
+                        // re-tasking
+                        sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
+
+                    // end
+                    } else {
+                        
+                        // if there is already a response == end, otherwise
+                        if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
+
+                            // it's a miss, save failed result
+                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+
+                            // log
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                                    + this.CurrentID
+                                + "].OnEntry() : it seems user doesn't detected anything before stim... continuing !"
+                            );
+                        
+                        } /* if() */
+
+                        // request end
+                        bRequestEndStimLoop = true;
+                        
+                    } /* if() */
+
+                } while (!bRequestEndStimLoop); /* while() */
+
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
@@ -251,38 +305,290 @@ namespace Labsim.apollon.experiment.phase
 
             } /* if() */
 
-            // async task
-            var waypoint_reached_task = caviar_bridge.DoNotifyWhenWaypointReached(
+            // request async notification
+            caviar_bridge.DoNotifyWhenWaypointReached(
                 current_phase_start_distance + phase_settings.total_distance
             );
 
-            // wait synchronisation point & reset it once hit
-            (
-                this.FSM.CurrentResults.phase_C_results[CurrentID].user_response, 
-                this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance, 
-                this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp,
-                this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp
-            ) = await sync_point.Task;
+            // re task 
+            sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
+
+            // then, phase C [stim or begin; end] we should wait this completion in all cases
+            bool bRequestEndLoop = false;
+            do
+            {
+
+                // wait result
+                (bool, float, float, string) result = await sync_point.Task;
+
+                // check result boolean value
+                if(result.Item1) 
+                {
+
+                    // it's a hit then
+                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                            + this.CurrentID
+                        + "].OnEntry() : it seems user detected something["
+                            + result.Item2
+                        + ","
+                            + result.Item3
+                        + ","
+                            + result.Item4
+                        + "], wait for waypoint reached or another detection."
+                    );
+
+                    // unregister our synchronisation function
+                    hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                    caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+
+                    // re-tasking
+                    sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
+
+                    // register our synchronisation function
+                    hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+                    caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+
+                // end
+                } else { 
+                    
+                    // if there is already a response == end, otherwise
+                    if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
+
+                        // it's a miss, save failed result
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                                + this.CurrentID
+                            + "].OnEntry() : it seems user doesn't detected anything... :("
+                        );
+                    
+                    } /* if() */
+
+                    // request end
+                    bRequestEndLoop = true;
+                    
+                } /* if() */
+
+            } while (!bRequestEndLoop); /* while() */
 
             // unregister our synchronisation function
             hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
             caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
-            
-            // whatever, we should wait this completion in all cases
-            if (!waypoint_reached_task.IsCompleted)
-            {
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
-                        + this.CurrentID
-                    + "].OnEntry() : it seems user detected something, wait for waypoint reached."
-                );
 
-                // await waypoint is reached
-                await waypoint_reached_task;
+            // // synchronisation mechanism (TCS + local function)
+            // var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
+            // void sync_user_response_local_function(object sender, gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs e)
+            //     => sync_point?.TrySetResult((
+            //         /* detection!  */ 
+            //         true, 
+            //         /* current relative phase depth */
+            //         (caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z - current_phase_start_distance),
+            //         /* unity render timestamp */
+            //         UnityEngine.Time.time,
+            //         /* host timestamp */
+            //         UXF.FileIOManager.CurrentHighResolutionTime
+            //     ));
+            // void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
+            //     => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
-            } /* if() */
+            // // register our synchronisation function
+            // hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            // caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+
+            // // async end point task
+            // System.Threading.Tasks.Task
+            //     waypoint_reached_task = caviar_bridge.DoNotifyWhenWaypointReached(
+            //         current_phase_start_distance + phase_settings.total_distance
+            //     ),
+            //     stim_reached_task = null;
+
+
+
+            // // check if there is a stim
+            // if( 
+            //     !(
+            //         (phase_settings.stim_begin_distance == -1.0f)
+            //         && (phase_settings.stim_velocity == -1.0f)
+            //         && (phase_settings.stim_acceleration == -1.0f)
+            //     )
+            // ) 
+            // {
             
+            //     // get our stim begin timestamp from actual target velocity
+            //     float stim_begin_timestamp = (phase_settings.stim_begin_distance / phase_settings.target_velocity) * 1000.0f;
+
+            //     // log
+            //     UnityEngine.Debug.Log(
+            //         "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //             + this.CurrentID
+            //         + "].OnEntry() : stim detected, will be notified when reached"
+            //     );
+
+            //     // wait a certain amout of time
+            //     await this.FSM.DoSleep(stim_begin_timestamp);
+                
+            //     // log
+            //     UnityEngine.Debug.Log(
+            //         "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //             + this.CurrentID
+            //         + "].OnEntry() : stim will begin, current distance["
+            //             + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
+            //         + "]"
+            //     );
+                
+            //     // save stim results
+            //     this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_distance = caviar_bridge.Behaviour.transform.TransformPoint(0.0f, 0.0f, 0.0f).z;
+            //     this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = UXF.FileIOManager.CurrentHighResolutionTime;
+            //     this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_unity_timestamp = UnityEngine.Time.time;
+
+            //     // accelerate/decelerate up to the stim settings or nothing :)
+            //     if (phase_settings.stim_velocity > phase_settings.target_velocity) 
+            //     {
+
+            //         // log
+            //         UnityEngine.Debug.Log(
+            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //                 + this.CurrentID
+            //             + "].OnEntry() : begin stim, raise acceleration["
+            //             + "stim_acceleration:"
+            //                 + phase_settings.stim_acceleration
+            //             + ",stim_velocity:"
+            //                 + phase_settings.stim_velocity
+            //             + "]."
+            //         );
+
+            //         // accel.
+            //         caviar_bridge.Dispatcher.RaiseAccelerate(
+            //             phase_settings.stim_acceleration,
+            //             phase_settings.stim_velocity
+            //         );
+
+            //     }
+            //     else if(phase_settings.stim_velocity < phase_settings.target_velocity) 
+            //     {
+                    
+            //         // log
+            //         UnityEngine.Debug.Log(
+            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //                 + this.CurrentID
+            //             + "].OnEntry() : begin stim, raise deceleration["
+            //             + "stim_acceleration:"
+            //                 + phase_settings.stim_acceleration
+            //             + ",stim_velocity:"
+            //                 + phase_settings.stim_velocity
+            //             + "]."
+            //         );
+
+            //         // decel.
+            //         caviar_bridge.Dispatcher.RaiseDecelerate(
+            //             phase_settings.stim_acceleration,
+            //             phase_settings.stim_velocity
+            //         );
+
+            //     }
+            //     else
+            //     {
+
+            //         // log
+            //         UnityEngine.Debug.LogWarning(
+            //             "<color=Orange>Warning: </color> ApollonCAVIARPhaseC["
+            //                 + this.CurrentID
+            //             + "].OnEntry() : begin stim, requested stim velocity is identical to target valocity, skip."
+            //         );
+
+
+            //     } /* if() */
+
+            // } /* if() */
+
+            // // async task
+            // var waypoint_reached_task = caviar_bridge.DoNotifyWhenWaypointReached(
+            //     current_phase_start_distance + phase_settings.total_distance
+            // );
+            
+            // // whatever, we should wait this completion in all cases
+            // do
+            // {
+
+            //     // get result
+            //     (bool, float, float, string) result = await sync_point.Task;
+
+            //     // check result boolean value
+            //     if(result.Item1) 
+            //     {
+
+            //         // it's a hit then
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                
+            //         // log
+            //         UnityEngine.Debug.Log(
+            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //                 + this.CurrentID
+            //             + "].OnEntry() : it seems user detected something["
+            //                 + result.Item2
+            //             + ","
+            //                 + result.Item3
+            //             + ","
+            //                 + result.Item4
+            //             + "], wait for waypoint reached or another detection."
+            //         );
+
+            //         // unregister our synchronisation function
+            //         hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            //         caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+
+            //         // re-tasking
+            //         sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
+
+            //         // register our synchronisation function
+            //         hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            //         caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+
+            //     // if there is already a response == end, then
+            //     } else if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
+
+            //         // it's a miss, save failed result
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+            //         this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+
+            //         // log
+            //         UnityEngine.Debug.Log(
+            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //                 + this.CurrentID
+            //             + "].OnEntry() : it seems user doesn't detected anything... :("
+            //         );
+                    
+            //     } /* if() */
+
+            // } while (!waypoint_reached_task.IsCompleted); /* while() */
+                    
+            // UnityEngine.Debug.Log(
+            //     "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //         + this.CurrentID
+            //     + "].OnEntry() : it seems user doesn't detected anything... :("
+            // );
+                    
+            // // unregister our synchronisation function
+            // hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            // caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
@@ -292,11 +598,20 @@ namespace Labsim.apollon.experiment.phase
                 + "], phase results ["
                     + this.FSM.CurrentResults.phase_C_results[CurrentID].user_response
                 + ","
-                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance
+                    + string.Join(
+                        "/",  
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance
+                    )
                 + ","
-                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp
+                    + string.Join(
+                        "/",  
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp
+                    )
                 + ","
-                    + this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp
+                    + string.Join(
+                        "/",  
+                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp
+                    )
                 + "]"
             );
 
