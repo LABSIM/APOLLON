@@ -128,12 +128,17 @@ PlayerSettings:
   bundleVersion: 0.1
   preloadedAssets:
   - {fileID: 11400000, guid: a2a5b738ccd670a4eadf69140c9c8585, type: 2}
-  - {fileID: 919132149155446097, guid: 5ee42110bc5ab9e458514db67715ad38, type: 3}
-  - {fileID: 919132149155446097, guid: e6c82b4537ba4f74e8fe75551c4fc404, type: 3}
-  - {fileID: 919132149155446097, guid: 9b2106bf32078f7499e9b36d4ffe4161, type: 3}
-  - {fileID: 919132149155446097, guid: c64feddb5cff7964c980b436227fae69, type: 3}
-  - {fileID: 919132149155446097, guid: 78cb27a0f86ca6547b2cd8c27425ddde, type: 3}
-  - {fileID: 919132149155446097, guid: 745c0e5d47dc9ec4e886e691f273d586, type: 3}
+  - {fileID: 919132149155446097, guid: b85b45d6ec4ba694181bca32fc9ec6b1, type: 3}
+  - {fileID: 919132149155446097, guid: d3de5857cccab4347aa415270acc9dd7, type: 3}
+  - {fileID: 919132149155446097, guid: eddeef778f650a4448ecebd4d017cc97, type: 3}
+  - {fileID: 919132149155446097, guid: 34057f6db1d29aa4db6a6cb3256962d2, type: 3}
+  - {fileID: 919132149155446097, guid: 5f4cc13a62d63b04996a1d0b44ece675, type: 3}
+  - {fileID: 919132149155446097, guid: d9bd90483796a784db461b4ffcaa59d1, type: 3}
+  - {fileID: 919132149155446097, guid: 7c1d2a462531d6141af7137512e03a88, type: 3}
+  - {fileID: 919132149155446097, guid: e8f3f6d4050b69348b24345d6ee1e598, type: 3}
+  - {fileID: 919132149155446097, guid: a8dea43c6d119ab4a95e44ad227c9d8d, type: 3}
+  - {fileID: 1970681966781816, guid: 6c9e41e24d2bc6b488c927f43944457b, type: 3}
+  - {fileID: 919132149155446097, guid: fa02ed4a7c3add14791b37a95685823e, type: 3}
   - {fileID: 2360517247514329909, guid: 70aa3c1f569a7f14b8745d27fe11fc44, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0

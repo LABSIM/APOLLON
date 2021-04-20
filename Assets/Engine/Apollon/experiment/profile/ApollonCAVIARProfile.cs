@@ -154,17 +154,21 @@ namespace Labsim.apollon.experiment.profile
                     // la distance de debut du stim relativement au debut de de phase
                     user_stim_distance,
                     // le temps de debut de stim (ref. Unity) {millisecond}
-                    user_stim_unity_timestamp,
+                    user_stim_unity_timestamp;
+                
+                public System.Collections.Generic.List<float>
                     // la distance de detection du stim relativement au debut de de phase
-                    user_perception_distance,
+                    user_perception_distance = new System.Collections.Generic.List<float>(),
                     // le temps de perception (ref. Unity) {millisecond}
-                    user_perception_unity_timestamp;
+                    user_perception_unity_timestamp = new System.Collections.Generic.List<float>();
 
                 public string
                     // le temps de debut de stim (ref. Host) {string}
-                    user_stim_host_timestamp,
+                    user_stim_host_timestamp;
+                
+                public System.Collections.Generic.List<string>
                     // le temps de perception (ref. Host) {string}
-                    user_perception_host_timestamp;
+                    user_perception_host_timestamp = new System.Collections.Generic.List<string>();
 
                 public UnityEngine.AudioClip
                     user_clip;
@@ -648,11 +652,20 @@ namespace Labsim.apollon.experiment.profile
                 ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_unity_timestamp"] 
                     = this.CurrentResults.phase_C_results[idx].user_stim_unity_timestamp.ToString();
                 ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_distance"] 
-                    = this.CurrentResults.phase_C_results[idx].user_perception_distance.ToString();
+                    = string.Join(
+                        ";",  
+                        this.CurrentResults.phase_C_results[idx].user_perception_distance
+                    );
                 ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_host_timestamp"] 
-                    = this.CurrentResults.phase_C_results[idx].user_perception_host_timestamp;
+                    = string.Join(
+                        ";",  
+                        this.CurrentResults.phase_C_results[idx].user_perception_host_timestamp
+                    );
                 ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_unity_timestamp"]
-                    = this.CurrentResults.phase_C_results[idx].user_perception_unity_timestamp.ToString();
+                    = string.Join(
+                        ";",  
+                        this.CurrentResults.phase_C_results[idx].user_perception_unity_timestamp
+                    );
 
             } /* for() */
 
