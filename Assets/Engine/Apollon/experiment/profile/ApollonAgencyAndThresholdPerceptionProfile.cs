@@ -295,7 +295,8 @@ namespace Labsim.apollon.experiment.profile
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionPhaseA(this) ); },
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionPhaseB(this) ); },
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionPhaseC(this) ); },
-                async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionPhaseD(this) ); }
+                async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionPhaseD(this) ); },
+                async () => { await this.SetState( null ); }
             );
             
         } /* onExperimentTrialBegin() */
@@ -307,14 +308,7 @@ namespace Labsim.apollon.experiment.profile
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : begin"
             );
-
-            // send event to active chair over CAN bus
-            (
-                backend.ApollonBackendManager.Instance.GetValidHandle(
-                    backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
-                ) as backend.handle.ApollonActiveSeatHandle
-            ).EndTrial();
-
+            
             //// stop audio recording & save it, if any available...
             //if (UnityEngine.Microphone.devices.Length != 0)
             //{
@@ -348,6 +342,36 @@ namespace Labsim.apollon.experiment.profile
 
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);
+
+            // send event to active chair over CAN bus
+            (
+                backend.ApollonBackendManager.Instance.GetValidHandle(
+                    backend.ApollonBackendManager.HandleIDType.ApollonActiveSeatHandle
+                ) as backend.handle.ApollonActiveSeatHandle
+            ).EndTrial();
+
+            // get active seat bridge
+            gameplay.entity.ApollonActiveSeatEntityBridge seat_bridge
+                = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
+                ) as gameplay.entity.ApollonActiveSeatEntityBridge;
+
+            // check
+            if (seat_bridge == null)
+            {
+
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : Could not find corresponding gameplay bridge !"
+                );
+
+                // fail
+                return;
+
+            } /* if() */
+
+            // finally reset
+            seat_bridge.Dispatcher.RaiseReset();
 
             // base call
             base.onExperimentTrialEnd(sender, arg);

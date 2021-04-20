@@ -18,7 +18,7 @@
 
     "test_debug_randomtimeout_trial_A": {
       "is_catch_try_condition": false,
-      "is_active_condition": true,
+      "is_active_condition": false,
       "scenario_name": "visual-only",
       "phase_A_duration_ms": 2500.0,
       "phase_B_begin_stim_timeout_lower_bound_ms": 1000.0,
@@ -31,7 +31,7 @@
     },
     "test_debug_randomtimeout_trial_B": {
       "is_catch_try_condition": false,
-      "is_active_condition": true,
+      "is_active_condition": false,
       "scenario_name": "visual-only",
       "phase_A_duration_ms": 2500.0,
       "phase_B_begin_stim_timeout_lower_bound_ms": 1000.0,
@@ -44,7 +44,7 @@
     },
     "test_debug_randomtimeout_trial_C": {
       "is_catch_try_condition": false,
-      "is_active_condition": true,
+      "is_active_condition": false,
       "scenario_name": "visual-only",
       "phase_A_duration_ms": 2500.0,
       "phase_B_begin_stim_timeout_lower_bound_ms": 1000.0,
@@ -57,7 +57,7 @@
     },
     "test_debug_randomtimeout_trial_D": {
       "is_catch_try_condition": false,
-      "is_active_condition": true,
+      "is_active_condition": false,
       "scenario_name": "visual-only",
       "phase_A_duration_ms": 2500.0,
       "phase_B_begin_stim_timeout_lower_bound_ms": 1000.0,
@@ -70,7 +70,7 @@
     },
     "test_debug_randomtimeout_trial_E": {
       "is_catch_try_condition": false,
-      "is_active_condition": true,
+      "is_active_condition": false,
       "scenario_name": "visual-only",
       "phase_A_duration_ms": 2500.0,
       "phase_B_begin_stim_timeout_lower_bound_ms": 1000.0,
@@ -83,7 +83,7 @@
     },
     "test_debug_randomtimeout_trial_F": {
       "is_catch_try_condition": false,
-      "is_active_condition": true,
+      "is_active_condition": false,
       "scenario_name": "visual-only",
       "phase_A_duration_ms": 2500.0,
       "phase_B_begin_stim_timeout_lower_bound_ms": 1000.0,

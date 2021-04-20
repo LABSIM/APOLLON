@@ -88,30 +88,7 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseD.OnExit() : begin"
             );
-
-            // get bridge
-            gameplay.entity.ApollonActiveSeatEntityBridge seat_bridge
-                = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
-                ) as gameplay.entity.ApollonActiveSeatEntityBridge;
-
-            // check
-            if (seat_bridge == null)
-            {
-
-                // log
-                UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> ApollonAgencyAndThresholdPerceptionPhaseD.OnExit() : Could not find corresponding gameplay bridge !"
-                );
-
-                // fail
-                return;
-
-            } /* if() */
-
-            // finally reset
-            seat_bridge.Dispatcher.RaiseReset();
-
+            
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseD.OnExit() : end"
