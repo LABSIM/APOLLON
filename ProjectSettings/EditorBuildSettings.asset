@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Experiment/AgencyAndThresholdPerception.unity
     guid: 7e589fd877ff67447a30c024c913a028
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment/CAVIAR.unity
     guid: cffc75f85023a9b42949dc38690ed7ca
   m_configObjects:
