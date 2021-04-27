@@ -148,7 +148,7 @@ namespace Labsim.apollon.experiment.phase
                     /* detection!  */ 
                     true, 
                     /* current relative phase depth */
-                    (caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z - current_phase_start_distance),
+                    (caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z),
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
@@ -170,7 +170,7 @@ namespace Labsim.apollon.experiment.phase
                     current_phase_start_distance + phase_settings.stim_begin_distance
                 );
             
-                bool bRequestEndStimLoop = false;
+                bool bRequestEndWaitStimLoop = false;
                 do
                 {
 
@@ -182,10 +182,10 @@ namespace Labsim.apollon.experiment.phase
                     {
 
                         // it's a hit then
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_response = result.Item1;
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_distance.Add(result.Item2);
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_host_timestamp.Add(result.Item4);
                     
                         // log
                         UnityEngine.Debug.Log(
@@ -206,30 +206,30 @@ namespace Labsim.apollon.experiment.phase
                     // end
                     } else {
                         
-                        // if there is already a response == end, otherwise
-                        if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
+                        // // if there is already a response == end, otherwise
+                        // if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
 
-                            // it's a miss, save failed result
-                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
-                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
-                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
-                            this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                        //     // it's a miss, save failed result
+                        //     this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
+                        //     this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
+                        //     this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                        //     this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
 
-                            // log
-                            UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
-                                    + this.CurrentID
-                                + "].OnEntry() : it seems user doesn't detected anything before stim... continuing !"
-                            );
+                        //     // log
+                        //     UnityEngine.Debug.Log(
+                        //         "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                        //             + this.CurrentID
+                        //         + "].OnEntry() : it seems user doesn't detected anything before stim... continuing !"
+                        //     );
                         
-                        } /* if() */
+                        // } /* if() */
 
                         // request end
-                        bRequestEndStimLoop = true;
+                        bRequestEndWaitStimLoop = true;
                         
                     } /* if() */
 
-                } while (!bRequestEndStimLoop); /* while() */
+                } while (!bRequestEndWaitStimLoop); /* while() */
 
                 // log
                 UnityEngine.Debug.Log(
@@ -314,7 +314,7 @@ namespace Labsim.apollon.experiment.phase
             sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
 
             // then, phase C [stim or begin; end] we should wait this completion in all cases
-            bool bRequestEndLoop = false;
+            bool bRequestEndWaitLoop = false;
             do
             {
 
@@ -326,10 +326,10 @@ namespace Labsim.apollon.experiment.phase
                 {
 
                     // it's a hit then
-                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
-                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
-                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
-                    this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                    this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_response = result.Item1;
+                    this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_distance.Add(result.Item2);
+                    this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                    this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_host_timestamp.Add(result.Item4);
                 
                     // log
                     UnityEngine.Debug.Log(
@@ -344,28 +344,28 @@ namespace Labsim.apollon.experiment.phase
                         + "], wait for waypoint reached or another detection."
                     );
 
-                    // unregister our synchronisation function
-                    hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-                    caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+                    // // unregister our synchronisation function
+                    // hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                    // caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
 
                     // re-tasking
                     sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
 
-                    // register our synchronisation function
-                    hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-                    caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+                    // // register our synchronisation function
+                    // hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+                    // caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
 
                 // end
                 } else { 
                     
                     // if there is already a response == end, otherwise
-                    if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
+                    if(!this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_response) {
 
                         // it's a miss, save failed result
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_response = result.Item1;
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_distance.Add(result.Item2);
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_unity_timestamp.Add(result.Item3);
-                        this.FSM.CurrentResults.phase_C_results[CurrentID].user_perception_host_timestamp.Add(result.Item4);
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_response = result.Item1;
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_distance.Add(result.Item2);
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_unity_timestamp.Add(result.Item3);
+                        this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_perception_host_timestamp.Add(result.Item4);
 
                         // log
                         UnityEngine.Debug.Log(
@@ -377,11 +377,11 @@ namespace Labsim.apollon.experiment.phase
                     } /* if() */
 
                     // request end
-                    bRequestEndLoop = true;
+                    bRequestEndWaitLoop = true;
                     
                 } /* if() */
 
-            } while (!bRequestEndLoop); /* while() */
+            } while (!bRequestEndWaitLoop); /* while() */
 
             // unregister our synchronisation function
             hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;

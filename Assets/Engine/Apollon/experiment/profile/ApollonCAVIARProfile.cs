@@ -151,13 +151,13 @@ namespace Labsim.apollon.experiment.profile
                     user_response;
 
                 public float
-                    // la distance de debut du stim relativement au debut de de phase
+                    // la distance de debut du stim relativement au debut de l'essai
                     user_stim_distance,
                     // le temps de debut de stim (ref. Unity) {millisecond}
                     user_stim_unity_timestamp;
                 
                 public System.Collections.Generic.List<float>
-                    // la distance de detection du stim relativement au debut de de phase
+                    // la distance de detection du stim relativement au debut de l'essai
                     user_perception_distance = new System.Collections.Generic.List<float>(),
                     // le temps de perception (ref. Unity) {millisecond}
                     user_perception_unity_timestamp = new System.Collections.Generic.List<float>();
@@ -189,6 +189,23 @@ namespace Labsim.apollon.experiment.profile
                 public string
                     timing_on_entry_host_timestamp,
                     timing_on_exit_host_timestamp;
+
+                #endregion
+
+                #region user_* 
+                
+                public bool
+                    user_response;
+
+                public System.Collections.Generic.List<float>
+                    // la distance de detection du stim relativement au debut de l'essai
+                    user_perception_distance = new System.Collections.Generic.List<float>(),
+                    // le temps de perception (ref. Unity) {millisecond}
+                    user_perception_unity_timestamp = new System.Collections.Generic.List<float>();
+                
+                public System.Collections.Generic.List<string>
+                    // le temps de perception (ref. Host) {string}
+                    user_perception_host_timestamp = new System.Collections.Generic.List<string>();
 
                 #endregion
 
@@ -255,6 +272,10 @@ namespace Labsim.apollon.experiment.profile
 
             // fade in
             await this.DoFadeIn(2500.0f, false);
+
+            // inactivate all gameplay & frontend
+            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
+            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
 
             // base call
             base.onExperimentSessionBegin(sender, arg);
@@ -468,10 +489,6 @@ namespace Labsim.apollon.experiment.profile
             // write the randomized pattern as result for convenience
             arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
 
-            // inactivate gameplay & frontend
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
-           
             // activate world, CAVIAR entity, Radiosonde sensor, HOTAS Throttle
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.FogElement);
@@ -494,7 +511,7 @@ namespace Labsim.apollon.experiment.profile
                     gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
                 ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
 
-            // LINQ request
+            // LINQ         
             foreach (var db_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("DBTag_")).Select(kvp => kvp.Value))
             {
 
@@ -516,21 +533,26 @@ namespace Labsim.apollon.experiment.profile
                     "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found game object, activating"
                 );
 
-                //we_behaviour.References["DBTag_Default"].SetActive(false);
+                // mark as active
                 we_behaviour.References[db_str].SetActive(true);
-                we_behaviour.References[db_str].transform.SetPositionAndRotation(
-                    new UnityEngine.Vector3(
+
+                // translate to our new origin
+                we_behaviour.References[db_str].transform.Translate(
+                    -1.0f * new UnityEngine.Vector3(
                         db_origin_position[0],
                         db_origin_position[1],
                         db_origin_position[2]
-                    ),
-                    UnityEngine.Quaternion.Euler(
-                        new UnityEngine.Vector3(
-                            db_origin_orientation[0],
-                            db_origin_orientation[1],
-                            db_origin_orientation[2]
-                        )
                     )
+                );
+
+                // apply rotation from our new world space origin
+                we_behaviour.References[db_str].transform.Rotate(
+                    new UnityEngine.Vector3(
+                        db_origin_orientation[0],
+                        db_origin_orientation[1],
+                        db_origin_orientation[2]
+                    ),
+                    UnityEngine.Space.World
                 );
 
             }
@@ -572,7 +594,8 @@ namespace Labsim.apollon.experiment.profile
                 async () => { await this.SetState( new phase.ApollonCAVIARPhaseD(this, 2, 3 ) ); },
                 async () => { await this.SetState( new phase.ApollonCAVIARPhaseC(this, 3    ) ); },
                 async () => { await this.SetState( new phase.ApollonCAVIARPhaseE(this       ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseF(this       ) ); }                
+                async () => { await this.SetState( new phase.ApollonCAVIARPhaseF(this       ) ); },
+                async () => { await this.SetState( null ); }
             );
             
         } /* onExperimentTrialBegin() */
@@ -681,6 +704,23 @@ namespace Labsim.apollon.experiment.profile
                     = this.CurrentResults.phase_D_results[idx].timing_on_entry_host_timestamp;
                 ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_exit_host_timestamp"]
                     = this.CurrentResults.phase_D_results[idx].timing_on_exit_host_timestamp;
+                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_response"] 
+                    = this.CurrentResults.phase_D_results[idx].user_response.ToString();
+                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_distance"] 
+                    = string.Join(
+                        ";",  
+                        this.CurrentResults.phase_D_results[idx].user_perception_distance
+                    );
+                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_host_timestamp"] 
+                    = string.Join(
+                        ";",  
+                        this.CurrentResults.phase_D_results[idx].user_perception_host_timestamp
+                    );
+                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_unity_timestamp"]
+                    = string.Join(
+                        ";",  
+                        this.CurrentResults.phase_D_results[idx].user_perception_unity_timestamp
+                    );
 
             } /* for() */
 
@@ -707,6 +747,10 @@ namespace Labsim.apollon.experiment.profile
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);
 
+            // inactivate gameplay & frontend
+            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
+            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
+           
             // base call
             base.onExperimentTrialEnd(sender, arg);
 

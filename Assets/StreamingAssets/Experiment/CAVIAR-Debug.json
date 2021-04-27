@@ -21,11 +21,11 @@
       "pilotable_elevation_above_terrain_meter": 15.0,
       "pilotable_climb_rate_meter_per_second": 25.0,
 
-      "database_name": "DBTag_CAVIAR_P30TB",
+      "database_name": "DBTag_CAVIAR_PT1TB",
       "database_origin_position": [ 0.0, 0.0, 0.0 ],
       "database_origin_orientation": [ 0.0, 0.0, 0.0 ],
-      "database_tree_seed_file": "Arbres_densX2",
-      "database_object_seed_file": "Objets3D_test2",
+      "database_tree_seed_file": "Arbres_PT1",
+      "database_object_seed_file": "Objets3D_PT1",
 
       "phase_B_distance_meter": 100.0,
 

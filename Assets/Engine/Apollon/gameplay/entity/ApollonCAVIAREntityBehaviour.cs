@@ -663,7 +663,7 @@ namespace Labsim.apollon.gameplay.entity
         {
 
             // save user command
-            this.m_user_throttle_axis_z_command = value;
+            this.m_user_throttle_axis_z_command = -1.0f * value;
 
         } /* SetAltitudeFromThrottleAxisZValue() */
 
