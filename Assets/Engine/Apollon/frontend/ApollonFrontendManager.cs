@@ -282,9 +282,11 @@ namespace Labsim.apollon.frontend
                 { FrontendIDType.GreenCrossGUI, false },
                 { FrontendIDType.RedCrossGUI, false },
                 { FrontendIDType.GreyCrossGUI, false },
+                { FrontendIDType.SimpleCrossGUI, false },
                 { FrontendIDType.GreenFrameGUI, false },
                 { FrontendIDType.RedFrameGUI, false },
                 { FrontendIDType.GreyFrameGUI, false },
+                { FrontendIDType.SimpleFrameGUI, false },
                 { FrontendIDType.VerticalAnchorableDock, false },
                 { FrontendIDType.All, false }
             };
@@ -337,6 +339,9 @@ namespace Labsim.apollon.frontend
 
             [System.ComponentModel.Description("GreyCrossGUI")]
             GreyCrossGUI,
+            
+            [System.ComponentModel.Description("SimpleCrossGUI")]
+            SimpleCrossGUI,
 
             [System.ComponentModel.Description("GreenFrameGUI")]
             GreenFrameGUI,
@@ -346,6 +351,9 @@ namespace Labsim.apollon.frontend
 
             [System.ComponentModel.Description("GreyFrameGUI")]
             GreyFrameGUI,
+            
+            [System.ComponentModel.Description("SimpleFrameGUI")]
+            SimpleFrameGUI,
 
             [System.ComponentModel.Description("VerticalAnchorableDock")]
             VerticalAnchorableDock,

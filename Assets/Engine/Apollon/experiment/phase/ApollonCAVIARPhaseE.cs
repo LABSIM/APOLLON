@@ -64,6 +64,16 @@ namespace Labsim.apollon.experiment.phase
                 + "]"
             );
 
+            // if practicing
+            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            {
+            
+                // hide guidance
+                frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI);
+                frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI);
+            
+            } /* if() */
+
             // show red cross
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 

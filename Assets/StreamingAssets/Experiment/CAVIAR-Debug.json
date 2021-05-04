@@ -75,11 +75,17 @@
 
   "block_pattern": {
 
-    "test_block": {
-      "is_practice_condition": false,
+    "test_block_practice": {
+      "is_practice_condition": true,
       "is_sequence_randomized": false,
       "trial_sequence": [
-        "test_3D_debug_trial",
+        "test_3D_debug_trial"
+      ]
+    },
+    "test_block": {
+      "is_practice_condition": false,
+      "is_sequence_randomized": true,
+      "trial_sequence": [
         "test_3D_debug_trial"
       ]
     }
@@ -87,6 +93,7 @@
   },
 
   "block_sequence": [
+    "test_block_practice",
     "test_block"
   ]
 

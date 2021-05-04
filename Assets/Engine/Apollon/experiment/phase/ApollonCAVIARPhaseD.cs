@@ -78,9 +78,113 @@ namespace Labsim.apollon.experiment.phase
             void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
+            // blend function
+            System.EventHandler<
+                gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.EventArgs
+            > blend_local_function 
+                = (sender, args) 
+                    => 
+                    {  
+                        
+                        // extract elevation above terrain value
+                        float
+                            value       = args.DistanceFromSensorToHit,
+                            target      = ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_elevation_above_terrain_meter"),
+                            gap         = UnityEngine.Mathf.Abs(value - target) * 100.0f / target,
+                            lower_bound = 10.0f,
+                            upper_bound = 30.0f;
+
+                        // update cross properties
+                        foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
+                            frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI
+                        ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
+                        {
+
+                            UnityEngine.Color new_color = child.material.color;
+
+                            // if modyfing color
+                            if(gap <= lower_bound )
+                            { 
+                                // ok !
+                                new_color = UnityEngine.Color.green;
+                                new_color.a = 1.0f;
+                            }
+                            else if(gap <= upper_bound)
+                            {
+
+                                float ratio = (gap - lower_bound) / (upper_bound - lower_bound);
+                                new_color = UnityEngine.Color.Lerp(
+                                    UnityEngine.Color.red, 
+                                    UnityEngine.Color.green, 
+                                    ratio
+                                );
+                                new_color.a = 1.0f - ratio;
+
+                            }
+                            else 
+                            {
+                                // fail
+                                new_color = UnityEngine.Color.red;
+                                new_color.a = 0.0f;
+                            }
+
+                            // assign new color
+                            child.material.color = new_color;
+
+                        } /* foreach() */
+
+                        // update frame properties
+                        foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
+                            frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI
+                        ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
+                        {
+
+                            UnityEngine.Color new_color = child.material.color;
+
+                            // if modyfing color
+                            if(gap <= lower_bound )
+                            { 
+                                // ok !
+                                new_color = UnityEngine.Color.green;
+                            }
+                            else if(gap <= upper_bound)
+                            {
+
+                                float ratio = (gap - lower_bound) / (upper_bound - lower_bound);
+                                new_color = UnityEngine.Color.Lerp(
+                                    UnityEngine.Color.red, 
+                                    UnityEngine.Color.green, 
+                                    ratio
+                                );
+
+                            }
+                            else 
+                            {
+                                // fail
+                                new_color = UnityEngine.Color.red;
+                            }
+
+                            // assign new color
+                            child.material.color = new_color;
+
+                        } /* foreach()*/
+                        
+                    }; /* lambda */
+
             // register our synchronisation function
             hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
             caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            {
+
+                // if practicing
+                (
+                    gameplay.ApollonGameplayManager.Instance.getBridge(
+                        gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
+                    ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
+                ).Dispatcher.HitChangedEvent += blend_local_function;
+            
+            } /* if() */
 
             // if we have a difference, calculate transition othewise just wait
             if(
@@ -258,6 +362,17 @@ namespace Labsim.apollon.experiment.phase
             // unregister our synchronisation function
             hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
             caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            {
+
+                // if practicing
+                (
+                    gameplay.ApollonGameplayManager.Instance.getBridge(
+                        gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
+                    ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
+                ).Dispatcher.HitChangedEvent -= blend_local_function;
+            
+            } /* if() */
 
             // log
             UnityEngine.Debug.Log(

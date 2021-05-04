@@ -102,6 +102,16 @@ namespace Labsim.apollon.experiment.phase
             // then hide cross
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
 
+            // if practicing
+            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            {
+            
+                // show guidance
+                frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI);
+                frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI);
+            
+            } /* if() */
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonCAVIARPhaseB.OnEntry() : end, current distance["

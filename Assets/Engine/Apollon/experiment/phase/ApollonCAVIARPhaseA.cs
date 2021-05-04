@@ -33,28 +33,41 @@ namespace Labsim.apollon.experiment.phase
                 => sync_point?.TrySetResult(true);
             System.EventHandler<
                 gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorDispatcher.EventArgs
-            > blend_alpha_local_function 
+            > blend_local_function 
                 = (sender, args) 
                     => 
                     {  
+                        
+                        // extract clamped value [-1.0 < x < 1.0]
+                        var value = UnityEngine.Mathf.Clamp( (1.0f - UnityEngine.Mathf.Abs(args.Z)), 0.0f, 1.0f );
+
+                        // update cross properties
                         foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
                             frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI
                         ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
                         {
+
+                            // alpha blend on value
                             UnityEngine.Color color = child.material.color;
-                            color.a =  UnityEngine.Mathf.Clamp( (1.0f - UnityEngine.Mathf.Abs(args.Z)), 0.0f, 1.0f );
+                            color.a = value;
                             child.material.color = color;
-                        }
+
+                        } /* foreach() */
+
+                        // update frame properties
                         foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
                             frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI
                         ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
                         {
+
+                            // alpha blend on value
                             UnityEngine.Color color = child.material.color;
-                            color.a =  UnityEngine.Mathf.Clamp( (1.0f - UnityEngine.Mathf.Abs(args.Z)), 0.0f, 1.0f );
+                            color.a = value;
                             child.material.color = color;
-                        }
-                        return;
-                    };
+
+                        } /* foreach()*/
+                        
+                    }; /* lambda */
 
             // register our synchronisation function
             (
@@ -66,7 +79,7 @@ namespace Labsim.apollon.experiment.phase
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
                 ) as gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorBridge
-            ).Dispatcher.AxisZValueChangedEvent += blend_alpha_local_function;            
+            ).Dispatcher.AxisZValueChangedEvent += blend_local_function;
 
             // show grey cross & frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
@@ -84,7 +97,7 @@ namespace Labsim.apollon.experiment.phase
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor
                 ) as gameplay.device.sensor.ApollonHOTASWarthogThrottleSensorBridge
-            ).Dispatcher.AxisZValueChangedEvent -= blend_alpha_local_function;   
+            ).Dispatcher.AxisZValueChangedEvent -= blend_local_function;   
             (
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.HOTASWarthogThrottleSensor

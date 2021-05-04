@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class RadiosondeFrontend
     : MonoBehaviour
@@ -18,7 +19,9 @@ public class RadiosondeFrontend
 
     public void SetValue(float value)
     {
+
         slider.value = value;
+    
     }
 
 }
