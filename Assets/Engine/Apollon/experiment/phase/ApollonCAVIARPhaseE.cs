@@ -69,7 +69,7 @@ namespace Labsim.apollon.experiment.phase
             {
             
                 // hide guidance
-                frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI);
+                // frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI);
                 frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI);
             
             } /* if() */

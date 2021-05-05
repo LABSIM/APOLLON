@@ -91,7 +91,7 @@ namespace Labsim.apollon.gameplay.entity
                 this._rigidbody.useGravity = false;
                 this._rigidbody.isKinematic = false;
                 this._rigidbody.interpolation = UnityEngine.RigidbodyInterpolation.Interpolate;
-                this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
+                this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.ContinuousDynamic;
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
                 this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
