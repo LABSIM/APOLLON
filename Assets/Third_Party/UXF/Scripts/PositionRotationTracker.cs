@@ -20,12 +20,18 @@ namespace UXF
             
             customHeader = new string[]
             {
-                "pos_x",
-                "pos_y",
-                "pos_z",
-                "rot_x",
-                "rot_y",
-                "rot_z"
+                "world_pos_x",
+                "world_pos_y",
+                "world_pos_z",
+                "world_rot_x",
+                "world_rot_y",
+                "world_rot_z",
+                "local_pos_x",
+                "local_pos_y",
+                "local_pos_z",
+                "local_rot_x",
+                "local_rot_y",
+                "local_rot_z"
             };
         }
 
@@ -36,20 +42,28 @@ namespace UXF
         protected override string[] GetCurrentValues()
         {
             // get position and rotation
-            Vector3 p = gameObject.transform.position;
-            Vector3 r = gameObject.transform.eulerAngles;
+            Vector3 world_p = gameObject.transform.position;
+            Vector3 world_r = gameObject.transform.eulerAngles;
+            Vector3 local_p = gameObject.transform.localPosition;
+            Vector3 local_r = gameObject.transform.localEulerAngles;
 
             string format = "0.####";
 
             // return position, rotation (x, y, z) as an array
             var values =  new string[]
             {
-                p.x.ToString(format),
-                p.y.ToString(format),
-                p.z.ToString(format),
-                r.x.ToString(format),
-                r.y.ToString(format),
-                r.z.ToString(format)
+                world_p.x.ToString(format),
+                world_p.y.ToString(format),
+                world_p.z.ToString(format),
+                world_r.x.ToString(format),
+                world_r.y.ToString(format),
+                world_r.z.ToString(format),
+                local_p.x.ToString(format),
+                local_p.y.ToString(format),
+                local_p.z.ToString(format),
+                local_r.x.ToString(format),
+                local_r.y.ToString(format),
+                local_r.z.ToString(format)
             };
 
             return values;
