@@ -1,0 +1,100 @@
+{
+  "APOLLON_profile": "CAVIAR",
+
+  "trial_final_fade_in_duration_ms": 750.0,
+  "trial_initial_fade_out_duration_ms": 750.0,
+  "trial_inter_sleep_duration_ms": 2500.0,
+
+  "axis_validation_duration_ms": 750.0,
+  "axis_validation_threshold_ratio": 0.1,
+  "axis_neutral_value": 0.5,
+  "axis_push_stop_value": -1.0,
+  "axis_pull_stop_value": 1.0,
+  "axis_neutral_validation_point": 0.0,
+  "axis_positive_validation_point": 0.85,
+  "axis_negative_validation_point": -0.85,
+
+  "trial_pattern": {
+
+    "test_3D_debug_trial": {
+
+      "pilotable_elevation_above_terrain_meter": 15.0,
+      "pilotable_climb_rate_meter_per_second": 25.0,
+
+      "database_name": "DBTag_CAVIAR_PT1TB",
+      "database_origin_position": [ 0.0, 0.0, 0.0 ],
+      "database_origin_orientation": [ 0.0, 0.0, 0.0 ],
+      "database_tree_seed_file": "Arbres_PT1",
+      "database_object_seed_file": "Objets3D_PT1",
+
+      "phase_B_distance_meter": 100.0,
+
+      "phase_C0_visual_cue_type_string": [ "objet3D_cube", "HUD_radiosonde" ],
+      "phase_C0_total_distance_meter": 1000.0,
+      "phase_C0_target_velocity_meter_per_s": 30.0,
+      "phase_C0_stim_begin_distance_meter": 300.0,
+      "phase_C0_stim_acceleration_meter_per_s2": 10.0,
+      "phase_C0_stim_velocity_meter_per_s": 60.0,
+      "phase_C0_fog_start_distance_meter": 0.0,
+      "phase_C0_fog_end_distance_meter": 150.0,
+
+      "phase_C1_visual_cue_type_string": [ "objet2D_grille", "objet2D_cercle" ],
+      "phase_C1_total_distance_meter": 500.0,
+      "phase_C1_target_velocity_meter_per_s": 20.0,
+      "phase_C1_stim_begin_distance_meter": -1.0,
+      "phase_C1_stim_acceleration_meter_per_s2": -1.0,
+      "phase_C1_stim_velocity_meter_per_s": -1.0,
+      "phase_C1_fog_start_distance_meter": 0.0,
+      "phase_C1_fog_end_distance_meter": 1500.0,
+
+      "phase_C2_visual_cue_type_string": [ "objet3D_tetrahedre", "objet2D_carre", "HUD_radiosonde" ],
+      "phase_C2_total_distance_meter": 1000.0,
+      "phase_C2_target_velocity_meter_per_s": 30.0,
+      "phase_C2_stim_begin_distance_meter": 300.0,
+      "phase_C2_stim_acceleration_meter_per_s2": 10.0,
+      "phase_C2_stim_velocity_meter_per_s": 60.0,
+      "phase_C2_fog_start_distance_meter": 0.0,
+      "phase_C2_fog_end_distance_meter": 150.0,
+
+      "phase_C3_visual_cue_type_string": [ "objet2D_grille", "objet2D_cercle" ],
+      "phase_C3_total_distance_meter": 500.0,
+      "phase_C3_target_velocity_meter_per_s": 20.0,
+      "phase_C3_stim_begin_distance_meter": -1.0,
+      "phase_C3_stim_acceleration_meter_per_s2": -1.0,
+      "phase_C3_stim_velocity_meter_per_s": -1.0,
+      "phase_C3_fog_start_distance_meter": 0.0,
+      "phase_C3_fog_end_distance_meter": 1500.0,
+
+      "phase_D_distance_meter": 100.0,
+      "phase_E_distance_meter": 100.0,
+      "phase_F_duration_ms": 1000.0
+
+    }
+
+  },
+
+  "block_pattern": {
+
+    "test_block_practice": {
+      "is_practice_condition": true,
+      "is_sequence_randomized": false,
+      "trial_sequence": [
+        "test_3D_debug_trial"
+      ]
+    },
+    "test_block": {
+      "is_practice_condition": false,
+      "is_sequence_randomized": true,
+      "trial_sequence": [
+        "test_3D_debug_trial"
+      ]
+    }
+
+  },
+
+  "block_sequence": [
+    "test_block_practice",
+    "test_block"
+  ]
+
+}
