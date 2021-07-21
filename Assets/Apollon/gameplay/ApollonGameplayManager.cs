@@ -294,8 +294,8 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.ActiveSeatEntity, false },
                 { GameplayIDType.CAVIAREntity, false },
                 { GameplayIDType.VirtualMotionSystemCommand, false },
-                { GameplayIDType.MotionSystemPS6TM550Command, false },
-                { GameplayIDType.MotionSystemPS6TM550Sensor, false },
+                { GameplayIDType.MotionSystemCommand, false },
+                { GameplayIDType.MotionSystemSensor, false },
                 { GameplayIDType.HOTASWarthogthrottleSensor, false },
                 { GameplayIDType.RadioSondeSensor, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionControl, false },
@@ -343,14 +343,14 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("CAVIAREntity")]
             CAVIAREntity,
 
-            [System.ComponentModel.Description("MotionSystemPS6TM550Command")]
-            MotionSystemPS6TM550Command,
+            [System.ComponentModel.Description("MotionSystemCommand")]
+            MotionSystemCommand,
 
             [System.ComponentModel.Description("VirtualMotionSystemCommand")]
             VirtualMotionSystemCommand,
             
-            [System.ComponentModel.Description("MotionSystemPS6TM550Sensor")]
-            MotionSystemPS6TM550Sensor,
+            [System.ComponentModel.Description("MotionSystemSensor")]
+            MotionSystemSensor,
         
             [System.ComponentModel.Description("HOTASWarthogthrottleSensor")]
             HOTASWarthogthrottleSensor,

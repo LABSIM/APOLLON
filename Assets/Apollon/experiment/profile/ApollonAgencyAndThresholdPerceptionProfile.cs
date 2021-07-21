@@ -105,19 +105,12 @@ namespace Labsim.apollon.experiment.profile
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentSessionBegin() : begin"
             );
 
-            // // send event to motion system backend
-            // (
-            //     backend.ApollonBackendManager.Instance.GetValidHandle(
-            //         backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-            //     ) as backend.handle.ApollonMotionSystemPS6TM550Handle
-            // ).BeginSession();
-
             // activate all motion system command/sensor
             gameplay.ApollonGameplayManager.Instance.setActive(
-                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Command
+                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
             );
             gameplay.ApollonGameplayManager.Instance.setActive(
-                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Sensor
+                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
             );
             gameplay.ApollonGameplayManager.Instance.setActive(
                 gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
@@ -156,24 +149,12 @@ namespace Labsim.apollon.experiment.profile
             // base call
             base.onExperimentSessionEnd(sender, arg);
 
-            // // send event to motion system backend
-            // (
-            //     backend.ApollonBackendManager.Instance.GetValidHandle(
-            //         backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-            //     ) as backend.handle.ApollonMotionSystemPS6TM550Handle
-            // ).EndSession();
-
-            // // deactivate the motion system backend
-            // backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
-            //     backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-            // );
-
             // deactivate all motion system command/sensor
             gameplay.ApollonGameplayManager.Instance.setInactive(
-                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Sensor
+                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
             );
             gameplay.ApollonGameplayManager.Instance.setInactive(
-                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Command
+                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
             );
             gameplay.ApollonGameplayManager.Instance.setInactive(
                 gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand

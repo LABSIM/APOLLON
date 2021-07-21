@@ -2,16 +2,16 @@
 namespace Labsim.apollon.gameplay.device.command
 {
 
-    public class ApollonMotionSystemPS6TM550CommandBridge 
-        : gameplay.ApollonAbstractGameplayFiniteStateMachine<ApollonMotionSystemPS6TM550CommandBridge>
+    public class ApollonMotionSystemCommandBridge 
+        : gameplay.ApollonAbstractGameplayFiniteStateMachine<ApollonMotionSystemCommandBridge>
     {
 
         //ctor
-        public ApollonMotionSystemPS6TM550CommandBridge()
+        public ApollonMotionSystemCommandBridge()
             : base()
         { }
 
-        public ApollonMotionSystemPS6TM550CommandDispatcher Dispatcher { private set; get; } = null;
+        public ApollonMotionSystemCommandDispatcher Dispatcher { private set; get; } = null;
 
 
         #region Bridge abstract implementation 
@@ -20,13 +20,13 @@ namespace Labsim.apollon.gameplay.device.command
         {
 
             // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonMotionSystemPS6TM550CommandBehaviour>();
+            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonMotionSystemCommandBehaviour>();
             if ((behaviours?.Length ?? 0) == 0)
             {
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
+                    "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
                 );
 
                 return null;
@@ -40,7 +40,7 @@ namespace Labsim.apollon.gameplay.device.command
             }
 
             // instantiate
-            this.Dispatcher = new ApollonMotionSystemPS6TM550CommandDispatcher();
+            this.Dispatcher = new ApollonMotionSystemCommandDispatcher();
 
             // finally 
             // TODO : implement the logic of multiple instante (prefab)
@@ -50,7 +50,7 @@ namespace Labsim.apollon.gameplay.device.command
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Command;
+            return ApollonGameplayManager.GameplayIDType.MotionSystemCommand;
         }
 
         protected override async void SetActive(bool value)
@@ -71,6 +71,7 @@ namespace Labsim.apollon.gameplay.device.command
                 this.Behaviour.gameObject.SetActive(true);
                 
                 // subscribe
+                this.Dispatcher.InitEvent += this.OnInitRequested;
                 this.Dispatcher.IdleEvent += this.OnIdleRequested;
                 this.Dispatcher.AccelerateEvent += this.OnAccelerateRequested;
                 this.Dispatcher.DecelerateEvent += this.OnDecelerateRequested;
@@ -101,6 +102,7 @@ namespace Labsim.apollon.gameplay.device.command
                 );
 
                 // unsubscribe
+                this.Dispatcher.InitEvent -= this.OnInitRequested;
                 this.Dispatcher.IdleEvent -= this.OnIdleRequested;
                 this.Dispatcher.AccelerateEvent -= this.OnAccelerateRequested;
                 this.Dispatcher.DecelerateEvent -= this.OnDecelerateRequested;
@@ -119,10 +121,10 @@ namespace Labsim.apollon.gameplay.device.command
 
         #region FSM state implementation
 
-        internal sealed class InitState : ApollonAbstractGameplayState<ApollonMotionSystemPS6TM550CommandBridge>
+        internal sealed class InitState : ApollonAbstractGameplayState<ApollonMotionSystemCommandBridge>
         {
 
-            public InitState(ApollonMotionSystemPS6TM550CommandBridge fsm)
+            public InitState(ApollonMotionSystemCommandBridge fsm)
                 : base(fsm)
             {
             }
@@ -132,17 +134,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.InitState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.InitState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.InitController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.InitController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.InitState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.InitState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -155,7 +157,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.InitState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.InitState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -165,17 +167,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.InitState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.InitState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.InitController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.InitController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.InitState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.InitState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -188,17 +190,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.InitState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.InitState.OnExit() : end"
                 );
 
             } /* OnExit() */
 
         } /* internal sealed class InitState */
 
-        internal sealed class IdleState : ApollonAbstractGameplayState<ApollonMotionSystemPS6TM550CommandBridge>
+        internal sealed class IdleState : ApollonAbstractGameplayState<ApollonMotionSystemCommandBridge>
         {
 
-            public IdleState(ApollonMotionSystemPS6TM550CommandBridge fsm)
+            public IdleState(ApollonMotionSystemCommandBridge fsm)
                 : base(fsm)
             {
             }
@@ -208,17 +210,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.IdleState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.IdleState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.IdleController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.IdleState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.IdleState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -231,7 +233,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.IdleState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.IdleState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -241,17 +243,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.IdleState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.IdleState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.IdleController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.IdleState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.IdleState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -264,17 +266,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.IdleState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.IdleState.OnExit() : end"
                 );
 
             } /* OnExit() */
 
         } /* internal sealed class IdleState */
 
-        internal sealed class AccelerateState : ApollonAbstractGameplayState<ApollonMotionSystemPS6TM550CommandBridge>
+        internal sealed class AccelerateState : ApollonAbstractGameplayState<ApollonMotionSystemCommandBridge>
         {
 
-            public AccelerateState(ApollonMotionSystemPS6TM550CommandBridge fsm)
+            public AccelerateState(ApollonMotionSystemCommandBridge fsm)
                 : base(fsm)
             {
             }
@@ -284,17 +286,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.AccelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.AccelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -307,7 +309,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -317,17 +319,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.AccelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.AccelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -340,17 +342,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnExit() : end"
                 );
 
             } /* OnExit() */
 
         } /* internal sealed class AccelerateState */
 
-        internal sealed class DecelerateState : ApollonAbstractGameplayState<ApollonMotionSystemPS6TM550CommandBridge>
+        internal sealed class DecelerateState : ApollonAbstractGameplayState<ApollonMotionSystemCommandBridge>
         {
 
-            public DecelerateState(ApollonMotionSystemPS6TM550CommandBridge fsm)
+            public DecelerateState(ApollonMotionSystemCommandBridge fsm)
                 : base(fsm)
             {
             }
@@ -360,17 +362,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.DecelerateState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.DecelerateState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.DecelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.DecelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.DecelerateState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.DecelerateState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -383,7 +385,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.AccelerateState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.AccelerateState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -393,17 +395,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.DecelerateState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.DecelerateState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.DecelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.DecelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.DecelerateState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.DecelerateState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -416,16 +418,16 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.DecelerateState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.DecelerateState.OnExit() : end"
                 );
 
             } /* OnExit() */
 
         } /* internal sealed class DecelerateState */
 
-        internal sealed class HoldState : ApollonAbstractGameplayState<ApollonMotionSystemPS6TM550CommandBridge>
+        internal sealed class HoldState : ApollonAbstractGameplayState<ApollonMotionSystemCommandBridge>
         {
-            public HoldState(ApollonMotionSystemPS6TM550CommandBridge fsm)
+            public HoldState(ApollonMotionSystemCommandBridge fsm)
                 : base(fsm)
             {
             }
@@ -435,17 +437,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.HoldState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.HoldState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.HoldController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.HoldState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.HoldState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -458,7 +460,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.HoldState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.HoldState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -468,17 +470,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.HoldState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.HoldState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.HoldController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.HoldState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.HoldState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -491,16 +493,16 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.HoldState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.HoldState.OnExit() : end"
                 );
 
             } /* OnExit() */
 
         } /* internal sealed class Hold */
 
-        internal sealed class ResetState : ApollonAbstractGameplayState<ApollonMotionSystemPS6TM550CommandBridge>
+        internal sealed class ResetState : ApollonAbstractGameplayState<ApollonMotionSystemCommandBridge>
         {
-            public ResetState(ApollonMotionSystemPS6TM550CommandBridge fsm)
+            public ResetState(ApollonMotionSystemCommandBridge fsm)
                 : base(fsm)
             {
             }
@@ -510,17 +512,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.ResetState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.ResetState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.ResetController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.ResetController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.ResetState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.ResetState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -533,7 +535,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.ResetState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.ResetState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -543,17 +545,17 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.ResetState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.ResetState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemPS6TM550CommandBehaviour.ResetController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonMotionSystemCommandBehaviour.ResetController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550CommandBridge.ResetState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonMotionSystemCommandBridge.ResetState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -566,7 +568,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.ResetState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.ResetState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -577,12 +579,30 @@ namespace Labsim.apollon.gameplay.device.command
 
         #region FSM event delegate
 
-        private async void OnIdleRequested(object sender, ApollonMotionSystemPS6TM550CommandDispatcher.EventArgs args)
+        private async void OnInitRequested(object sender, ApollonMotionSystemCommandDispatcher.EventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnIdleRequested() : begin"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnInitRequested() : begin"
+            );
+
+            // activate state
+            await this.SetState(new InitState(this));
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnInitRequested() : end"
+            );
+
+        } /* OnInitRequested() */
+
+        private async void OnIdleRequested(object sender, ApollonMotionSystemCommandDispatcher.EventArgs args)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnIdleRequested() : begin"
             );
 
             // activate state
@@ -590,21 +610,21 @@ namespace Labsim.apollon.gameplay.device.command
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnIdleRequested() : end"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnIdleRequested() : end"
             );
 
         } /* OnIdleRequested() */
 
-        private async void OnAccelerateRequested(object sender, ApollonMotionSystemPS6TM550CommandDispatcher.EventArgs args)
+        private async void OnAccelerateRequested(object sender, ApollonMotionSystemCommandDispatcher.EventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnAccelerateRequested() : begin"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnAccelerateRequested() : begin"
             );
 
             // get behaviour
-            var behaviour = this.Behaviour as ApollonMotionSystemPS6TM550CommandBehaviour;
+            var behaviour = this.Behaviour as ApollonMotionSystemCommandBehaviour;
 
             // set internal settings
             behaviour.AngularVelocitySaturation = UnityEngine.Vector3.right * UnityEngine.Mathf.Deg2Rad * args.AngularVelocitySaturation;
@@ -618,21 +638,21 @@ namespace Labsim.apollon.gameplay.device.command
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnAccelerateRequested() : end"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnAccelerateRequested() : end"
             );
 
         } /* OnAccelerateRequested() */
 
-        private async void OnDecelerateRequested(object sender, ApollonMotionSystemPS6TM550CommandDispatcher.EventArgs args)
+        private async void OnDecelerateRequested(object sender, ApollonMotionSystemCommandDispatcher.EventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnDecelerateRequested() : begin"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnDecelerateRequested() : begin"
             );
 
             // get behaviour
-            var behaviour = this.Behaviour as ApollonMotionSystemPS6TM550CommandBehaviour;
+            var behaviour = this.Behaviour as ApollonMotionSystemCommandBehaviour;
 
             // keep internal settings
 
@@ -641,17 +661,17 @@ namespace Labsim.apollon.gameplay.device.command
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnDecelerateRequested() : end"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnDecelerateRequested() : end"
             );
 
         } /* OnAccelerateRequested() */
 
-        private async void OnSaturationRequested(object sender, ApollonMotionSystemPS6TM550CommandDispatcher.EventArgs args)
+        private async void OnSaturationRequested(object sender, ApollonMotionSystemCommandDispatcher.EventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnSaturationRequested() : begin"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnSaturationRequested() : begin"
             );
 
             // activate state
@@ -659,17 +679,17 @@ namespace Labsim.apollon.gameplay.device.command
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnSaturationRequested() : end"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnSaturationRequested() : end"
             );
 
         } /* OnSaturationRequested() */
 
-        private async void OnResetRequested(object sender, ApollonMotionSystemPS6TM550CommandDispatcher.EventArgs args)
+        private async void OnResetRequested(object sender, ApollonMotionSystemCommandDispatcher.EventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnResetRequested() : begin"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnResetRequested() : begin"
             );
 
             // activate state
@@ -677,13 +697,13 @@ namespace Labsim.apollon.gameplay.device.command
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550CommandBridge.OnResetRequested() : end"
+                "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnResetRequested() : end"
             );
 
         } /* OnResetRequested() */
 
         #endregion
 
-    }  /* class ApollonMotionSystemPS6TM550CommandBridge */
+    }  /* class ApollonMotionSystemCommandBridge */
 
 } /* } Labsim.apollon.gameplay.device.command */

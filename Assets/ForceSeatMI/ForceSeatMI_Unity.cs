@@ -20,6 +20,7 @@ namespace MotionSystems
 {
 	class ForceSeatMI_Unity
 	{
+
 		public struct ExtraParameters
 		{
 			public float yaw;
@@ -32,8 +33,10 @@ namespace MotionSystems
 
 		private ForceSeatMI m_api = null;
 		private FSMI_Telemetry m_telemetry;
+		private FSMI_TopTableMatrixPhysical m_matrix;
 		private FSMI_PlatformInfo m_platformInfo;
 		private ForceSeatMI_ITelemetryInterface m_telemetryObject = null;
+		private ForceSeatMI_IPositioningInterface m_positioningObject = null;
 		private ForceSeatMI_IPlatformInfoInterface m_platformInfoObject = null;
                 
 		public ForceSeatMI_Unity()
@@ -49,7 +52,17 @@ namespace MotionSystems
 				| FSMI_TEL_BIT.YAW_PITCH_ROLL_SPEED 
 				| FSMI_TEL_BIT.YAW_PITCH_ROLL_ACCELERATION
 				| FSMI_TEL_BIT.SWAY_HEAVE_SURGE_SPEED
-				| FSMI_TEL_BIT.SWAY_HEAVE_SURGE_ACCELERATION;
+				| FSMI_TEL_BIT.SWAY_HEAVE_SURGE_ACCELERATION
+				| FSMI_TEL_BIT.AUX;
+
+			m_matrix.mask = 0;
+			m_matrix.structSize = (byte)Marshal.SizeOf(m_matrix);
+			m_matrix.state = FSMI_State.NO_PAUSE;
+			m_matrix.mask 
+				= FSMI_POS_BIT.STATE
+				| FSMI_POS_BIT.MATRIX
+				| FSMI_POS_BIT.AUX;
+						
 		}
 
 		public bool ActivateProfile(string profileName)
@@ -67,6 +80,15 @@ namespace MotionSystems
 			m_telemetryObject = telemetryObject;
 
 			if (null == m_telemetryObject)
+			{
+				Pause(true);
+			}
+		}
+		public void SetPositioningObject(ForceSeatMI_IPositioningInterface positioningObject)
+		{
+			m_positioningObject = positioningObject;
+
+			if (null == m_positioningObject)
 			{
 				Pause(true);
 			}
@@ -90,7 +112,10 @@ namespace MotionSystems
 			{
 				m_telemetryObject.Begin();
 			}
-
+			if (null != m_positioningObject)
+			{
+				m_positioningObject.Begin();
+			}
 			if (null != m_platformInfoObject)
 			{
 				m_platformInfoObject.Begin();
@@ -108,7 +133,10 @@ namespace MotionSystems
 			{
 				m_platformInfoObject.End();
 			}
-
+			if (null  != m_positioningObject)
+			{
+				m_positioningObject.End();
+			}
 			if (null  != m_telemetryObject)
 			{
 				m_telemetryObject.End();
@@ -127,17 +155,22 @@ namespace MotionSystems
 			if (null != m_telemetryObject)
 			{
 				m_telemetryObject.Update(deltaTime, ref m_telemetry);
+				m_api.SendTelemetry(ref m_telemetry);
 			}
 
-			m_api.SendTelemetry(ref m_telemetry);
-			m_api.GetPlatformInfoEx(
-				ref m_platformInfo, 
-				(uint)Marshal.SizeOf(typeof(FSMI_PlatformInfo)),
-				/* ? default ? */ 0
-			);
+			if (null != m_positioningObject)
+			{
+				m_positioningObject.Update(deltaTime, ref m_matrix);
+				m_api.SendTopTableMatrixPhy(ref m_matrix);
+			}
 
 			if (null != m_platformInfoObject)
 			{
+				m_api.GetPlatformInfoEx(
+					ref m_platformInfo, 
+					(uint)Marshal.SizeOf(typeof(FSMI_PlatformInfo)),
+					/* ? default ? */ 0
+				);
 				m_platformInfoObject.Update(deltaTime, ref m_platformInfo);
 			}
 
@@ -154,29 +187,53 @@ namespace MotionSystems
 			if (null != m_telemetryObject)
 			{
 				m_telemetryObject.Pause(paused);
-			}
 
-			if (paused)
+				if (paused)
+				{
+					FSMI_Telemetry pauseTelemetry = new FSMI_Telemetry();
+					pauseTelemetry.mask           = FSMI_TEL_BIT.STATE;
+					pauseTelemetry.structSize     = (byte)Marshal.SizeOf(pauseTelemetry);
+					pauseTelemetry.state          = paused ? (byte)FSMI_State.PAUSE : (byte)FSMI_State.NO_PAUSE;
+
+					m_api.SendTelemetry(ref pauseTelemetry);
+				}
+
+			}			
+			
+			if (null != m_positioningObject)
 			{
-				FSMI_Telemetry pauseTelemetry = new FSMI_Telemetry();
-				pauseTelemetry.mask           = FSMI_TEL_BIT.STATE;
-				pauseTelemetry.structSize     = (byte)Marshal.SizeOf(pauseTelemetry);
-				pauseTelemetry.state          = paused ? (byte)FSMI_State.PAUSE : (byte)FSMI_State.NO_PAUSE;
+				m_positioningObject.Pause(paused);
 
-				m_api.SendTelemetry(ref pauseTelemetry);
+				if (paused)
+				{
+					FSMI_TopTableMatrixPhysical pauseMatrix = new FSMI_TopTableMatrixPhysical();
+					pauseMatrix.mask           = FSMI_POS_BIT.STATE;
+					pauseMatrix.structSize     = (byte)Marshal.SizeOf(pauseMatrix);
+					pauseMatrix.state          = paused ? (byte)FSMI_State.PAUSE : (byte)FSMI_State.NO_PAUSE;
+
+					m_api.SendTopTableMatrixPhy(ref pauseMatrix);
+				}
+
 			}
 
 		}
 
 		public void AddExtra(ExtraParameters parameters)
 		{
-			m_telemetry.mask      |= FSMI_TEL_BIT.EXTRA_YAW_PITCH_ROLL_SWAY_HEAVE_SURGE;
-			m_telemetry.extraYaw   = parameters.yaw;
-			m_telemetry.extraPitch = parameters.pitch;
-			m_telemetry.extraRoll  = parameters.roll;
-			m_telemetry.extraSway  = parameters.sway;
-			m_telemetry.extraHeave = parameters.heave;
-			m_telemetry.extraSurge = parameters.surge;
+			
+			if (null != m_telemetryObject)
+			{
+
+				m_telemetry.mask      |= FSMI_TEL_BIT.EXTRA_YAW_PITCH_ROLL_SWAY_HEAVE_SURGE;
+				m_telemetry.extraYaw   = parameters.yaw;
+				m_telemetry.extraPitch = parameters.pitch;
+				m_telemetry.extraRoll  = parameters.roll;
+				m_telemetry.extraSway  = parameters.sway;
+				m_telemetry.extraHeave = parameters.heave;
+				m_telemetry.extraSurge = parameters.surge;
+
+			}
+
 		}
 	}
 }

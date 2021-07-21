@@ -2,12 +2,12 @@
 namespace Labsim.apollon.gameplay.device.sensor
 {
 
-    public class ApollonMotionSystemPS6TM550SensorBridge 
+    public class ApollonMotionSystemSensorBridge 
          : ApollonAbstractGameplayBridge 
     {
 
         //ctor
-        public ApollonMotionSystemPS6TM550SensorBridge()
+        public ApollonMotionSystemSensorBridge()
             : base()
         { }
 
@@ -17,13 +17,13 @@ namespace Labsim.apollon.gameplay.device.sensor
         {
 
             // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonMotionSystemPS6TM550SensorBehaviour>();
+            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonMotionSystemSensorBehaviour>();
             if ((behaviours?.Length ?? 0) == 0)
             {
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonMotionSystemPS6TM550SensorBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
+                    "<color=Orange>Warning: </color> ApollonMotionSystemSensorBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
                 );
 
                 return null;
@@ -44,7 +44,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Sensor;
+            return ApollonGameplayManager.GameplayIDType.MotionSystemSensor;
         }
 
         protected override async void SetActive(bool value)
@@ -81,6 +81,6 @@ namespace Labsim.apollon.gameplay.device.sensor
 
         #endregion
 
-    }  /* class ApollonMotionSystemPS6TM550SensorBridge */
+    }  /* class ApollonMotionSystemSensorBridge */
 
 } /* } Labsim.apollon.gameplay.device.command */

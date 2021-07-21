@@ -26,8 +26,8 @@ namespace Labsim.apollon.experiment.phase
             // get bridge
             var motion_system_bridge
                 = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Command
-                ) as gameplay.device.command.ApollonMotionSystemPS6TM550CommandBridge;
+                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                ) as gameplay.device.command.ApollonMotionSystemCommandBridge;
 
             // check
             if (motion_system_bridge == null)
@@ -44,7 +44,7 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // stop movement if necessary
-            if(!(motion_system_bridge.State is gameplay.device.command.ApollonMotionSystemPS6TM550CommandBridge.DecelerateState))
+            if(!(motion_system_bridge.State is gameplay.device.command.ApollonMotionSystemCommandBridge.DecelerateState))
             {
 
                 motion_system_bridge.Dispatcher.RaiseDecelerate();

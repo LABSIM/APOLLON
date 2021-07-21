@@ -50,23 +50,16 @@ namespace Labsim.apollon.backend.handle
         } /* private class ApollonMotionSystemPS6TM550Updater */
 
         private class ApollonMotionSystemPS6TM550Command
-            : MotionSystems.ForceSeatMI_ITelemetryInterface
+            : MotionSystems.ForceSeatMI_IPositioningInterface
         {
+            static readonly int _accumulator_max_samples_capacity = 3;
 
             private bool m_firstCall = true;
-            private float m_prevSurgeSpeed = 0.0f;
-            private float m_prevSwaySpeed = 0.0f;
-            private float m_prevHeaveSpeed = 0.0f;
-            private float m_prevYawSpeed = 0.0f;
-            private float m_prevPitchSpeed = 0.0f;
-            private float m_prevRollSpeed = 0.0f;
-            private UnityEngine.Rigidbody m_rb = null;
+            private UnityEngine.GameObject m_behaviour = null;
 
-            public bool IsMotionLocked { get; set; } = false;
-
-            public ApollonMotionSystemPS6TM550Command(UnityEngine.Rigidbody rb)
+            public ApollonMotionSystemPS6TM550Command(UnityEngine.GameObject behaviour)
             {
-                m_rb = rb;
+                m_behaviour = behaviour;
             }
 
             public virtual void Begin()
@@ -79,97 +72,67 @@ namespace Labsim.apollon.backend.handle
                 m_firstCall = true;
             }
 
-            public virtual void Update(float deltaTime, ref MotionSystems.FSMI_Telemetry telemetry)
+            private void UpdateMatrix(ref MotionSystems.FSMI_TopTableMatrixPhysical pos, float ax, float ay, float az, float dx, float dy, float dz)
+            {
+                float sinAX = UnityEngine.Mathf.Sin(ax);
+                float cosAX = UnityEngine.Mathf.Cos(ax);
+                float sinAY = UnityEngine.Mathf.Sin(ay);
+                float cosAY = UnityEngine.Mathf.Cos(ay);
+                float sinAZ = UnityEngine.Mathf.Sin(az);
+                float cosAZ = UnityEngine.Mathf.Cos(az);
+
+                pos.m11 = cosAY*cosAZ;
+                pos.m12 = cosAZ*sinAX*sinAY - cosAX*sinAZ;
+                pos.m13 = cosAX*cosAZ*sinAY + sinAX*sinAZ;
+                pos.m14 = dx;
+
+                pos.m21 = cosAY*sinAZ;
+                pos.m22 = cosAX*cosAZ + sinAX*sinAY*sinAZ;
+                pos.m23 = -cosAZ*sinAX + cosAX*sinAY*sinAZ;
+                pos.m24 = dy;
+
+                pos.m31 = -sinAY;
+                pos.m32 = cosAY*sinAX;
+                pos.m33 = cosAX*cosAY;
+                pos.m34 = dz;
+
+                pos.m41 = 0;
+                pos.m42 = 0;
+                pos.m43 = 0;
+                pos.m44 = 1;
+
+            } /* UpdateMatrix() */
+
+            public virtual void Update(float deltaTime, ref MotionSystems.FSMI_TopTableMatrixPhysical matrix)
             { 
-                
-                // check locking motion component or first call
-                if(/*this.IsMotionLocked ||*/ this.m_firstCall) {
 
-                    telemetry.speed 
-                        = telemetry.yaw 
-                        = telemetry.yawSpeed
-                        = telemetry.yawAcceleration
-                        = telemetry.pitch 
-                        = telemetry.pitchSpeed
-                        = telemetry.pitchAcceleration
-                        = telemetry.roll 
-                        = telemetry.rollSpeed
-                        = telemetry.rollAcceleration
-                        = telemetry.surgeSpeed
-                        = telemetry.surgeAcceleration
-                        = telemetry.heaveSpeed
-                        = telemetry.heaveAcceleration
-                        = telemetry.swaySpeed
-                        = telemetry.swayAcceleration
-                        = 0.0f;
+                // check first call
+                if(this.m_firstCall) {
 
-                    this.m_prevSurgeSpeed 
-                        = this.m_prevSwaySpeed
-                        = this.m_prevHeaveSpeed
-                        = this.m_prevYawSpeed
-                        = this.m_prevPitchSpeed
-                        = this.m_prevRollSpeed
-                        = 0.0f;
+                    this.UpdateMatrix(
+                        ref matrix,
+                        0.0f, 0.0f, 0.0f,
+                        0.0f, 0.0f, 0.0f
+                    );
+
+                    // reset
+                    this.m_firstCall = false;
                     
-                    // reset signal if necessaray
-                    if (this.m_firstCall)
-                    {
-                        this.m_firstCall = false;
-                    }
-
                     // skip the rest
                     return;
 
                 } /* if() */
 
-                // extract local Rb speeds
-                var linear_velocity  = this.m_rb.transform.InverseTransformDirection(this.m_rb.velocity);
-                var angular_velocity  = this.m_rb.transform.InverseTransformDirection(this.m_rb.angularVelocity);
-                var localRotation = this.m_rb.transform.localRotation;
-                
-                // update telemetry
-
-                telemetry.surgeAcceleration = (linear_velocity.z - this.m_prevSurgeSpeed) / deltaTime;
-                telemetry.swayAcceleration  = (linear_velocity.x - this.m_prevSwaySpeed) / deltaTime;
-                telemetry.heaveAcceleration = (linear_velocity.y - this.m_prevHeaveSpeed) / deltaTime;
-
-                telemetry.surgeSpeed = linear_velocity.z;
-                telemetry.swaySpeed  = linear_velocity.x;
-                telemetry.heaveSpeed = linear_velocity.y;
-
-                telemetry.yawAcceleration = (angular_velocity.y - this.m_prevYawSpeed) / deltaTime;
-                telemetry.pitchAcceleration  = -1.0f * (angular_velocity.x - this.m_prevPitchSpeed) / deltaTime;
-                telemetry.rollAcceleration = -1.0f * (angular_velocity.z - this.m_prevRollSpeed) / deltaTime;
-
-                telemetry.yawSpeed   = angular_velocity.y;
-                telemetry.pitchSpeed = -1.0f * angular_velocity.x;
-                telemetry.rollSpeed  = -1.0f * angular_velocity.z;
-
-                telemetry.yaw
-                    = ( 
-                        UnityEngine.Mathf.Deg2Rad 
-                        * (localRotation.eulerAngles.y > 180 ? localRotation.eulerAngles.y - 360 : localRotation.eulerAngles.y)
-                    );
-                telemetry.pitch
-                    = (
-                        -1.0f 
-                        * UnityEngine.Mathf.Deg2Rad 
-                        * (localRotation.eulerAngles.x > 180 ? localRotation.eulerAngles.x - 360 : localRotation.eulerAngles.x)
-                    );
-                telemetry.roll       
-                    = (
-                        -1.0f 
-                        * UnityEngine.Mathf.Deg2Rad 
-                        * (localRotation.eulerAngles.z > 180 ? localRotation.eulerAngles.z - 360 : localRotation.eulerAngles.z)
-                    );
-
-                // backup for next iteration  
-                this.m_prevSurgeSpeed = telemetry.surgeSpeed;
-                this.m_prevSwaySpeed  = telemetry.swaySpeed;
-                this.m_prevHeaveSpeed = telemetry.heaveSpeed;
-                this.m_prevYawSpeed   = telemetry.yawSpeed;
-                this.m_prevPitchSpeed = telemetry.pitchSpeed;
-                this.m_prevRollSpeed  = telemetry.rollSpeed;
+                // update values
+				this.UpdateMatrix(
+                    ref matrix, 
+                    /* pitch in rad */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.x * UnityEngine.Mathf.Deg2Rad, 
+                    /* roll in rad  */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.z * UnityEngine.Mathf.Deg2Rad, 
+                    /* yaw in rad   */ this.m_behaviour.transform.localRotation.eulerAngles.y * UnityEngine.Mathf.Deg2Rad, 
+                    /* sway in mm   */ this.m_behaviour.transform.localPosition.x * 1000.0f, 
+                    /* surge in mm  */ this.m_behaviour.transform.localPosition.z * 1000.0f, 
+                    /* heave in mm  */ this.m_behaviour.transform.localPosition.y * 1000.0f
+                );
 
             } /* Update() */
 
@@ -268,20 +231,20 @@ namespace Labsim.apollon.backend.handle
                     this.m_FSMI_Command 
                         = new ApollonMotionSystemPS6TM550Command(
                             gameplay.ApollonGameplayManager.Instance.getBridge(
-                                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Command
-                            ).Behaviour.GetComponent<UnityEngine.Rigidbody>()
+                                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                            ).Behaviour.gameObject
                         );
                     this.m_FSMI_Sensor
                         = new ApollonMotionSystemPS6TM550Sensor(
                             gameplay.ApollonGameplayManager.Instance.getBridge(
-                                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Sensor
+                                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
                             ).Behaviour.gameObject
                         );
                     this.m_FSMI_Updater = new ApollonMotionSystemPS6TM550Updater(this);
 
                     this.m_FSMI_UnityAPI.SetAppID(""); // If you have dedicated app id, remove ActivateProfile calls from your code
                     this.m_FSMI_UnityAPI.ActivateProfile("LABSIM - " + experiment.ApollonExperimentManager.Instance.getActiveProfile());
-                    this.m_FSMI_UnityAPI.SetTelemetryObject(this.m_FSMI_Command);
+                    this.m_FSMI_UnityAPI.SetPositioningObject(this.m_FSMI_Command);
                     this.m_FSMI_UnityAPI.SetPlatformInfoObject(this.m_FSMI_Sensor);
                     this.m_FSMI_UnityAPI.Pause(false);
                     this.m_FSMI_UnityAPI.Begin();

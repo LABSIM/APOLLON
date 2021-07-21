@@ -2089,7 +2089,7 @@ GameObject:
   - component: {fileID: 519190600}
   - component: {fileID: 519190599}
   m_Layer: 0
-  m_Name: MotionSystemPS6TM550Command
+  m_Name: MotionSystemCommand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8099,7 +8099,7 @@ GameObject:
   - component: {fileID: 1801497966}
   - component: {fileID: 1801497965}
   m_Layer: 0
-  m_Name: MotionSystemPS6TM550Sensor
+  m_Name: MotionSystemSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

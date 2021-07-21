@@ -2,13 +2,13 @@
 namespace Labsim.apollon.gameplay.device.sensor
 {
 
-    public class ApollonMotionSystemPS6TM550SensorBehaviour
+    public class ApollonMotionSystemSensorBehaviour
         : UnityEngine.MonoBehaviour
     {
 
         #region properties/members
 
-        public ApollonMotionSystemPS6TM550SensorBridge Bridge { get; set; }
+        public ApollonMotionSystemSensorBridge Bridge { get; set; }
 
         private bool m_bHasInitialized = false;
 
@@ -39,6 +39,6 @@ namespace Labsim.apollon.gameplay.device.sensor
 
         #endregion
 
-    } /* public class ApollonMotionSystemPS6TM550SensorBehaviour */
+    } /* public class ApollonMotionSystemSensorBehaviour */
 
 } /* } Labsim.apollon.gameplay.device.command */

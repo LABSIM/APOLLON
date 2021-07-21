@@ -32,8 +32,8 @@ namespace Labsim.apollon.experiment.phase
 
             var motion_system_bridge
                 = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemPS6TM550Command
-                ) as gameplay.device.command.ApollonMotionSystemPS6TM550CommandBridge;
+                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                ) as gameplay.device.command.ApollonMotionSystemCommandBridge;
 
             var virtual_motion_system_bridge
                 = gameplay.ApollonGameplayManager.Instance.getBridge(
@@ -153,7 +153,7 @@ namespace Labsim.apollon.experiment.phase
 
                 void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
                     => sync_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
-                void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonMotionSystemPS6TM550CommandDispatcher.EventArgs e)
+                void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonMotionSystemCommandDispatcher.EventArgs e)
                     => sync_point?.TrySetResult((false, -1.0f, "-1"));
 
                 // register our synchronisation function
