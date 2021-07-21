@@ -2121,7 +2121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: MotionSystemPS6TM550Command
+  objectName: MotionSystemCommand
   measurementDescriptor: movement
   customHeader:
   - world_pos_x
@@ -2147,7 +2147,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 0.0000001
   m_Drag: 0
-  m_AngularDrag: 1
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2162,7 +2162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519190597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c4cff80935e3845abe97d702736758, type: 3}
+  m_Script: {fileID: 11500000, guid: e89c02e370eb47c489aca552428cb523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_anchor: {fileID: 749087404}
@@ -8131,7 +8131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: MotionSystemPS6TM550Sensor
+  objectName: MotionSystemSensor
   measurementDescriptor: movement
   customHeader:
   - world_pos_x
@@ -8156,7 +8156,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801497963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dca7eecf627af241a95dce259cda0c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3028fa425c623d34188ea2afc7a67e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1848269550

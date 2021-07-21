@@ -52,7 +52,6 @@ namespace Labsim.apollon.backend.handle
         private class ApollonMotionSystemPS6TM550Command
             : MotionSystems.ForceSeatMI_IPositioningInterface
         {
-            static readonly int _accumulator_max_samples_capacity = 3;
 
             private bool m_firstCall = true;
             private UnityEngine.GameObject m_behaviour = null;
@@ -124,7 +123,7 @@ namespace Labsim.apollon.backend.handle
                 } /* if() */
 
                 // update values
-				this.UpdateMatrix(
+                this.UpdateMatrix(
                     ref matrix, 
                     /* pitch in rad */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.x * UnityEngine.Mathf.Deg2Rad, 
                     /* roll in rad  */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.z * UnityEngine.Mathf.Deg2Rad, 

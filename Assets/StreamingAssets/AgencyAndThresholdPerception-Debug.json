@@ -88,15 +88,16 @@
       "is_practice_condition": false,
       "is_sequence_randomized": false,
       "trial_sequence": [
+        "test_debug_randomtimeout_trial_A",
         "test_debug_randomtimeout_trial_B",
-        "test_debug_randomtimeout_trial_B",
-        "test_debug_randomtimeout_trial_B"
+        "test_debug_randomtimeout_trial_C"
       ]
     }
 
   },
 
   "block_sequence": [
+    "test_block",
     "test_block"
   ]
 

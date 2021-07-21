@@ -71,6 +71,7 @@ namespace Labsim.apollon.gameplay.device.command
                 this.Behaviour.gameObject.SetActive(true);
                 
                 // subscribe
+                this.Dispatcher.InitEvent += this.OnInitRequested;
                 this.Dispatcher.IdleEvent += this.OnIdleRequested;
                 this.Dispatcher.AccelerateEvent += this.OnAccelerateRequested;
                 this.Dispatcher.DecelerateEvent += this.OnDecelerateRequested;
@@ -101,6 +102,7 @@ namespace Labsim.apollon.gameplay.device.command
                 );
 
                 // unsubscribe
+                this.Dispatcher.InitEvent -= this.OnInitRequested;
                 this.Dispatcher.IdleEvent -= this.OnIdleRequested;
                 this.Dispatcher.AccelerateEvent -= this.OnAccelerateRequested;
                 this.Dispatcher.DecelerateEvent -= this.OnDecelerateRequested;
@@ -576,6 +578,24 @@ namespace Labsim.apollon.gameplay.device.command
         #endregion
 
         #region FSM event delegate
+
+        private async void OnInitRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBridge.OnInitRequested() : begin"
+            );
+
+            // activate state
+            await this.SetState(new InitState(this));
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBridge.OnInitRequested() : end"
+            );
+
+        } /* OnInitRequested() */
 
         private async void OnIdleRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
         {

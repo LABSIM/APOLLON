@@ -87,6 +87,8 @@ namespace Labsim.apollon.gameplay.device.command
                 this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
                 this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -115,9 +117,9 @@ namespace Labsim.apollon.gameplay.device.command
                 } /* if() */
                 this._rigidbody.centerOfMass 
                     = (
-                        UnityEngine.Vector3.down * ( PoV_height_offset / 100.0f )
+                        UnityEngine.Vector3.up * ( PoV_height_offset / 100.0f )
                     ) + (
-                        UnityEngine.Vector3.forward * (PoV_depth_offset / 100.0f)
+                        UnityEngine.Vector3.back * (PoV_depth_offset / 100.0f)
                     );
 
                 // log
@@ -187,6 +189,7 @@ namespace Labsim.apollon.gameplay.device.command
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
                 this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
                 this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -276,19 +279,6 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // start chrono
                 this._parent.Chrono.Restart();
-
-                // // check
-                // if (this._parent.InhibitVestibularMotion)
-                // {
-
-                //     // Lock HW 
-                //     (
-                //         backend.ApollonBackendManager.Instance.GetValidHandle(
-                //             backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-                //         ) as backend.handle.ApollonMotionSystemPS6TM550Handle
-                //     ).Lock();
-
-                // } /* if() */
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -503,6 +493,8 @@ namespace Labsim.apollon.gameplay.device.command
             private UnityEngine.Rigidbody _rigidbody = null;
             private UnityEngine.Quaternion _lerp_rotation_from;
             private UnityEngine.Vector3 _lerp_position_from;
+            private UnityEngine.Vector3 _angular_filter_state;
+            private UnityEngine.Vector3 _linear_filter_state;
             private float _time_count = 0.0f;
             private float _total_time = 0.0f;
             private bool _bEnd = false;
@@ -544,9 +536,10 @@ namespace Labsim.apollon.gameplay.device.command
 
                 } /* if() */
 
-                // save initial local rotation & curent timepoint
+                // save initial local rotation, intialize filter state & curent timepoint
                 this._lerp_rotation_from = this._rigidbody.transform.localRotation;
                 this._lerp_position_from = this._rigidbody.transform.position;
+                this._angular_filter_state = this._linear_filter_state = UnityEngine.Vector3.zero;
                 this._time_count = 0.0f;
                 this._total_time 
                     = ( 
@@ -555,6 +548,7 @@ namespace Labsim.apollon.gameplay.device.command
                     )
                     / 1000.0f;
                 this._bEnd = false;
+                this._rigidbody.angularDrag = 1.0f;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -571,174 +565,125 @@ namespace Labsim.apollon.gameplay.device.command
                 {
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.ResetController.FixedUpdate() : reset point reached, doing re-init procedure"
-                    );
-                    
-                    // re-initialize our rigidbody
-                    this._rigidbody.ResetCenterOfMass();
-                    this._rigidbody.ResetInertiaTensor();
-                    this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, this._parent.InitialRotation);
-                    this._rigidbody.constraints
-                        = (
-                            UnityEngine.RigidbodyConstraints.FreezeRotationY
-                            | UnityEngine.RigidbodyConstraints.FreezeRotationZ
-                        );
-                    this._rigidbody.drag = 0.0f;
-                    this._rigidbody.angularDrag = 0.0f;
-                    this._rigidbody.useGravity = false;
-                    this._rigidbody.isKinematic = false;
-                    this._rigidbody.interpolation = UnityEngine.RigidbodyInterpolation.None;
-                    this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.ContinuousDynamic;
-                    this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-                    this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-                    this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                    this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                    this._rigidbody.velocity = UnityEngine.Vector3.zero;
-                    this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
-
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.ResetController.FixedUpdate() : rigidbody reinitialized"
+                        "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.ResetController.FixedUpdate() : reset reached, doing re-init procedure"
                     );
 
-                    // virtual world setup
-                    // - user dependant PoV offset : height + depth
-                    // - max angular velocity aka. saturation point
-                    // - CenterOf -Rotation/Mass offset --> chair settings
-                    // - perfect world == no dampening/drag & no gravity 
-                    float PoV_height_offset = 0.0f, PoV_depth_offset = 0.0f;
-                    if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
-                        || !float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
-                    ) {
 
-                        // log
-                        UnityEngine.Debug.LogWarning(
-                            "<color=Yellow>Warning: </color> ApollonVirtualMotionSystemCommandBehaviour.ResetController.FixedUpdate() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
-                            + PoV_height_offset 
-                            + ","
-                            + PoV_depth_offset
-                            + " ]"
-                        );
-
-                    } /* if() */
-                    this._rigidbody.centerOfMass 
-                        = (
-                            UnityEngine.Vector3.down * ( PoV_height_offset / 100.0f )
-                        ) + (
-                            UnityEngine.Vector3.forward * (PoV_depth_offset / 100.0f)
-                        );
-
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.ResetController.FixedUpdate() : rigidbody reconfigured with current user settings, going idle state"
-                    );
-
-                    // notify Idle event
-                    this._parent.Bridge.Dispatcher.RaiseIdle();
+                    // notify Init event
+                    this._parent.Bridge.Dispatcher.RaiseInit();
 
                     return;
 
                 } /* if() */
 
-                // skip initial condition
-                if(this._time_count != 0.0f)
-                {
+                // // skip initial condition
+                // if(this._time_count != 0.0f)
+                // {
 
-                    // get the difference between two state of the slerp interpolation
+                    //
+                    // Phase forward corrector
+                    //
+                    // Variables
+                    // xcons : consigne en position 
+                    // xpos  : position actuelle
+                    // accel : accélération commandée au rigidbody
+                    // dt    : pas de temps (s)
+                    // X     : état interne du correcteur (dimension 1)// Initialisation
+                    //
+                    // I/O
+                    // -> l'erreur en position est l'entrée du correcteur
+                    // <- l'accélération commandée est la sortie du correcteur
+                    //
+                    // Pseudo
+                    // if init
+                    // {
+                    //     X = 0.0;
+                    // }
+                    // else
+                    // { 
+                    //     while true
+                    //     {
+                    //         err     = xcons - xpos;         // équation d'état du correcteur
+                    //         dXsurdt = -7.849*X +  1.0*err;
+                    //         Y       = -242.6*X + 37.23*err; // calcul de l'état au pas de temps suivant
+                    //         Xp      = X + dXsurdt*dt;       // mise a jour de l'état
+                    //         X       = Xp;    
+                    //         accel   = Y;
+                    //     }
+                    // }
 
-                    UnityEngine.Quaternion r_dx 
-                        = UnityEngine.Quaternion.Inverse(
-                            UnityEngine.Quaternion.Slerp(
-                                this._lerp_rotation_from, 
-                                this._parent.InitialRotation,
-                                (this._time_count - UnityEngine.Time.fixedDeltaTime) / this._total_time
-                            )
-                        ) * UnityEngine.Quaternion.Slerp(
-                            this._lerp_rotation_from, 
-                            this._parent.InitialRotation,
-                            this._time_count / this._total_time
+                    // get delta from objectives
+                    UnityEngine.Vector3 
+                        angular_delta
+                            = (
+                                /* current orientation*/
+                                UnityEngine.Quaternion.Inverse(
+                                    this._rigidbody.transform.localRotation
+                                )
+                                /* objective */
+                                * UnityEngine.Quaternion.Slerp(
+                                    this._lerp_rotation_from, 
+                                    this._parent.InitialRotation,
+                                    this._time_count / this._total_time
+                                )
+                            ).eulerAngles,
+                        linear_delta 
+                            = (
+                                /* objective */ 
+                                UnityEngine.Vector3.Slerp(
+                                    this._lerp_position_from, 
+                                    this._parent.InitialPosition,
+                                    this._time_count / this._total_time
+                                )
+                                /* actual position */ 
+                                - this._rigidbody.transform.position
+                            );
+
+                    // apply modulo 2pi
+                    if(angular_delta.x > 180.0f) { angular_delta.x -= 360.0f; }
+                    if(angular_delta.y > 180.0f) { angular_delta.y -= 360.0f; }
+                    if(angular_delta.z > 180.0f) { angular_delta.z -= 360.0f; }
+                    
+                    // forward state
+                    UnityEngine.Vector3 
+                        angular_dXsurdt
+                            = (
+                                -7.849f * this._angular_filter_state +  1.0f * angular_delta
+                            ),
+                        linear_dXsurdt
+                            = (
+                                -7.849f * this._linear_filter_state +  1.0f * linear_delta
+                            ),
+                        anglar_forward_state
+                            = (
+                                -242.6f * this._angular_filter_state + 37.23f * angular_delta
+                            ),
+                        linear_forward_state
+                            = (
+                                -242.6f * this._linear_filter_state + 37.23f * linear_delta
+                            );
+                    
+                    // update internal
+                    this._angular_filter_state 
+                        += (
+                            angular_dXsurdt * UnityEngine.Time.fixedDeltaTime
+                        );
+                    this._linear_filter_state 
+                        += (
+                            linear_dXsurdt * UnityEngine.Time.fixedDeltaTime
                         );
 
-                    UnityEngine.Vector3 dx 
-                        = UnityEngine.Vector3.Slerp(
-                            this._lerp_position_from, 
-                            this._parent.InitialPosition,
-                            this._time_count / this._total_time
-                        ) - UnityEngine.Vector3.Slerp(
-                            this._lerp_position_from, 
-                            this._parent.InitialPosition,
-                            (this._time_count - UnityEngine.Time.fixedDeltaTime) / this._total_time
-                        );
-                
-                    // apply kinematic equation 
-
-                    UnityEngine.Vector3 angular_acc 
-                        = new UnityEngine.Vector3(
-                            (
-                                (
-                                    (r_dx.eulerAngles.x > 180.0f ? r_dx.eulerAngles.x - 360.0f : r_dx.eulerAngles.x)
-                                    * UnityEngine.Mathf.Deg2Rad
-                                ) 
-                                - ( this._rigidbody.angularVelocity.x * UnityEngine.Time.fixedDeltaTime )
-                            ) 
-                            / (
-                                0.5f * UnityEngine.Mathf.Pow(UnityEngine.Time.fixedDeltaTime, 2.0f)
-                            ),
-                            (
-                                (
-                                    (r_dx.eulerAngles.y > 180.0f ? r_dx.eulerAngles.y - 360.0f : r_dx.eulerAngles.y)
-                                    * UnityEngine.Mathf.Deg2Rad
-                                ) 
-                                - ( this._rigidbody.angularVelocity.y * UnityEngine.Time.fixedDeltaTime )
-                            ) 
-                            / (
-                                0.5f * UnityEngine.Mathf.Pow(UnityEngine.Time.fixedDeltaTime, 2.0f)
-                            ),
-                            (
-                                (
-                                    (r_dx.eulerAngles.z > 180.0f ? r_dx.eulerAngles.z - 360.0f : r_dx.eulerAngles.z)
-                                    * UnityEngine.Mathf.Deg2Rad
-                                ) 
-                                - ( this._rigidbody.angularVelocity.z * UnityEngine.Time.fixedDeltaTime )
-                            ) 
-                            / (
-                                0.5f * UnityEngine.Mathf.Pow(UnityEngine.Time.fixedDeltaTime, 2.0f)
-                            )
-                        );
-
-                    UnityEngine.Vector3 linear_acc 
-                        = new UnityEngine.Vector3(
-                            (
-                                dx.x - ( this._rigidbody.velocity.x * UnityEngine.Time.fixedDeltaTime )
-                            ) 
-                            / (
-                                0.5f *  UnityEngine.Mathf.Pow(UnityEngine.Time.fixedDeltaTime, 2.0f)
-                            ),
-                            (
-                                dx.y - ( this._rigidbody.velocity.y * UnityEngine.Time.fixedDeltaTime )
-                            ) 
-                            / (
-                                0.5f *  UnityEngine.Mathf.Pow(UnityEngine.Time.fixedDeltaTime, 2.0f)
-                            ),
-                            (
-                                dx.z - ( this._rigidbody.velocity.z * UnityEngine.Time.fixedDeltaTime )
-                            ) 
-                            / (
-                                0.5f *  UnityEngine.Mathf.Pow(UnityEngine.Time.fixedDeltaTime, 2.0f)
-                            )
-                        );
-
+                    // apply instructions
                     this._rigidbody.AddTorque(
-                        angular_acc,
+                        anglar_forward_state,
                         UnityEngine.ForceMode.Acceleration
                     );
-
                     this._rigidbody.AddForce(
-                        linear_acc,
+                        linear_forward_state,
                         UnityEngine.ForceMode.Acceleration
                     );
 
-                } /* if() */
+                // } /* if() */
                 
                 // check final condition
                 if((this._time_count / this._total_time) > 1.0f)
@@ -747,14 +692,10 @@ namespace Labsim.apollon.gameplay.device.command
                     // rise end sig
                     this._bEnd = true;
 
-                } 
-                else
-                {
-                    
-                    // advance
-                    this._time_count += UnityEngine.Time.fixedDeltaTime;
-
                 } /* if() */
+
+                // whatever, advance timeline
+                this._time_count += UnityEngine.Time.fixedDeltaTime;
 
             } /* FixedUpdate() */
 
