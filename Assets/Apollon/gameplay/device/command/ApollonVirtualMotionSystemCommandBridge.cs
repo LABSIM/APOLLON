@@ -627,11 +627,59 @@ namespace Labsim.apollon.gameplay.device.command
             var behaviour = this.Behaviour as ApollonVirtualMotionSystemCommandBehaviour;
 
             // set internal settings
-            behaviour.AngularVelocitySaturation = UnityEngine.Vector3.right * UnityEngine.Mathf.Deg2Rad * args.AngularVelocitySaturation;
-            behaviour.AngularAcceleration = UnityEngine.Vector3.right * UnityEngine.Mathf.Deg2Rad * args.AngularAcceleration;
+            behaviour.AngularAccelerationTarget 
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularAccelerationTarget[0],
+                        /* yaw   - y axis */ args.AngularAccelerationTarget[1],
+                        /* roll  - z axis */ args.AngularAccelerationTarget[2]
+                    )
+                );
+            behaviour.AngularVelocitySaturationThreshold
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularVelocitySaturationThreshold[0],
+                        /* yaw   - y axis */ args.AngularVelocitySaturationThreshold[1],
+                        /* roll  - z axis */ args.AngularVelocitySaturationThreshold[2]
+                    )
+                );
+            behaviour.AngularDisplacementLimiter
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularDisplacementLimiter[0],
+                        /* yaw   - y axis */ args.AngularDisplacementLimiter[1],
+                        /* roll  - z axis */ args.AngularDisplacementLimiter[2]
+                    )
+                );
+            behaviour.LinearAccelerationTarget 
+                = ( 
+                    new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearAccelerationTarget[0],
+                        /* heave - y axis */ args.LinearAccelerationTarget[1],
+                        /* surge - z axis */ args.LinearAccelerationTarget[2]
+                    )
+                );
+            behaviour.LinearVelocitySaturationThreshold
+                = (
+                    new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearVelocitySaturationThreshold[0],
+                        /* heave - y axis */ args.LinearVelocitySaturationThreshold[1],
+                        /* surge - z axis */ args.LinearVelocitySaturationThreshold[2]
+                    )
+                );
+            behaviour.LinearDisplacementLimiter
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearDisplacementLimiter[0],
+                        /* heave - y axis */ args.LinearDisplacementLimiter[1],
+                        /* surge - z axis */ args.LinearDisplacementLimiter[2]
+                    )
+                );
             behaviour.Duration = args.Duration;
-            behaviour.StopAngle = args.StopAngle;
-            behaviour.InhibitVestibularMotion = args.InhibitVestibularMotion;
 
             // activate state
             await this.SetState(new AccelerateState(this));

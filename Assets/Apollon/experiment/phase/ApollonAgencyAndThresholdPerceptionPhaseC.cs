@@ -97,22 +97,41 @@ namespace Labsim.apollon.experiment.phase
                 this.FSM.CurrentResults.user_stim_unity_timestamp = UnityEngine.Time.time;
                 this.FSM.CurrentResults.user_stim_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
                     
-                // begin stim
-                virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
-                    /* if not a try/catch condition ? */ (
-                        this.FSM.CurrentSettings.bIsTryCatch
-                            ? 0.0f
-                            : (this.FSM.CurrentResults.user_command * this.FSM.CurrentSettings.phase_C_angular_acceleration)
-                    ),
-                    /* if not a try/catch condition ? */ (
-                        this.FSM.CurrentSettings.bIsTryCatch
-                            ? 0.0f
-                            : (this.FSM.CurrentResults.user_command * this.FSM.CurrentSettings.phase_C_angular_saturation_speed)
-                    ),
-                    this.FSM.CurrentSettings.phase_C_max_stim_duration,
-                    this.FSM.CurrentSettings.phase_C_max_stim_angle,
-                    (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly ? true : false)
-                );
+                // check if it's a try/catch condition & begin stim
+                if(this.FSM.CurrentSettings.bIsTryCatch)
+                {
+                    virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
+                        new float[] { 0.0f, 0.0f, 0.0f },
+                        new float[] { 0.0f, 0.0f, 0.0f },
+                        new float[] { 0.0f, 0.0f, 0.0f },
+                        new float[] { 0.0f, 0.0f, 0.0f },
+                        new float[] { 0.0f, 0.0f, 0.0f },
+                        new float[] { 0.0f, 0.0f, 0.0f },
+                        this.FSM.CurrentSettings.phase_C_stim_duration,
+                        (
+                            this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly 
+                            ? true 
+                            : false
+                        )
+                    );
+                }
+                else
+                {
+                    virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
+                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_stim_duration,
+                        (
+                            this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly 
+                            ? true 
+                            : false
+                        )
+                    );
+                }
 
                 // log
                 UnityEngine.Debug.Log(
@@ -168,22 +187,97 @@ namespace Labsim.apollon.experiment.phase
                 this.FSM.CurrentResults.user_stim_unity_timestamp = UnityEngine.Time.time;
                 this.FSM.CurrentResults.user_stim_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
                     
-                // begin stim
-                motion_system_bridge.Dispatcher.RaiseAccelerate(
-                    /* if not a try/catch condition ? */ (
-                        this.FSM.CurrentSettings.bIsTryCatch
-                            ? 0.0f
-                            : (this.FSM.CurrentResults.user_command * this.FSM.CurrentSettings.phase_C_angular_acceleration)
-                    ),
-                    /* if not a try/catch condition ? */ (
-                        this.FSM.CurrentSettings.bIsTryCatch
-                            ? 0.0f
-                            : (this.FSM.CurrentResults.user_command * this.FSM.CurrentSettings.phase_C_angular_saturation_speed)
-                    ),
-                    this.FSM.CurrentSettings.phase_C_max_stim_duration,
-                    this.FSM.CurrentSettings.phase_C_max_stim_angle,
-                    (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly ? true : false)
-                );
+                // check if it's a try/catch condition & begin stim
+                if(this.FSM.CurrentSettings.bIsTryCatch)
+                {
+                    motion_system_bridge.Dispatcher.RaiseAccelerate(
+                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(
+                            (value, index) => (this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] ? value : 0.0f)
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
+                            (value, index) => (this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] ? value : 0.0f)
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
+                            (value, index) => (this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] ? value : 0.0f)
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
+                            (value, index) => (this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] ? value : 0.0f)
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
+                            (value, index) => (this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] ? value : 0.0f)
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
+                            (value, index) => (this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] ? value : 0.0f)
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_stim_duration,
+                        (
+                            this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly 
+                            ? true 
+                            : false
+                        )
+                    );
+
+                    
+                }
+                else
+                {
+                    motion_system_bridge.Dispatcher.RaiseAccelerate(
+                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(                            
+                            (value, index) 
+                                => (
+                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] 
+                                        ? value 
+                                        : (value * this.FSM.CurrentResults.user_command)
+                                )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
+                            (value, index) 
+                                => (
+                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] 
+                                        ? value 
+                                        : (value * this.FSM.CurrentResults.user_command)
+                                )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
+                            (value, index) 
+                                => (
+                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] 
+                                        ? value 
+                                        : (value * this.FSM.CurrentResults.user_command)
+                                )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
+                            (value, index) 
+                                => (
+                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] 
+                                        ? value 
+                                        : (value * this.FSM.CurrentResults.user_command)
+                                )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
+                            (value, index) 
+                                => (
+                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] 
+                                        ? value 
+                                        : (value * this.FSM.CurrentResults.user_command)
+                                )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
+                            (value, index) 
+                                => (
+                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] 
+                                        ? value 
+                                        : (value * this.FSM.CurrentResults.user_command)
+                                )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_stim_duration,
+                        (
+                            this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly 
+                            ? true 
+                            : false
+                        )
+                    );
+                }
 
                 // log
                 UnityEngine.Debug.Log(

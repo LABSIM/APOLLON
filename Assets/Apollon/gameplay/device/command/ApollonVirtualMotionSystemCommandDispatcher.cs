@@ -10,13 +10,29 @@ namespace Labsim.apollon.gameplay.device.command
         {
 
             // ctor
-            public EventArgs(float ang_acc = 0.0f, float ang_vel_sat = 0.0f, float duration = 0.0f, float stop_angle = 0.0f, bool inhibit_vestibular_motion = true)
+            public EventArgs()
+                : base()
+            {} 
+
+            public EventArgs(
+                float[] angular_acceleration_target,
+                float[] angular_velocity_saturation_threshold, 
+                float[] angular_displacement_limiter,
+                float[] linear_acceleration_target,
+                float[] linear_velocity_saturation_threshold, 
+                float[] linear_dispplacement_limiter,
+                float duration = 0.0f,
+                bool inhibit_vestibular_motion = true
+            )
                 : base()
             {
-                this.AngularAcceleration = ang_acc;
-                this.AngularVelocitySaturation = ang_vel_sat;
+                this.AngularAccelerationTarget = angular_acceleration_target;
+                this.AngularVelocitySaturationThreshold = angular_velocity_saturation_threshold;
+                this.AngularDisplacementLimiter = angular_displacement_limiter;
+                this.LinearAccelerationTarget = linear_acceleration_target;
+                this.LinearVelocitySaturationThreshold = linear_velocity_saturation_threshold;
+                this.LinearDisplacementLimiter = linear_dispplacement_limiter;
                 this.Duration = duration;
-                this.StopAngle = stop_angle;
                 this.InhibitVestibularMotion = inhibit_vestibular_motion;
             }
 
@@ -24,18 +40,24 @@ namespace Labsim.apollon.gameplay.device.command
             public EventArgs(EventArgs rhs)
                 : base(rhs)
             {
-                this.AngularAcceleration = rhs.AngularAcceleration;
-                this.AngularVelocitySaturation = rhs.AngularVelocitySaturation;
+                this.AngularAccelerationTarget = rhs.AngularAccelerationTarget;
+                this.AngularVelocitySaturationThreshold = rhs.AngularVelocitySaturationThreshold;
+                this.AngularDisplacementLimiter = rhs.AngularDisplacementLimiter;
+                this.LinearAccelerationTarget = rhs.LinearAccelerationTarget;
+                this.LinearVelocitySaturationThreshold = rhs.LinearVelocitySaturationThreshold;
+                this.LinearDisplacementLimiter = rhs.LinearDisplacementLimiter;
                 this.Duration = rhs.Duration;
-                this.StopAngle = rhs.StopAngle;
                 this.InhibitVestibularMotion = rhs.InhibitVestibularMotion;
             }
 
             // property
-            public float AngularAcceleration { get; protected set; }
-            public float AngularVelocitySaturation { get; protected set; }
+            public float[] AngularAccelerationTarget { get; protected set; } = new float[3] { 0.0f, 0.0f, 0.0f };
+            public float[] AngularVelocitySaturationThreshold { get; protected set; } = new float[3] { 0.0f, 0.0f, 0.0f };
+            public float[] AngularDisplacementLimiter { get; protected set; } = new float[3] { 0.0f, 0.0f, 0.0f };
+            public float[] LinearAccelerationTarget { get; protected set; } = new float[3] { 0.0f, 0.0f, 0.0f };
+            public float[] LinearVelocitySaturationThreshold { get; protected set; } = new float[3] { 0.0f, 0.0f, 0.0f };
+            public float[] LinearDisplacementLimiter { get; protected set; } = new float[3] { 0.0f, 0.0f, 0.0f };
             public float Duration { get; protected set; }
-            public float StopAngle { get; protected set; }
             public bool InhibitVestibularMotion { get; protected set; }
 
         } /* EventArgs() */
@@ -283,10 +305,13 @@ namespace Labsim.apollon.gameplay.device.command
         } /* RaiseIdle() */
 
         public void RaiseAccelerate(
-            float angular_acceleration_value, 
-            float angular_velocity_saturation_value, 
-            float duration_value, 
-            float stop_angle_value,
+            float[] angular_acceleration_target,
+            float[] angular_velocity_saturation_threshold, 
+            float[] angular_displacement_limiter,
+            float[] linear_acceleration_target,
+            float[] linear_velocity_saturation_threshold, 
+            float[] linear_dispplacement_limiter,
+            float duration,
             bool without_motion
         ) {
 
@@ -296,11 +321,14 @@ namespace Labsim.apollon.gameplay.device.command
                 callback?.Invoke(
                     this, 
                     new EventArgs(
-                        ang_acc: angular_acceleration_value, 
-                        ang_vel_sat: angular_velocity_saturation_value, 
-                        duration: duration_value, 
-                        stop_angle: stop_angle_value,
-                        inhibit_vestibular_motion: without_motion
+                        angular_acceleration_target : angular_acceleration_target,
+                        angular_velocity_saturation_threshold : angular_velocity_saturation_threshold, 
+                        angular_displacement_limiter : angular_displacement_limiter,
+                        linear_acceleration_target : linear_acceleration_target,
+                        linear_velocity_saturation_threshold : linear_velocity_saturation_threshold, 
+                        linear_dispplacement_limiter :linear_dispplacement_limiter,
+                        duration : duration,
+                        inhibit_vestibular_motion : without_motion
                     )
                 );
             }

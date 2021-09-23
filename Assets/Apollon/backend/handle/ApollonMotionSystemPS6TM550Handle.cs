@@ -122,15 +122,69 @@ namespace Labsim.apollon.backend.handle
 
                 } /* if() */
 
-                // update values
+                // update values + noise to avoid locking mechanism
                 this.UpdateMatrix(
                     ref matrix, 
-                    /* pitch in rad */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.x * UnityEngine.Mathf.Deg2Rad, 
-                    /* roll in rad  */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.z * UnityEngine.Mathf.Deg2Rad, 
-                    /* yaw in rad   */ this.m_behaviour.transform.localRotation.eulerAngles.y * UnityEngine.Mathf.Deg2Rad, 
-                    /* sway in mm   */ this.m_behaviour.transform.localPosition.x * 1000.0f, 
-                    /* surge in mm  */ this.m_behaviour.transform.localPosition.z * 1000.0f, 
-                    /* heave in mm  */ this.m_behaviour.transform.localPosition.y * 1000.0f
+                    /* pitch in rad */
+                    (
+                        -1.0f 
+                        * (
+                            this.m_behaviour.transform.localRotation.eulerAngles.x 
+                            /* sin noise */
+                            + (
+                                /* noise amplitude in degree */ 0.05f 
+                                * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime)
+                            )
+                        )
+                        * UnityEngine.Mathf.Deg2Rad
+                    ), 
+                    /* roll in rad */
+                    (
+                        -1.0f 
+                        * (
+                            this.m_behaviour.transform.localRotation.eulerAngles.z
+                            // /* cos noise */
+                            // + (
+                            //     /* noise amplitude in degree */ 0.03f 
+                            //     * UnityEngine.Mathf.Cos(UnityEngine.Time.fixedTime * 100.0f)
+                            // )
+                        )
+                        * UnityEngine.Mathf.Deg2Rad
+                    ), 
+                    /* yaw in rad */ 
+                    (
+                        (
+                            this.m_behaviour.transform.localRotation.eulerAngles.y 
+                            // /* sin noise */
+                            // + ( 
+                            //     /* noise amplitude in degree */ 0.05f 
+                            //     * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime * 100.0f)
+                            // )
+                        ) 
+                        * UnityEngine.Mathf.Deg2Rad
+                    ), 
+                    /* sway in mm */
+                    (
+                        this.m_behaviour.transform.localPosition.x 
+                        * 1000.0f
+                    ), 
+                    /* surge in mm */ 
+                    (
+                        this.m_behaviour.transform.localPosition.z
+                        * 1000.0f
+                    ), 
+                    /* heave in mm */ 
+                    (
+                        (
+                            this.m_behaviour.transform.localPosition.y
+                            // /* sin noise */
+                            // + ( 
+                            //     /* noise amplitude in m */ 0.0005f 
+                            //     * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime * 50.0f)
+                            // )
+                        )
+                        * 1000.0f
+                    )
                 );
 
             } /* Update() */
