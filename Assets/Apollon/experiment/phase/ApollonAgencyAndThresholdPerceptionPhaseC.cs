@@ -100,13 +100,74 @@ namespace Labsim.apollon.experiment.phase
                 // check if it's a try/catch condition & begin stim
                 if(this.FSM.CurrentSettings.bIsTryCatch)
                 {
+
                     virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
-                        new float[] { 0.0f, 0.0f, 0.0f },
-                        new float[] { 0.0f, 0.0f, 0.0f },
-                        new float[] { 0.0f, 0.0f, 0.0f },
-                        new float[] { 0.0f, 0.0f, 0.0f },
-                        new float[] { 0.0f, 0.0f, 0.0f },
-                        new float[] { 0.0f, 0.0f, 0.0f },
+                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
+                        ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_stim_duration,
                         (
                             this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly 
@@ -114,16 +175,78 @@ namespace Labsim.apollon.experiment.phase
                             : false
                         )
                     );
+
                 }
                 else
                 {
+
                     virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
-                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
-                        this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
-                        this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
-                        this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
-                        this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
-                        this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(value => value * this.FSM.CurrentResults.user_command).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
+                        ).ToArray(),
+                        this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
+                        ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_stim_duration,
                         (
                             this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly 
@@ -131,7 +254,8 @@ namespace Labsim.apollon.experiment.phase
                             : false
                         )
                     );
-                }
+
+                } /* if() */
 
                 // log
                 UnityEngine.Debug.Log(
@@ -190,24 +314,73 @@ namespace Labsim.apollon.experiment.phase
                 // check if it's a try/catch condition & begin stim
                 if(this.FSM.CurrentSettings.bIsTryCatch)
                 {
+
                     motion_system_bridge.Dispatcher.RaiseAccelerate(
                         this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(
-                            (value, index) => (this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] ? value : 0.0f)
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
-                            (value, index) => (this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] ? value : 0.0f)
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
-                            (value, index) => (this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] ? value : 0.0f)
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
-                            (value, index) => (this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] ? value : 0.0f)
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
-                            (value, index) => (this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] ? value : 0.0f)
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
-                            (value, index) => (this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] ? value : 0.0f)
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : 0.0f
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_stim_duration,
                         (
@@ -217,58 +390,76 @@ namespace Labsim.apollon.experiment.phase
                         )
                     );
 
-                    
                 }
                 else
                 {
+
                     motion_system_bridge.Dispatcher.RaiseAccelerate(
-                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(                            
-                            (value, index) 
-                                => (
-                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] 
-                                        ? value 
-                                        : (value * this.FSM.CurrentResults.user_command)
-                                )
+                        this.FSM.CurrentSettings.phase_C_angular_acceleration_target.Select(
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
-                            (value, index) 
-                                => (
-                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] 
-                                        ? value 
-                                        : (value * this.FSM.CurrentResults.user_command)
-                                )
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
-                            (value, index) 
-                                => (
-                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[index] 
-                                        ? value 
-                                        : (value * this.FSM.CurrentResults.user_command)
-                                )
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_angular_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
-                            (value, index) 
-                                => (
-                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] 
-                                        ? value 
-                                        : (value * this.FSM.CurrentResults.user_command)
-                                )
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
-                            (value, index) 
-                                => (
-                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] 
-                                        ? value 
-                                        : (value * this.FSM.CurrentResults.user_command)
-                                )
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
-                            (value, index) 
-                                => (
-                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[index] 
-                                        ? value 
-                                        : (value * this.FSM.CurrentResults.user_command)
-                                )
+                            (e, idx) 
+                                => new { 
+                                    Value = e, 
+                                    IsMandatory = this.FSM.CurrentSettings.phase_C_linear_mandatory_axis[idx] 
+                                }
+                        ).Select(
+                            x => (
+                                x.IsMandatory ? x.Value : (x.Value * this.FSM.CurrentResults.user_command)
+                            )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_stim_duration,
                         (
@@ -277,7 +468,8 @@ namespace Labsim.apollon.experiment.phase
                             : false
                         )
                     );
-                }
+
+                } /* if() */
 
                 // log
                 UnityEngine.Debug.Log(

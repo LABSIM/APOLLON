@@ -647,8 +647,7 @@ namespace Labsim.apollon.gameplay.device.command
                 );
             behaviour.AngularDisplacementLimiter
                 = (
-                    UnityEngine.Mathf.Deg2Rad 
-                    * new UnityEngine.Vector3(
+                    new UnityEngine.Vector3(
                         /* pitch - x axis */ args.AngularDisplacementLimiter[0],
                         /* yaw   - y axis */ args.AngularDisplacementLimiter[1],
                         /* roll  - z axis */ args.AngularDisplacementLimiter[2]
@@ -672,8 +671,7 @@ namespace Labsim.apollon.gameplay.device.command
                 );
             behaviour.LinearDisplacementLimiter
                 = (
-                    UnityEngine.Mathf.Deg2Rad 
-                    * new UnityEngine.Vector3(
+                    new UnityEngine.Vector3(
                         /* sway  - x axis */ args.LinearDisplacementLimiter[0],
                         /* heave - y axis */ args.LinearDisplacementLimiter[1],
                         /* surge - z axis */ args.LinearDisplacementLimiter[2]

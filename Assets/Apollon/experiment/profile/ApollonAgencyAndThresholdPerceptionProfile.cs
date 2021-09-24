@@ -275,7 +275,7 @@ namespace Labsim.apollon.experiment.profile
             // filtering
             foreach(var (saturation_item, index) in this.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
             {
-                if(saturation_item == 0.0f )
+                if(saturation_item == 0.0f)
                 {
                     this.CurrentSettings.phase_C_angular_velocity_saturation_threshold[index] 
                         = (
