@@ -288,12 +288,12 @@ namespace Labsim.apollon.gameplay.device.command
             {
 
                 // check if saturation point is reached on each axis
-                if ((this._rigidbody.angularVelocity.x >= this._parent.AngularVelocitySaturationThreshold.x)
-                    && (this._rigidbody.angularVelocity.y >= this._parent.AngularVelocitySaturationThreshold.y)
-                    && (this._rigidbody.angularVelocity.z >= this._parent.AngularVelocitySaturationThreshold.z)
-                    && (this._rigidbody.velocity.x >= this._parent.LinearVelocitySaturationThreshold.x)
-                    && (this._rigidbody.velocity.y >= this._parent.LinearVelocitySaturationThreshold.y)
-                    && (this._rigidbody.velocity.z >= this._parent.LinearVelocitySaturationThreshold.z)
+                if ((UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
                 ) 
                 {
 
@@ -314,44 +314,50 @@ namespace Labsim.apollon.gameplay.device.command
                     (this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
                     || (
                         (this._parent.AngularAccelerationTarget.x != 0.0f) 
+                        && (this._parent.AngularDisplacementLimiter.x != 0.0f)
                         && (
                             (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.x
-                            >= this._parent.AngularDisplacementLimiter.x
+                            >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.x)
                         )
                     )
                     || (
                         (this._parent.AngularAccelerationTarget.y != 0.0f) 
+                        && (this._parent.AngularDisplacementLimiter.y != 0.0f)
                         && (
                             (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.y
-                            >= this._parent.AngularDisplacementLimiter.y
+                            >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.y)
                         )
                     )
                     || (
                         (this._parent.AngularAccelerationTarget.z != 0.0f) 
+                        && (this._parent.AngularDisplacementLimiter.z != 0.0f)
                         && (
                             (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.z
-                            >= this._parent.AngularDisplacementLimiter.z
+                            >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.z)
                         )
                     )
                     || (
                         (this._parent.LinearAccelerationTarget.x != 0.0f) 
+                        && (this._parent.LinearDisplacementLimiter.x != 0.0f)
                         && (
-                            System.Math.Abs(this._parent.InitialPosition.x - this._rigidbody.position.x) 
-                            >= this._parent.LinearDisplacementLimiter.x
+                            System.Math.Abs(this._rigidbody.position.x - this._parent.InitialPosition.x) 
+                            >= UnityEngine.Mathf.Abs(this._parent.LinearDisplacementLimiter.x)
                         )
                     )
                     || (
                         (this._parent.LinearAccelerationTarget.y != 0.0f) 
+                        && (this._parent.LinearDisplacementLimiter.y != 0.0f)
                         && (
-                            System.Math.Abs(this._parent.InitialPosition.y - this._rigidbody.position.y) 
-                            >= this._parent.LinearDisplacementLimiter.y
+                            System.Math.Abs(this._rigidbody.position.y - this._parent.InitialPosition.y) 
+                            >= UnityEngine.Mathf.Abs(this._parent.LinearDisplacementLimiter.y)
                         )
                     )
                     || (
                         (this._parent.LinearAccelerationTarget.z != 0.0f) 
+                        && (this._parent.LinearDisplacementLimiter.z != 0.0f)
                         && (
-                            System.Math.Abs(this._parent.InitialPosition.z - this._rigidbody.position.z) 
-                            >= this._parent.LinearDisplacementLimiter.z
+                            System.Math.Abs(this._rigidbody.position.z - this._parent.InitialPosition.z) 
+                            >= UnityEngine.Mathf.Abs(this._parent.LinearDisplacementLimiter.z)
                         )
                     )
                 ) {
@@ -370,32 +376,32 @@ namespace Labsim.apollon.gameplay.device.command
 
                     // continuous perfect world acceleration
                     if ((this._parent.AngularAccelerationTarget.x != 0.0f) 
-                        && (this._rigidbody.angularVelocity.x < this._parent.AngularVelocitySaturationThreshold.x)
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
                     ) {
                         this._rigidbody.AddTorque(new UnityEngine.Vector3(this._parent.AngularAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.AngularAccelerationTarget.y != 0.0f) 
-                        && (this._rigidbody.angularVelocity.y < this._parent.AngularVelocitySaturationThreshold.y)
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
                     ) {
                         this._rigidbody.AddTorque(new UnityEngine.Vector3(0.0f, this._parent.AngularAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.AngularAccelerationTarget.z != 0.0f) 
-                        && (this._rigidbody.angularVelocity.z < this._parent.AngularVelocitySaturationThreshold.z)
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
                     ) {
                         this._rigidbody.AddTorque(new UnityEngine.Vector3(0.0f, 0.0f,this._parent.AngularAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.LinearAccelerationTarget.x != 0.0f) 
-                        && (this._rigidbody.velocity.x < this._parent.LinearVelocitySaturationThreshold.x)
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
                     ) {
                         this._rigidbody.AddForce(new UnityEngine.Vector3(this._parent.LinearAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.LinearAccelerationTarget.y != 0.0f) 
-                        && (this._rigidbody.velocity.y < this._parent.LinearVelocitySaturationThreshold.y)
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
                     ) {
                         this._rigidbody.AddForce(new UnityEngine.Vector3(0.0f, this._parent.LinearAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.LinearAccelerationTarget.z != 0.0f) 
-                        && (this._rigidbody.velocity.z < this._parent.LinearVelocitySaturationThreshold.z)
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
                     ) {
                         this._rigidbody.AddForce(new UnityEngine.Vector3(0.0f, 0.0f, this._parent.LinearAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
                     }
@@ -464,12 +470,12 @@ namespace Labsim.apollon.gameplay.device.command
             {
 
                 // check if saturation point is reached
-                if ((this._rigidbody.angularVelocity.x <= 0.0001f)
-                    && (this._rigidbody.angularVelocity.y <= 0.0001f)
-                    && (this._rigidbody.angularVelocity.z <= 0.0001f)
-                    && (this._rigidbody.velocity.x <= 0.0001f)
-                    && (this._rigidbody.velocity.y <= 0.0001f)
-                    && (this._rigidbody.velocity.z <= 0.0001f)
+                if ((UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) <= 0.0001f)
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) <= 0.0001f)
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) <= 0.0001f)
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) <= 0.0001f)
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) <= 0.0001f)
+                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) <= 0.0001f)
                 )
                 {
 
@@ -505,32 +511,32 @@ namespace Labsim.apollon.gameplay.device.command
 
                     // continuous perfect world deceleration
                     if ((this._parent.AngularAccelerationTarget.x != 0.0f) 
-                        && (this._rigidbody.angularVelocity.x > 0.0001f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) > 0.0001f) 
                     ) {
                         this._rigidbody.AddTorque(-1.0f * new UnityEngine.Vector3(this._parent.AngularAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.AngularAccelerationTarget.y != 0.0f) 
-                        && (this._rigidbody.angularVelocity.y > 0.0001f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) > 0.0001f) 
                     ) {
                         this._rigidbody.AddTorque(-1.0f * new UnityEngine.Vector3(0.0f, this._parent.AngularAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.AngularAccelerationTarget.z != 0.0f) 
-                        && (this._rigidbody.angularVelocity.z > 0.0001f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) > 0.0001f) 
                     ) {
                         this._rigidbody.AddTorque(-1.0f * new UnityEngine.Vector3(0.0f, 0.0f,this._parent.AngularAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.LinearAccelerationTarget.x != 0.0f) 
-                        && (this._rigidbody.velocity.x > 0.0001f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) > 0.0001f) 
                     ) {
                         this._rigidbody.AddForce(-1.0f * new UnityEngine.Vector3(this._parent.LinearAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.LinearAccelerationTarget.y != 0.0f) 
-                        && (this._rigidbody.velocity.y > 0.0001f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) > 0.0001f) 
                     ) {
                         this._rigidbody.AddForce(-1.0f * new UnityEngine.Vector3(0.0f, this._parent.LinearAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
                     }
                     if ((this._parent.LinearAccelerationTarget.z != 0.0f) 
-                        && (this._rigidbody.velocity.z > 0.0001f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) > 0.0001f)
                     ) {
                         this._rigidbody.AddForce(-1.0f * new UnityEngine.Vector3(0.0f, 0.0f, this._parent.LinearAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
                     }
@@ -599,44 +605,50 @@ namespace Labsim.apollon.gameplay.device.command
                     (this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
                     || (
                         (this._parent.AngularAccelerationTarget.x != 0.0f) 
+                        && (this._parent.AngularDisplacementLimiter.x != 0.0f)
                         && (
                             (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.x
-                            >= this._parent.AngularDisplacementLimiter.x
+                            >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.x)
                         )
                     )
                     || (
                         (this._parent.AngularAccelerationTarget.y != 0.0f) 
+                        && (this._parent.AngularDisplacementLimiter.y != 0.0f)
                         && (
                             (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.y
-                            >= this._parent.AngularDisplacementLimiter.y
+                            >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.y)
                         )
                     )
                     || (
                         (this._parent.AngularAccelerationTarget.z != 0.0f) 
+                        && (this._parent.AngularDisplacementLimiter.z != 0.0f)
                         && (
                             (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.z
-                            >= this._parent.AngularDisplacementLimiter.z
+                            >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.z)
                         )
                     )
                     || (
                         (this._parent.LinearAccelerationTarget.x != 0.0f) 
+                        && (this._parent.LinearDisplacementLimiter.x != 0.0f)
                         && (
-                            System.Math.Abs(this._parent.InitialPosition.x - this._rigidbody.position.x) 
-                            >= this._parent.LinearDisplacementLimiter.x
+                            System.Math.Abs(this._rigidbody.position.x - this._parent.InitialPosition.x) 
+                            >= UnityEngine.Mathf.Abs(this._parent.LinearDisplacementLimiter.x)
                         )
                     )
                     || (
                         (this._parent.LinearAccelerationTarget.y != 0.0f) 
+                        && (this._parent.LinearDisplacementLimiter.y != 0.0f)
                         && (
-                            System.Math.Abs(this._parent.InitialPosition.y - this._rigidbody.position.y) 
-                            >= this._parent.LinearDisplacementLimiter.y
+                            System.Math.Abs(this._rigidbody.position.y - this._parent.InitialPosition.y) 
+                            >= UnityEngine.Mathf.Abs(this._parent.LinearDisplacementLimiter.y)
                         )
                     )
                     || (
                         (this._parent.LinearAccelerationTarget.z != 0.0f) 
+                        && (this._parent.LinearDisplacementLimiter.z != 0.0f)
                         && (
-                            System.Math.Abs(this._parent.InitialPosition.z - this._rigidbody.position.z) 
-                            >= this._parent.LinearDisplacementLimiter.z
+                            System.Math.Abs(this._rigidbody.position.z - this._parent.InitialPosition.z) 
+                            >= UnityEngine.Mathf.Abs(this._parent.LinearDisplacementLimiter.z)
                         )
                     )
                 ) {
@@ -804,15 +816,6 @@ namespace Labsim.apollon.gameplay.device.command
                             /* actual position */ 
                             - this._rigidbody.transform.position
                         );
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Violet>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.ResetController.FixedUpdate() : angular_delta ["
-                    + angular_delta
-                    + "] linear_delta ["
-                    + linear_delta
-                    + "]"
-                );
 
                 // apply modulo 2pi
                 if(angular_delta.x > 180.0f) { angular_delta.x -= 360.0f; }
