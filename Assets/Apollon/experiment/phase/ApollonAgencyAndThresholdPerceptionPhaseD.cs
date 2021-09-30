@@ -29,8 +29,13 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
                 ) as gameplay.device.command.ApollonMotionSystemCommandBridge;
 
+            var virtual_motion_system_bridge
+                = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
+                ) as gameplay.device.command.ApollonVirtualMotionSystemCommandBridge;
+
             // check
-            if (motion_system_bridge == null)
+            if (motion_system_bridge == null || virtual_motion_system_bridge == null)
             {
 
                 // log
@@ -42,21 +47,13 @@ namespace Labsim.apollon.experiment.phase
                 return;
 
             } /* if() */
-
-            // stop movement if necessary
-            if(!(motion_system_bridge.State is gameplay.device.command.ApollonMotionSystemCommandBridge.DecelerateState))
-            {
-
-                motion_system_bridge.Dispatcher.RaiseDecelerate();
-
-            } /* if() */
                 
             // fade out from black for vestibular-only scenario
             if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VestibularOnly)
             {
 
                 // run it asynchronously
-                this.FSM.DoFadeOut(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
+                this.FSM.DoFadeOut(this.FSM._trial_fade_out_duration);
 
             } /* if() */
 
@@ -78,6 +75,25 @@ namespace Labsim.apollon.experiment.phase
             // hide red cross & frame
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
+
+            // raise reset event
+            switch (this.FSM.CurrentSettings.scenario_type)
+            {
+
+                default:
+                case profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisualOnly:
+                {   
+                    virtual_motion_system_bridge.Dispatcher.RaiseReset();
+                    break;
+                }
+                case profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VestibularOnly:
+                case profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VisuoVestibular:
+                {
+                    motion_system_bridge.Dispatcher.RaiseReset();
+                    break;
+                }
+
+            } /* switch() */
 
             // log
             UnityEngine.Debug.Log(

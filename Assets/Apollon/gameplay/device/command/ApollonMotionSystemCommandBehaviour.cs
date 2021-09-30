@@ -501,7 +501,7 @@ namespace Labsim.apollon.gameplay.device.command
                         );
 
                         // notify reset event
-                        this._parent.Bridge.Dispatcher.RaiseReset();                        
+                        this._parent.Bridge.Dispatcher.RaiseIdle();                        
 
                     } /* if() */
 

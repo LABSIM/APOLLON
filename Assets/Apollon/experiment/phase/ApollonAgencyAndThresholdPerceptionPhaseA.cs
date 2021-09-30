@@ -22,6 +22,15 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseA.OnEntry() : begin"
             );
+            
+            // fade in to black for vestibular-only scenario
+            if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VestibularOnly)
+            {
+
+                // run it asynchronously
+                this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+
+            } /* if() */
            
             // show green cross & frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
@@ -32,15 +41,6 @@ namespace Labsim.apollon.experiment.phase
 
             // hide green frame first
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
-
-            // fade in to black for vestibular-only scenario
-            if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VestibularOnly)
-            {
-
-                // run it asynchronously
-                this.FSM.DoFadeIn(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
-
-            } /* if() */
 
             // wait a certain amout of time
             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);

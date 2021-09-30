@@ -47,6 +47,7 @@ namespace Labsim.apollon.experiment.profile
                 phase_B_begin_stim_timeout_lower_bound,
                 phase_B_begin_stim_timeout_upper_bound,
                 phase_C_stim_duration,
+                phase_C_total_duration,
                 phase_D_duration;
 
             public float[]
@@ -262,6 +263,7 @@ namespace Labsim.apollon.experiment.profile
             this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound         = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[0];
             this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound         = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[1];
             this.CurrentSettings.phase_C_stim_duration                          = arg.Trial.settings.GetFloat("phase_C_stim_duration_ms");
+            this.CurrentSettings.phase_C_total_duration                         = arg.Trial.settings.GetFloat("phase_C_total_duration_ms");
             this.CurrentSettings.phase_C_angular_displacement_limiter           = arg.Trial.settings.GetFloatList("phase_C_angular_displacement_limiter_deg").ToArray();
             this.CurrentSettings.phase_C_angular_acceleration_target            = arg.Trial.settings.GetFloatList("phase_C_angular_acceleration_target_deg_per_s2").ToArray();
             this.CurrentSettings.phase_C_angular_velocity_saturation_threshold  = arg.Trial.settings.GetFloatList("phase_C_angular_velocity_saturation_threshold_deg_per_s").ToArray();
@@ -309,6 +311,7 @@ namespace Labsim.apollon.experiment.profile
                 + "\n - phase_B_begin_stim_timeout_lower_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound
                 + "\n - phase_B_begin_stim_timeout_upper_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound
                 + "\n - phase_C_stim_duration : " + this.CurrentSettings.phase_C_stim_duration
+                + "\n - phase_C_total_duration : " + this.CurrentSettings.phase_C_total_duration
                 + "\n - phase_C_angular_displacement_limiter : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_displacement_limiter) + "]"
                 + "\n - phase_C_angular_acceleration_target : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_acceleration_target) + "]"
                 + "\n - phase_C_angular_velocity_saturation_threshold : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_velocity_saturation_threshold) + "]"

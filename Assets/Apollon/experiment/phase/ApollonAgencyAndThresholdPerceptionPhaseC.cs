@@ -1,4 +1,5 @@
-﻿using System.Linq;
+using System.Linq;
+using System.Threading.Tasks;
 
 // avoid namespace pollution
 namespace Labsim.apollon.experiment.phase
@@ -75,19 +76,20 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // synchronisation mechanism (TCS + local function)
-            var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string)>();
+            var sync_detection_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string)>();
+            var sync_idle_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
 
             if(!bHasRealMotion) 
             {            
 
                 void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
-                    => sync_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
+                    => sync_detection_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
                 void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonVirtualMotionSystemCommandDispatcher.EventArgs e)
-                    => sync_point?.TrySetResult((false, -1.0f, "-1"));
+                    => sync_idle_point?.TrySetResult(true);
 
                 // register our synchronisation function
                 control_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-                virtual_motion_system_bridge.Dispatcher.DecelerateEvent += sync_end_stim_local_function;
+                virtual_motion_system_bridge.Dispatcher.IdleEvent += sync_end_stim_local_function;
 
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin stim"
@@ -96,6 +98,17 @@ namespace Labsim.apollon.experiment.phase
                 // log stim begin timestamp
                 this.FSM.CurrentResults.user_stim_unity_timestamp = UnityEngine.Time.time;
                 this.FSM.CurrentResults.user_stim_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : beginning "
+                    + (this.FSM.CurrentSettings.bIsTryCatch ? "fake" : "real")
+                    + " stim, result [user_stim_unity_timestamp:"
+                    + this.FSM.CurrentResults.user_stim_unity_timestamp
+                    + ",user_stim_host_timestamp:"
+                    + this.FSM.CurrentResults.user_stim_host_timestamp
+                    + "]"
+                );
                     
                 // check if it's a try/catch condition & begin stim
                 if(this.FSM.CurrentSettings.bIsTryCatch)
@@ -268,16 +281,62 @@ namespace Labsim.apollon.experiment.phase
                     + "]"
                 );
 
-                // wait synchronisation point indefinitely & reset it once hit
+                var phase_running_task 
+                    // wait for idle state
+                    = System.Threading.Tasks.Task.Factory.StartNew(
+                        async () => 
+                        { 
+
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting for idle state"
+                            );
+                            await sync_idle_point.Task; 
+                        } 
+                    // then sleep remaining idle time & raise end
+                    ).Unwrap().ContinueWith( 
+                        async antecedant => 
+                        { 
+
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting [" 
+                                + (this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ))
+                                + " ms] for remaining phase total time"
+                            );
+                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ));
+                        
+                        }
+                    ).Unwrap().ContinueWith(
+                        antecedent => 
+                        {
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end "
+                            );
+                            sync_detection_point?.TrySetResult((false, -1.0f, "-1.0f"));
+                        }
+                    );
+
+                // wait for detection synchronisation point indefinitely & reset it once hit
                 (
                     this.FSM.CurrentResults.user_response, 
                     this.FSM.CurrentResults.user_perception_unity_timestamp,
                     this.FSM.CurrentResults.user_perception_host_timestamp
-                ) = await sync_point.Task;
+                ) = await sync_detection_point.Task;
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end stim, result [user_response:"
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting for phase end"
+                );
+
+                // wait for phase task completion
+                await phase_running_task;
+
+                // unregister our synchronisation function
+                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                virtual_motion_system_bridge.Dispatcher.IdleEvent -= sync_end_stim_local_function;
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end phase, result [user_response:"
                     + this.FSM.CurrentResults.user_response
                     + ",user_perception_unity_timestamp:"
                     + this.FSM.CurrentResults.user_perception_unity_timestamp
@@ -285,23 +344,19 @@ namespace Labsim.apollon.experiment.phase
                     + this.FSM.CurrentResults.user_perception_host_timestamp
                     + "]"
                 );
-
-                // unregister our synchronisation function
-                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-                virtual_motion_system_bridge.Dispatcher.DecelerateEvent -= sync_end_stim_local_function;
 
             }
             else
             {
 
                 void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
-                    => sync_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
+                    => sync_detection_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
                 void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonMotionSystemCommandDispatcher.EventArgs e)
-                    => sync_point?.TrySetResult((false, -1.0f, "-1"));
+                    => sync_idle_point?.TrySetResult(true);
 
                 // register our synchronisation function
                 control_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-                motion_system_bridge.Dispatcher.DecelerateEvent += sync_end_stim_local_function;
+                motion_system_bridge.Dispatcher.IdleEvent += sync_end_stim_local_function;
 
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin stim"
@@ -310,7 +365,18 @@ namespace Labsim.apollon.experiment.phase
                 // log stim begin timestamp
                 this.FSM.CurrentResults.user_stim_unity_timestamp = UnityEngine.Time.time;
                 this.FSM.CurrentResults.user_stim_host_timestamp = System.DateTime.Now.ToString("HH:mm:ss.ffffff");
-                    
+                
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : beginning "
+                    + (this.FSM.CurrentSettings.bIsTryCatch ? "fake" : "real")
+                    + " stim, result [user_stim_unity_timestamp:"
+                    + this.FSM.CurrentResults.user_stim_unity_timestamp
+                    + ",user_stim_host_timestamp:"
+                    + this.FSM.CurrentResults.user_stim_host_timestamp
+                    + "]"
+                );
+
                 // check if it's a try/catch condition & begin stim
                 if(this.FSM.CurrentSettings.bIsTryCatch)
                 {
@@ -471,27 +537,58 @@ namespace Labsim.apollon.experiment.phase
 
                 } /* if() */
 
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin "
-                    + (this.FSM.CurrentSettings.bIsTryCatch ? "fake" : "real")
-                    + " stim, result [user_stim_unity_timestamp:"
-                    + this.FSM.CurrentResults.user_stim_unity_timestamp
-                    + ",user_stim_host_timestamp:"
-                    + this.FSM.CurrentResults.user_stim_host_timestamp
-                    + "]"
-                );
+                var phase_running_task 
+                    // wait for idle state
+                    = System.Threading.Tasks.Task.Factory.StartNew(
+                        async () => 
+                        { 
 
-                // wait synchronisation point indefinitely & reset it once hit
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting for idle state"
+                            );
+                            await sync_idle_point.Task; 
+                        } 
+                    // then sleep remaining idle time & raise end
+                    ).Unwrap().ContinueWith( 
+                        async antecedant => 
+                        { 
+
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting [" 
+                                + (this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ))
+                                + " ms] for remaining phase total time"
+                            );
+                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ));
+                        
+                        }
+                    ).Unwrap().ContinueWith(
+                        antecedent => {
+                            sync_detection_point?.TrySetResult((false, -1.0f, "-1.0f"));
+                        }
+                    );
+
+                // wait for detection synchronisation point indefinitely & reset it once hit
                 (
                     this.FSM.CurrentResults.user_response, 
                     this.FSM.CurrentResults.user_perception_unity_timestamp,
                     this.FSM.CurrentResults.user_perception_host_timestamp
-                ) = await sync_point.Task;
+                ) = await sync_detection_point.Task;
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end stim, result [user_response:"
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting for phase end"
+                );
+
+                // wait for phase task completion
+                await phase_running_task;
+
+                // unregister our synchronisation function
+                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                motion_system_bridge.Dispatcher.IdleEvent -= sync_end_stim_local_function;
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : synchronisation point reached, result [user_response:"
                     + this.FSM.CurrentResults.user_response
                     + ",user_perception_unity_timestamp:"
                     + this.FSM.CurrentResults.user_perception_unity_timestamp
@@ -499,10 +596,6 @@ namespace Labsim.apollon.experiment.phase
                     + this.FSM.CurrentResults.user_perception_host_timestamp
                     + "]"
                 );
-
-                // unregister our synchronisation function
-                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-                motion_system_bridge.Dispatcher.DecelerateEvent -= sync_end_stim_local_function;
 
             } /* if() */
 

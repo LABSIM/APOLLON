@@ -500,8 +500,8 @@ namespace Labsim.apollon.gameplay.device.command
                             "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.DecelerateController.FixedUpdate() : movement stopped, raise iddle event"
                         );
 
-                        // notify reset event
-                        this._parent.Bridge.Dispatcher.RaiseReset();                        
+                        // notify idle event
+                        this._parent.Bridge.Dispatcher.RaiseIdle();                        
 
                     } /* if() */
 
