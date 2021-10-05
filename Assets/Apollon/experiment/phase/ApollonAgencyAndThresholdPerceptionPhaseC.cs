@@ -331,9 +331,9 @@ namespace Labsim.apollon.experiment.phase
 
                 // wait for detection synchronisation point indefinitely & reset it once hit
                 (
-                    this.FSM.CurrentResults.user_response, 
-                    this.FSM.CurrentResults.user_perception_unity_timestamp,
-                    this.FSM.CurrentResults.user_perception_host_timestamp
+                    this.FSM.CurrentResults.user_response_C, 
+                    this.FSM.CurrentResults.user_perception_C_unity_timestamp,
+                    this.FSM.CurrentResults.user_perception_C_host_timestamp
                 ) = await sync_detection_point.Task;
 
                 // unregister our control synchronisation function
@@ -352,12 +352,12 @@ namespace Labsim.apollon.experiment.phase
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end phase, result [user_response:"
-                    + this.FSM.CurrentResults.user_response
-                    + ",user_perception_unity_timestamp:"
-                    + this.FSM.CurrentResults.user_perception_unity_timestamp
-                    + ",user_perception_host_timestamp:"
-                    + this.FSM.CurrentResults.user_perception_host_timestamp
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end phase, result [user_response_C:"
+                    + this.FSM.CurrentResults.user_response_C
+                    + ",user_perception_C_unity_timestamp:"
+                    + this.FSM.CurrentResults.user_perception_C_unity_timestamp
+                    + ",user_perception_C_host_timestamp:"
+                    + this.FSM.CurrentResults.user_perception_C_host_timestamp
                     + "]"
                 );
 
@@ -603,9 +603,9 @@ namespace Labsim.apollon.experiment.phase
 
                 // wait for detection synchronisation point indefinitely & reset it once hit
                 (
-                    this.FSM.CurrentResults.user_response, 
-                    this.FSM.CurrentResults.user_perception_unity_timestamp,
-                    this.FSM.CurrentResults.user_perception_host_timestamp
+                    this.FSM.CurrentResults.user_response_C, 
+                    this.FSM.CurrentResults.user_perception_C_unity_timestamp,
+                    this.FSM.CurrentResults.user_perception_C_host_timestamp
                 ) = await sync_detection_point.Task;
                 
                 // unregister our control synchronisation function
@@ -624,12 +624,12 @@ namespace Labsim.apollon.experiment.phase
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end phase, result [user_response:"
-                    + this.FSM.CurrentResults.user_response
-                    + ",user_perception_unity_timestamp:"
-                    + this.FSM.CurrentResults.user_perception_unity_timestamp
-                    + ",user_perception_host_timestamp:"
-                    + this.FSM.CurrentResults.user_perception_host_timestamp
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end phase, result [user_response_C:"
+                    + this.FSM.CurrentResults.user_response_C
+                    + ",user_perception_C_unity_timestamp:"
+                    + this.FSM.CurrentResults.user_perception_C_unity_timestamp
+                    + ",user_perception_C_host_timestamp:"
+                    + this.FSM.CurrentResults.user_perception_C_host_timestamp
                     + "]"
                 );
 

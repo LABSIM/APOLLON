@@ -68,18 +68,21 @@ namespace Labsim.apollon.experiment.profile
         {
 
             public bool
-                user_response;
+                user_response_B,
+                user_response_C;
 
             public int
                 user_command;
 
             public float
                 user_stim_unity_timestamp,
-                user_perception_unity_timestamp;
+                user_perception_B_unity_timestamp,
+                user_perception_C_unity_timestamp;
 
             public string
                 user_stim_host_timestamp,
-                user_perception_host_timestamp;
+                user_perception_B_host_timestamp,
+                user_perception_C_host_timestamp;
 
             public UnityEngine.AudioClip
                 user_clip;
@@ -365,9 +368,12 @@ namespace Labsim.apollon.experiment.profile
             // write result
             ApollonExperimentManager.Instance.Trial.result["user_stim_host_timestamp"] = this.CurrentResults.user_stim_host_timestamp;
             ApollonExperimentManager.Instance.Trial.result["user_stim_unity_timestamp"] = this.CurrentResults.user_stim_unity_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["user_response"] = this.CurrentResults.user_response;
-            ApollonExperimentManager.Instance.Trial.result["user_perception_host_timestamp"] = this.CurrentResults.user_perception_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["user_perception_unity_timestamp"] = this.CurrentResults.user_perception_unity_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_response_B"] = this.CurrentResults.user_response_B;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_B_host_timestamp"] = this.CurrentResults.user_perception_B_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_B_unity_timestamp"] = this.CurrentResults.user_perception_B_unity_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_response_C"] = this.CurrentResults.user_response_C;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_C_host_timestamp"] = this.CurrentResults.user_perception_C_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_C_unity_timestamp"] = this.CurrentResults.user_perception_C_unity_timestamp;
 
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);
