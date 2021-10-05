@@ -2557,26 +2557,14 @@
 
     "block_test": {
       "is_practice_condition": false,
-      "is_sequence_randomized": true,
+      "is_sequence_randomized": false,
       "trial_sequence": [
-        "pattern_long_P10",
-        "pattern_long_P11",
-        "pattern_long_P12",
-        "pattern_long_P13",
-        "pattern_long_P14",
-        "pattern_long_P15",
-        "pattern_long_P10",
-        "pattern_long_P11",
-        "pattern_long_P12",
-        "pattern_long_P13",
-        "pattern_long_P14",
-        "pattern_long_P15",
-        "pattern_long_CT_P10",
-        "pattern_long_CT_P11",
-        "pattern_long_CT_P12",
-        "pattern_long_CT_P13",
-        "pattern_long_CT_P14",
-        "pattern_long_CT_P15"
+        "pattern_short_P10",
+        "pattern_short_P11",
+        "pattern_short_P12",
+        "pattern_short_P13",
+        "pattern_short_P14",
+        "pattern_short_P15"
       ]
     },
 
@@ -2729,7 +2717,7 @@
   },
 
   "block_sequence": [
-    "block_visual_short_P"
+    "block_test"
   ]
 
 }

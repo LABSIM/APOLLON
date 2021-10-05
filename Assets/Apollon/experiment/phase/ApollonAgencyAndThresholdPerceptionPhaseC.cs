@@ -308,10 +308,24 @@ namespace Labsim.apollon.experiment.phase
                     ).Unwrap().ContinueWith(
                         antecedent => 
                         {
-                            UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end "
-                            );
-                            sync_detection_point?.TrySetResult((false, -1.0f, "-1.0f"));
+
+                            if(!sync_detection_point.Task.IsCompleted) 
+                            {
+                                
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : user hasn't responded, injecting default result"
+                                );
+                                
+                                sync_detection_point?.TrySetResult((false, -1.0f, "-1.0"));
+
+                            } else {
+                                
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : user has responded, keep result"
+                                );
+                            
+                            } /* if() */
+
                         }
                     );
 
@@ -322,6 +336,9 @@ namespace Labsim.apollon.experiment.phase
                     this.FSM.CurrentResults.user_perception_host_timestamp
                 ) = await sync_detection_point.Task;
 
+                // unregister our control synchronisation function
+                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : waiting for phase end"
@@ -330,8 +347,7 @@ namespace Labsim.apollon.experiment.phase
                 // wait for phase task completion
                 await phase_running_task;
 
-                // unregister our synchronisation function
-                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                // unregister our motion synchronisation function
                 virtual_motion_system_bridge.Dispatcher.IdleEvent -= sync_end_stim_local_function;
 
                 // log
@@ -562,8 +578,26 @@ namespace Labsim.apollon.experiment.phase
                         
                         }
                     ).Unwrap().ContinueWith(
-                        antecedent => {
-                            sync_detection_point?.TrySetResult((false, -1.0f, "-1.0f"));
+                        antecedent => 
+                        {
+
+                            if(!sync_detection_point.Task.IsCompleted) 
+                            {
+                                
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : user hasn't responded, injecting default result"
+                                );
+                                
+                                sync_detection_point?.TrySetResult((false, -1.0f, "-1.0"));
+
+                            } else {
+                                
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : user has responded, keep result"
+                                );
+                            
+                            } /* if() */
+
                         }
                     );
 
@@ -573,6 +607,9 @@ namespace Labsim.apollon.experiment.phase
                     this.FSM.CurrentResults.user_perception_unity_timestamp,
                     this.FSM.CurrentResults.user_perception_host_timestamp
                 ) = await sync_detection_point.Task;
+                
+                // unregister our control synchronisation function
+                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -582,13 +619,12 @@ namespace Labsim.apollon.experiment.phase
                 // wait for phase task completion
                 await phase_running_task;
 
-                // unregister our synchronisation function
-                control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                // unregister our motion synchronisation function
                 motion_system_bridge.Dispatcher.IdleEvent -= sync_end_stim_local_function;
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : synchronisation point reached, result [user_response:"
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : end phase, result [user_response:"
                     + this.FSM.CurrentResults.user_response
                     + ",user_perception_unity_timestamp:"
                     + this.FSM.CurrentResults.user_perception_unity_timestamp
