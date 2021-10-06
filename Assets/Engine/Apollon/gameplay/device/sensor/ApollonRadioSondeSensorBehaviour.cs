@@ -9,7 +9,9 @@ namespace Labsim.apollon.gameplay.device.sensor
         
         [UnityEngine.SerializeField]
         public UnityEngine.GameObject HitPointTracker = null;
-        public RadiosondeFrontend RadiosondeFrontend = null;
+        
+        [UnityEngine.SerializeField]
+        public System.Collections.Generic.List<UnityEngine.MonoBehaviour> RadiosondeFrontend = new System.Collections.Generic.List<UnityEngine.MonoBehaviour>();
 
         #region properties/members
 
@@ -108,9 +110,9 @@ namespace Labsim.apollon.gameplay.device.sensor
 
                 } /* if() */
 
-                if(this.RadiosondeFrontend)
+                foreach(var frontend in this.RadiosondeFrontend)
                 {
-                    this.RadiosondeFrontend.SetValue(
+                    (frontend.GetComponent<RadiosondeFrontend>()).SetValue(
                         //this.transform.position.y - hit.point.y
                         hit.distance
                     );

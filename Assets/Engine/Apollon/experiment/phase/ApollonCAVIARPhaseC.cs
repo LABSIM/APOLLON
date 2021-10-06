@@ -84,7 +84,13 @@ namespace Labsim.apollon.experiment.phase
                     // 2D Object - all
                     case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2D:
                     {
-                        we_behaviour.References["VCTag_2DCombined"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullCombined"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullCombined"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
                         break;
                     }
 
@@ -92,21 +98,143 @@ namespace Labsim.apollon.experiment.phase
                     default:
                     case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DGrid:
                     {
-                        we_behaviour.References["VCTag_2DGrid"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullGrid"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullGrid"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
                         break;
                     }
 
                     // 2D object - square
                     case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DSquare:
                     {
-                        we_behaviour.References["VCTag_2DSquare"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullSquare"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullSquare"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
                         break;
                     }
 
                     // 2D object - circle
                     case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DCircle:
                     {
-                        we_behaviour.References["VCTag_2DCircle"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullCircle"].SetActive(true);
+                        we_behaviour.References["VCTag_2DFullCircle"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D Object - ecologic all
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DEcologic:
+                    {
+                        we_behaviour.References["VCTag_2DEcologicCombined"].SetActive(true);
+                        we_behaviour.References["VCTag_2DEcologicCombined"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D Object - ecologic grid
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DEcologicGrid:
+                    {
+                        we_behaviour.References["VCTag_2DEcologicGrid"].SetActive(true);
+                        we_behaviour.References["VCTag_2DEcologicGrid"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D object - ecologic square
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DEcologicSquare:
+                    {
+                        we_behaviour.References["VCTag_2DEcologicSquare"].SetActive(true);
+                        we_behaviour.References["VCTag_2DEcologicSquare"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D object - ecologic circle
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DEcologicCircle:
+                    {
+                        we_behaviour.References["VCTag_2DEcologicCircle"].SetActive(true);
+                        we_behaviour.References["VCTag_2DEcologicCircle"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D Object - hybrid all
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DHybrid:
+                    {
+                        we_behaviour.References["VCTag_2DHybridCombined"].SetActive(true);
+                        we_behaviour.References["VCTag_2DHybridCombined"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D Object - hybrid grid
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DHybridGrid:
+                    {
+                        we_behaviour.References["VCTag_2DHybridGrid"].SetActive(true);
+                        we_behaviour.References["VCTag_2DHybridGrid"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D object - hybrid square
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DHybridSquare:
+                    {
+                        we_behaviour.References["VCTag_2DHybridSquare"].SetActive(true);
+                        we_behaviour.References["VCTag_2DHybridSquare"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
+                        break;
+                    }
+
+                    // 2D object - hybrid circle
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DHybridCircle:
+                    {
+                        we_behaviour.References["VCTag_2DHybridCircle"].SetActive(true);
+                        we_behaviour.References["VCTag_2DHybridCircle"]
+                            .GetComponent<UnityEngine.Projector>()
+                            .orthographicSize 
+                            = (
+                                phase_settings.visual_cue_2D_density / 2.0f
+                            );
                         break;
                     }
 
@@ -120,6 +248,13 @@ namespace Labsim.apollon.experiment.phase
                     case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCHUDRadiosonde:
                     {
                         we_behaviour.References["VCTag_HUDRadiosonde"].SetActive(true);
+                        break;
+                    }
+
+                    // HUD - Centered radiosonde
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCHUDCenteredRadiosonde:
+                    {
+                        we_behaviour.References["VCTag_HUDCenteredRadiosonde"].SetActive(true);
                         break;
                     }
 

@@ -32,6 +32,9 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("HUD_Radiosonde")]
                 VCHUDRadiosonde,
 
+                [System.ComponentModel.Description("HUD_RadiosondeCentree")]
+                VCHUDCenteredRadiosonde,
+
                 [System.ComponentModel.Description("Objet3D")]
                 VC3D,
 
@@ -51,7 +54,31 @@ namespace Labsim.apollon.experiment.profile
                 VC2DCircle,
 
                 [System.ComponentModel.Description("Objet2D_Carre")]
-                VC2DSquare
+                VC2DSquare,
+
+                [System.ComponentModel.Description("Objet2D_Ecologique")]
+                VC2DEcologic,
+
+                [System.ComponentModel.Description("Objet2D_GrilleEcologique")]
+                VC2DEcologicGrid,
+
+                [System.ComponentModel.Description("Objet2D_CercleEcologique")]
+                VC2DEcologicCircle,
+
+                [System.ComponentModel.Description("Objet2D_CarreEcologique")]
+                VC2DEcologicSquare,
+
+                [System.ComponentModel.Description("Objet2D_Hybride")]
+                VC2DHybrid,
+
+                [System.ComponentModel.Description("Objet2D_GrilleHybride")]
+                VC2DHybridGrid,
+
+                [System.ComponentModel.Description("Objet2D_CercleHybride")]
+                VC2DHybridCircle,
+
+                [System.ComponentModel.Description("Objet2D_CarreHybride")]
+                VC2DHybridSquare
 
             } /* enum */
                 
@@ -76,7 +103,9 @@ namespace Labsim.apollon.experiment.profile
                     // la distance de debut du brouillard {meter}
                     fog_start_distance,
                     // la distance de fin du brouillard (opacite totale) {meter}
-                    fog_end_distance;
+                    fog_end_distance,
+                    // la densite visuelle de la projection de texture 2D {meter}
+                    visual_cue_2D_density;
 
             } /* class PhaseCSettings */
 
@@ -409,6 +438,80 @@ namespace Labsim.apollon.experiment.profile
                             break;
                         }
 
+                        // 2D object - ecologic grid
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologicGrid),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologicGrid);
+                            break;
+                        }
+
+                        // 2D object - ecologic circle
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologicCircle),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologicCircle);
+                            break;
+                        }
+
+
+                        // 2D object - ecologic square
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologicSquare),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologicSquare);
+                            break;
+                        }
+
+                        // 2D object - ecologic default
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologic),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologic);
+                            break;
+                        }
+
+                        // 2D object - hybrid grid
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybridGrid),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DHybridGrid);
+                            break;
+                        }
+
+                        // 2D object - hybrid circle
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybridCircle),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DHybridCircle);
+                            break;
+                        }
+
+
+                        // 2D object - hybrid square
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybridSquare),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DHybridSquare);
+                            break;
+                        }
+
+                        // 2D object - hybrid default
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybrid),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VC2DHybrid);
+                            break;
+                        }
+
                         // Controle
                         case string param when param.Equals(
                             ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Control),
@@ -418,12 +521,21 @@ namespace Labsim.apollon.experiment.profile
                             break;
                         }
 
-                        // Controle
+                        // Radiosonde
                         case string param when param.Equals(
                             ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDRadiosonde),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VCHUDRadiosonde);
+                            break;
+                        }
+
+                        // Radiosonde centree
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDCenteredRadiosonde),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VCHUDCenteredRadiosonde);
                             break;
                         }
 
@@ -447,14 +559,15 @@ namespace Labsim.apollon.experiment.profile
                 // instantiate settings & result
                 this.CurrentSettings.phase_C_settings.Add(
                     new Settings.PhaseCSettings() {
-                        visual_cue_type     = cue_list,
-                        total_distance      = arg.Trial.settings.GetFloat("phase_C" + idx + "_total_distance_meter"),
-                        target_velocity     = arg.Trial.settings.GetFloat("phase_C" + idx + "_target_velocity_meter_per_s"),
-                        stim_begin_distance = arg.Trial.settings.GetFloat("phase_C" + idx + "_stim_begin_distance_meter"),
-                        stim_acceleration   = arg.Trial.settings.GetFloat("phase_C" + idx + "_stim_acceleration_meter_per_s2"),
-                        stim_velocity       = arg.Trial.settings.GetFloat("phase_C" + idx + "_stim_velocity_meter_per_s"),
-                        fog_start_distance  = arg.Trial.settings.GetFloat("phase_C" + idx + "_fog_start_distance_meter"),
-                        fog_end_distance    = arg.Trial.settings.GetFloat("phase_C" + idx + "_fog_end_distance_meter")
+                        visual_cue_type       = cue_list,
+                        visual_cue_2D_density = arg.Trial.settings.GetFloat("phase_C" + idx + "_visual_cue_2D_density_meter"),
+                        total_distance        = arg.Trial.settings.GetFloat("phase_C" + idx + "_total_distance_meter"),
+                        target_velocity       = arg.Trial.settings.GetFloat("phase_C" + idx + "_target_velocity_meter_per_s"),
+                        stim_begin_distance   = arg.Trial.settings.GetFloat("phase_C" + idx + "_stim_begin_distance_meter"),
+                        stim_acceleration     = arg.Trial.settings.GetFloat("phase_C" + idx + "_stim_acceleration_meter_per_s2"),
+                        stim_velocity         = arg.Trial.settings.GetFloat("phase_C" + idx + "_stim_velocity_meter_per_s"),
+                        fog_start_distance    = arg.Trial.settings.GetFloat("phase_C" + idx + "_fog_start_distance_meter"),
+                        fog_end_distance      = arg.Trial.settings.GetFloat("phase_C" + idx + "_fog_end_distance_meter")
                     }
                 );
                 this.CurrentResults.phase_C_results.Add(new Results.PhaseCResults());
