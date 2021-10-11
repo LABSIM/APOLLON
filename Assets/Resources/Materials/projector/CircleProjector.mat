@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HybridGridProjector
-  m_Shader: {fileID: 4800000, guid: ed045c845c3d4044595e581267c40d7c, type: 3}
+  m_Name: CircleProjector
+  m_Shader: {fileID: 4800000, guid: 5e24696dae8e9704087bd6a108c1ed7d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTex:
-        m_Texture: {fileID: 2800000, guid: 529239097d02f9f42b0ddd436c6fcbb0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 803b3919eece9584aa1d03c9ba46dce3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:

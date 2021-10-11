@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/Stencil/EcologicHUDPortalMask"
+Shader "Custom/Stencil/HUDPortalMask_0"
 {
     SubShader
     {
@@ -22,9 +22,9 @@ Shader "Custom/Stencil/EcologicHUDPortalMask"
         
             Stencil
             {
-                Ref 2
+                Ref 1
                 Comp Always
-                Pass IncrSat
+                Pass DecrSat
             }
 
             ColorMask 0

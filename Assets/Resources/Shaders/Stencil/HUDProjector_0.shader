@@ -1,11 +1,11 @@
 ﻿// Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
 // Upgrade NOTE: replaced '_ProjectorClip' with 'unity_ProjectorClip'
 
-Shader "Custom/Stencil/FullHUDProjector" 
+Shader "Custom/Stencil/HUDProjector_0" 
 {
 
 	Properties 
-	{
+    {
 
 		_Color ("Main Color", Color) = (1,1,1,1)
 		_ShadowTex ("Cookie", 2D) = "" {}
@@ -14,38 +14,39 @@ Shader "Custom/Stencil/FullHUDProjector"
 	}
 	
 	Subshader 
-	{
+    {
 		
 		LOD 100
 
 		Tags 
-		{ 
+        { 
 			"RenderType"="Opaque" 
 			"Queue"="Transparent+1"
 		}
 
-    	Pass {
-			
-			Cull Back
+    	Pass 
+        {
+
+		    Cull Back
 			ZWrite On
-			ZTest LEqual
+			ZTest LEqual  
 			ZClip True
-
-			ColorMask RGB
-			Blend One SrcAlpha // additive no blend
-			Offset -1, -1
-
+            
 			Fog 
-			{ 
+            { 
 				Mode Off 
 			}
 
             Stencil
             {
                 Ref 1
-                Comp LEqual
+                Comp Equal
                 Pass Keep
             }
+
+			ColorMask RGB
+			Blend One SrcAlpha // additive no blend
+			Offset -1, -1
 
 			CGPROGRAM
 

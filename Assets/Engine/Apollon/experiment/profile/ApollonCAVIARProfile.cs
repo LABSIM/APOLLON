@@ -29,12 +29,6 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("Controle")]
                 Control,
 
-                [System.ComponentModel.Description("HUD_Radiosonde")]
-                VCHUDRadiosonde,
-
-                [System.ComponentModel.Description("HUD_RadiosondeCentree")]
-                VCHUDCenteredRadiosonde,
-
                 [System.ComponentModel.Description("Objet3D")]
                 VC3D,
 
@@ -56,37 +50,45 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("Objet2D_Carre")]
                 VC2DSquare,
 
-                [System.ComponentModel.Description("Objet2D_Ecologique")]
-                VC2DEcologic,
+                [System.ComponentModel.Description("Radiosonde")]
+                VCRadiosonde,
 
-                [System.ComponentModel.Description("Objet2D_GrilleEcologique")]
-                VC2DEcologicGrid,
+                [System.ComponentModel.Description("RadiosondeCentree")]
+                VCCenteredRadiosonde,
 
-                [System.ComponentModel.Description("Objet2D_CercleEcologique")]
-                VC2DEcologicCircle,
+                [System.ComponentModel.Description("Layout_A")]
+                HUDLayoutA,
 
-                [System.ComponentModel.Description("Objet2D_CarreEcologique")]
-                VC2DEcologicSquare,
+                [System.ComponentModel.Description("Layout_B")]
+                HUDLayoutB,
+                
+                [System.ComponentModel.Description("Layout_C")]
+                HUDLayoutC,
 
-                [System.ComponentModel.Description("Objet2D_Hybride")]
-                VC2DHybrid,
+                [System.ComponentModel.Description("Mask_0")]
+                HUDMask0,
 
-                [System.ComponentModel.Description("Objet2D_GrilleHybride")]
-                VC2DHybridGrid,
+                [System.ComponentModel.Description("Mask_1")]
+                HUDMask1,
 
-                [System.ComponentModel.Description("Objet2D_CercleHybride")]
-                VC2DHybridCircle,
-
-                [System.ComponentModel.Description("Objet2D_CarreHybride")]
-                VC2DHybridSquare
+                [System.ComponentModel.Description("Mask_2")]
+                HUDMask2,
+                
+                [System.ComponentModel.Description("Mask_3")]
+                HUDMask3
 
             } /* enum */
                 
             public class PhaseCSettings 
             {
+                public VisualCueIDType
+                    // le type de layout pour les aides visuelles [default: full]
+                    hud_layout_type = VisualCueIDType.HUDLayoutA,
+                    // le type de mask pour les aides visuelles [default: none]
+                    hud_mask_type = VisualCueIDType.HUDMask0;
 
                 public System.Collections.Generic.List<VisualCueIDType>
-                    // le type d'aide visuelle [string]
+                    // le(s) type(s) d'aide(s) visuelle(s) [string]
                     visual_cue_type = new System.Collections.Generic.List<VisualCueIDType>();
 
                 public float 
@@ -366,6 +368,113 @@ namespace Labsim.apollon.experiment.profile
             for (ushort idx = 0; idx < ApollonCAVIARProfile.InternalPhaseLoopCount; ++idx) 
             {
 
+                Settings.VisualCueIDType 
+                    layout_type = Settings.VisualCueIDType.HUDLayoutA, 
+                    mask_type = Settings.VisualCueIDType.HUDMask0;
+
+                // get current layout
+                string layout = arg.Trial.settings.GetString("phase_C" + idx + "_hud_layout_type_string");
+                switch (layout)
+                {
+
+                    // HUD Layout A : Full frame
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDLayoutA),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        layout_type = Settings.VisualCueIDType.HUDLayoutA;
+                        break;
+                    }
+
+                    // HUD Layout B : 35x20
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDLayoutB),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        layout_type = Settings.VisualCueIDType.HUDLayoutB;
+                        break;
+                    }
+                    
+                    // HUD Layout C : 50x27
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDLayoutC),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        layout_type = Settings.VisualCueIDType.HUDLayoutC;
+                        break;
+                    }
+
+                    default:
+                    {
+                        // log error
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found invalid string value["
+                            + layout
+                            + "] for setting["
+                            + "phase_C" + idx + "_hud_layout_type_string"
+                            + "]"
+                        );
+                        break;
+                    }
+
+                } /* switch() */
+
+                // get current mask
+                string mask = arg.Trial.settings.GetString("phase_C" + idx + "_hud_mask_type_string");
+                switch (mask)
+                {
+
+                    // HUD Mask 0 : None
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask0),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask0;
+                        break;
+                    }
+
+                    // HUD Mask 1 : centered 10x20
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask1),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask1;
+                        break;
+                    }
+
+                    // HUD Mask 2 : centered 10x27
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask2),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask2;
+                        break;
+                    }
+
+                    // HUD Mask 3 : centered 10x10
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask3),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask3;
+                        break;
+                    }
+
+                    default:
+                    {
+                        // log error
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found invalid string value["
+                            + mask
+                            + "] for setting["
+                            + "phase_C" + idx + "_hud_mask_type_string"
+                            + "]"
+                        );
+                        break;
+                    }
+
+                } /* switch() */
+
                 // get current visual cue identifier
                 var cue_list = new System.Collections.Generic.List<Settings.VisualCueIDType>();
                 foreach (var cue in arg.Trial.settings.GetStringList("phase_C" + idx + "_visual_cue_type_string"))
@@ -438,80 +547,6 @@ namespace Labsim.apollon.experiment.profile
                             break;
                         }
 
-                        // 2D object - ecologic grid
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologicGrid),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologicGrid);
-                            break;
-                        }
-
-                        // 2D object - ecologic circle
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologicCircle),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologicCircle);
-                            break;
-                        }
-
-
-                        // 2D object - ecologic square
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologicSquare),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologicSquare);
-                            break;
-                        }
-
-                        // 2D object - ecologic default
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DEcologic),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DEcologic);
-                            break;
-                        }
-
-                        // 2D object - hybrid grid
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybridGrid),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DHybridGrid);
-                            break;
-                        }
-
-                        // 2D object - hybrid circle
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybridCircle),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DHybridCircle);
-                            break;
-                        }
-
-
-                        // 2D object - hybrid square
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybridSquare),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DHybridSquare);
-                            break;
-                        }
-
-                        // 2D object - hybrid default
-                        case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DHybrid),
-                            System.StringComparison.InvariantCultureIgnoreCase
-                        ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VC2DHybrid);
-                            break;
-                        }
-
                         // Controle
                         case string param when param.Equals(
                             ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Control),
@@ -523,34 +558,34 @@ namespace Labsim.apollon.experiment.profile
 
                         // Radiosonde
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDRadiosonde),
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VCHUDRadiosonde);
+                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde);
                             break;
                         }
 
                         // Radiosonde centree
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDCenteredRadiosonde),
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCCenteredRadiosonde),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VCHUDCenteredRadiosonde);
+                            cue_list.Add(Settings.VisualCueIDType.VCCenteredRadiosonde);
                             break;
                         }
 
                         default:
-                            {
-                                // log error
-                                UnityEngine.Debug.LogError(
-                                    "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found invalid string value["
-                                    + cue
-                                    + "] for setting["
-                                    + "phase_C" + idx + "_visual_cue_type_string"
-                                    + "]"
-                                );
-                                break;
-                            }
+                        {
+                            // log error
+                            UnityEngine.Debug.LogError(
+                                "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found invalid string value["
+                                + cue
+                                + "] for setting["
+                                + "phase_C" + idx + "_visual_cue_type_string"
+                                + "]"
+                            );
+                            break;
+                        }
 
                     } /* switch() */
 
@@ -559,6 +594,8 @@ namespace Labsim.apollon.experiment.profile
                 // instantiate settings & result
                 this.CurrentSettings.phase_C_settings.Add(
                     new Settings.PhaseCSettings() {
+                        hud_layout_type       = layout_type,
+                        hud_mask_type         = mask_type,
                         visual_cue_type       = cue_list,
                         visual_cue_2D_density = arg.Trial.settings.GetFloat("phase_C" + idx + "_visual_cue_2D_density_meter"),
                         total_distance        = arg.Trial.settings.GetFloat("phase_C" + idx + "_total_distance_meter"),
@@ -574,12 +611,15 @@ namespace Labsim.apollon.experiment.profile
                 this.CurrentResults.phase_D_results.Add(new Results.PhaseDResults());
 
                 // log
-                log += "\n - [C" + idx + "] visual_cue_type : "     + string.Join(
+                log += "\n - [C" + idx + "] hud_layout : "         + this.CurrentSettings.phase_C_settings[idx].hud_layout_type 
+                    + "\n - [C" + idx + "] hud_mask : "            + this.CurrentSettings.phase_C_settings[idx].hud_mask_type
+                    + "\n - [C" + idx + "] visual_cue_type : "     + string.Join(
                                                                         ",",  
                                                                         this.CurrentSettings.phase_C_settings[idx].visual_cue_type.ConvertAll( 
                                                                             new System.Converter<Settings.VisualCueIDType,string>(ApollonEngine.GetEnumDescription) 
                                                                         )
                                                                     )
+                    + "\n - [C" + idx + "] visual_cue_2D_density : "+ this.CurrentSettings.phase_C_settings[idx].visual_cue_2D_density 
                     + "\n - [C" + idx + "] total_distance : "       + this.CurrentSettings.phase_C_settings[idx].total_distance 
                     + "\n - [C" + idx + "] target_velocity : "      + this.CurrentSettings.phase_C_settings[idx].target_velocity 
                     + "\n - [C" + idx + "] stim_begin_distance : "  + this.CurrentSettings.phase_C_settings[idx].stim_begin_distance 

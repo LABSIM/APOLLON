@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FullGridProjector
-  m_Shader: {fileID: 4800000, guid: 9f9896f1a85a6014987957d57af1dcae, type: 3}
+  m_Name: GridProjector
+  m_Shader: {fileID: 4800000, guid: 5e24696dae8e9704087bd6a108c1ed7d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

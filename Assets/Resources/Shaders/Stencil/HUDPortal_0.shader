@@ -1,25 +1,25 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/Stencil/FullHUDPortal"
+Shader "Custom/Stencil/HUDPortal_0"
 {
     SubShader
     {
         
-		LOD 100
+        LOD 100
 
         Tags 
         { 
             "RenderType"="Opaque" 
-            "Queue"="Geometry-2"
+            "Queue"="Geometry-2" 
         }
         
         Pass
         {
-            
+
             Cull Off
             ZWrite Off
             ZTest Always
-            
+        
             Stencil
             {
                 Ref 1
