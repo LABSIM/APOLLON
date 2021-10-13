@@ -9,7 +9,7 @@ namespace Labsim.apollon.experiment
     public abstract class ApollonAbstractExperimentProfile
     {
 
-        // Experiment ID field
+        // Experiment profile ID field
         protected ApollonExperimentManager.ProfileIDType m_profileID = ApollonExperimentManager.ProfileIDType.None;
         public ApollonExperimentManager.ProfileIDType ID
         {
@@ -18,6 +18,16 @@ namespace Labsim.apollon.experiment
                 return this.m_profileID;
             }
         }
+
+        // Experiment profile current status info
+        public System.String Status
+        {
+            get
+            {
+                return this.getCurrentStatusInfo();
+            }
+        }
+        protected abstract System.String getCurrentStatusInfo();
 
         // constructor
         public ApollonAbstractExperimentProfile()

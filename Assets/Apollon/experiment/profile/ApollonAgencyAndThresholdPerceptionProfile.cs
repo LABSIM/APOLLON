@@ -102,6 +102,25 @@ namespace Labsim.apollon.experiment.profile
         
         #region abstract implementation
 
+        protected override System.String getCurrentStatusInfo()
+        {
+
+            return (
+                "[" 
+                + ApollonEngine.GetEnumDescription(this.ID) 
+                + "]\n" 
+                + ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
+                + " | "
+                + UXF.Session.instance.CurrentTrial.settings.GetString("current_pattern")
+                + " | "
+                + this.positiveConditionCount
+                + "(+)/"
+                + this.negativeConditionCount
+                + "(-)" 
+            );
+
+        } /* getCurrentStatusInfo() */
+
         public override void onUpdate(object sender, ApollonEngine.EngineEventArgs arg)
         {
 
@@ -301,7 +320,6 @@ namespace Labsim.apollon.experiment.profile
                 }
             }
 
-            
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : found current settings with pattern["
@@ -326,9 +344,11 @@ namespace Labsim.apollon.experiment.profile
                 + "\n - phase_D_duration : " + this.CurrentSettings.phase_D_duration
             );
 
-            // write the randomized scenario/pattern as result for convenience
+            // write the randomized scenario/pattern/conditions(s) as result for convenience
             arg.Trial.result["scenario"] = ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
             arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
+            arg.Trial.result["active_condition"] = arg.Trial.settings.GetBool("is_active_condition").ToString();
+            arg.Trial.result["catch_try_condition"] = arg.Trial.settings.GetBool("is_catch_try_condition").ToString();
            
             // activate world element & contriol system
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
@@ -366,6 +386,7 @@ namespace Labsim.apollon.experiment.profile
             );
             
             // write result
+            ApollonExperimentManager.Instance.Trial.result["user_command"] = this.CurrentResults.user_command;
             ApollonExperimentManager.Instance.Trial.result["user_stim_host_timestamp"] = this.CurrentResults.user_stim_host_timestamp;
             ApollonExperimentManager.Instance.Trial.result["user_stim_unity_timestamp"] = this.CurrentResults.user_stim_unity_timestamp;
             ApollonExperimentManager.Instance.Trial.result["user_response_B"] = this.CurrentResults.user_response_B;
