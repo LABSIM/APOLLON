@@ -21,7 +21,7 @@ PlayerSettings:
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
-  m_SplashScreenLogoStyle: 0
+  m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 0.649
   m_SplashScreenLogoAnimationZoom: 0.32
@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 6787237ccd8e314488b4d7b502075d92,
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 3c8004d4377a2e94780d43bcca00b9b8,
     type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -69,6 +69,12 @@ PlayerSettings:
   androidRenderOutsideSafeArea: 0
   androidUseSwappy: 0
   androidBlitType: 0
+  androidResizableWindow: 0
+  androidDefaultWindowWidth: 1920
+  androidDefaultWindowHeight: 1080
+  androidMinimumWindowWidth: 400
+  androidMinimumWindowHeight: 300
+  androidFullscreenMode: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 1
@@ -122,6 +128,7 @@ PlayerSettings:
   vulkanEnableSetSRGBWrite: 0
   vulkanEnablePreTransform: 0
   vulkanEnableLateAcquireNextImage: 0
+  vulkanEnableCommandBufferRecycling: 1
   m_SupportedAspectRatios:
     4:3: 1
     5:4: 1
@@ -130,18 +137,10 @@ PlayerSettings:
     Others: 1
   bundleVersion: 0.1
   preloadedAssets:
-  - {fileID: 11400000, guid: a2a5b738ccd670a4eadf69140c9c8585, type: 2}
-  - {fileID: 919132149155446097, guid: 72194f09d7dd75d4b89545084b7ff99d, type: 3}
-  - {fileID: 919132149155446097, guid: 32894fbe1e94dfa4bae17ad7f221b975, type: 3}
-  - {fileID: 919132149155446097, guid: 055b4929c60c6f840ab9680e29857616, type: 3}
-  - {fileID: 919132149155446097, guid: 45b244fb1a9d2e342badb61db49f6588, type: 3}
-  - {fileID: 919132149155446097, guid: 78dbb8b26af66de4dac294661fd44fa7, type: 3}
-  - {fileID: 919132149155446097, guid: fa02ed4a7c3add14791b37a95685823e, type: 3}
-  - {fileID: 919132149155446097, guid: 719b1be0b9ccefb4b80852aa7122c85d, type: 3}
-  - {fileID: 919132149155446097, guid: 772516fc7f7855b4987e98e2213ee504, type: 3}
-  - {fileID: 919132149155446097, guid: 085cc7fa5b0b6eb4aa29a44add09778f, type: 3}
-  - {fileID: 919132149155446097, guid: dc97e8444e2f3aa498360672406ca5b2, type: 3}
-  - {fileID: 1970681966781816, guid: 6c9e41e24d2bc6b488c927f43944457b, type: 3}
+  - {fileID: 11400000, guid: 32b3aa7be16b14341a43c764dde0208f, type: 2}
+  - {fileID: 11400000, guid: 767cc3d37514507459e09700f256efbc, type: 2}
+  - {fileID: 11400000, guid: 01bbbb52158fabc499eede82a4764e23, type: 2}
+  - {fileID: -6949574758022284427, guid: 0064b7b639a97c6408b981e84c2a5fbe, type: 2}
   - {fileID: 2360517247514329909, guid: 70aa3c1f569a7f14b8745d27fe11fc44, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -250,6 +249,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 5
+  AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: '{inproject}: '
@@ -266,6 +266,7 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
+  chromeosInputEmulation: 1
   AndroidMinifyWithR8: 0
   AndroidMinifyRelease: 0
   AndroidMinifyDebug: 0
@@ -341,6 +342,9 @@ PlayerSettings:
   - m_BuildTarget: WebGLSupport
     m_APIs: 0b000000
     m_Automatic: 1
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 02000000
+    m_Automatic: 0
   m_BuildTargetVRSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 0
@@ -370,6 +374,7 @@ PlayerSettings:
   cameraUsageDescription: 
   locationUsageDescription: 
   microphoneUsageDescription: 
+  bluetoothUsageDescription: 
   switchNMETAOverride: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -579,6 +584,7 @@ PlayerSettings:
   ps4videoRecordingFeaturesUsed: 0
   ps4contentSearchFeaturesUsed: 0
   ps4CompatibilityPS5: 0
+  ps4AllowPS5Detection: 0
   ps4GPU800MHz: 1
   ps4attribEyeToEyeDistanceSettingVR: 0
   ps4IncludedModules: []
@@ -624,7 +630,7 @@ PlayerSettings:
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 0
-  assemblyVersionValidation: 1
+  assemblyVersionValidation: 0
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
     Standalone: 3

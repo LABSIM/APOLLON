@@ -46,11 +46,21 @@ namespace Labsim.apollon.experiment.profile
                 phase_A_duration,
                 phase_B_begin_stim_timeout_lower_bound,
                 phase_B_begin_stim_timeout_upper_bound,
-                phase_C_max_stim_duration,
-                phase_C_max_stim_angle,
-                phase_C_angular_acceleration,
-                phase_C_angular_saturation_speed,
+                phase_C_stim_duration,
+                phase_C_total_duration,
                 phase_D_duration;
+
+            public float[]
+                phase_C_angular_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f },
+                phase_C_angular_acceleration_target = new float[3] { 0.0f, 0.0f, 0.0f },
+                phase_C_angular_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f },
+                phase_C_linear_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f },
+                phase_C_linear_acceleration_target = new float[3] { 0.0f, 0.0f, 0.0f },
+                phase_C_linear_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
+            
+            public bool[]
+                phase_C_angular_mandatory_axis = new bool[3] { false, false, false },
+                phase_C_linear_mandatory_axis = new bool[3] { false, false, false };
 
         } /* class Settings */
 
@@ -58,18 +68,21 @@ namespace Labsim.apollon.experiment.profile
         {
 
             public bool
-                user_response;
+                user_response_B,
+                user_response_C;
 
             public int
                 user_command;
 
             public float
                 user_stim_unity_timestamp,
-                user_perception_unity_timestamp;
+                user_perception_B_unity_timestamp,
+                user_perception_C_unity_timestamp;
 
             public string
                 user_stim_host_timestamp,
-                user_perception_host_timestamp;
+                user_perception_B_host_timestamp,
+                user_perception_C_host_timestamp;
 
             public UnityEngine.AudioClip
                 user_clip;
@@ -88,6 +101,25 @@ namespace Labsim.apollon.experiment.profile
         #endregion
         
         #region abstract implementation
+
+        protected override System.String getCurrentStatusInfo()
+        {
+
+            return (
+                "[" 
+                + ApollonEngine.GetEnumDescription(this.ID) 
+                + "]\n" 
+                + ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
+                + " | "
+                + UXF.Session.instance.CurrentTrial.settings.GetString("current_pattern")
+                + " | "
+                + this.positiveConditionCount
+                + "(+)/"
+                + this.negativeConditionCount
+                + "(-)" 
+            );
+
+        } /* getCurrentStatusInfo() */
 
         public override void onUpdate(object sender, ApollonEngine.EngineEventArgs arg)
         {
@@ -247,21 +279,48 @@ namespace Labsim.apollon.experiment.profile
             } /* switch() */
 
             // extract trial settings
-            this.CurrentSettings.bIsTryCatch                            = arg.Trial.settings.GetBool("is_catch_try_condition");
-            this.CurrentSettings.bIsActive                              = arg.Trial.settings.GetBool("is_active_condition");
-            this.CurrentSettings.phase_A_duration                       = arg.Trial.settings.GetFloat("phase_A_duration_ms");
-            this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[0];
-            this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[1];
-            this.CurrentSettings.phase_C_max_stim_duration              = arg.Trial.settings.GetFloat("phase_C_max_stim_duration_ms");
-            this.CurrentSettings.phase_C_max_stim_angle                 = arg.Trial.settings.GetFloat("phase_C_max_stim_angle_deg");
-            this.CurrentSettings.phase_C_angular_acceleration           = arg.Trial.settings.GetFloat("phase_C_angular_acceleration_deg_per_s2");
-            this.CurrentSettings.phase_C_angular_saturation_speed       
-                = arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s") == 0.0f 
-                    ? (this.CurrentSettings.phase_C_angular_acceleration * (this.CurrentSettings.phase_C_max_stim_duration / 1000.0f))
-                    : arg.Trial.settings.GetFloat("phase_C_angular_saturation_speed_deg_per_s");
-            this.CurrentSettings.phase_D_duration                       = arg.Trial.settings.GetFloat("phase_D_duration_ms");
-            
-            // log the
+            this.CurrentSettings.bIsTryCatch                                    = arg.Trial.settings.GetBool("is_catch_try_condition");
+            this.CurrentSettings.bIsActive                                      = arg.Trial.settings.GetBool("is_active_condition");
+            this.CurrentSettings.phase_A_duration                               = arg.Trial.settings.GetFloat("phase_A_duration_ms");
+            this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound         = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[0];
+            this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound         = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[1];
+            this.CurrentSettings.phase_C_stim_duration                          = arg.Trial.settings.GetFloat("phase_C_stim_duration_ms");
+            this.CurrentSettings.phase_C_total_duration                         = arg.Trial.settings.GetFloat("phase_C_total_duration_ms");
+            this.CurrentSettings.phase_C_angular_displacement_limiter           = arg.Trial.settings.GetFloatList("phase_C_angular_displacement_limiter_deg").ToArray();
+            this.CurrentSettings.phase_C_angular_acceleration_target            = arg.Trial.settings.GetFloatList("phase_C_angular_acceleration_target_deg_per_s2").ToArray();
+            this.CurrentSettings.phase_C_angular_velocity_saturation_threshold  = arg.Trial.settings.GetFloatList("phase_C_angular_velocity_saturation_threshold_deg_per_s").ToArray();
+            this.CurrentSettings.phase_C_angular_mandatory_axis                 = arg.Trial.settings.GetBoolList("phase_C_angular_mandatory_axis").ToArray();
+            this.CurrentSettings.phase_C_linear_displacement_limiter            = arg.Trial.settings.GetFloatList("phase_C_linear_displacement_limiter_m").ToArray();
+            this.CurrentSettings.phase_C_linear_acceleration_target             = arg.Trial.settings.GetFloatList("phase_C_linear_acceleration_target_m_per_s2").ToArray();
+            this.CurrentSettings.phase_C_linear_velocity_saturation_threshold   = arg.Trial.settings.GetFloatList("phase_C_linear_velocity_saturation_threshold_m_per_s").ToArray();
+            this.CurrentSettings.phase_C_linear_mandatory_axis                  = arg.Trial.settings.GetBoolList("phase_C_linear_mandatory_axis").ToArray();
+            this.CurrentSettings.phase_D_duration                               = arg.Trial.settings.GetFloat("phase_D_duration_ms");
+
+            // filtering
+            foreach(var (saturation_item, index) in this.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
+            {
+                if(saturation_item == 0.0f)
+                {
+                    this.CurrentSettings.phase_C_angular_velocity_saturation_threshold[index] 
+                        = (
+                            this.CurrentSettings.phase_C_angular_acceleration_target[index] 
+                            * ( this.CurrentSettings.phase_C_stim_duration / 1000.0f )
+                        );
+                }
+            }
+            foreach(var (saturation_item, index) in this.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
+            {
+                if(saturation_item == 0.0f )
+                {
+                    this.CurrentSettings.phase_C_linear_velocity_saturation_threshold[index] 
+                        = (
+                            this.CurrentSettings.phase_C_linear_acceleration_target[index] 
+                            * ( this.CurrentSettings.phase_C_stim_duration / 1000.0f )
+                        );
+                }
+            }
+
+            // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : found current settings with pattern["
                 + arg.Trial.settings.GetString("current_pattern")
@@ -272,16 +331,24 @@ namespace Labsim.apollon.experiment.profile
                 + "\n - phase_A_duration : " + this.CurrentSettings.phase_A_duration
                 + "\n - phase_B_begin_stim_timeout_lower_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound
                 + "\n - phase_B_begin_stim_timeout_upper_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound
-                + "\n - phase_C_max_stim_duration : " + this.CurrentSettings.phase_C_max_stim_duration
-                + "\n - phase_C_max_stim_angle : " + this.CurrentSettings.phase_C_max_stim_angle
-                + "\n - phase_C_angular_acceleration : " + this.CurrentSettings.phase_C_angular_acceleration
-                + "\n - phase_C_angular_saturation_speed : " + this.CurrentSettings.phase_C_angular_saturation_speed
+                + "\n - phase_C_stim_duration : " + this.CurrentSettings.phase_C_stim_duration
+                + "\n - phase_C_total_duration : " + this.CurrentSettings.phase_C_total_duration
+                + "\n - phase_C_angular_displacement_limiter : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_displacement_limiter) + "]"
+                + "\n - phase_C_angular_acceleration_target : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_acceleration_target) + "]"
+                + "\n - phase_C_angular_velocity_saturation_threshold : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_velocity_saturation_threshold) + "]"
+                + "\n - phase_C_angular_mandatory_axis : [" + System.String.Join(",",this.CurrentSettings.phase_C_angular_mandatory_axis) + "]"
+                + "\n - phase_C_linear_displacement_limiter : [" + System.String.Join(",",this.CurrentSettings.phase_C_linear_displacement_limiter) + "]"
+                + "\n - phase_C_linear_acceleration_target : [" + System.String.Join(",",this.CurrentSettings.phase_C_linear_acceleration_target) + "]"
+                + "\n - phase_C_linear_velocity_saturation_threshold : [" + System.String.Join(",",this.CurrentSettings.phase_C_linear_velocity_saturation_threshold) + "]"
+                + "\n - phase_C_linear_mandatory_axis : [" + System.String.Join(",",this.CurrentSettings.phase_C_linear_mandatory_axis) + "]"
                 + "\n - phase_D_duration : " + this.CurrentSettings.phase_D_duration
             );
 
-            // write the randomized scenario/pattern as result for convenience
+            // write the randomized scenario/pattern/conditions(s) as result for convenience
             arg.Trial.result["scenario"] = ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
             arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
+            arg.Trial.result["active_condition"] = arg.Trial.settings.GetBool("is_active_condition").ToString();
+            arg.Trial.result["catch_try_condition"] = arg.Trial.settings.GetBool("is_catch_try_condition").ToString();
            
             // activate world element & contriol system
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
@@ -319,11 +386,15 @@ namespace Labsim.apollon.experiment.profile
             );
             
             // write result
+            ApollonExperimentManager.Instance.Trial.result["user_command"] = this.CurrentResults.user_command;
             ApollonExperimentManager.Instance.Trial.result["user_stim_host_timestamp"] = this.CurrentResults.user_stim_host_timestamp;
             ApollonExperimentManager.Instance.Trial.result["user_stim_unity_timestamp"] = this.CurrentResults.user_stim_unity_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["user_response"] = this.CurrentResults.user_response;
-            ApollonExperimentManager.Instance.Trial.result["user_perception_host_timestamp"] = this.CurrentResults.user_perception_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["user_perception_unity_timestamp"] = this.CurrentResults.user_perception_unity_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_response_B"] = this.CurrentResults.user_response_B;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_B_host_timestamp"] = this.CurrentResults.user_perception_B_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_B_unity_timestamp"] = this.CurrentResults.user_perception_B_unity_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_response_C"] = this.CurrentResults.user_response_C;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_C_host_timestamp"] = this.CurrentResults.user_perception_C_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_perception_C_unity_timestamp"] = this.CurrentResults.user_perception_C_unity_timestamp;
 
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);

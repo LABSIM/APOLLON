@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Varjo Settings
   m_EditorClassIdentifier: 
   StereoRenderingMode: 1
-  SeparateCullPass: 0
+  SeparateCullPass: 1
   FoveatedRendering: 0
   ContextScalingFactor: 1
   FocusScalingFactor: 1

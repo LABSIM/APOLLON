@@ -22,31 +22,31 @@ namespace Labsim.apollon.experiment.phase
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseA.OnEntry() : begin"
             );
+            
+            // fade in to black for vestibular-only scenario
+            if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VestibularOnly)
+            {
+
+                // run it asynchronously
+                this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+
+            } /* if() */
            
             // show green cross & frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await this.FSM.DoSleep(
+                (
+                    this.FSM.CurrentSettings.bIsActive 
+                    ? this.FSM.CurrentSettings.phase_A_duration 
+                    : this.FSM.CurrentSettings.phase_A_duration / 2.0f
+                )
+            );
 
             // hide green frame first
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
-
-            // fade in to black for vestibular-only scenario
-            if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionProfile.Settings.ScenarioIDType.VestibularOnly)
-            {
-
-                // run it asynchronously
-                this.FSM.DoFadeIn(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
-
-            } /* if() */
-
-            // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
-
-            // then hide cross
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
 
             // if active condition 
             if (this.FSM.CurrentSettings.bIsActive)
@@ -113,9 +113,15 @@ namespace Labsim.apollon.experiment.phase
             {
 
                 // null command 
-                this.FSM.CurrentResults.user_command = 1;
+                this.FSM.CurrentResults.user_command = 0;
+
+                // wait a certain amout of time
+                await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
                     
             } /* if() */
+
+            // then hide cross
+            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
 
             // log
             UnityEngine.Debug.Log(

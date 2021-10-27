@@ -544,6 +544,13 @@ namespace Labsim.apollon.experiment.profile
 
         #region abstract implementation
 
+        protected override System.String getCurrentStatusInfo()
+        {
+
+            return "[" + ApollonEngine.GetEnumDescription(this.ID) + "] : no active status";
+
+        } /* getCurrentStatusInfo() */
+
         public override void onUpdate(object sender, ApollonEngine.EngineEventArgs arg)
         {
 

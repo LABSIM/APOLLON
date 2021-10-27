@@ -52,7 +52,6 @@ namespace Labsim.apollon.backend.handle
         private class ApollonMotionSystemPS6TM550Command
             : MotionSystems.ForceSeatMI_IPositioningInterface
         {
-            static readonly int _accumulator_max_samples_capacity = 3;
 
             private bool m_firstCall = true;
             private UnityEngine.GameObject m_behaviour = null;
@@ -123,15 +122,69 @@ namespace Labsim.apollon.backend.handle
 
                 } /* if() */
 
-                // update values
-				this.UpdateMatrix(
+                // update values + noise to avoid locking mechanism
+                this.UpdateMatrix(
                     ref matrix, 
-                    /* pitch in rad */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.x * UnityEngine.Mathf.Deg2Rad, 
-                    /* roll in rad  */ -1.0f * this.m_behaviour.transform.localRotation.eulerAngles.z * UnityEngine.Mathf.Deg2Rad, 
-                    /* yaw in rad   */ this.m_behaviour.transform.localRotation.eulerAngles.y * UnityEngine.Mathf.Deg2Rad, 
-                    /* sway in mm   */ this.m_behaviour.transform.localPosition.x * 1000.0f, 
-                    /* surge in mm  */ this.m_behaviour.transform.localPosition.z * 1000.0f, 
-                    /* heave in mm  */ this.m_behaviour.transform.localPosition.y * 1000.0f
+                    /* pitch in rad */
+                    (
+                        -1.0f 
+                        * (
+                            this.m_behaviour.transform.localRotation.eulerAngles.x 
+                            /* sin noise */
+                            + (
+                                /* noise amplitude in degree */ 0.05f 
+                                * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime)
+                            )
+                        )
+                        * UnityEngine.Mathf.Deg2Rad
+                    ), 
+                    /* roll in rad */
+                    (
+                        -1.0f 
+                        * (
+                            this.m_behaviour.transform.localRotation.eulerAngles.z
+                            // /* cos noise */
+                            // + (
+                            //     /* noise amplitude in degree */ 0.03f 
+                            //     * UnityEngine.Mathf.Cos(UnityEngine.Time.fixedTime * 100.0f)
+                            // )
+                        )
+                        * UnityEngine.Mathf.Deg2Rad
+                    ), 
+                    /* yaw in rad */ 
+                    (
+                        (
+                            this.m_behaviour.transform.localRotation.eulerAngles.y 
+                            // /* sin noise */
+                            // + ( 
+                            //     /* noise amplitude in degree */ 0.05f 
+                            //     * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime * 100.0f)
+                            // )
+                        ) 
+                        * UnityEngine.Mathf.Deg2Rad
+                    ), 
+                    /* sway in mm */
+                    (
+                        this.m_behaviour.transform.localPosition.x 
+                        * 1000.0f
+                    ), 
+                    /* surge in mm */ 
+                    (
+                        this.m_behaviour.transform.localPosition.z
+                        * 1000.0f
+                    ), 
+                    /* heave in mm */ 
+                    (
+                        (
+                            this.m_behaviour.transform.localPosition.y
+                            // /* sin noise */
+                            // + ( 
+                            //     /* noise amplitude in m */ 0.0005f 
+                            //     * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime * 50.0f)
+                            // )
+                        )
+                        * 1000.0f
+                    )
                 );
 
             } /* Update() */
@@ -243,7 +296,7 @@ namespace Labsim.apollon.backend.handle
                     this.m_FSMI_Updater = new ApollonMotionSystemPS6TM550Updater(this);
 
                     this.m_FSMI_UnityAPI.SetAppID(""); // If you have dedicated app id, remove ActivateProfile calls from your code
-                    this.m_FSMI_UnityAPI.ActivateProfile("LABSIM - " + experiment.ApollonExperimentManager.Instance.getActiveProfile());
+                    this.m_FSMI_UnityAPI.ActivateProfile("APOLLON - " + experiment.ApollonExperimentManager.Instance.getActiveProfile());
                     this.m_FSMI_UnityAPI.SetPositioningObject(this.m_FSMI_Command);
                     this.m_FSMI_UnityAPI.SetPlatformInfoObject(this.m_FSMI_Sensor);
                     this.m_FSMI_UnityAPI.Pause(false);
