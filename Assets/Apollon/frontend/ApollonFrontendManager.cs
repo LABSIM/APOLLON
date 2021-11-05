@@ -286,6 +286,7 @@ namespace Labsim.apollon.frontend
                 { FrontendIDType.GreenFrameGUI, false },
                 { FrontendIDType.RedFrameGUI, false },
                 { FrontendIDType.GreyFrameGUI, false },
+                { FrontendIDType.RemainingTrialPoolCounterGUI, false },
                 { FrontendIDType.SimpleFrameGUI, false },
                 { FrontendIDType.VerticalAnchorableDock, false },
                 { FrontendIDType.All, false }
@@ -350,7 +351,10 @@ namespace Labsim.apollon.frontend
             RedFrameGUI,
 
             [System.ComponentModel.Description("GreyFrameGUI")]
-            GreyFrameGUI,
+            GreyFrameGUI,  
+            
+            [System.ComponentModel.Description("RemainingTrialPoolCounterGUI")]
+            RemainingTrialPoolCounterGUI,
             
             [System.ComponentModel.Description("SimpleFrameGUI")]
             SimpleFrameGUI,

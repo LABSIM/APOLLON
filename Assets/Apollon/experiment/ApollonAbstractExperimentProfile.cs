@@ -29,6 +29,15 @@ namespace Labsim.apollon.experiment
         }
         protected abstract System.String getCurrentStatusInfo();
 
+        public System.String CounterStatus
+        {
+            get
+            {
+                return this.getCurrentCounterStatusInfo();
+            }
+        }
+        protected abstract System.String getCurrentCounterStatusInfo();
+
         // constructor
         public ApollonAbstractExperimentProfile()
         {

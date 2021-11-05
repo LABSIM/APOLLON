@@ -121,6 +121,33 @@ namespace Labsim.apollon.experiment.profile
 
         } /* getCurrentStatusInfo() */
 
+        protected override System.String getCurrentCounterStatusInfo()
+        {
+
+            return (
+                (
+                    this.CurrentSettings.bIsActive 
+                ) ? ( 
+                    UXF.Session.instance.CurrentBlock.number
+                    + "/"
+                    + UXF.Session.instance.blocks.Count
+                    + " | (+)" 
+                    + (
+                        (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
+                        - this.positiveConditionCount
+                    ).ToString("D2")
+                    + "/(-)"
+                    +(
+                        (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
+                        - this.negativeConditionCount
+                    ).ToString("D2")
+                ) : (
+                    ""
+                )
+            );
+
+        } /* getCurrentCounterStatusInfo() */
+
         public override void onUpdate(object sender, ApollonEngine.EngineEventArgs arg)
         {
 
@@ -343,12 +370,6 @@ namespace Labsim.apollon.experiment.profile
                 + "\n - phase_C_linear_mandatory_axis : [" + System.String.Join(",",this.CurrentSettings.phase_C_linear_mandatory_axis) + "]"
                 + "\n - phase_D_duration : " + this.CurrentSettings.phase_D_duration
             );
-
-            // write the randomized scenario/pattern/conditions(s) as result for convenience
-            arg.Trial.result["scenario"] = ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
-            arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
-            arg.Trial.result["active_condition"] = arg.Trial.settings.GetBool("is_active_condition").ToString();
-            arg.Trial.result["catch_try_condition"] = arg.Trial.settings.GetBool("is_catch_try_condition").ToString();
            
             // activate world element & contriol system
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
@@ -385,6 +406,12 @@ namespace Labsim.apollon.experiment.profile
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialEnd() : begin"
             );
             
+            // write the randomized scenario/pattern/conditions(s) as result for convenience
+            ApollonExperimentManager.Instance.Trial.result["scenario"] = ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
+            ApollonExperimentManager.Instance.Trial.result["pattern"] = ApollonExperimentManager.Instance.Trial.settings.GetString("current_pattern");
+            ApollonExperimentManager.Instance.Trial.result["active_condition"] = this.CurrentSettings.bIsActive.ToString();
+            ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] = this.CurrentSettings.bIsTryCatch.ToString();
+
             // write result
             ApollonExperimentManager.Instance.Trial.result["user_command"] = this.CurrentResults.user_command;
             ApollonExperimentManager.Instance.Trial.result["user_stim_host_timestamp"] = this.CurrentResults.user_stim_host_timestamp;
