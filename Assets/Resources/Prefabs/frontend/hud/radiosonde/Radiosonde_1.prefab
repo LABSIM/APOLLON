@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 108821500949593884}
   - component: {fileID: 108821500949593887}
   m_Layer: 5
-  m_Name: Radiosonde
+  m_Name: Radiosonde_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57091a35f9edc164f930257483d578e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 108821502339987496}
 --- !u!1 &108821502444106227
 GameObject:
   m_ObjectHideFlags: 0

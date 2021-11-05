@@ -62,6 +62,7 @@ namespace Labsim.apollon.experiment.phase
             // setup HUD layout
             switch (phase_settings.hud_layout_type)
             {
+                
                 // HUD Layout A - default
                 default:
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.HUDLayoutA:
@@ -89,6 +90,7 @@ namespace Labsim.apollon.experiment.phase
             // setup HUD mask
             switch (phase_settings.hud_mask_type)
             {
+
                 // HUD Mask 0 - default
                 default:
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.HUDMask0:
@@ -114,6 +116,27 @@ namespace Labsim.apollon.experiment.phase
                 case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.HUDMask3:
                 {
                     we_behaviour.References["HUDTag_Mask3"].SetActive(true);
+                    break;
+                }
+
+                // HUD Mask 4
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.HUDMask4:
+                {
+                    we_behaviour.References["HUDTag_Mask4"].SetActive(true);
+                    break;
+                }
+
+                // HUD Mask 5
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.HUDMask5:
+                {
+                    we_behaviour.References["HUDTag_Mask5"].SetActive(true);
+                    break;
+                }
+
+                // HUD Mask 6
+                case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.HUDMask6:
+                {
+                    we_behaviour.References["HUDTag_Mask6"].SetActive(true);
                     break;
                 }
 
@@ -206,17 +229,38 @@ namespace Labsim.apollon.experiment.phase
                         break;
                     }
 
-                    // HUD - Radiosonde
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCRadiosonde:
+                    // HUD - Radiosonde 1A
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCRadiosonde1A:
                     {
-                        we_behaviour.References["VCTag_Radiosonde"].SetActive(true);
+                        we_behaviour.References["VCTag_Radiosonde1A"].SetActive(true);
                         break;
                     }
 
-                    // HUD - Centered radiosonde
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCCenteredRadiosonde:
+                    // HUD - Radiosonde 1B
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCRadiosonde1B:
                     {
-                        we_behaviour.References["VCTag_CenteredRadiosonde"].SetActive(true);
+                        we_behaviour.References["VCTag_Radiosonde1B"].SetActive(true);
+                        break;
+                    }
+
+                    // HUD - Radiosonde 2A
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCRadiosonde2A:
+                    {
+                        we_behaviour.References["VCTag_Radiosonde2A"].SetActive(true);
+                        break;
+                    }
+
+                    // HUD - Radiosonde 2B
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCRadiosonde2B:
+                    {
+                        we_behaviour.References["VCTag_Radiosonde2B"].SetActive(true);
+                        break;
+                    }
+
+                    // HUD - Radiosonde 2C
+                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCRadiosonde2C:
+                    {
+                        we_behaviour.References["VCTag_Radiosonde2C"].SetActive(true);
                         break;
                     }
 

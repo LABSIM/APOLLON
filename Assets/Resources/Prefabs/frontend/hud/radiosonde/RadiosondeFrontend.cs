@@ -1,26 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
-
+﻿
 public class RadiosondeFrontend
-    : MonoBehaviour
+    : UnityEngine.MonoBehaviour
 {
-    public Slider slider;
-
-    public void SetMaxValue(int max_value)
-    {
-
-        slider.maxValue = max_value; // max value
-        slider.value = 20; // start value
-
-    } /**/
 
     public void SetValue(float value)
     {
 
-        slider.value = value;
+        if(this.GetComponent<UnityEngine.UI.Slider>() != null) 
+        {
+            
+            this.GetComponent<UnityEngine.UI.Slider>().value = value;
+
+        }
+        else if(this.GetComponent<UnityEngine.UI.Scrollbar>() != null)
+        {
+
+            this.GetComponent<UnityEngine.UI.Scrollbar>().value = UnityEngine.Mathf.Clamp(value, 0.0f, 40.0f) / 40.0f ;
+
+        }
     
     }
 

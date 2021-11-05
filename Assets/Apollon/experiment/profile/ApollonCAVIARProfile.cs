@@ -50,11 +50,20 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("Objet2D_Carre")]
                 VC2DSquare,
 
-                [System.ComponentModel.Description("Radiosonde")]
-                VCRadiosonde,
+                [System.ComponentModel.Description("Radiosonde_1A")]
+                VCRadiosonde1A,
 
-                [System.ComponentModel.Description("RadiosondeCentree")]
-                VCCenteredRadiosonde,
+                [System.ComponentModel.Description("Radiosonde_1B")]
+                VCRadiosonde1B,
+
+                [System.ComponentModel.Description("Radiosonde_2A")]
+                VCRadiosonde2A,
+
+                [System.ComponentModel.Description("Radiosonde_2B")]
+                VCRadiosonde2B,
+
+                [System.ComponentModel.Description("Radiosonde_2C")]
+                VCRadiosonde2C,
 
                 [System.ComponentModel.Description("Layout_A")]
                 HUDLayoutA,
@@ -75,8 +84,17 @@ namespace Labsim.apollon.experiment.profile
                 HUDMask2,
                 
                 [System.ComponentModel.Description("Mask_3")]
-                HUDMask3
+                HUDMask3,
 
+                [System.ComponentModel.Description("Mask_4")]
+                HUDMask4,
+                
+                [System.ComponentModel.Description("Mask_5")]
+                HUDMask5,
+                
+                [System.ComponentModel.Description("Mask_6")]
+                HUDMask6
+                
             } /* enum */
                 
             public class PhaseCSettings 
@@ -460,6 +478,33 @@ namespace Labsim.apollon.experiment.profile
                         break;
                     }
 
+                    // HUD Mask 4 : centered 20x10
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask4),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask4;
+                        break;
+                    }
+
+                    // HUD Mask 5 : centered 20x27
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask5),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask5;
+                        break;
+                    }
+
+                    // HUD Mask 6 : centered 20x20
+                    case string param when param.Equals(
+                        ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.HUDMask6),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        mask_type = Settings.VisualCueIDType.HUDMask6;
+                        break;
+                    }
+
                     default:
                     {
                         // log error
@@ -556,21 +601,48 @@ namespace Labsim.apollon.experiment.profile
                             break;
                         }
 
-                        // Radiosonde
+                        // Radiosonde 1A -> centree 
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde),
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde1A),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde);
+                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde1A);
                             break;
                         }
 
-                        // Radiosonde centree
+                        // Radiosonde 1B -> all layout 
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCCenteredRadiosonde),
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde1B),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
-                            cue_list.Add(Settings.VisualCueIDType.VCCenteredRadiosonde);
+                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde1B);
+                            break;
+                        }
+
+                        // Radiosonde 2A -> centree 
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde2A),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde2A);
+                            break;
+                        }
+
+                        // Radiosonde 2B -> layout B
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde2B),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde2B);
+                            break;
+                        }
+                        
+                        // Radiosonde 2C -> layout C
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCRadiosonde2C),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            cue_list.Add(Settings.VisualCueIDType.VCRadiosonde2C);
                             break;
                         }
 

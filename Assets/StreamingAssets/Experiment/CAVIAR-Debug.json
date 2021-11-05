@@ -31,7 +31,7 @@
 
       "phase_C0_hud_layout_type_string": "layout_A",
       "phase_C0_hud_mask_type_string": "mask_0",
-      "phase_C0_visual_cue_type_string": [ "objet3D_Cube", "radiosonde" ],
+      "phase_C0_visual_cue_type_string": [ "objet3D_Cube", "radiosonde_1A", "radiosonde_2C" ],
       "phase_C0_visual_cue_2D_density_meter": 80.0,
       "phase_C0_total_distance_meter": 1000.0,
       "phase_C0_target_velocity_meter_per_s": 30.0,
@@ -42,8 +42,8 @@
       "phase_C0_fog_end_distance_meter": 150.0,
 
       "phase_C1_hud_layout_type_string": "layout_B",
-      "phase_C1_hud_mask_type_string": "mask_1",
-      "phase_C1_visual_cue_type_string": [ "objet2D_Grille", "objet2D_cercle" ],
+      "phase_C1_hud_mask_type_string": "mask_4",
+      "phase_C1_visual_cue_type_string": [ "objet2D_Grille", "objet2D_cercle", "radiosonde_2B" ],
       "phase_C1_visual_cue_2D_density_meter": 40.0,
       "phase_C1_total_distance_meter": 500.0,
       "phase_C1_target_velocity_meter_per_s": 20.0,
@@ -54,8 +54,8 @@
       "phase_C1_fog_end_distance_meter": 1500.0,
 
       "phase_C2_hud_layout_type_string": "layout_C",
-      "phase_C2_hud_mask_type_string": "mask_2",
-      "phase_C2_visual_cue_type_string": [ "objet3D_tetrahedre", "objet2D_carre", "radiosondecentree" ],
+      "phase_C2_hud_mask_type_string": "mask_5",
+      "phase_C2_visual_cue_type_string": [ "objet3D_tetrahedre", "objet2D_carre", "radiosonde_2A" ],
       "phase_C2_visual_cue_2D_density_meter": 20.0,
       "phase_C2_total_distance_meter": 1000.0,
       "phase_C2_target_velocity_meter_per_s": 30.0,
@@ -66,8 +66,8 @@
       "phase_C2_fog_end_distance_meter": 150.0,
 
       "phase_C3_hud_layout_type_string": "Layout_A",
-      "phase_C3_hud_mask_type_string": "mask_3",
-      "phase_C3_visual_cue_type_string": [ "Objet2D_Grille", "objet2D_cercle" ],
+      "phase_C3_hud_mask_type_string": "mask_6",
+      "phase_C3_visual_cue_type_string": [ "Objet2D_Grille", "objet2D_cercle", "radiosonde_1B" ],
       "phase_C3_visual_cue_2D_density_meter": 10.0,
       "phase_C3_total_distance_meter": 500.0,
       "phase_C3_target_velocity_meter_per_s": 20.0,
