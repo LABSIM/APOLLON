@@ -3382,8 +3382,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280428586
-  m_fontColor: {r: 0.16470589, g: 0.15686275, b: 0.13333334, a: 1}
+    rgba: 4280363050
+  m_fontColor: {r: 0.16470589, g: 0.15686275, b: 0.12941177, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4882,8 +4882,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279243979
-  m_fontColor: {r: 0.7960785, g: 0.078431375, b: 0.0627451, a: 1}
+    rgba: 4280363050
+  m_fontColor: {r: 0.16470589, g: 0.15686275, b: 0.12941177, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9027,7 +9027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1539446719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10880,7 +10880,7 @@ PrefabInstance:
     - target: {fileID: 5793715368296331667, guid: 263097828e6e8644995fb6af39f573d3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5793715368669357285, guid: 263097828e6e8644995fb6af39f573d3,
         type: 3}
@@ -10998,7 +10998,7 @@ PrefabInstance:
     - target: {fileID: 3335209438990928268, guid: 308b1321a36ed7c48b43ed7ba8d2201b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3335209438990928271, guid: 308b1321a36ed7c48b43ed7ba8d2201b,
         type: 3}
