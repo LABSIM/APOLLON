@@ -108,6 +108,10 @@ namespace Labsim.apollon.experiment.phase
                                 = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetString(
                                     "current_pattern"
                                 );
+                            var future_settings_catch_try
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetBool(
+                                    "is_catch_try_condition"
+                                );
                             var future_settings_phase_C_angular_displacement_limiter_deg
                                 = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
                                     "phase_C_angular_displacement_limiter_deg"
@@ -152,6 +156,12 @@ namespace Labsim.apollon.experiment.phase
                                     UXF.Session.instance.CurrentTrial.settings.GetString("current_pattern")
                                 );
                                 UXF.Session.instance.CurrentTrial.settings.SetValue("current_pattern",future_settings_pattern);
+
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "is_catch_try_condition",
+                                    this.FSM.CurrentSettings.bIsTryCatch
+                                );
+                                this.FSM.CurrentSettings.bIsTryCatch = future_settings_catch_try;
 
                                 UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
                                     "phase_C_angular_displacement_limiter_deg",
