@@ -7141,7 +7141,7 @@ PrefabInstance:
     - target: {fileID: 114155219626309100, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: logDebugLogCalls
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
