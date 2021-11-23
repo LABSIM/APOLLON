@@ -78,6 +78,30 @@ namespace Labsim.apollon.experiment.phase
 
             } /* if() */
 
+            // filtering
+            foreach(var (saturation_item, index) in this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
+            {
+                if(saturation_item == 0.0f)
+                {
+                    this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold[index] 
+                        = (
+                            this.FSM.CurrentSettings.phase_C_angular_acceleration_target[index] 
+                            * ( this.FSM.CurrentSettings.phase_C_stim_duration / 1000.0f )
+                        );
+                }
+            }
+            foreach(var (saturation_item, index) in this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
+            {
+                if(saturation_item == 0.0f )
+                {
+                    this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold[index] 
+                        = (
+                            this.FSM.CurrentSettings.phase_C_linear_acceleration_target[index] 
+                            * ( this.FSM.CurrentSettings.phase_C_stim_duration / 1000.0f )
+                        );
+                }
+            }
+
             // synchronisation mechanism (TCS + local function)
             var sync_detection_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string)>();
             var sync_idle_point = new System.Threading.Tasks.TaskCompletionSource<bool>();

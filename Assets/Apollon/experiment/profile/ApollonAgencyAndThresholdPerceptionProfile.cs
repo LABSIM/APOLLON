@@ -323,30 +323,6 @@ namespace Labsim.apollon.experiment.profile
             this.CurrentSettings.phase_C_linear_mandatory_axis                  = arg.Trial.settings.GetBoolList("phase_C_linear_mandatory_axis").ToArray();
             this.CurrentSettings.phase_D_duration                               = arg.Trial.settings.GetFloat("phase_D_duration_ms");
 
-            // filtering
-            foreach(var (saturation_item, index) in this.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
-            {
-                if(saturation_item == 0.0f)
-                {
-                    this.CurrentSettings.phase_C_angular_velocity_saturation_threshold[index] 
-                        = (
-                            this.CurrentSettings.phase_C_angular_acceleration_target[index] 
-                            * ( this.CurrentSettings.phase_C_stim_duration / 1000.0f )
-                        );
-                }
-            }
-            foreach(var (saturation_item, index) in this.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
-            {
-                if(saturation_item == 0.0f )
-                {
-                    this.CurrentSettings.phase_C_linear_velocity_saturation_threshold[index] 
-                        = (
-                            this.CurrentSettings.phase_C_linear_acceleration_target[index] 
-                            * ( this.CurrentSettings.phase_C_stim_duration / 1000.0f )
-                        );
-                }
-            }
-
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionProfile.onExperimentTrialBegin() : found current settings with pattern["
