@@ -121,7 +121,7 @@ namespace Labsim.apollon.experiment.phase
                                     "phase_C_angular_velocity_saturation_threshold_deg_per_s"
                                 ).ToArray();
                             var future_settings_phase_C_angular_mandatory_axis
-                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetBoolList(
                                     "phase_C_angular_mandatory_axis"
                                 ).ToArray();
                             var future_settings_phase_C_linear_displacement_limiter_m
@@ -137,7 +137,7 @@ namespace Labsim.apollon.experiment.phase
                                     "phase_C_linear_velocity_saturation_threshold_m_per_s"
                                 ).ToArray();
                             var future_settings_phase_C_linear_mandatory_axis
-                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetBoolList(
                                     "phase_C_linear_mandatory_axis"
                                 ).ToArray();
 
