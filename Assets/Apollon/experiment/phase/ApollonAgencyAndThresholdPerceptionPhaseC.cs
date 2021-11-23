@@ -21,9 +21,12 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin"
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin with pattern ["
+                + UXF.Session.instance.CurrentTrial.settings.GetString("current_pattern")
+                + "] & phase_C_linear_acceleration_target [" 
+                + System.String.Join(",", this.FSM.CurrentSettings.phase_C_linear_acceleration_target) 
+                + "]"
             );
-                
 
             // get bridges
             var control_bridge
