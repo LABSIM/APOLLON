@@ -104,30 +104,96 @@ namespace Labsim.apollon.experiment.phase
                         {     
 
                             // get future settings of acceleration & pattern name 
-                            var future_settings_array_value 
-                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
-                                    "phase_C_linear_acceleration_target_m_per_s2"
-                                ).ToArray();
                             var future_settings_pattern
                                 = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetString(
                                     "current_pattern"
                                 );
+                            var future_settings_phase_C_angular_displacement_limiter_deg
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_angular_displacement_limiter_deg"
+                                ).ToArray();
+                            var future_settings_phase_C_angular_acceleration_target_deg_per_s2
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_angular_acceleration_target_deg_per_s2"
+                                ).ToArray();
+                            var future_settings_phase_C_angular_velocity_saturation_threshold_deg_per_s
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_angular_velocity_saturation_threshold_deg_per_s"
+                                ).ToArray();
+                            var future_settings_phase_C_angular_mandatory_axis
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_angular_mandatory_axis"
+                                ).ToArray();
+                            var future_settings_phase_C_linear_displacement_limiter_m
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_linear_displacement_limiter_m"
+                                ).ToArray();
+                            var future_settings_phase_C_linear_acceleration_target_m_per_s2
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_linear_acceleration_target_m_per_s2"
+                                ).ToArray();
+                            var future_settings_phase_C_linear_velocity_saturation_threshold_m_per_s
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_linear_velocity_saturation_threshold_m_per_s"
+                                ).ToArray();
+                            var future_settings_phase_C_linear_mandatory_axis
+                                = UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.GetFloatList(
+                                    "phase_C_linear_mandatory_axis"
+                                ).ToArray();
 
                             // check if future settings && command are congruant
-                            if(UnityEngine.Mathf.Sign(this.FSM.CurrentResults.user_command) == UnityEngine.Mathf.Sign(future_settings_array_value[2]))
+                            if(UnityEngine.Mathf.Sign(this.FSM.CurrentResults.user_command) == UnityEngine.Mathf.Sign(future_settings_phase_C_linear_acceleration_target_m_per_s2[2]))
                             {
 
-                                // perfect ! switch values of acceleration & pattern name
-                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
-                                    "phase_C_linear_acceleration_target_m_per_s2",
-                                    this.FSM.CurrentSettings.phase_C_linear_acceleration_target.ToList()
-                                );
-                                future_settings_array_value.CopyTo(this.FSM.CurrentSettings.phase_C_linear_acceleration_target,0);
+                                // perfect ! switch values of every settings & pattern name
+
                                 UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
                                     "current_pattern",
                                     UXF.Session.instance.CurrentTrial.settings.GetString("current_pattern")
                                 );
                                 UXF.Session.instance.CurrentTrial.settings.SetValue("current_pattern",future_settings_pattern);
+
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_angular_displacement_limiter_deg",
+                                    this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.ToList()
+                                );
+                                future_settings_phase_C_angular_displacement_limiter_deg.CopyTo(this.FSM.CurrentSettings.phase_C_angular_displacement_limiter,0);
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_angular_acceleration_target_deg_per_s2",
+                                    this.FSM.CurrentSettings.phase_C_angular_acceleration_target.ToList()
+                                );
+                                future_settings_phase_C_angular_acceleration_target_deg_per_s2.CopyTo(this.FSM.CurrentSettings.phase_C_angular_acceleration_target,0);
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_angular_velocity_saturation_threshold_deg_per_s",
+                                    this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.ToList()
+                                );
+                                future_settings_phase_C_angular_velocity_saturation_threshold_deg_per_s.CopyTo(this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold,0);
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_angular_mandatory_axis",
+                                    this.FSM.CurrentSettings.phase_C_angular_mandatory_axis.ToList()
+                                );
+                                future_settings_phase_C_angular_mandatory_axis.CopyTo(this.FSM.CurrentSettings.phase_C_angular_mandatory_axis,0);
+
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_linear_displacement_limiter_m",
+                                    this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.ToList()
+                                );
+                                future_settings_phase_C_linear_displacement_limiter_m.CopyTo(this.FSM.CurrentSettings.phase_C_linear_displacement_limiter,0);
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_linear_acceleration_target_m_per_s2",
+                                    this.FSM.CurrentSettings.phase_C_linear_acceleration_target.ToList()
+                                );
+                                future_settings_phase_C_linear_acceleration_target_m_per_s2.CopyTo(this.FSM.CurrentSettings.phase_C_linear_acceleration_target,0);
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_linear_velocity_saturation_threshold_m_per_s",
+                                    this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.ToList()
+                                );
+                                future_settings_phase_C_linear_velocity_saturation_threshold_m_per_s.CopyTo(this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold,0);
+                                UXF.Session.instance.CurrentBlock.GetRelativeTrial(future_index).settings.SetValue(
+                                    "phase_C_linear_mandatory_axis",
+                                    this.FSM.CurrentSettings.phase_C_linear_mandatory_axis.ToList()
+                                );
+                                future_settings_phase_C_linear_mandatory_axis.CopyTo(this.FSM.CurrentSettings.phase_C_linear_mandatory_axis,0);
 
                                 // mark as found
                                 bFoundTrialSettings = true;
