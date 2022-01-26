@@ -270,6 +270,13 @@ namespace Labsim.apollon.experiment.profile
 
         } /* getCurrentStatusInfo() */
 
+        protected override System.String getCurrentCounterStatusInfo()
+        {
+
+            return "";
+
+        } /* getCurrentCounterStatusInfo() */
+
         public async override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
             // log

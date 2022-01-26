@@ -21,9 +21,12 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin"
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionPhaseC.OnEntry() : begin with pattern ["
+                + UXF.Session.instance.CurrentTrial.settings.GetString("current_pattern")
+                + "] & phase_C_linear_acceleration_target [" 
+                + System.String.Join(",", this.FSM.CurrentSettings.phase_C_linear_acceleration_target) 
+                + "]"
             );
-                
 
             // get bridges
             var control_bridge
@@ -74,6 +77,30 @@ namespace Labsim.apollon.experiment.phase
                 return;
 
             } /* if() */
+
+            // filtering
+            foreach(var (saturation_item, index) in this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
+            {
+                if(saturation_item == 0.0f)
+                {
+                    this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold[index] 
+                        = (
+                            this.FSM.CurrentSettings.phase_C_angular_acceleration_target[index] 
+                            * ( this.FSM.CurrentSettings.phase_C_stim_duration / 1000.0f )
+                        );
+                }
+            }
+            foreach(var (saturation_item, index) in this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select((e,idx) => (e,idx)))
+            {
+                if(saturation_item == 0.0f )
+                {
+                    this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold[index] 
+                        = (
+                            this.FSM.CurrentSettings.phase_C_linear_acceleration_target[index] 
+                            * ( this.FSM.CurrentSettings.phase_C_stim_duration / 1000.0f )
+                        );
+                }
+            }
 
             // synchronisation mechanism (TCS + local function)
             var sync_detection_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string)>();
@@ -204,7 +231,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
@@ -217,7 +244,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
@@ -230,7 +257,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
@@ -243,7 +270,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
@@ -256,7 +283,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
@@ -269,7 +296,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_stim_duration,
@@ -499,7 +526,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_velocity_saturation_threshold.Select(
@@ -512,7 +539,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_angular_displacement_limiter.Select(
@@ -525,7 +552,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_acceleration_target.Select(
@@ -538,7 +565,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_velocity_saturation_threshold.Select(
@@ -551,7 +578,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_linear_displacement_limiter.Select(
@@ -564,7 +591,7 @@ namespace Labsim.apollon.experiment.phase
                             x => (
                                 (x.IsMandatory || (this.FSM.CurrentResults.user_command == 0.0f))
                                     ? x.Value 
-                                    : (x.Value * this.FSM.CurrentResults.user_command)
+                                    : (x.Value * UnityEngine.Mathf.Abs(this.FSM.CurrentResults.user_command))
                             )
                         ).ToArray(),
                         this.FSM.CurrentSettings.phase_C_stim_duration,
