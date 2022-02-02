@@ -300,6 +300,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.RadioSondeSensor, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionControl, false },
                 { GameplayIDType.CAVIARControl, false },
+                { GameplayIDType.TactileControl, false },
                 { GameplayIDType.All, false }
             };
 
@@ -363,6 +364,9 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("CAVIARControl")]
             CAVIARControl,
+
+            [System.ComponentModel.Description("TactileControl")]
+            TactileControl,
 
             [System.ComponentModel.Description("All")]
             All
