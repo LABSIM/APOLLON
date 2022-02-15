@@ -265,7 +265,10 @@ namespace Labsim.apollon.experiment
             AgencyAndThresholdPerception,
 
             [System.ComponentModel.Description("CAVIAR")]
-            CAVIAR
+            CAVIAR,
+
+            [System.ComponentModel.Description("Tactile")]
+            Tactile,
 
         } /* enum*/
 
@@ -412,7 +415,7 @@ namespace Labsim.apollon.experiment
             switch(this.Session.settings.GetString("APOLLON_profile"))
             {
 
-                 // Agency And TBW
+                // Agency And TBW
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndTBW), 
                     System.StringComparison.InvariantCultureIgnoreCase
@@ -425,7 +428,7 @@ namespace Labsim.apollon.experiment
                     break;
                 }
 
-                 // AgencyAndThresholdPerception
+                // AgencyAndThresholdPerception
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndThresholdPerception), 
                     System.StringComparison.InvariantCultureIgnoreCase
@@ -437,7 +440,7 @@ namespace Labsim.apollon.experiment
                     break;
                 }
 
-                 // CAVIAR
+                // CAVIAR
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.CAVIAR), 
                     System.StringComparison.InvariantCultureIgnoreCase
@@ -447,6 +450,19 @@ namespace Labsim.apollon.experiment
                         "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [CAVIAR]"
                     );
                     this.setActiveProfile(ProfileIDType.CAVIAR);
+                    break;
+                }
+
+                // CAVIAR
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.Tactile), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [Tactile]"
+                    );
+                    this.setActiveProfile(ProfileIDType.Tactile);
                     break;
                 }
 
