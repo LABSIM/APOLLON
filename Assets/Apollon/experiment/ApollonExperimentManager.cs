@@ -264,6 +264,9 @@ namespace Labsim.apollon.experiment
             [System.ComponentModel.Description("AgencyAndThresholdPerception")]
             AgencyAndThresholdPerception,
 
+            [System.ComponentModel.Description("AgencyAndThresholdPerceptionV2")]
+            AgencyAndThresholdPerceptionV2,
+
             [System.ComponentModel.Description("CAVIAR")]
             CAVIAR
 
@@ -412,7 +415,7 @@ namespace Labsim.apollon.experiment
             switch(this.Session.settings.GetString("APOLLON_profile"))
             {
 
-                 // Agency And TBW
+                // Agency And TBW
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndTBW), 
                     System.StringComparison.InvariantCultureIgnoreCase
@@ -425,7 +428,7 @@ namespace Labsim.apollon.experiment
                     break;
                 }
 
-                 // AgencyAndThresholdPerception
+                // AgencyAndThresholdPerception
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndThresholdPerception), 
                     System.StringComparison.InvariantCultureIgnoreCase
@@ -437,7 +440,19 @@ namespace Labsim.apollon.experiment
                     break;
                 }
 
-                 // CAVIAR
+                // AgencyAndThresholdPerception V2
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndThresholdPerceptionV2), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [AgencyAndThresholdPerceptionV2]"
+                    );
+                    this.setActiveProfile(ProfileIDType.AgencyAndThresholdPerceptionV2);
+                    break;
+                }
+
+                // CAVIAR
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.CAVIAR), 
                     System.StringComparison.InvariantCultureIgnoreCase

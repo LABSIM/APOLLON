@@ -299,6 +299,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.HOTASWarthogthrottleSensor, false },
                 { GameplayIDType.RadioSondeSensor, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionControl, false },
+                { GameplayIDType.AgencyAndThresholdPerceptionV2Control, false },
                 { GameplayIDType.CAVIARControl, false },
                 { GameplayIDType.All, false }
             };
@@ -360,6 +361,9 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("AgencyAndThresholdPerceptionControl")]
             AgencyAndThresholdPerceptionControl,
+
+            [System.ComponentModel.Description("AgencyAndThresholdPerceptionV2Control")]
+            AgencyAndThresholdPerceptionV2Control,
 
             [System.ComponentModel.Description("CAVIARControl")]
             CAVIARControl,

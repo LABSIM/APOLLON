@@ -27,7 +27,7 @@ namespace Labsim.apollon.experiment
                 return this.getCurrentStatusInfo();
             }
         }
-        protected abstract System.String getCurrentStatusInfo();
+        protected virtual System.String getCurrentStatusInfo() { return ""; }
 
         public System.String CounterStatus
         {
@@ -36,7 +36,16 @@ namespace Labsim.apollon.experiment
                 return this.getCurrentCounterStatusInfo();
             }
         }
-        protected abstract System.String getCurrentCounterStatusInfo();
+        protected virtual System.String getCurrentCounterStatusInfo() { return ""; }
+
+        public System.String InstructionStatus
+        {
+            get
+            {
+                return this.getCurrentInstructionStatusInfo();
+            }
+        }
+        protected virtual System.String getCurrentInstructionStatusInfo() { return ""; }
 
         // constructor
         public ApollonAbstractExperimentProfile()

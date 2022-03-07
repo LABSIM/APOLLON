@@ -289,6 +289,9 @@ namespace Labsim.apollon.frontend
                 { FrontendIDType.RemainingTrialPoolCounterGUI, false },
                 { FrontendIDType.SimpleFrameGUI, false },
                 { FrontendIDType.VerticalAnchorableDock, false },
+                { FrontendIDType.ResponseSliderGUI, false },
+                { FrontendIDType.IntensitySliderGUI, false },
+                { FrontendIDType.ConfidenceSliderGUI, false },
                 { FrontendIDType.All, false }
             };
 
@@ -361,6 +364,15 @@ namespace Labsim.apollon.frontend
 
             [System.ComponentModel.Description("VerticalAnchorableDock")]
             VerticalAnchorableDock,
+                        
+            [System.ComponentModel.Description("ResponseSliderGUI")]
+            ResponseSliderGUI,
+
+            [System.ComponentModel.Description("IntensitySliderGUI")]
+            IntensitySliderGUI,
+
+            [System.ComponentModel.Description("ConfidenceSliderGUI")]
+            ConfidenceSliderGUI,
 
             [System.ComponentModel.Description("All")]
             All
