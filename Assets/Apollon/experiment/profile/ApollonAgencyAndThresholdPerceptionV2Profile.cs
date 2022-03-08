@@ -789,7 +789,7 @@ namespace Labsim.apollon.experiment.profile
                         // then pop first & last element & split from "," separator & convert to a float array
                         float[] raw_data 
                             = System.Array.ConvertAll(
-                                raw_string.Remove(0).Remove(raw_string.Length - 1).Split(','),
+                                raw_string.Substring(1, (raw_string.Length - 2)).Split(','),
                                 float.Parse
                             );
 
