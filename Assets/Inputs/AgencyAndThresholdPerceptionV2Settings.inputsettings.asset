@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: AgencyAndThresholdPerceptionV2Settings.inputsettings
   m_EditorClassIdentifier: 
   m_SupportedDevices:
-  - HID::Thustmaster Joystick - HOTAS Warthog
-  - HID::Thrustmaster Throttle - HOTAS Warthog
   - Keyboard
   - Mouse
+  - HID::Thrustmaster Throttle - HOTAS Warthog
+  - HID::Thustmaster Joystick - HOTAS Warthog
   m_UpdateMode: 2
   m_CompensateForScreenOrientation: 1
   m_FilterNoiseOnCurrent: 0
-  m_DefaultDeadzoneMin: 0.05
-  m_DefaultDeadzoneMax: 0.95
+  m_DefaultDeadzoneMin: 0.005
+  m_DefaultDeadzoneMax: 0.995
   m_DefaultButtonPressPoint: 0.5
   m_DefaultTapTime: 0.2
   m_DefaultSlowTapTime: 0.5

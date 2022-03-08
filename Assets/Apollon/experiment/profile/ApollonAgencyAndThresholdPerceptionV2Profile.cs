@@ -16,6 +16,11 @@ namespace Labsim.apollon.experiment.profile
             this.m_profileID = ApollonExperimentManager.ProfileIDType.AgencyAndThresholdPerceptionV2;
         }
 
+        // fast hack
+        public uint
+            strongConditionCount = 0,
+            weakConditionCount = 0;
+
         #region settings/result
 
         public class Settings
@@ -683,7 +688,7 @@ namespace Labsim.apollon.experiment.profile
                 public float
                     user_latency_unity_timestamp,
                     user_measured_latency,
-                    user_elected_latency;
+                    user_randomized_stim1_latency;
                 
                 public string
                     user_latency_host_timestamp;
@@ -691,6 +696,19 @@ namespace Labsim.apollon.experiment.profile
                 #endregion
 
             } /* class PhaseAResult */
+
+            public class PhaseEResults 
+                : DefaultPhaseTimingResults
+            {
+
+                #region user_*
+
+                public float
+                    user_randomized_stim2_latency;
+
+                #endregion
+
+            } /* class PhaseEResults */
 
             public class PhaseHResults
                 : DefaultPhaseTimingResults
@@ -723,11 +741,11 @@ namespace Labsim.apollon.experiment.profile
                 phase_B_results = new DefaultPhaseTimingResults(),
                 phase_C_results = new DefaultPhaseTimingResults(),
                 phase_D_results = new DefaultPhaseTimingResults(),
-                phase_E_results = new DefaultPhaseTimingResults(),
                 phase_F_results = new DefaultPhaseTimingResults(),
                 phase_G_results = new DefaultPhaseTimingResults();
 
             public PhaseAResults phase_A_results = new PhaseAResults();
+            public PhaseEResults phase_E_results = new PhaseEResults();
             public PhaseHResults phase_H_results = new PhaseHResults();
             public PhaseIResults phase_I_results = new PhaseIResults();
 
@@ -737,54 +755,118 @@ namespace Labsim.apollon.experiment.profile
         public Settings CurrentSettings { get; } = new Settings();
         public Results CurrentResults { get; set; } = new Results();
 
-        // fast hack
-        public uint
-            strongConditionCount = 0,
-            weakConditionCount = 0;
-            
-        // latency bucket mechanism
+        #endregion
+        
+        #region latency bucket mechanism
 
-        private static readonly uint _latencyBucketSize = 5;
-        private uint m_currentDefaultLatencyCount = _latencyBucketSize;
+        private static readonly uint _latency_default_BucketSize = 5;
         private static readonly float _latency_default_timeout_lower_bound = 0.0f;
         private static readonly float _latency_default_timeout_upper_bound = 500.0f;
 
-        private System.Collections.Generic.List<float> m_currentLatencyBucket = null;
-        private System.Collections.Generic.List<float> CurrentLatencyBucket 
+        private uint m_currentInitialDefaultLatencyValueCount = 0;
+        private System.Collections.Generic.Queue<float> m_currentLatencyBucket = null;
+        private System.Collections.Generic.Queue<float> CurrentLatencyBucket 
         {
 
             get 
             {
+                
+                // is it initialized
                 if(this.m_currentLatencyBucket == null)
                 {
-                    this.m_currentLatencyBucket = new System.Collections.Generic.List<float>();
-                    for(uint i = 0; i < _latencyBucketSize; ++i)
-                    {
-                        this.m_currentLatencyBucket.Add(
-                            UnityEngine.Random.Range(
-                                _latency_default_timeout_lower_bound,
-                                _latency_default_timeout_upper_bound
-                            )
-                        );
-                    }
-                }
-                return this.m_currentLatencyBucket;
-            }
 
-        }
+                    // is there a default user value from previous experiment ?
+                    if(ApollonExperimentManager.Instance.Session.participantDetails["initial_latency_bucket"].ToString() != "")
+                    {
+
+                        // format == [value_0,value_1,...,value_N]
+                        
+                        // extract raw string
+                        var raw_string 
+                            = ApollonExperimentManager.Instance.Session.participantDetails["initial_latency_bucket"]
+                            .ToString();
+                        
+                        // then pop first & last element & split from "," separator & convert to a float array
+                        float[] raw_data 
+                            = System.Array.ConvertAll(
+                                raw_string.Remove(0).Remove(raw_string.Length - 1).Split(','),
+                                float.Parse
+                            );
+
+                        // then initialize from raw & set initial value counter to 0
+                        this.m_currentInitialDefaultLatencyValueCount = 0;
+                        this.m_currentLatencyBucket = new System.Collections.Generic.Queue<float>(raw_data);
+
+                    }
+                    else
+                    {
+                        
+                        // empty instance
+                        this.m_currentLatencyBucket = new System.Collections.Generic.Queue<float>();
+
+                        // uses default settings
+                        this.m_currentInitialDefaultLatencyValueCount = _latency_default_BucketSize;
+                        for(uint i = 0; i < this.m_currentInitialDefaultLatencyValueCount; ++i)
+                        {
+                            
+                            this.m_currentLatencyBucket.Enqueue(
+                                UnityEngine.Random.Range(
+                                    _latency_default_timeout_lower_bound,
+                                    _latency_default_timeout_upper_bound
+                                )
+                            );
+
+                        } /* for() */
+
+                    } /* if()*/
+
+                } /* if() */
+
+                // finally
+                return this.m_currentLatencyBucket;
+            
+            } /* get */
+
+        } /* property */
 
         public void AddUserLatencyToBucket(float new_latency)
         {
             
-            // firstly, pop last default element & decrement current default latency initializer iff. there is any remaining default value
-            if(this.m_currentDefaultLatencyCount > 0)
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2Profile.AddUserLatencyToBucket() : adding new latency["
+                    + new_latency
+                + "] to current bucket["
+                    + System.String.Join(",",this.CurrentLatencyBucket)
+                + "]"
+            );
+
+            // iff. there is any remaining default value
+            if(this.m_currentInitialDefaultLatencyValueCount > 0)
             {
-                this.CurrentLatencyBucket.RemoveAt(this.CurrentLatencyBucket.Count - 1);
-                --this.m_currentDefaultLatencyCount;
-            }
+            
+                // firstly, pop last default element & decrement current default latency initializer
+                this.CurrentLatencyBucket.Dequeue();
+                --this.m_currentInitialDefaultLatencyValueCount;
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2Profile.AddUserLatencyToBucket() : removing last default value, remaining default count["
+                        + this.m_currentInitialDefaultLatencyValueCount
+                    + "]"
+                );
+
+            } /* if() */
             
             // whatever, add new user latency to bucket
-            this.CurrentLatencyBucket.Add(new_latency);
+            this.CurrentLatencyBucket.Enqueue(new_latency);
+            
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2Profile.AddUserLatencyToBucket() : new latency bucket ["
+                    + System.String.Join(",",this.CurrentLatencyBucket)
+                + "]"
+            );
 
         } /* AddUserLatencyToBucket() */
 
@@ -792,7 +874,7 @@ namespace Labsim.apollon.experiment.profile
         {
             
             // get a latency from random index in the current bucket
-            return this.CurrentLatencyBucket[ UnityEngine.Random.Range(0, this.CurrentLatencyBucket.Count - 1) ];
+            return this.CurrentLatencyBucket.ToList()[UnityEngine.Random.Range(0, this.CurrentLatencyBucket.Count - 1)];
 
         } /* GetRandomLatencyFromBucket() */
 
@@ -823,25 +905,25 @@ namespace Labsim.apollon.experiment.profile
         {
 
             return (
-                (
-                    this.CurrentSettings.bIsActive 
-                ) ? ( 
-                    UXF.Session.instance.CurrentBlock.number
-                    + "/"
-                    + UXF.Session.instance.blocks.Count
-                    + " | (forte)" 
+                (this.CurrentSettings.bIsActive) 
+                ? ( 
+                    (
+                        (UXF.Session.instance.blocks.Count > 1) 
+                            ? (UXF.Session.instance.CurrentBlock.number + "/" + UXF.Session.instance.blocks.Count + " | ")
+                            : ""
+                    )
+                    +"(forte)" 
                     + (
                         (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
                         - this.strongConditionCount
                     ).ToString("D2")
                     + "/(faible)"
-                    +(
+                    + (
                         (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
                         - this.weakConditionCount
                     ).ToString("D2")
-                ) : (
-                    ""
-                )
+                ) 
+                : ""
             );
 
         } /* getCurrentCounterStatusInfo() */
@@ -1020,7 +1102,7 @@ namespace Labsim.apollon.experiment.profile
            
             // activate world element & contriol system
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl);
+            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control);
 
             // base call
             base.onExperimentTrialBegin(sender, arg);
@@ -1037,7 +1119,7 @@ namespace Labsim.apollon.experiment.profile
             await this.DoRunProtocol(
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2Phase0(this) ); },
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseA(this) ); },
-                // async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseB(this) ); },
+                async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseB(this) ); },
                 // async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseC(this) ); },
                 // async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseD(this) ); },
                 // async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseE(this) ); },
@@ -1063,6 +1145,7 @@ namespace Labsim.apollon.experiment.profile
             ApollonExperimentManager.Instance.Trial.result["pattern"] = this.CurrentSettings.pattern_type;
             ApollonExperimentManager.Instance.Trial.result["active_condition"] = this.CurrentSettings.bIsActive.ToString();
             ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] = this.CurrentSettings.bIsTryCatch.ToString();
+            ApollonExperimentManager.Instance.Trial.result["current_latency_bucket"] = "[" + System.String.Join(",",this.CurrentLatencyBucket) + "]";
 
             // phase 0 - RAZ input to neutral position
             ApollonExperimentManager.Instance.Trial.result["0_timing_on_entry_unity_timestamp"]
@@ -1091,9 +1174,9 @@ namespace Labsim.apollon.experiment.profile
                 = this.CurrentResults.phase_A_results.user_latency_host_timestamp.ToString();
             ApollonExperimentManager.Instance.Trial.result["user_measured_latency"] 
                 = this.CurrentResults.phase_A_results.user_measured_latency.ToString();
-            ApollonExperimentManager.Instance.Trial.result["user_elected_latency"] 
-                = this.CurrentResults.phase_A_results.user_elected_latency.ToString();
-
+            ApollonExperimentManager.Instance.Trial.result["user_randomized_stim1_latency"] 
+                = this.CurrentResults.phase_A_results.user_randomized_stim1_latency.ToString();
+            
             // phase B - first stim
             ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp.ToString();
@@ -1123,6 +1206,18 @@ namespace Labsim.apollon.experiment.profile
                 = this.CurrentResults.phase_D_results.timing_on_entry_host_timestamp;
             ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_D_results.timing_on_exit_host_timestamp;
+
+            // phase E - latency
+            ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_unity_timestamp"]
+                = this.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp.ToString();
+            ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_unity_timestamp"]
+                = this.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp.ToString();
+            ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_host_timestamp"]
+                = this.CurrentResults.phase_E_results.timing_on_entry_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
+                = this.CurrentResults.phase_E_results.timing_on_exit_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["user_randomized_stim2_latency"] 
+                = this.CurrentResults.phase_E_results.user_randomized_stim2_latency.ToString();
 
             // phase F - second stim
             ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_unity_timestamp"]

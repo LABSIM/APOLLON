@@ -49,7 +49,7 @@ namespace Labsim.apollon.gameplay.control
         {
         
             // log & disable
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2ControlBehaviour.OnEnable() : inactivate subject controls only ");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2ControlBehaviour.OnDisable() : inactivate subject controls only ");
             this.Control.Subject.Disable();
            
         } /* OnDisable() */

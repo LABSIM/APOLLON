@@ -55,10 +55,16 @@ namespace Labsim.apollon.experiment.phase
                         => 
                         {  
                             
-                            // update UI cursor value
+                            // update UI cursor from normalized command value 
+                            //
+                            // NORMALISATON [0;+1]
+                            // -------------
+                            // x_norm = ( x_raw - x_min[-1] ) / amplitude[[+2] => xmax[+1.0] - x_min[-1.0]]
+                            //
                             frontend.ApollonFrontendManager.Instance.getBridge(
-                                frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI
-                            ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value = args.Z;
+                                frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI
+                            ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value 
+                                = (args.Z + 1.0f) / 2.0f;
                             
                         }; /* lambda */
 
@@ -83,13 +89,15 @@ namespace Labsim.apollon.experiment.phase
                     current_stopwatch.Restart();
 
                     // update instructions 
-                    this.FSM.CurrentInstruction = "Puissance ?";
+                    this.FSM.CurrentInstruction = "Intensite ?";
 
                     // show intensity slider                            
                     frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
 
-                    // running 
-                    var phase_running_task 
+                    // running
+                    var phase_running_task_ct_src = new System.Threading.CancellationTokenSource();
+                    System.Threading.CancellationToken phase_running_task_ct = phase_running_task_ct_src.Token;
+                    var phase_running_task
                         // wait for random wait
                         = System.Threading.Tasks.Task.Factory.StartNew(
                             async () => 
@@ -101,29 +109,40 @@ namespace Labsim.apollon.experiment.phase
                                     + " ms to respond"
                                 );
 
-                                // wait a certain amout of time between each bound
-                                await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.response_max_duration);
-                            } 
+                                // wait a certain amout of time between each bound if cancel not requested
+                                if(!phase_running_task_ct.IsCancellationRequested)
+                                {
+                                    await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.response_max_duration);
+                                }
+
+                            },
+                            phase_running_task_ct_src.Token 
                         ).Unwrap().ContinueWith(
                             antecedent => 
                             {
-                                if(!sync_point.Task.IsCompleted) 
+                                if(!phase_running_task_ct.IsCancellationRequested)
                                 {
-                                    
-                                    UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseA.OnEntry() : user hasn't responded, injecting default result"
-                                    );
-                                    
-                                    sync_point?.TrySetResult((false, -1.0f, "-1.0", -1));
 
-                                } else {
+                                    if(!sync_point.Task.IsCompleted) 
+                                    {
+                                        
+                                        UnityEngine.Debug.Log(
+                                            "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseA.OnEntry() : user hasn't responded, injecting default result"
+                                        );
+                                        
+                                        sync_point?.TrySetResult((false, -1.0f, "-1.0", -1));
+
+                                    } else {
+                                        
+                                        UnityEngine.Debug.Log(
+                                            "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseA.OnEntry() : user has responded, keep result"
+                                        );
                                     
-                                    UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseA.OnEntry() : user has responded, keep result"
-                                    );
-                                
+                                    } /* if() */
+
                                 } /* if() */
-                            }
+                            },
+                            phase_running_task_ct_src.Token
                         );
                     
                     // wait until any result
@@ -133,13 +152,16 @@ namespace Labsim.apollon.experiment.phase
                     if(result.Item1)
                     {
 
+                        // cancel running task
+                        phase_running_task_ct_src.Cancel();
+
                         // validity barrier
                         bool bValid = false;
 
                         // it's a hit then check intensity from slider value
                         float slider_value 
                             = frontend.ApollonFrontendManager.Instance.getBridge(
-                                frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI
+                                frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI
                             ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value;
 
                         // [ 0.0 % ; 20.0 % [ 
@@ -160,6 +182,9 @@ namespace Labsim.apollon.experiment.phase
 
                             // hide red cross
                             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+                        
+                            // re-tasking
+                            sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string, long)>();
 
                         }
                         // [ 60.0 % ; 100.0 % ]
@@ -213,10 +238,9 @@ namespace Labsim.apollon.experiment.phase
                             // get a random timeout
                             float random_latency = this.FSM.GetRandomLatencyFromBucket();
 
-                            // record it 
-                            this.FSM.CurrentResults.phase_A_results.user_elected_latency = random_latency;        
-                            
-                            // set other result to default values
+                            // record user_*
+                            this.FSM.CurrentResults.phase_A_results.user_measured_latency = result.Item4;
+                            this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency = random_latency;        
                             this.FSM.CurrentResults.phase_A_results.user_latency_unity_timestamp = result.Item2;
                             this.FSM.CurrentResults.phase_A_results.user_latency_host_timestamp = result.Item3;
 
@@ -227,6 +251,21 @@ namespace Labsim.apollon.experiment.phase
 
                     // timeout
                     } else {
+
+                        // Too long == fail
+
+                        // update instructions 
+                        this.FSM.CurrentInstruction = "Trop lent";
+
+                        // hide intensity slider & show red cross
+                        frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
+                        frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+
+                        // wait a certain amout of time 
+                        await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.confirm_duration);
+
+                        // hide red cross
+                        frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
                         // re-tasking
                         sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string, long)>();
@@ -258,10 +297,11 @@ namespace Labsim.apollon.experiment.phase
                 float random_latency = this.FSM.GetRandomLatencyFromBucket();
 
                 // record it 
-                this.FSM.CurrentResults.phase_A_results.user_elected_latency = random_latency;        
+                this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency = random_latency;        
                 
                 // set other result to default values
-                this.FSM.CurrentResults.phase_A_results.user_command = -1;
+                this.FSM.CurrentResults.phase_A_results.user_command = 0;
+                this.FSM.CurrentResults.phase_A_results.user_measured_latency = -1;
                 this.FSM.CurrentResults.phase_A_results.user_latency_unity_timestamp = -1.0f;
                 this.FSM.CurrentResults.phase_A_results.user_latency_host_timestamp = "-1.0";
 
@@ -273,10 +313,12 @@ namespace Labsim.apollon.experiment.phase
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseA.OnEntry() : final result {"
-                + "[user_elected_latency: " 
-                    + this.FSM.CurrentResults.phase_A_results.user_elected_latency 
+                + "[user_randomized_stim1_latency: " 
+                    + this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency 
                 + "][user_command: "
                     + this.FSM.CurrentResults.phase_A_results.user_command
+                + "][user_measured_latency: "
+                    + this.FSM.CurrentResults.phase_A_results.user_measured_latency
                 + "][user_latency_unity_timestamp: "
                     + this.FSM.CurrentResults.phase_A_results.user_latency_unity_timestamp
                 + "][user_latency_host_timestamp: "

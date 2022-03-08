@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Experiment/AgencyAndThresholdPerception.unity
     guid: 7e589fd877ff67447a30c024c913a028
   - enabled: 0
     path: Assets/Scenes/Experiment/CAVIAR.unity
     guid: cffc75f85023a9b42949dc38690ed7ca
+  - enabled: 1
+    path: Assets/Scenes/Experiment/default.unity
+    guid: e54f951fbe2063a40bf954b0e2b180cc
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 2983873f15eb573448f1dc3074ff7a56,
       type: 2}

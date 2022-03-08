@@ -77,8 +77,8 @@ namespace Labsim.apollon.gameplay.control
 
                 // add them a bridge delegate
                 behaviour.Control.Subject.ValueChanged.performed += this.OnAxisZValueChanged;
-                behaviour.Control.Subject.NeutralCommandTriggered.performed += this.OnUserNeutralCommandTriggered;
-                behaviour.Control.Subject.PositiveCommandTriggered.performed += this.OnUserPositiveCommandTriggered;
+                // behaviour.Control.Subject.NeutralCommandTriggered.performed += this.OnUserNeutralCommandTriggered;
+                // behaviour.Control.Subject.PositiveCommandTriggered.performed += this.OnUserPositiveCommandTriggered;
                 behaviour.Control.Subject.NegativeCommandTriggered.performed += this.OnUserNegativeCommandTriggered;
                 behaviour.Control.Subject.UserResponse.performed += this.OnUserResponseTriggered;
 
@@ -93,8 +93,8 @@ namespace Labsim.apollon.gameplay.control
 
                 // remove them from bridge delegate
                 behaviour.Control.Subject.ValueChanged.performed -= this.OnAxisZValueChanged;
-                behaviour.Control.Subject.NeutralCommandTriggered.performed -= this.OnUserNeutralCommandTriggered;
-                behaviour.Control.Subject.PositiveCommandTriggered.performed -= this.OnUserPositiveCommandTriggered;
+                // behaviour.Control.Subject.NeutralCommandTriggered.performed -= this.OnUserNeutralCommandTriggered;
+                // behaviour.Control.Subject.PositiveCommandTriggered.performed -= this.OnUserPositiveCommandTriggered;
                 behaviour.Control.Subject.NegativeCommandTriggered.performed -= this.OnUserNegativeCommandTriggered;
                 behaviour.Control.Subject.UserResponse.performed -= this.OnUserResponseTriggered;
 
