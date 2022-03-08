@@ -1,0 +1,141 @@
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+// avoid namespace pollution
+namespace Labsim.apollon.experiment.phase
+{
+
+    //
+    // Reset/init condition phase - FSM state
+    //
+    public sealed class ApollonAgencyAndThresholdPerceptionV2PhaseH 
+        : ApollonAbstractExperimentState<profile.ApollonAgencyAndThresholdPerceptionV2Profile>
+    {
+        public ApollonAgencyAndThresholdPerceptionV2PhaseH(profile.ApollonAgencyAndThresholdPerceptionV2Profile fsm)
+            : base(fsm)
+        {
+        }
+
+        public async override System.Threading.Tasks.Task OnEntry()
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseH.OnEntry() : begin"
+            );
+
+            // save timestamps
+            this.FSM.CurrentResults.phase_H_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_H_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
+
+            // currrent timestamp
+            System.Diagnostics.Stopwatch current_stopwatch = new System.Diagnostics.Stopwatch();
+
+            // synchronisation mechanism (TCS + local function)
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<(float, float, string, long)>();
+            void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlDispatcher.EventArgs e)
+                => sync_point?.TrySetResult((
+                    /* user responded */ 
+                    frontend.ApollonFrontendManager.Instance.getBridge(
+                        frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI
+                    ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value,
+                    /* unity render timestamp */
+                    UnityEngine.Time.time,
+                    /* host timestamp */
+                    UXF.ApplicationHandler.CurrentHighResolutionTime,
+                    /* current timestamp */
+                    current_stopwatch.ElapsedMilliseconds
+                ));
+
+            // user interaction lambda
+            System.EventHandler<
+                gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlDispatcher.EventArgs
+            > user_interaction_local_function 
+                = (sender, args) 
+                    => 
+                    {  
+                        
+                        // update UI cursor from raw command value
+                        frontend.ApollonFrontendManager.Instance.getBridge(
+                            frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI
+                        ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value 
+                            = args.Z;
+                        
+                    }; /* lambda */
+
+            // update instructions 
+            this.FSM.CurrentInstruction = "Plus fort ?";
+
+            // show response slider                            
+            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI);
+            
+            // register our synchronisation function
+            (
+                gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
+                ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
+            ).Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            (
+                gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
+                ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
+            ).Dispatcher.AxisZValueChangedEvent += user_interaction_local_function;
+
+            // wait until any result
+            (float, float, string, long) result = await sync_point.Task;
+
+            // unregister our synchronisation function
+            (
+                gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
+                ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
+            ).Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            (
+                gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
+                ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
+            ).Dispatcher.AxisZValueChangedEvent -= user_interaction_local_function;
+
+            // hide response slider                            
+            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI);
+
+            // record
+            this.FSM.CurrentResults.phase_H_results.user_response = result.Item1;
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseH.OnEntry() : final result {"
+                + "[user_response: " 
+                    + this.FSM.CurrentResults.phase_H_results.user_response
+                + "]}"
+            );
+            
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseH.OnEntry() : end"
+            );
+
+        } /* OnEntry() */
+
+        public async override System.Threading.Tasks.Task OnExit()
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseH.OnExit() : begin"
+            );
+            
+            // save timestamps
+            this.FSM.CurrentResults.phase_H_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_H_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseH.OnExit() : end"
+            );
+
+        } /* OnExit() */
+
+    } /* public sealed class ApollonAgencyAndThresholdPerceptionV2PhaseH */
+
+} /* } Labsim.apollon.experiment.phase */
