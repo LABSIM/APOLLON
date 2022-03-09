@@ -8,8 +8,13 @@ namespace Labsim.apollon.gameplay.device.command
 
         #region properties/members
 
-        public UnityEngine.GameObject m_anchor;
-        public ref UnityEngine.GameObject Anchor => ref this.m_anchor;
+        [UnityEngine.SerializeField]
+        public UnityEngine.Vector3 m_initialPosition = new UnityEngine.Vector3();
+        [UnityEngine.SerializeField]
+        public UnityEngine.Vector3 m_initialRotation = new UnityEngine.Vector3();
+
+        public ref UnityEngine.Vector3 InitialPosition => ref this.m_initialPosition;
+        public ref UnityEngine.Vector3 InitialRotation => ref this.m_initialRotation;
         public UnityEngine.Vector3 AngularAccelerationTarget { get; set; } = new UnityEngine.Vector3();
         public UnityEngine.Vector3 AngularVelocitySaturationThreshold { get; set; } = new UnityEngine.Vector3();
         public UnityEngine.Vector3 AngularDisplacementLimiter { get; set; } = new UnityEngine.Vector3();
@@ -18,8 +23,6 @@ namespace Labsim.apollon.gameplay.device.command
         public UnityEngine.Vector3 LinearDisplacementLimiter { get; set; } = new UnityEngine.Vector3();
         public float Duration { get; set; } = 0.0f;
         public System.Diagnostics.Stopwatch Chrono { get; private set; } = new System.Diagnostics.Stopwatch();
-        public UnityEngine.Vector3 InitialPosition { get; private set; } = new UnityEngine.Vector3();
-        public UnityEngine.Quaternion InitialRotation { get; private set; } = new UnityEngine.Quaternion();
         public ApollonMotionSystemCommandBridge Bridge { get; set; }
 
         private bool m_bHasInitialized = false;
@@ -72,7 +75,7 @@ namespace Labsim.apollon.gameplay.device.command
                 // initialize our rigidbody
                 this._rigidbody.ResetCenterOfMass();
                 this._rigidbody.ResetInertiaTensor();
-                this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, this._parent.InitialRotation);
+                this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, UnityEngine.Quaternion.Euler(this._parent.InitialRotation));
                 this._rigidbody.constraints = UnityEngine.RigidbodyConstraints.None;
                 this._rigidbody.drag = 0.0f;
                 this._rigidbody.angularDrag = 0.0f;
@@ -316,7 +319,7 @@ namespace Labsim.apollon.gameplay.device.command
                         (this._parent.AngularAccelerationTarget.x != 0.0f) 
                         && (this._parent.AngularDisplacementLimiter.x != 0.0f)
                         && (
-                            (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.x
+                            (UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion.Euler(this._parent.InitialRotation)) * this._rigidbody.rotation).eulerAngles.x
                             >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.x)
                         )
                     )
@@ -324,7 +327,7 @@ namespace Labsim.apollon.gameplay.device.command
                         (this._parent.AngularAccelerationTarget.y != 0.0f) 
                         && (this._parent.AngularDisplacementLimiter.y != 0.0f)
                         && (
-                            (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.y
+                            (UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion.Euler(this._parent.InitialRotation)) * this._rigidbody.rotation).eulerAngles.y
                             >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.y)
                         )
                     )
@@ -332,7 +335,7 @@ namespace Labsim.apollon.gameplay.device.command
                         (this._parent.AngularAccelerationTarget.z != 0.0f) 
                         && (this._parent.AngularDisplacementLimiter.z != 0.0f)
                         && (
-                            (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.z
+                            (UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion.Euler(this._parent.InitialRotation)) * this._rigidbody.rotation).eulerAngles.z
                             >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.z)
                         )
                     )
@@ -607,7 +610,7 @@ namespace Labsim.apollon.gameplay.device.command
                         (this._parent.AngularAccelerationTarget.x != 0.0f) 
                         && (this._parent.AngularDisplacementLimiter.x != 0.0f)
                         && (
-                            (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.x
+                            (UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion.Euler(this._parent.InitialRotation)) * this._rigidbody.rotation).eulerAngles.x
                             >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.x)
                         )
                     )
@@ -615,7 +618,7 @@ namespace Labsim.apollon.gameplay.device.command
                         (this._parent.AngularAccelerationTarget.y != 0.0f) 
                         && (this._parent.AngularDisplacementLimiter.y != 0.0f)
                         && (
-                            (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.y
+                            (UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion.Euler(this._parent.InitialRotation)) * this._rigidbody.rotation).eulerAngles.y
                             >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.y)
                         )
                     )
@@ -623,7 +626,7 @@ namespace Labsim.apollon.gameplay.device.command
                         (this._parent.AngularAccelerationTarget.z != 0.0f) 
                         && (this._parent.AngularDisplacementLimiter.z != 0.0f)
                         && (
-                            (UnityEngine.Quaternion.Inverse(this._parent.InitialRotation) * this._rigidbody.rotation).eulerAngles.z
+                            (UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion.Euler(this._parent.InitialRotation)) * this._rigidbody.rotation).eulerAngles.z
                             >= UnityEngine.Mathf.Abs(this._parent.AngularDisplacementLimiter.z)
                         )
                     )
@@ -801,7 +804,7 @@ namespace Labsim.apollon.gameplay.device.command
                             /* objective */
                             * UnityEngine.Quaternion.Slerp(
                                 this._lerp_rotation_from, 
-                                this._parent.InitialRotation,
+                                UnityEngine.Quaternion.Euler(this._parent.InitialRotation),
                                 this._time_count / this._total_time
                             )
                         ).eulerAngles,
@@ -957,8 +960,8 @@ namespace Labsim.apollon.gameplay.device.command
                 + " ]");
 
             // save initial orientation/position
-            this.InitialPosition = this.Anchor.transform.position;
-            this.InitialRotation = this.Anchor.transform.rotation;
+            // this.InitialPosition = this.Anchor.transform.position;
+            // this.InitialRotation = this.Anchor.transform.rotation;
                         
         } /* OnEnable()*/
 

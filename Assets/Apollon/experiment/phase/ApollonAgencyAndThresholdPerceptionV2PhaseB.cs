@@ -28,6 +28,56 @@ namespace Labsim.apollon.experiment.phase
             this.FSM.CurrentResults.phase_B_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+            // get angular/linear acceleration threshold raw string from user settings
+            var angular_weak_acceleration_threshold_raw_string 
+                = ApollonExperimentManager.Instance.Session.participantDetails["angular_weak_acceleration_threshold"]
+                .ToString();
+            var angular_strong_acceleration_threshold_raw_string 
+                = ApollonExperimentManager.Instance.Session.participantDetails["angular_strong_acceleration_threshold"]
+                .ToString();
+            var linear_weak_acceleration_threshold_raw_string 
+                = ApollonExperimentManager.Instance.Session.participantDetails["linear_weak_acceleration_threshold"]
+                .ToString();
+            var linear_strong_acceleration_threshold_raw_string 
+                = ApollonExperimentManager.Instance.Session.participantDetails["linear_strong_acceleration_threshold"]
+                .ToString();
+            
+            // then pop first & last element & split from "," separator & convert to a float array
+            float[] user_angular_weak_acceleration_threshold
+                = System.Array.ConvertAll(
+                    angular_weak_acceleration_threshold_raw_string.Substring(1, (angular_weak_acceleration_threshold_raw_string.Length - 2)).Split(','),
+                    float.Parse
+                );
+            float[] user_angular_strong_acceleration_threshold
+                = System.Array.ConvertAll(
+                    angular_strong_acceleration_threshold_raw_string.Substring(1, (angular_strong_acceleration_threshold_raw_string.Length - 2)).Split(','),
+                    float.Parse
+                );
+            float[] user_linear_weak_acceleration_threshold
+                = System.Array.ConvertAll(
+                    linear_weak_acceleration_threshold_raw_string.Substring(1, (linear_weak_acceleration_threshold_raw_string.Length - 2)).Split(','),
+                    float.Parse
+                );
+            float[] user_linear_strong_acceleration_threshold
+                = System.Array.ConvertAll(
+                    linear_strong_acceleration_threshold_raw_string.Substring(1, (linear_strong_acceleration_threshold_raw_string.Length - 2)).Split(','),
+                    float.Parse
+                );
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseB.OnEntry() : user reference {"
+                + "[user_angular_weak_acceleration_threshold:" 
+                    + System.String.Join(",",user_angular_weak_acceleration_threshold) 
+                + "][user_angular_strong_acceleration_threshold:" 
+                    + System.String.Join(",",user_angular_strong_acceleration_threshold) 
+                + "][user_linear_weak_acceleration_threshold:" 
+                    + System.String.Join(",",user_linear_weak_acceleration_threshold) 
+                + "][user_linear_strong_acceleration_threshold:" 
+                    + System.String.Join(",",user_linear_strong_acceleration_threshold) 
+                + "]}"
+            );
+
             // extract settings from current user_command
             float[]
                 current_angular_acceleration_target = null,
@@ -45,10 +95,17 @@ namespace Labsim.apollon.experiment.phase
                 );
 
                 // weak stim settings
-                current_angular_acceleration_target            = this.FSM.CurrentSettings.phase_B_settings.angular_weak_acceleration_target;
+                current_angular_acceleration_target
+                    = user_angular_weak_acceleration_threshold.Select(
+                        value => this.FSM.CurrentSettings.phase_B_settings.angular_weak_acceleration_ratio_from_reference * value
+                    ).ToArray();
                 current_angular_velocity_saturation_threshold  = this.FSM.CurrentSettings.phase_B_settings.angular_weak_velocity_saturation_threshold;
                 current_angular_displacement_limiter           = this.FSM.CurrentSettings.phase_B_settings.angular_weak_displacement_limiter;
-                current_linear_acceleration_target             = this.FSM.CurrentSettings.phase_B_settings.linear_weak_acceleration_target;
+                
+                current_linear_acceleration_target
+                    = user_linear_weak_acceleration_threshold.Select(
+                        value => this.FSM.CurrentSettings.phase_B_settings.linear_weak_acceleration_ratio_from_reference * value
+                    ).ToArray();
                 current_linear_velocity_saturation_threshold   = this.FSM.CurrentSettings.phase_B_settings.linear_weak_velocity_saturation_threshold;
                 current_linear_displacement_limiter            = this.FSM.CurrentSettings.phase_B_settings.linear_weak_displacement_limiter;
 
@@ -62,10 +119,17 @@ namespace Labsim.apollon.experiment.phase
                 );
 
                 // strong stim settings
-                current_angular_acceleration_target            = this.FSM.CurrentSettings.phase_B_settings.angular_strong_acceleration_target;
+                current_angular_acceleration_target
+                    = user_angular_strong_acceleration_threshold.Select(
+                        value => this.FSM.CurrentSettings.phase_B_settings.angular_strong_acceleration_ratio_from_reference * value
+                    ).ToArray();
                 current_angular_velocity_saturation_threshold  = this.FSM.CurrentSettings.phase_B_settings.angular_strong_velocity_saturation_threshold;
                 current_angular_displacement_limiter           = this.FSM.CurrentSettings.phase_B_settings.angular_strong_displacement_limiter;
-                current_linear_acceleration_target             = this.FSM.CurrentSettings.phase_B_settings.linear_strong_acceleration_target;
+                
+                current_linear_acceleration_target
+                    = user_linear_strong_acceleration_threshold.Select(
+                        value => this.FSM.CurrentSettings.phase_B_settings.linear_strong_acceleration_ratio_from_reference * value
+                    ).ToArray();
                 current_linear_velocity_saturation_threshold   = this.FSM.CurrentSettings.phase_B_settings.linear_strong_velocity_saturation_threshold;
                 current_linear_displacement_limiter            = this.FSM.CurrentSettings.phase_B_settings.linear_strong_displacement_limiter;
 

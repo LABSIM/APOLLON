@@ -89,7 +89,7 @@ namespace Labsim.apollon.experiment.phase
                     current_stopwatch.Restart();
 
                     // update instructions 
-                    this.FSM.CurrentInstruction = "Intensite ?";
+                    this.FSM.CurrentInstruction = "Intensité ?";
 
                     // show intensity slider                            
                     frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
@@ -148,15 +148,15 @@ namespace Labsim.apollon.experiment.phase
                     // wait until any result
                     (bool, float, string, long) result = await sync_point.Task;
 
+                    // validity barrier
+                    bool bValid = false;
+
                     // check result
                     if(result.Item1)
                     {
 
                         // cancel running task
                         phase_running_task_ct_src.Cancel();
-
-                        // validity barrier
-                        bool bValid = false;
 
                         // it's a hit then check intensity from slider value
                         float slider_value 
@@ -172,19 +172,6 @@ namespace Labsim.apollon.experiment.phase
 
                             // update instructions 
                             this.FSM.CurrentInstruction = "Neutre non valide";
-
-                            // hide intensity slider & show red cross
-                            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
-                            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
-
-                            // wait a certain amout of time 
-                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.confirm_duration);
-
-                            // hide red cross
-                            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
-                        
-                            // re-tasking
-                            sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string, long)>();
 
                         }
                         // [ 60.0 % ; 100.0 % ]
@@ -202,9 +189,19 @@ namespace Labsim.apollon.experiment.phase
 
                                 // OK, save command & mark as valid
                                 this.FSM.CurrentResults.phase_A_results.user_command = 2;
+                                this.FSM.strongConditionCount++;
                                 bValid = true;
 
                             }
+                            else
+                            {
+                                
+                                // no more strong available == fail
+
+                                // update instructions 
+                                this.FSM.CurrentInstruction = "Quota intensité forte epuisé";
+
+                            } /* if() */
 
                         }
                          // [ 20.0 % ; 60.0 % [
@@ -220,32 +217,21 @@ namespace Labsim.apollon.experiment.phase
                             ) 
                             {
 
-                                // OK, save command & mark as valid
-                                this.FSM.CurrentResults.phase_A_results.user_command = 1;      
+                                // OK, save command, increment counter & mark as valid
+                                this.FSM.CurrentResults.phase_A_results.user_command = 1;
+                                this.FSM.weakConditionCount++;
                                 bValid = true;
 
                             }
+                            else
+                            {
+                               
+                                // no more weak available == fail
 
-                        } /* if() */
+                                // update instructions 
+                                this.FSM.CurrentInstruction = "Quota intensité faible epuisé";
 
-                        // validity ?
-                        if(bValid)
-                        {
-                            
-                            // inject current user latency
-                            this.FSM.AddUserLatencyToBucket(result.Item4);
-
-                            // get a random timeout
-                            float random_latency = this.FSM.GetRandomLatencyFromBucket();
-
-                            // record user_*
-                            this.FSM.CurrentResults.phase_A_results.user_measured_latency = result.Item4;
-                            this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency = random_latency;        
-                            this.FSM.CurrentResults.phase_A_results.user_latency_unity_timestamp = result.Item2;
-                            this.FSM.CurrentResults.phase_A_results.user_latency_host_timestamp = result.Item3;
-
-                            // request end phase
-                            bRequestPhaseALoop = true;
+                            } /* if() */
 
                         } /* if() */
 
@@ -256,7 +242,32 @@ namespace Labsim.apollon.experiment.phase
 
                         // update instructions 
                         this.FSM.CurrentInstruction = "Trop lent";
+                        
+                    } /* if() */
 
+                    // validity pass ?
+                    if(bValid)
+                    {
+                        
+                        // inject current user latency
+                        this.FSM.AddUserLatencyToBucket(result.Item4);
+
+                        // get a random timeout
+                        float random_latency = this.FSM.GetRandomLatencyFromBucket();
+
+                        // record user_*
+                        this.FSM.CurrentResults.phase_A_results.user_measured_latency = result.Item4;
+                        this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency = random_latency;        
+                        this.FSM.CurrentResults.phase_A_results.user_latency_unity_timestamp = result.Item2;
+                        this.FSM.CurrentResults.phase_A_results.user_latency_host_timestamp = result.Item3;
+
+                        // request end phase
+                        bRequestPhaseALoop = true;
+
+                    }
+                    else
+                    {
+                        
                         // hide intensity slider & show red cross
                         frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
                         frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
@@ -266,10 +277,10 @@ namespace Labsim.apollon.experiment.phase
 
                         // hide red cross
                         frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
-
+                    
                         // re-tasking
                         sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string, long)>();
-                        
+
                     } /* if() */
 
                 } while (!bRequestPhaseALoop); /* while() */

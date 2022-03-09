@@ -115,6 +115,36 @@ namespace Labsim.apollon.experiment.phase
                 + "]}"
             );
 
+            // get bridge
+            var motion_system_bridge
+                = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                ) as gameplay.device.command.ApollonMotionSystemCommandBridge;
+
+            var virtual_motion_system_bridge
+                = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
+                ) as gameplay.device.command.ApollonVirtualMotionSystemCommandBridge;
+
+            // raise reset event
+            switch (this.FSM.CurrentSettings.scenario_type)
+            {
+
+                default:
+                case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VisualOnly:
+                {   
+                    virtual_motion_system_bridge.Dispatcher.RaiseReset();
+                    break;
+                }
+                case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VestibularOnly:
+                case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VisuoVestibular:
+                {
+                    motion_system_bridge.Dispatcher.RaiseReset();
+                    break;
+                }
+
+            } /* switch() */
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseI.OnEntry() : end"
