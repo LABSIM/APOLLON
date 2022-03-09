@@ -966,38 +966,6 @@ namespace Labsim.apollon.experiment.profile
                 gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
             );
 
-            // get bridge
-            var motion_system_bridge
-                = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
-                ) as gameplay.device.command.ApollonMotionSystemCommandBridge;
-
-            var virtual_motion_system_bridge
-                = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
-                ) as gameplay.device.command.ApollonVirtualMotionSystemCommandBridge;
-
-            // raise reset event to initialize initial position
-            switch (this.CurrentSettings.scenario_type)
-            {
-
-                default:
-                case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VisualOnly:
-                {   
-                    virtual_motion_system_bridge.Dispatcher.RaiseReset();
-                    break;
-                }
-                case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VestibularOnly:
-                case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VisuoVestibular:
-                {
-                    motion_system_bridge.Dispatcher.RaiseReset();
-                    break;
-                }
-
-            } /* switch() */
-
-            await this.DoSleep(5000.0f);
-
             // fade in
             await this.DoFadeIn(2500.0f, false);
 
@@ -1011,7 +979,7 @@ namespace Labsim.apollon.experiment.profile
             we_behaviour.References["DBTag_ExoFrontend"].SetActive(true);
 
             // base call
-            base.onExperimentSessionBegin(sender, arg);
+            base.onExperimentSessionBegin(sender, arg);=
 
             // log
             UnityEngine.Debug.Log(

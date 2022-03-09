@@ -20,7 +20,7 @@ namespace Labsim.apollon.gameplay.device.command
                 float[] angular_displacement_limiter, 
                 float[] linear_acceleration_target,
                 float[] linear_velocity_saturation_threshold, 
-                float[] linear_dispplacement_limiter,
+                float[] linear_displacement_limiter,
                 float duration = 0.0f,
                 bool inhibit_vestibular_motion = true
             )
@@ -31,7 +31,7 @@ namespace Labsim.apollon.gameplay.device.command
                 this.AngularDisplacementLimiter = angular_displacement_limiter;
                 this.LinearAccelerationTarget = linear_acceleration_target;
                 this.LinearVelocitySaturationThreshold = linear_velocity_saturation_threshold;
-                this.LinearDisplacementLimiter = linear_dispplacement_limiter;
+                this.LinearDisplacementLimiter = linear_displacement_limiter;
                 this.Duration = duration;
                 this.InhibitVestibularMotion = inhibit_vestibular_motion;
             }
@@ -310,7 +310,7 @@ namespace Labsim.apollon.gameplay.device.command
             float[] angular_displacement_limiter,
             float[] linear_acceleration_target,
             float[] linear_velocity_saturation_threshold, 
-            float[] linear_dispplacement_limiter,
+            float[] linear_displacement_limiter,
             float duration,
             bool without_motion
         ) {
@@ -326,7 +326,7 @@ namespace Labsim.apollon.gameplay.device.command
                         angular_displacement_limiter : angular_displacement_limiter,
                         linear_acceleration_target : linear_acceleration_target,
                         linear_velocity_saturation_threshold : linear_velocity_saturation_threshold, 
-                        linear_dispplacement_limiter :linear_dispplacement_limiter,
+                        linear_displacement_limiter :linear_displacement_limiter,
                         duration : duration,
                         inhibit_vestibular_motion : without_motion
                     )
