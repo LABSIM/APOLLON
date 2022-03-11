@@ -15,12 +15,12 @@ namespace Labsim.apollon.gameplay.device.command
             {} 
 
             public EventArgs(
-                float[] angular_acceleration_target,
-                float[] angular_velocity_saturation_threshold, 
-                float[] angular_displacement_limiter,
-                float[] linear_acceleration_target,
-                float[] linear_velocity_saturation_threshold, 
-                float[] linear_dispplacement_limiter,
+                float[] angular_acceleration_target = null,
+                float[] angular_velocity_saturation_threshold = null, 
+                float[] angular_displacement_limiter = null,
+                float[] linear_acceleration_target = null,
+                float[] linear_velocity_saturation_threshold = null, 
+                float[] linear_dispplacement_limiter = null,
                 float duration = 0.0f,
                 bool inhibit_vestibular_motion = true
             )
@@ -357,13 +357,15 @@ namespace Labsim.apollon.gameplay.device.command
 
         } /* RaiseSaturation() */
 
-        public void RaiseReset()
+        public void RaiseReset(float duration = -1.0f)
         {
 
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<EventArgs>)this._eventTable["Reset"];
-                callback?.Invoke(this, new EventArgs());
+                callback?.Invoke(this, new EventArgs(
+                    duration : duration
+                ));
             }
 
         } /* RaiseReset() */

@@ -181,14 +181,15 @@ namespace Labsim.apollon.experiment.phase
                             // strong stim == check
                             if(
                                 (
-                                    (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
+                                    (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 4) 
                                     - this.FSM.strongConditionCount
                                 ) > 0
                             ) 
                             {
 
                                 // OK, save command & mark as valid
-                                this.FSM.CurrentResults.phase_A_results.user_command = 2;
+                                this.FSM.CurrentResults.phase_A_results.user_command
+                                    = (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Strong;
                                 this.FSM.strongConditionCount++;
                                 bValid = true;
 
@@ -211,14 +212,15 @@ namespace Labsim.apollon.experiment.phase
                             // weak stim == check
                             if(
                                 (
-                                    (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
+                                    (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 4) 
                                     - this.FSM.weakConditionCount
                                 ) > 0
                             ) 
                             {
 
                                 // OK, save command, increment counter & mark as valid
-                                this.FSM.CurrentResults.phase_A_results.user_command = 1;
+                                this.FSM.CurrentResults.phase_A_results.user_command
+                                    = (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Weak;
                                 this.FSM.weakConditionCount++;
                                 bValid = true;
 
@@ -297,6 +299,15 @@ namespace Labsim.apollon.experiment.phase
                     ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
                 ).Dispatcher.AxisZValueChangedEvent -= user_interaction_local_function;
 
+                // fade in to black for vestibular-only scenario
+                if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VestibularOnly)
+                {
+
+                    // run it asynchronously
+                    this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+
+                } /* if() */
+
                 // hide intensity slider
                 frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
 
@@ -304,14 +315,49 @@ namespace Labsim.apollon.experiment.phase
             else 
             {
 
+                // fade in to black for vestibular-only scenario
+                if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VestibularOnly)
+                {
+
+                    // run it asynchronously
+                    this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+
+                } /* if() */
+
                 // get a random timeout
                 float random_latency = this.FSM.GetRandomLatencyFromBucket();
 
                 // record it 
-                this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency = random_latency;        
+                this.FSM.CurrentResults.phase_A_results.user_randomized_stim1_latency = random_latency;
+
+                // inject passive intensity
+                switch(this.FSM.CurrentSettings.passive_intensity_type)
+                {
+
+                    case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Strong:
+                    {
+                        this.FSM.CurrentResults.phase_A_results.user_command 
+                            = (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Strong;
+                        break;
+                    }
+                    case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Weak:
+                    {
+                        this.FSM.CurrentResults.phase_A_results.user_command 
+                            = (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Weak;
+                        break;
+                    }
+
+                    default:
+                    case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Undefined:
+                    {
+                        this.FSM.CurrentResults.phase_A_results.user_command
+                            = (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Undefined;
+                        break;
+                    }
+
+                } /* switch() */
                 
                 // set other result to default values
-                this.FSM.CurrentResults.phase_A_results.user_command = 0;
                 this.FSM.CurrentResults.phase_A_results.user_measured_latency = -1;
                 this.FSM.CurrentResults.phase_A_results.user_latency_unity_timestamp = -1.0f;
                 this.FSM.CurrentResults.phase_A_results.user_latency_host_timestamp = "-1.0";

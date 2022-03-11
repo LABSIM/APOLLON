@@ -84,8 +84,22 @@ namespace Labsim.apollon.experiment.profile
                 [System.ComponentModel.Description("Visuo-Vestibular")]
                 VisuoVestibular
 
-            } /* enum */            
+            } /* enum */
             
+            public enum IntensityIDType
+            {
+
+                [System.ComponentModel.Description("Undefined")]
+                Undefined = 0,
+
+                [System.ComponentModel.Description("Weak")]
+                Weak = 1,
+
+                [System.ComponentModel.Description("Strong")]
+                Strong = 2
+
+            } /* enum */
+
             [JSONSettingsAttribute("current_pattern")]
             public string pattern_type;
 
@@ -95,7 +109,11 @@ namespace Labsim.apollon.experiment.profile
             [JSONSettingsAttribute("is_catch_try_condition")]
             public bool bIsTryCatch;
         
+            [JSONSettingsAttribute("scenario_name")]
             public ScenarioIDType scenario_type;
+            
+            [JSONSettingsAttribute("passive_intensity_name")]
+            public IntensityIDType passive_intensity_type;
 
             public class Phase0Settings
             {
@@ -250,12 +268,21 @@ namespace Labsim.apollon.experiment.profile
 
             } /* PhaseGSettings */
 
+            public class PhaseJSettings
+            {
+
+                [JSONSettingsAttribute(phase:"phase_J", settings:"duration", unit:"ms")]
+                public float duration;
+
+            } /* PhaseJSettings */
+
             public Phase0Settings phase_0_settings = new Phase0Settings(); 
             public PhaseASettings phase_A_settings = new PhaseASettings(); 
             public PhaseBSettings phase_B_settings = new PhaseBSettings();
             public PhaseCSettings phase_C_settings = new PhaseCSettings();
             public PhaseFSettings phase_F_settings = new PhaseFSettings();
             public PhaseGSettings phase_G_settings = new PhaseGSettings();
+            public PhaseJSettings phase_J_settings = new PhaseJSettings();
 
             public bool ImportUXFSettings(UXF.Settings settings)
             {
@@ -277,6 +304,83 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetString(
                             this.GetJSONSettingsAttributeName<Settings>("pattern_type")
                         );
+                    
+                    // current scenario
+                    switch(
+                        settings.GetString(
+                            this.GetJSONSettingsAttributeName<Settings>("scenario_type")
+                        )
+                    ) {
+                        
+                        // vestibular only
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.VestibularOnly),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.scenario_type = Settings.ScenarioIDType.VestibularOnly;
+                            break;
+                        }
+
+                        // visual only
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.VisualOnly),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.scenario_type = Settings.ScenarioIDType.VisualOnly;
+                            break;
+                        }
+                        
+                        // visuo-vestibular
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.VisuoVestibular),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.scenario_type = Settings.ScenarioIDType.VisuoVestibular;
+                            break;
+                        }
+
+                        // default
+                        default: 
+                        {
+                            this.scenario_type = Settings.ScenarioIDType.Undefined;
+                            break;
+                        }
+
+                    } /* switch() */
+
+                    // current passive intensity
+                    switch(
+                        settings.GetString(
+                            this.GetJSONSettingsAttributeName<Settings>("passive_intensity_type")
+                        )
+                    ) {
+                        
+                        // Strong
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.IntensityIDType.Strong),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.passive_intensity_type = Settings.IntensityIDType.Strong;
+                            break;
+                        }
+
+                        // Weak
+                        case string param when param.Equals(
+                            ApollonEngine.GetEnumDescription(Settings.IntensityIDType.Weak),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.passive_intensity_type = Settings.IntensityIDType.Weak;
+                            break;
+                        }
+
+                        // default
+                        default: 
+                        {
+                            this.passive_intensity_type = Settings.IntensityIDType.Undefined;
+                            break;
+                        }
+
+                    } /* switch() */
 
                     // phase 0
                     this.phase_0_settings.duration 
@@ -442,6 +546,12 @@ namespace Labsim.apollon.experiment.profile
                             this.GetJSONSettingsAttributeName<Settings.PhaseGSettings>("duration")
                         );
 
+                    // phase J
+                    this.phase_J_settings.duration
+                        = settings.GetFloat(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseJSettings>("duration")
+                        );
+
                 } 
                 catch(System.Exception ex)
                 {
@@ -479,8 +589,14 @@ namespace Labsim.apollon.experiment.profile
                         + this.GetJSONSettingsAttributeName<Settings>("bIsActive") 
                         + " : " 
                         + this.bIsActive
-                    + "\n - scenario_name : " 
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings>("scenario_type") 
+                        + " : " 
                         + ApollonEngine.GetEnumDescription(this.scenario_type)
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings>("passive_intensity_type") 
+                        + " : " 
+                        + ApollonEngine.GetEnumDescription(this.passive_intensity_type)
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.Phase0Settings>("duration") 
                         + " : " 
@@ -652,6 +768,10 @@ namespace Labsim.apollon.experiment.profile
                         + this.GetJSONSettingsAttributeName<Settings.PhaseGSettings>("duration") 
                         + " : " 
                         + this.phase_G_settings.duration
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseJSettings>("duration") 
+                        + " : " 
+                        + this.phase_J_settings.duration
                 );
 
             } /* LogUXFSettings() */
@@ -744,7 +864,8 @@ namespace Labsim.apollon.experiment.profile
                 phase_C_results = new DefaultPhaseTimingResults(),
                 phase_D_results = new DefaultPhaseTimingResults(),
                 phase_F_results = new DefaultPhaseTimingResults(),
-                phase_G_results = new DefaultPhaseTimingResults();
+                phase_G_results = new DefaultPhaseTimingResults(),
+                phase_J_results = new DefaultPhaseTimingResults();
 
             public PhaseAResults phase_A_results = new PhaseAResults();
             public PhaseEResults phase_E_results = new PhaseEResults();
@@ -914,17 +1035,18 @@ namespace Labsim.apollon.experiment.profile
                             ? (UXF.Session.instance.CurrentBlock.number + "/" + UXF.Session.instance.blocks.Count + " | ")
                             : ""
                     )
-                    +"(forte)" 
+                    + "faible("
                     + (
-                        (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
-                        - this.strongConditionCount
-                    ).ToString("D2")
-                    + "/(faible)"
-                    + (
-                        (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 2) 
+                        (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 4) 
                         - this.weakConditionCount
                     ).ToString("D2")
-                ) 
+                    + ")/forte(" 
+                    + (
+                        (UXF.Session.instance.CurrentBlock.trials.ToList().Count / 4) 
+                        - this.strongConditionCount
+                    ).ToString("D2")
+                    + ")"
+                )
                 : ""
             );
 
@@ -979,7 +1101,7 @@ namespace Labsim.apollon.experiment.profile
             we_behaviour.References["DBTag_ExoFrontend"].SetActive(true);
 
             // base call
-            base.onExperimentSessionBegin(sender, arg);=
+            base.onExperimentSessionBegin(sender, arg);
 
             // log
             UnityEngine.Debug.Log(
@@ -1033,7 +1155,7 @@ namespace Labsim.apollon.experiment.profile
             // ).BeginTrial();
         
             // local
-            int currentIdx = ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
+            // int currentIdx = ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
 
             // activate the active seat entity
             gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity);
@@ -1112,6 +1234,12 @@ namespace Labsim.apollon.experiment.profile
             // fade out
             await this.DoFadeOut(this._trial_fade_out_duration, false);
 
+            // initialize to position on first trial - wait 5s
+            if(ApollonExperimentManager.Instance.Session.FirstTrial == ApollonExperimentManager.Instance.Trial)
+            {
+                await this.DoSleep(5000.0f);
+            }
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2Profile.onExperimentTrialBegin() : end " + UnityEngine.Time.fixedTime
@@ -1129,6 +1257,7 @@ namespace Labsim.apollon.experiment.profile
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseG(this) ); },
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseH(this) ); },
                 async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseI(this) ); },
+                async () => { await this.SetState( new phase.ApollonAgencyAndThresholdPerceptionV2PhaseJ(this) ); },
                 async () => { await this.SetState( null ); }
             );
             
@@ -1147,7 +1276,7 @@ namespace Labsim.apollon.experiment.profile
             ApollonExperimentManager.Instance.Trial.result["pattern"] = this.CurrentSettings.pattern_type;
             ApollonExperimentManager.Instance.Trial.result["active_condition"] = this.CurrentSettings.bIsActive.ToString();
             ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] = this.CurrentSettings.bIsTryCatch.ToString();
-            ApollonExperimentManager.Instance.Trial.result["current_latency_bucket"] = "[" + System.String.Join(",",this.CurrentLatencyBucket) + "]";
+            ApollonExperimentManager.Instance.Trial.result["current_latency_bucket"] = "[" + System.String.Join(";",this.CurrentLatencyBucket) + "]";
 
             // phase 0 - RAZ input to neutral position
             ApollonExperimentManager.Instance.Trial.result["0_timing_on_entry_unity_timestamp"]
@@ -1265,31 +1394,6 @@ namespace Labsim.apollon.experiment.profile
             ApollonExperimentManager.Instance.Trial.result["user_confidence"]
                 = this.CurrentResults.phase_I_results.user_confidence;
                 
-            // fade in
-            await this.DoFadeIn(this._trial_fade_in_duration, false);
-
-            // get active seat bridge
-            gameplay.entity.ApollonActiveSeatEntityBridge seat_bridge
-                = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
-                ) as gameplay.entity.ApollonActiveSeatEntityBridge;
-
-            // check
-            if (seat_bridge == null)
-            {
-
-                // log
-                UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> ApollonAgencyAndThresholdPerceptionV2Profile.onExperimentTrialEnd() : Could not find corresponding gameplay bridge !"
-                );
-
-                // fail
-                return;
-
-            } /* if() */
-
-            // get back to idle state
-            seat_bridge.Dispatcher.RaiseIdle();
 
             // base call
             base.onExperimentTrialEnd(sender, arg);

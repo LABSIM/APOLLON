@@ -239,6 +239,9 @@ namespace Labsim.apollon.gameplay.device.command
 
             private ApollonMotionSystemCommandBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
+            private UnityEngine.Vector3 _torque_dampener = UnityEngine.Vector3.zero;
+            private UnityEngine.Vector3 _force_dampener = UnityEngine.Vector3.zero;
+            private readonly float _smooth_time = 0.01f;
 
             private void Awake()
             {
@@ -377,37 +380,42 @@ namespace Labsim.apollon.gameplay.device.command
                 else
                 {
 
+                    // initializing 
+                    UnityEngine.Vector3 
+                        torque_target = UnityEngine.Vector3.zero,
+                        force_target  = UnityEngine.Vector3.zero;
+
                     // continuous perfect world acceleration
+
                     if ((this._parent.AngularAccelerationTarget.x != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
-                    ) {
-                        this._rigidbody.AddTorque(new UnityEngine.Vector3(this._parent.AngularAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { torque_target.x = this._parent.AngularAccelerationTarget.x; }
                     if ((this._parent.AngularAccelerationTarget.y != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
-                    ) {
-                        this._rigidbody.AddTorque(new UnityEngine.Vector3(0.0f, this._parent.AngularAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { torque_target.y = this._parent.AngularAccelerationTarget.y;  }
                     if ((this._parent.AngularAccelerationTarget.z != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
-                    ) {
-                        this._rigidbody.AddTorque(new UnityEngine.Vector3(0.0f, 0.0f,this._parent.AngularAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { torque_target.z = this._parent.AngularAccelerationTarget.z;  }    
+
                     if ((this._parent.LinearAccelerationTarget.x != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
-                    ) {
-                        this._rigidbody.AddForce(new UnityEngine.Vector3(this._parent.LinearAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { force_target.x = this._parent.LinearAccelerationTarget.x; }
                     if ((this._parent.LinearAccelerationTarget.y != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
-                    ) {
-                        this._rigidbody.AddForce(new UnityEngine.Vector3(0.0f, this._parent.LinearAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { force_target.y = this._parent.LinearAccelerationTarget.y; }
                     if ((this._parent.LinearAccelerationTarget.z != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
-                    ) {
-                        this._rigidbody.AddForce(new UnityEngine.Vector3(0.0f, 0.0f, this._parent.LinearAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { force_target.z = this._parent.LinearAccelerationTarget.z; }
+
+                    // finally
+                    this._rigidbody.AddTorque(
+                        torque_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
+                    this._rigidbody.AddForce(
+                        force_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
 
                 } /* if() */
 
@@ -512,37 +520,41 @@ namespace Labsim.apollon.gameplay.device.command
                 else
                 {
 
+                    // initializing 
+                    UnityEngine.Vector3 
+                        torque_target = UnityEngine.Vector3.zero,
+                        force_target  = UnityEngine.Vector3.zero;
+
                     // continuous perfect world deceleration
                     if ((this._parent.AngularAccelerationTarget.x != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) > 0.0001f) 
-                    ) {
-                        this._rigidbody.AddTorque(-1.0f * new UnityEngine.Vector3(this._parent.AngularAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { torque_target.x = this._parent.AngularAccelerationTarget.x; }
                     if ((this._parent.AngularAccelerationTarget.y != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) > 0.0001f) 
-                    ) {
-                        this._rigidbody.AddTorque(-1.0f * new UnityEngine.Vector3(0.0f, this._parent.AngularAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { torque_target.y =  this._parent.AngularAccelerationTarget.y; }
                     if ((this._parent.AngularAccelerationTarget.z != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) > 0.0001f) 
-                    ) {
-                        this._rigidbody.AddTorque(-1.0f * new UnityEngine.Vector3(0.0f, 0.0f,this._parent.AngularAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { torque_target.z = this._parent.AngularAccelerationTarget.z; }
+
                     if ((this._parent.LinearAccelerationTarget.x != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) > 0.0001f) 
-                    ) {
-                        this._rigidbody.AddForce(-1.0f * new UnityEngine.Vector3(this._parent.LinearAccelerationTarget.x, 0.0f, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { force_target.x = this._parent.LinearAccelerationTarget.x; }
                     if ((this._parent.LinearAccelerationTarget.y != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) > 0.0001f) 
-                    ) {
-                        this._rigidbody.AddForce(-1.0f * new UnityEngine.Vector3(0.0f, this._parent.LinearAccelerationTarget.y, 0.0f), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { force_target.y = this._parent.LinearAccelerationTarget.y; }
                     if ((this._parent.LinearAccelerationTarget.z != 0.0f) 
                         && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) > 0.0001f)
-                    ) {
-                        this._rigidbody.AddForce(-1.0f * new UnityEngine.Vector3(0.0f, 0.0f, this._parent.LinearAccelerationTarget.z), UnityEngine.ForceMode.Acceleration);
-                    }
+                    ) { force_target.z = this._parent.LinearAccelerationTarget.z; }
+
+                    // finally
+                    this._rigidbody.AddTorque(
+                        -1.0f * torque_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
+                    this._rigidbody.AddForce(
+                        -1.0f * force_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
 
                 } /* if() */
 
@@ -726,12 +738,7 @@ namespace Labsim.apollon.gameplay.device.command
                 this._lerp_position_from = this._rigidbody.transform.position;
                 this._angular_filter_state = this._linear_filter_state = UnityEngine.Vector3.zero;
                 this._time_count = 0.0f;
-                this._total_time 
-                    = ( 
-                        experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("trial_inter_sleep_duration_ms")
-                        - 250.0f
-                    )
-                    / 1000.0f;
+                this._total_time = this._parent.Duration / 1000.0f;
                 this._bEnd = false;
                 this._rigidbody.angularDrag = 1.0f;
 
@@ -835,7 +842,7 @@ namespace Labsim.apollon.gameplay.device.command
                         = (
                             -7.849f * this._linear_filter_state +  1.0f * linear_delta
                         ),
-                    anglar_forward_state
+                    angular_forward_state
                         = (
                             -242.6f * this._angular_filter_state + 37.23f * angular_delta
                         ),
@@ -856,7 +863,7 @@ namespace Labsim.apollon.gameplay.device.command
 
                 // apply instructions
                 this._rigidbody.AddTorque(
-                    anglar_forward_state,
+                    angular_forward_state,
                     UnityEngine.ForceMode.Acceleration
                 );
                 this._rigidbody.AddForce(

@@ -16,6 +16,9 @@ namespace Labsim.apollon.backend.handle
         private class ApollonMotionSystemPS6TM550Updater
         {
 
+            private readonly System.Diagnostics.Stopwatch m_chrono = new System.Diagnostics.Stopwatch();
+            private bool m_bFirstCall = true;
+
             private ApollonMotionSystemPS6TM550Handle m_handle = null;
 
             public ApollonMotionSystemPS6TM550Updater(ApollonMotionSystemPS6TM550Handle handle)
@@ -28,6 +31,11 @@ namespace Labsim.apollon.backend.handle
             private void OnEngineFixedUpdate(object sender, ApollonEngine.EngineEventArgs arg)
             {
 
+                if(this.m_bFirstCall)
+                {
+                    this.m_chrono.Start();
+                    this.m_bFirstCall = false;
+                }
                 // ForceSeatMI - BEGIN
 
                 // Use extra parameters to generate custom effects, for exmp. vibrations. They will NOT be
@@ -41,7 +49,8 @@ namespace Labsim.apollon.backend.handle
                 this.m_handle.m_FSMI_CommandExtraParameters.surge = 0.0f;
 
                 this.m_handle.m_FSMI_UnityAPI.AddExtra(this.m_handle.m_FSMI_CommandExtraParameters);
-                this.m_handle.m_FSMI_UnityAPI.Update(UnityEngine.Time.fixedDeltaTime);
+                this.m_handle.m_FSMI_UnityAPI.Update(this.m_chrono.ElapsedMilliseconds / 1000.0f);
+                this.m_chrono.Restart();
 
                 // ForceSeatMI - END
 
@@ -53,7 +62,7 @@ namespace Labsim.apollon.backend.handle
             : MotionSystems.ForceSeatMI_IPositioningInterface
         {
 
-            private bool m_firstCall = true;
+            private bool m_bFirstCall = true;
             private UnityEngine.GameObject m_behaviour = null;
 
             public ApollonMotionSystemPS6TM550Command(UnityEngine.GameObject behaviour)
@@ -63,12 +72,12 @@ namespace Labsim.apollon.backend.handle
 
             public virtual void Begin()
             {
-                m_firstCall = true;
+                m_bFirstCall = true;
             }
 
             public virtual void End()
             {
-                m_firstCall = true;
+                m_bFirstCall = true;
             }
 
             private void UpdateMatrix(ref MotionSystems.FSMI_TopTableMatrixPhysical pos, float ax, float ay, float az, float dx, float dy, float dz)
@@ -106,7 +115,7 @@ namespace Labsim.apollon.backend.handle
             { 
 
                 // check first call
-                if(this.m_firstCall) {
+                if(this.m_bFirstCall) {
 
                     this.UpdateMatrix(
                         ref matrix,
@@ -115,7 +124,7 @@ namespace Labsim.apollon.backend.handle
                     );
 
                     // reset
-                    this.m_firstCall = false;
+                    this.m_bFirstCall = false;
                     
                     // skip the rest
                     return;
@@ -133,7 +142,7 @@ namespace Labsim.apollon.backend.handle
                             /* sin noise */
                             + (
                                 /* noise amplitude in degree */ 0.05f 
-                                * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime)
+                                * UnityEngine.Mathf.Sin(deltaTime)
                             )
                         )
                         * UnityEngine.Mathf.Deg2Rad
@@ -146,7 +155,7 @@ namespace Labsim.apollon.backend.handle
                             // /* cos noise */
                             // + (
                             //     /* noise amplitude in degree */ 0.03f 
-                            //     * UnityEngine.Mathf.Cos(UnityEngine.Time.fixedTime * 100.0f)
+                            //     * UnityEngine.Mathf.Cos(deltaTime * 100.0f)
                             // )
                         )
                         * UnityEngine.Mathf.Deg2Rad
@@ -158,7 +167,7 @@ namespace Labsim.apollon.backend.handle
                             // /* sin noise */
                             // + ( 
                             //     /* noise amplitude in degree */ 0.05f 
-                            //     * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime * 100.0f)
+                            //     * UnityEngine.Mathf.Sin(deltaTime * 100.0f)
                             // )
                         ) 
                         * UnityEngine.Mathf.Deg2Rad
@@ -180,7 +189,7 @@ namespace Labsim.apollon.backend.handle
                             // /* sin noise */
                             // + ( 
                             //     /* noise amplitude in m */ 0.0005f 
-                            //     * UnityEngine.Mathf.Sin(UnityEngine.Time.fixedTime * 50.0f)
+                            //     * UnityEngine.Mathf.Sin(deltaTime * 50.0f)
                             // )
                         )
                         * 1000.0f
@@ -191,7 +200,7 @@ namespace Labsim.apollon.backend.handle
 
             public virtual void Pause(bool paused)
             {
-                m_firstCall = true;
+                // m_bFirstCall = true;
             }
 
         } /* private class ApollonMotionSystemPS6TM550Command */

@@ -27,6 +27,15 @@ namespace Labsim.apollon.experiment.phase
             // save timestamps
             this.FSM.CurrentResults.phase_G_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_G_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
+            
+            // fade out from black for vestibular-only scenario
+            if (this.FSM.CurrentSettings.scenario_type == profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VestibularOnly)
+            {
+
+                // run it asynchronously
+                this.FSM.DoFadeOut(this.FSM._trial_fade_out_duration);
+
+            } /* if() */
 
             // setup UI frontend instructions
             this.FSM.CurrentInstruction = "Fin";

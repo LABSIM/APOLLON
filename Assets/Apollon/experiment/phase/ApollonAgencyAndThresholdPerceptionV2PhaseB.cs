@@ -86,8 +86,11 @@ namespace Labsim.apollon.experiment.phase
                 current_linear_acceleration_target = null,
                 current_linear_velocity_saturation_threshold = null,
                 current_linear_displacement_limiter = null;
-            if(this.FSM.CurrentResults.phase_A_results.user_command == 1)
-            {
+
+            if(
+                this.FSM.CurrentResults.phase_A_results.user_command 
+                ==  (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Weak
+            ) {
 
                 // log
                 UnityEngine.Debug.Log(
@@ -110,8 +113,10 @@ namespace Labsim.apollon.experiment.phase
                 current_linear_displacement_limiter            = this.FSM.CurrentSettings.phase_B_settings.linear_weak_displacement_limiter;
 
             }
-            else if(this.FSM.CurrentResults.phase_A_results.user_command == 2)
-            {
+            else if(
+                this.FSM.CurrentResults.phase_A_results.user_command 
+                    ==  (int)profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.IntensityIDType.Strong
+            ) {
 
                 // log
                 UnityEngine.Debug.Log(
@@ -220,6 +225,7 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_idle_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
 
             if(!bHasRealMotion) 
             {            
@@ -338,7 +344,8 @@ namespace Labsim.apollon.experiment.phase
                 } /* if() */
 
                 // wait for idle state
-                await System.Threading.Tasks.Task.Factory.StartNew(
+                var phase_running_task 
+                    = System.Threading.Tasks.Task.Factory.StartNew(
                         async () => 
                         { 
 
@@ -359,8 +366,12 @@ namespace Labsim.apollon.experiment.phase
                             );
                             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_B_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_B_settings.stim_duration ));
                         
+                            // hit barrier
+                            sync_point.TrySetResult(true);
+
                         }
                     );
+                await sync_point.Task;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -488,7 +499,8 @@ namespace Labsim.apollon.experiment.phase
                 } /* if() */
 
                 // wait for idle state
-                await System.Threading.Tasks.Task.Factory.StartNew(
+                var phase_running_task
+                    = System.Threading.Tasks.Task.Factory.StartNew(
                         async () => 
                         { 
 
@@ -508,9 +520,13 @@ namespace Labsim.apollon.experiment.phase
                                 + " ms] for remaining phase total time"
                             );
                             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_B_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_B_settings.stim_duration ));
-                        
+
+                            // hit barrier 
+                            sync_point.TrySetResult(true);
+                            
                         }
                     );
+                await sync_point.Task;
 
                 // log
                 UnityEngine.Debug.Log(

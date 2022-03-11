@@ -737,6 +737,9 @@ namespace Labsim.apollon.gameplay.device.command
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonMotionSystemCommandBridge.OnResetRequested() : begin"
             );
+            
+            // inject duration
+            (this.Behaviour as ApollonMotionSystemCommandBehaviour).Duration = args.Duration;
 
             // activate state
             await this.SetState(new ResetState(this));

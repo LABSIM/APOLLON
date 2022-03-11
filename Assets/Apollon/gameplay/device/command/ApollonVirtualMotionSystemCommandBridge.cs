@@ -738,6 +738,9 @@ namespace Labsim.apollon.gameplay.device.command
                 "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBridge.OnResetRequested() : begin"
             );
 
+            // inject duration
+            (this.Behaviour as ApollonVirtualMotionSystemCommandBehaviour).Duration = args.Duration;
+
             // activate state
             await this.SetState(new ResetState(this));
 

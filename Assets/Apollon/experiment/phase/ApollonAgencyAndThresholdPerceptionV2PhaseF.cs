@@ -220,6 +220,7 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_idle_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
 
             if(!bHasRealMotion) 
             {            
@@ -338,7 +339,8 @@ namespace Labsim.apollon.experiment.phase
                 } /* if() */
 
                 // wait for idle state
-                await System.Threading.Tasks.Task.Factory.StartNew(
+                var phase_running_task
+                    = System.Threading.Tasks.Task.Factory.StartNew(
                         async () => 
                         { 
 
@@ -359,8 +361,12 @@ namespace Labsim.apollon.experiment.phase
                             );
                             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ));
                         
+                            // hit barrier 
+                            sync_point.TrySetResult(true);
+
                         }
                     );
+                await sync_point.Task;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -488,7 +494,8 @@ namespace Labsim.apollon.experiment.phase
                 } /* if() */
 
                 // wait for idle state
-                await System.Threading.Tasks.Task.Factory.StartNew(
+                var phase_running_task
+                    = System.Threading.Tasks.Task.Factory.StartNew(
                         async () => 
                         { 
 
@@ -509,8 +516,12 @@ namespace Labsim.apollon.experiment.phase
                             );
                             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ));
                         
+                            // hit barrier 
+                            sync_point.TrySetResult(true);
+
                         }
                     );
+                await sync_point.Task;
 
                 // log
                 UnityEngine.Debug.Log(
