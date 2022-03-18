@@ -144,8 +144,8 @@ namespace Labsim.apollon.experiment.profile
                 public float total_duration;
 
 
-                [JSONSettingsAttribute(phase:"phase_B", settings:"angular_strong_acceleration_ratio_from_reference")]
-                public float angular_strong_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_B", settings:"angular_strong_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                public float[] angular_strong_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_B", settings:"angular_strong_velocity_saturation_threshold", unit:"deg_per_s")]
                 public float[] angular_strong_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -154,8 +154,8 @@ namespace Labsim.apollon.experiment.profile
                 public float[] angular_strong_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_B", settings:"angular_weak_acceleration_ratio_from_reference")]
-                public float angular_weak_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_B", settings:"angular_weak_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                public float[] angular_weak_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_B", settings:"angular_weak_velocity_saturation_threshold", unit:"deg_per_s")]
                 public float[] angular_weak_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -164,8 +164,8 @@ namespace Labsim.apollon.experiment.profile
                 public float[] angular_weak_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_B", settings:"linear_strong_acceleration_ratio_from_reference")]
-                public float linear_strong_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_B", settings:"linear_strong_acceleration_offset_from_reference", unit:"m_per_s2")]
+                public float[] linear_strong_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_B", settings:"linear_strong_velocity_saturation_threshold", unit:"m_per_s")]
                 public float[] linear_strong_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -174,8 +174,8 @@ namespace Labsim.apollon.experiment.profile
                 public float[] linear_strong_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_B", settings:"linear_weak_acceleration_ratio_from_reference")]
-                public float linear_weak_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_B", settings:"linear_weak_acceleration_offset_from_reference", unit:"m_per_s2")]
+                public float[] linear_weak_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_B", settings:"linear_weak_velocity_saturation_threshold", unit:"m_per_s")]
                 public float[] linear_weak_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -212,8 +212,8 @@ namespace Labsim.apollon.experiment.profile
                 public float total_duration;
 
 
-                [JSONSettingsAttribute(phase:"phase_F", settings:"angular_strong_acceleration_ratio_from_reference")]
-                public float angular_strong_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_F", settings:"angular_strong_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                public float[] angular_strong_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_F", settings:"angular_strong_velocity_saturation_threshold", unit:"deg_per_s")]
                 public float[] angular_strong_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -222,8 +222,8 @@ namespace Labsim.apollon.experiment.profile
                 public float[] angular_strong_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_F", settings:"angular_weak_acceleration_ratio_from_reference")]
-                public float angular_weak_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_F", settings:"angular_weak_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                public float[] angular_weak_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_F", settings:"angular_weak_velocity_saturation_threshold", unit:"deg_per_s")]
                 public float[] angular_weak_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -232,8 +232,8 @@ namespace Labsim.apollon.experiment.profile
                 public float[] angular_weak_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_strong_acceleration_ratio_from_reference")]
-                public float linear_strong_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_strong_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                public float[] linear_strong_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_F", settings:"linear_strong_velocity_saturation_threshold", unit:"m_per_s")]
                 public float[] linear_strong_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -242,8 +242,8 @@ namespace Labsim.apollon.experiment.profile
                 public float[] linear_strong_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_weak_acceleration_ratio_from_reference")]
-                public float linear_weak_acceleration_ratio_from_reference = 1.0f;
+                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_weak_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                public float[] linear_weak_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_F", settings:"linear_weak_velocity_saturation_threshold", unit:"m_per_s")]
                 public float[] linear_weak_velocity_saturation_threshold = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -411,10 +411,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_displacement_limiter")
                         ).ToArray();
-                    this.phase_B_settings.angular_strong_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_acceleration_ratio_from_reference")
-                        );
+                    this.phase_B_settings.angular_strong_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_B_settings.angular_strong_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_velocity_saturation_threshold")
@@ -423,10 +423,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_displacement_limiter")
                         ).ToArray();
-                    this.phase_B_settings.angular_weak_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_acceleration_ratio_from_reference")
-                        );
+                    this.phase_B_settings.angular_weak_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_B_settings.angular_weak_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_velocity_saturation_threshold")
@@ -439,10 +439,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_displacement_limiter")
                         ).ToArray();
-                    this.phase_B_settings.linear_strong_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_acceleration_ratio_from_reference")
-                        );
+                    this.phase_B_settings.linear_strong_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_B_settings.linear_strong_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_velocity_saturation_threshold")
@@ -451,10 +451,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_displacement_limiter")
                         ).ToArray();
-                    this.phase_B_settings.linear_weak_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_acceleration_ratio_from_reference")
-                        );
+                    this.phase_B_settings.linear_weak_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_B_settings.linear_weak_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_velocity_saturation_threshold")
@@ -487,10 +487,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_displacement_limiter")
                         ).ToArray();
-                    this.phase_F_settings.angular_strong_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_acceleration_ratio_from_reference")
-                        );
+                    this.phase_F_settings.angular_strong_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_F_settings.angular_strong_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_velocity_saturation_threshold")
@@ -499,10 +499,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_displacement_limiter")
                         ).ToArray();
-                    this.phase_F_settings.angular_weak_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_acceleration_ratio_from_reference")
-                        );
+                    this.phase_F_settings.angular_weak_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_F_settings.angular_weak_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_velocity_saturation_threshold")
@@ -515,10 +515,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_displacement_limiter")
                         ).ToArray();
-                    this.phase_F_settings.linear_strong_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_acceleration_ratio_from_reference")
-                        );
+                    this.phase_F_settings.linear_strong_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_F_settings.linear_strong_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_velocity_saturation_threshold")
@@ -527,10 +527,10 @@ namespace Labsim.apollon.experiment.profile
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_displacement_limiter")
                         ).ToArray();
-                    this.phase_F_settings.linear_weak_acceleration_ratio_from_reference
-                        = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_acceleration_ratio_from_reference")
-                        );
+                    this.phase_F_settings.linear_weak_acceleration_offset_from_reference
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_acceleration_offset_from_reference")
+                        ).ToArray();
                     this.phase_F_settings.linear_weak_velocity_saturation_threshold
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_velocity_saturation_threshold")
@@ -618,9 +618,10 @@ namespace Labsim.apollon.experiment.profile
                         + " : " 
                         + this.phase_B_settings.total_duration
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_B_settings.angular_strong_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_B_settings.angular_strong_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_strong_velocity_saturation_threshold") 
                         + " : [" 
@@ -632,9 +633,10 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_B_settings.angular_strong_displacement_limiter) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_B_settings.angular_weak_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_B_settings.angular_weak_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("angular_weak_velocity_saturation_threshold") 
                         + " : [" 
@@ -651,9 +653,10 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_B_settings.angular_mandatory_axis) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_B_settings.linear_strong_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_B_settings.linear_strong_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_strong_velocity_saturation_threshold") 
                         + " : [" 
@@ -665,9 +668,10 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_B_settings.linear_strong_displacement_limiter) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_B_settings.linear_weak_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_B_settings.linear_weak_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("linear_weak_velocity_saturation_threshold") 
                         + " : [" 
@@ -699,9 +703,10 @@ namespace Labsim.apollon.experiment.profile
                         + " : " 
                         + this.phase_F_settings.total_duration
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_F_settings.angular_strong_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_F_settings.angular_strong_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_strong_velocity_saturation_threshold") 
                         + " : [" 
@@ -713,9 +718,10 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_F_settings.angular_strong_displacement_limiter) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_F_settings.angular_weak_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_F_settings.angular_weak_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("angular_weak_velocity_saturation_threshold") 
                         + " : [" 
@@ -732,9 +738,10 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_F_settings.angular_mandatory_axis) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_F_settings.linear_strong_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_F_settings.linear_strong_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_strong_velocity_saturation_threshold") 
                         + " : [" 
@@ -746,9 +753,10 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_F_settings.linear_strong_displacement_limiter) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_acceleration_ratio_from_reference") 
-                        + " : " 
-                        + this.phase_F_settings.linear_weak_acceleration_ratio_from_reference
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_acceleration_offset_from_reference") 
+                        + " : [" 
+                            + System.String.Join(",",this.phase_F_settings.linear_weak_acceleration_offset_from_reference) 
+                        + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("linear_weak_velocity_saturation_threshold") 
                         + " : [" 
@@ -883,8 +891,8 @@ namespace Labsim.apollon.experiment.profile
         #region latency bucket mechanism
 
         private static readonly uint _latency_default_BucketSize = 5;
-        private static readonly float _latency_default_timeout_lower_bound = 0.0f;
-        private static readonly float _latency_default_timeout_upper_bound = 500.0f;
+        private static readonly float _latency_default_timeout_lower_bound = 300.0f;
+        private static readonly float _latency_default_timeout_upper_bound = 750.0f;
 
         private uint m_currentInitialDefaultLatencyValueCount = 0;
         private System.Collections.Generic.Queue<float> m_currentLatencyBucket = null;
@@ -1394,6 +1402,15 @@ namespace Labsim.apollon.experiment.profile
             ApollonExperimentManager.Instance.Trial.result["user_confidence"]
                 = this.CurrentResults.phase_I_results.user_confidence;
                 
+            // phase J - back to origin
+            ApollonExperimentManager.Instance.Trial.result["J_timing_on_entry_unity_timestamp"]
+                = this.CurrentResults.phase_J_results.timing_on_entry_unity_timestamp.ToString();
+            ApollonExperimentManager.Instance.Trial.result["J_timing_on_exit_unity_timestamp"]
+                = this.CurrentResults.phase_J_results.timing_on_exit_unity_timestamp.ToString();
+            ApollonExperimentManager.Instance.Trial.result["J_timing_on_entry_host_timestamp"]
+                = this.CurrentResults.phase_J_results.timing_on_entry_host_timestamp;
+            ApollonExperimentManager.Instance.Trial.result["J_timing_on_exit_host_timestamp"]
+                = this.CurrentResults.phase_J_results.timing_on_exit_host_timestamp;
 
             // base call
             base.onExperimentTrialEnd(sender, arg);

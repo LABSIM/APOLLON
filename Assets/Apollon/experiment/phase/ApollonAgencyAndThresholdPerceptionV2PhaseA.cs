@@ -81,7 +81,7 @@ namespace Labsim.apollon.experiment.phase
                 ).Dispatcher.AxisZValueChangedEvent += user_interaction_local_function;
                 
                 // wait synchronisation point indefinitely & reset it once hit
-                bool bRequestPhaseALoop = false;
+                bool bRequestEndPhaseALoop = false;
                 do
                 {
 
@@ -264,7 +264,7 @@ namespace Labsim.apollon.experiment.phase
                         this.FSM.CurrentResults.phase_A_results.user_latency_host_timestamp = result.Item3;
 
                         // request end phase
-                        bRequestPhaseALoop = true;
+                        bRequestEndPhaseALoop = true;
 
                     }
                     else
@@ -285,7 +285,7 @@ namespace Labsim.apollon.experiment.phase
 
                     } /* if() */
 
-                } while (!bRequestPhaseALoop); /* while() */
+                } while (!bRequestEndPhaseALoop); /* while() */
 
                 // unregister our synchronisation function
                 (

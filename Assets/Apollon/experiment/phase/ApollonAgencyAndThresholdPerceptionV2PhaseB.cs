@@ -99,15 +99,19 @@ namespace Labsim.apollon.experiment.phase
 
                 // weak stim settings
                 current_angular_acceleration_target
-                    = user_angular_weak_acceleration_threshold.Select(
-                        value => this.FSM.CurrentSettings.phase_B_settings.angular_weak_acceleration_ratio_from_reference * value
+                    = user_angular_weak_acceleration_threshold.Zip(
+                        this.FSM.CurrentSettings.phase_B_settings.angular_weak_acceleration_offset_from_reference,
+                        (user_value, offset_value) 
+                            => user_value + offset_value
                     ).ToArray();
                 current_angular_velocity_saturation_threshold  = this.FSM.CurrentSettings.phase_B_settings.angular_weak_velocity_saturation_threshold;
                 current_angular_displacement_limiter           = this.FSM.CurrentSettings.phase_B_settings.angular_weak_displacement_limiter;
                 
                 current_linear_acceleration_target
-                    = user_linear_weak_acceleration_threshold.Select(
-                        value => this.FSM.CurrentSettings.phase_B_settings.linear_weak_acceleration_ratio_from_reference * value
+                    = user_linear_weak_acceleration_threshold.Zip(
+                        this.FSM.CurrentSettings.phase_B_settings.linear_weak_acceleration_offset_from_reference,
+                        (user_value, offset_value) 
+                            => user_value + offset_value
                     ).ToArray();
                 current_linear_velocity_saturation_threshold   = this.FSM.CurrentSettings.phase_B_settings.linear_weak_velocity_saturation_threshold;
                 current_linear_displacement_limiter            = this.FSM.CurrentSettings.phase_B_settings.linear_weak_displacement_limiter;
@@ -125,15 +129,19 @@ namespace Labsim.apollon.experiment.phase
 
                 // strong stim settings
                 current_angular_acceleration_target
-                    = user_angular_strong_acceleration_threshold.Select(
-                        value => this.FSM.CurrentSettings.phase_B_settings.angular_strong_acceleration_ratio_from_reference * value
+                    = user_angular_strong_acceleration_threshold.Zip(
+                        this.FSM.CurrentSettings.phase_B_settings.angular_strong_acceleration_offset_from_reference,
+                        (user_value, offset_value) 
+                            => user_value + offset_value
                     ).ToArray();
                 current_angular_velocity_saturation_threshold  = this.FSM.CurrentSettings.phase_B_settings.angular_strong_velocity_saturation_threshold;
                 current_angular_displacement_limiter           = this.FSM.CurrentSettings.phase_B_settings.angular_strong_displacement_limiter;
                 
                 current_linear_acceleration_target
-                    = user_linear_strong_acceleration_threshold.Select(
-                        value => this.FSM.CurrentSettings.phase_B_settings.linear_strong_acceleration_ratio_from_reference * value
+                    = user_linear_strong_acceleration_threshold.Zip(
+                        this.FSM.CurrentSettings.phase_B_settings.linear_strong_acceleration_offset_from_reference,
+                        (user_value, offset_value) 
+                            => user_value + offset_value
                     ).ToArray();
                 current_linear_velocity_saturation_threshold   = this.FSM.CurrentSettings.phase_B_settings.linear_strong_velocity_saturation_threshold;
                 current_linear_displacement_limiter            = this.FSM.CurrentSettings.phase_B_settings.linear_strong_displacement_limiter;
@@ -148,6 +156,20 @@ namespace Labsim.apollon.experiment.phase
                 );
                 
             } /* if() */
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAgencyAndThresholdPerceptionV2PhaseB.OnEntry() : target {"
+                + "[current_angular_acceleration_target:" 
+                    + System.String.Join(",",current_angular_acceleration_target) 
+                + "][current_angular_velocity_saturation_threshold:" 
+                    + System.String.Join(",",current_angular_velocity_saturation_threshold) 
+                + "][current_linear_acceleration_target:" 
+                    + System.String.Join(",",current_linear_acceleration_target) 
+                + "][current_linear_velocity_saturation_threshold:" 
+                    + System.String.Join(",",current_linear_velocity_saturation_threshold) 
+                + "]}"
+            );
 
             // get bridges
             var control_bridge

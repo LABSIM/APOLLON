@@ -63,12 +63,6 @@ namespace Labsim.apollon.experiment.phase
                         
                     }; /* lambda */
 
-            // update instructions 
-            this.FSM.CurrentInstruction = "Plus fort ?";
-
-            // show response slider                            
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI);
-            
             // register our synchronisation function
             (
                 gameplay.ApollonGameplayManager.Instance.getBridge(
@@ -81,8 +75,65 @@ namespace Labsim.apollon.experiment.phase
                 ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
             ).Dispatcher.AxisZValueChangedEvent += user_interaction_local_function;
 
-            // wait until any result
-            (float, float, string, long) result = await sync_point.Task;
+            // wait synchronisation point indefinitely & reset it once hit
+            bool bRequestEndPhaseHLoop = false;
+            do
+            {
+                
+                // update instructions 
+                this.FSM.CurrentInstruction = "Plus fort ?";
+
+                // show response slider                            
+                frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI);
+                
+                // wait until any result
+                (float, float, string, long) result = await sync_point.Task;
+
+                // validity pass ?
+                if(System.Math.Sign(result.Item1) < 0)
+                {
+                    
+                    // record "Deplacement 1" value
+                    this.FSM.CurrentResults.phase_H_results.user_response = 0;
+
+                    // request end phase
+                    bRequestEndPhaseHLoop = true;
+
+                }
+                else if(System.Math.Sign(result.Item1) > 0)
+                {
+                    
+                    // record "Deplacement 2" value
+                    this.FSM.CurrentResults.phase_H_results.user_response = 1;
+
+                    // request end phase
+                    bRequestEndPhaseHLoop = true;
+
+                }
+                else
+                {
+
+                    // central zone == fail
+
+                    // update instructions 
+                    this.FSM.CurrentInstruction = "Réponse non valide";
+                    
+                    // hide intensity slider & show red cross
+                    frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
+                    frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+
+                    // wait a certain amout of time 
+                    await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.confirm_duration);
+
+                    // hide red cross
+                    frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+                
+                    // re-tasking
+                    sync_point = new System.Threading.Tasks.TaskCompletionSource<(float, float, string, long)>();
+
+                } /* if() */
+
+            } while (!bRequestEndPhaseHLoop); /* while() */
 
             // unregister our synchronisation function
             (
@@ -98,9 +149,6 @@ namespace Labsim.apollon.experiment.phase
 
             // hide response slider                            
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI);
-
-            // record
-            this.FSM.CurrentResults.phase_H_results.user_response = result.Item1;
 
             // log
             UnityEngine.Debug.Log(
