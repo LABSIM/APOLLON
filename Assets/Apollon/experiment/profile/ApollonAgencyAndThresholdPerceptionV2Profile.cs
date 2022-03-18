@@ -232,7 +232,7 @@ namespace Labsim.apollon.experiment.profile
                 public float[] angular_weak_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_strong_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_strong_acceleration_offset_from_reference", unit:"m_per_s2")]
                 public float[] linear_strong_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_F", settings:"linear_strong_velocity_saturation_threshold", unit:"m_per_s")]
@@ -242,7 +242,7 @@ namespace Labsim.apollon.experiment.profile
                 public float[] linear_strong_displacement_limiter = new float[3] { 0.0f, 0.0f, 0.0f };
 
 
-                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_weak_acceleration_offset_from_reference", unit:"deg_per_s2")]
+                [JSONSettingsAttribute(phase:"phase_F", settings:"linear_weak_acceleration_offset_from_reference", unit:"m_per_s2")]
                 public float[] linear_weak_acceleration_offset_from_reference = new float[3] { 0.0f, 0.0f, 0.0f };
 
                 [JSONSettingsAttribute(phase:"phase_F", settings:"linear_weak_velocity_saturation_threshold", unit:"m_per_s")]

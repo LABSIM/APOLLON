@@ -119,7 +119,7 @@ namespace Labsim.apollon.experiment.phase
                     this.FSM.CurrentInstruction = "Réponse non valide";
                     
                     // hide intensity slider & show red cross
-                    frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
+                    frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.ResponseSliderGUI);
                     frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
                     // wait a certain amout of time 
