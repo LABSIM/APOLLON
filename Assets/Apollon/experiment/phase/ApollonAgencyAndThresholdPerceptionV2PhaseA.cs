@@ -91,6 +91,11 @@ namespace Labsim.apollon.experiment.phase
                     // update instructions 
                     this.FSM.CurrentInstruction = "Intensité ?";
 
+                    // reset cursor value to default position
+                    frontend.ApollonFrontendManager.Instance.getBridge(
+                        frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI
+                    ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value = 0.0f;
+
                     // show intensity slider                            
                     frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.IntensitySliderGUI);
 

@@ -71,6 +71,11 @@ namespace Labsim.apollon.experiment.phase
             // update instructions 
             this.FSM.CurrentInstruction = "Niveau de confiance ?";
 
+            // reset cursor value to default position
+            frontend.ApollonFrontendManager.Instance.getBridge(
+                frontend.ApollonFrontendManager.FrontendIDType.ConfidenceSliderGUI
+            ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value = 3.0f;
+
             // show confidence slider                            
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.ConfidenceSliderGUI);
             
