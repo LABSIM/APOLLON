@@ -467,11 +467,11 @@ namespace Labsim.apollon.experiment.profile
                     // phase C
                     this.phase_C_settings.inter_stim_timeout_lower_bound
                         = settings.GetFloatList(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout_lower_bound")
+                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout")
                         )[0];
                     this.phase_C_settings.inter_stim_timeout_upper_bound
                         = settings.GetFloatList(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout_upper_bound")
+                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout")
                         )[1];
                     
                     // phase B
@@ -688,7 +688,7 @@ namespace Labsim.apollon.experiment.profile
                             + System.String.Join(",",this.phase_B_settings.linear_mandatory_axis) 
                         + "]"
                     + "\n - " 
-                        + this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout_lower_bound") 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout") 
                         + " : [" 
                             + this.phase_C_settings.inter_stim_timeout_lower_bound
                             + ","
