@@ -1,0 +1,278 @@
+{
+  
+    "APOLLON_profile": "Tactile",
+  
+    "trial_final_fade_in_duration_ms": 100.0,
+    "trial_initial_fade_out_duration_ms": 100.0,
+    "trial_inter_sleep_duration_ms": 700.0,
+  
+    "trial_pattern": {
+  
+      "Temporal_VV": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "temporal-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "VV",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+  
+      "Temporal_VC": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "temporal-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "VC",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "Temporal_CC": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "temporal-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "CC",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "Temporal_CV": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "temporal-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "CV",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "Spatial_VV": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatial-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "VV",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+  
+      "Spatial_VC": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatial-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "VC",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "Spatial_CC": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatial-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "CC",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "Spatial_CV": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatial-only",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "CV",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "SpatioTemporal_VV": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatio-temporal",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "VV",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+  
+      "SpatioTemporal_VC": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatio-temporal",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "VC",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "SpatioTemporal_CC": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatio-temporal",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "CC",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      },
+
+      "SpatioTemporal_CV": {
+  
+        "is_catch_try_condition": false,
+        "is_active_condition": true,
+        "scenario_name": "spatio-temporal",
+
+        "phase_A_duration_ms": 2500.0,
+
+        "phase_B_begin_stim_timeout_ms": [ 500.0, 1500.0 ],
+
+        "phase_C_stim_pattern_name": "CV",
+        "phase_C_total_duration_ms": 5000.0,
+
+        "phase_D_duration_ms": 2500.0
+  
+      }
+  
+    },
+  
+    "block_pattern": {
+  
+      "block_temporal": {
+  
+        "is_practice_condition": false,
+        "is_sequence_randomized": true,
+        "trial_sequence": [
+            "Temporal_VV",
+            "Temporal_VC",
+            "Temporal_CC",
+            "Temporal_CV",
+            "Temporal_VV",
+            "Temporal_VC",
+            "Temporal_CC",
+            "Temporal_CV"
+        ]
+  
+      },
+  
+      "block_spatial": {
+  
+        "is_practice_condition": false,
+        "is_sequence_randomized": true,
+        "trial_sequence": [
+            "Spatial_VV",
+            "Spatial_VC",
+            "Spatial_CC",
+            "Spatial_CV",
+            "Spatial_VV",
+            "Spatial_VC",
+            "Spatial_CC",
+            "Spatial_CV"
+        ]
+  
+      },
+  
+      "block_spatiotemporal": {
+  
+        "is_practice_condition": false,
+        "is_sequence_randomized": true,
+        "trial_sequence": [
+            "SpatioTemporal_VV",
+            "SpatioTemporal_VC",
+            "SpatioTemporal_CC",
+            "SpatioTemporal_CV",
+            "SpatioTemporal_VV",
+            "SpatioTemporal_VC",
+            "SpatioTemporal_CC",
+            "SpatioTemporal_CV"
+        ]
+  
+      }
+  
+    },
+  
+    "block_sequence": [
+      "block_temporal",
+      "block_spatial",
+      "block_spatiotemporal"
+    ]
+  
+  }
