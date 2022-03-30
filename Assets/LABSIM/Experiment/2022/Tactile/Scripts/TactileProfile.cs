@@ -1,19 +1,19 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.profile
+namespace Labsim.experiment.tactile
 {
 
-    public class ApollonTactileProfile 
-        : ApollonAbstractExperimentFiniteStateMachine< ApollonTactileProfile >
+    public class TactileProfile 
+        : Labsim.apollon.experiment.ApollonAbstractExperimentFiniteStateMachine< TactileProfile >
     {    
 
         // Ctor
-        public ApollonTactileProfile()
+        public TactileProfile()
             : base()
         {
             // default profile
-            this.m_profileID = ApollonExperimentManager.ProfileIDType.Tactile;
+            this.m_profileID = Labsim.apollon.experiment.ApollonExperimentManager.ProfileIDType.Tactile;
         }
 
         #region settings/result
@@ -136,11 +136,11 @@ namespace Labsim.apollon.experiment.profile
 
             return (
                 "[" 
-                + ApollonEngine.GetEnumDescription(this.ID) 
+                + Labsim.apollon.ApollonEngine.GetEnumDescription(this.ID) 
                 + "]\n" 
-                + ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
+                + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
                 + " | "
-                + ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern)
+                + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern)
             );
 
         } /* getCurrentStatusInfo() */
@@ -152,12 +152,12 @@ namespace Labsim.apollon.experiment.profile
 
         } /* getCurrentCounterStatusInfo() */
 
-        public async override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public async override void onExperimentSessionBegin(object sender, Labsim.apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentSessionBegin() : begin"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionBegin() : begin"
             );
 
             // fade in
@@ -165,9 +165,9 @@ namespace Labsim.apollon.experiment.profile
 
             // deactivate default DB & activate room setup
             var we_behaviour    
-                 = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
-                ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
+                 = Labsim.apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                ).Behaviour as Labsim.apollon.gameplay.element.ApollonWorldElementBehaviour;
             we_behaviour.References["DBTag_Default"].SetActive(false);
             we_behaviour.References["DBTag_Room"].SetActive(true);
             we_behaviour.References["DBTag_ExoFrontend"].SetActive(true);
@@ -177,17 +177,17 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentSessionBegin() : end"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionBegin() : end"
             );
 
         } /* onExperimentSessionBegin() */
 
-        public override async void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentSessionEnd(object sender, Labsim.apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentSessionEnd() : begin"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionEnd() : begin"
             );
 
             // base call
@@ -195,16 +195,16 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentSessionEnd() : end"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionEnd() : end"
             );
 
         } /* onExperimentSessionEnd() */
 
-        public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentTrialBegin(object sender, Labsim.apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
              // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentTrialBegin() : begin"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentTrialBegin() : begin"
             );
 
             // temporary string
@@ -224,7 +224,7 @@ namespace Labsim.apollon.experiment.profile
             {
 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.TemporalOnly),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.TemporalOnly),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.scenario_type = Settings.ScenarioIDType.TemporalOnly;
@@ -232,7 +232,7 @@ namespace Labsim.apollon.experiment.profile
                 }
 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatialOnly),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatialOnly),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.scenario_type = Settings.ScenarioIDType.SpatialOnly;
@@ -240,7 +240,7 @@ namespace Labsim.apollon.experiment.profile
                 }
 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatioTemporal),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatioTemporal),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.scenario_type = Settings.ScenarioIDType.SpatioTemporal;
@@ -260,7 +260,7 @@ namespace Labsim.apollon.experiment.profile
             {
 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.PatternIDType.VV),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.VV),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.VV;
@@ -268,7 +268,7 @@ namespace Labsim.apollon.experiment.profile
                 }
 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.PatternIDType.VC),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.VC),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.VC;
@@ -276,7 +276,7 @@ namespace Labsim.apollon.experiment.profile
                 }
 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.PatternIDType.CC),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.CC),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.CC;
@@ -284,7 +284,7 @@ namespace Labsim.apollon.experiment.profile
                 }
                 
                 case string param when param.Equals(
-                    ApollonEngine.GetEnumDescription(Settings.PatternIDType.CV),
+                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.CV),
                     System.StringComparison.InvariantCultureIgnoreCase
                 ) : {
                     this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.CV;
@@ -300,12 +300,12 @@ namespace Labsim.apollon.experiment.profile
             } /* switch() */
 
             // log settings
-            log +="\n - scenario_name : " + ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
+            log +="\n - scenario_name : " + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
                 + "\n - phase_A_duration : " + this.CurrentSettings.phase_A_duration 
                 + "\n - phase_B_begin_stim_timeout_lower_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound 
                 + "\n - phase_B_begin_stim_timeout_upper_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound 
                 + "\n - phase_C_duration : " + this.CurrentSettings.phase_C_duration 
-                + "\n - phase_C_stim_pattern : " + ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern)
+                + "\n - phase_C_stim_pattern : " + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern)
                 + "\n - phase_D_duration : " + this.CurrentSettings.phase_D_duration;
 
             // clean response arrays
@@ -313,12 +313,12 @@ namespace Labsim.apollon.experiment.profile
             
             // log the final result
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentTrialBegin() : found current settings "
+                "<color=Blue>Info: </color> TactileProfile.onExperimentTrialBegin() : found current settings "
                 + log
             );
 
             // activate gameplay element
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            Labsim.apollon.gameplay.ApollonGameplayManager.Instance.setActive(Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
 
             // base call
             base.onExperimentTrialBegin(sender, arg);
@@ -328,103 +328,108 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentTrialBegin() : end"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentTrialBegin() : end"
             );
 
             // build protocol
             await this.DoRunProtocol(
-                async () => { await this.SetState( new phase.ApollonTactilePhaseA(this) ); },
-                async () => { await this.SetState( new phase.ApollonTactilePhaseB(this) ); },
-                async () => { await this.SetState( new phase.ApollonTactilePhaseC(this) ); },
-                async () => { await this.SetState( new phase.ApollonTactilePhaseD(this) ); },
-                async () => { await this.SetState( new phase.ApollonTactilePhaseE(this) ); },
+                async () => { await this.SetState( new TactilePhaseA(this) ); },
+                async () => { await this.SetState( new TactilePhaseB(this) ); },
+                async () => { await this.SetState( new TactilePhaseC(this) ); },
+                async () => { await this.SetState( new TactilePhaseD(this) ); },
+                async () => { await this.SetState( new TactilePhaseE(this) ); },
                 async () => { await this.SetState( null ); }
             );
             
         } /* onExperimentTrialBegin() */
 
-        public override async void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentTrialEnd(object sender, Labsim.apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentTrialEnd() : begin"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentTrialEnd() : begin"
             );
 
             // write result
-
-            ApollonExperimentManager.Instance.Trial.result["active_condition"] = this.CurrentSettings.bIsActive.ToString();
-            ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] = this.CurrentSettings.bIsTryCatch.ToString();
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["scenario"] 
+                = Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["pattern"] 
+                = Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern);
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["active_condition"] 
+                = this.CurrentSettings.bIsActive.ToString();
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] 
+                = this.CurrentSettings.bIsTryCatch.ToString();
 
             // phase A
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_exit_host_timestamp;
 
             // phase B
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_exit_host_timestamp;
 
             // phase C
-            ApollonExperimentManager.Instance.Trial.result["C_timing_on_entry_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_C_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["C_timing_on_exit_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_C_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["C_timing_on_entry_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_C_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["C_timing_on_exit_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_C_results.timing_on_exit_host_timestamp;
 
             // phase D
-            ApollonExperimentManager.Instance.Trial.result["D_timing_on_entry_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_D_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_D_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["D_timing_on_entry_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_D_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_D_results.timing_on_exit_host_timestamp;
 
             // phase E
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_unity_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_exit_host_timestamp;
                 
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);
 
             // inactivate gameplay & frontend
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
+            Labsim.apollon.gameplay.ApollonGameplayManager.Instance.setInactive(Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.All);
+            Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.All);
            
             // base call
             base.onExperimentTrialEnd(sender, arg);
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactileProfile.onExperimentTrialEnd() : end"
+                "<color=Blue>Info: </color> TactileProfile.onExperimentTrialEnd() : end"
             );
 
         } /* onExperimentTrialEnd() */
 
         #endregion
 
-    } /* class ApollonTactileProfile */
+    } /* class TactileProfile */
 
-} /* } Labsim.apollon.experiment.profile */
+} /* } Labsim.experiment.tactile */

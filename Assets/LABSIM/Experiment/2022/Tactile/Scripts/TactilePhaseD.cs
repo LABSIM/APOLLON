@@ -1,16 +1,16 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.phase
+namespace Labsim.experiment.tactile
 {
 
     //
     // FSM state
     //
-    public sealed class ApollonTactilePhaseD
-        : ApollonAbstractExperimentState<profile.ApollonTactileProfile>
+    public sealed class TactilePhaseD
+        : Labsim.apollon.experiment.ApollonAbstractExperimentState<TactileProfile>
     {
-        public ApollonTactilePhaseD(profile.ApollonTactileProfile fsm)
+        public TactilePhaseD(TactileProfile fsm)
             : base(fsm)
         {
         }
@@ -20,7 +20,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseD.OnEntry() : begin"
+                "<color=Blue>Info: </color> TactilePhaseD.OnEntry() : begin"
             );
 
             // save timestamps
@@ -31,24 +31,24 @@ namespace Labsim.apollon.experiment.phase
             this.FSM.DoFadeOut(this.FSM._trial_fade_out_duration);
 
             // show red cross
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // wait a certain amout of time
             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
 
             // show red frame
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
+            Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // wait a certain amout of time
             await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
 
             // hide red cross & frame
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
+            Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseD.OnEntry() : end"
+                "<color=Blue>Info: </color> TactilePhaseD.OnEntry() : end"
             );
 
         } /* OnEntry() */
@@ -58,7 +58,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseD.OnExit() : begin"
+                "<color=Blue>Info: </color> TactilePhaseD.OnExit() : begin"
             );
             
             // save timestamps
@@ -67,11 +67,11 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseD.OnExit() : end"
+                "<color=Blue>Info: </color> TactilePhaseD.OnExit() : end"
             );
 
         } /* OnExit() */
 
-    } /* public sealed class ApollonTactilePhaseD */
+    } /* public sealed class TactilePhaseD */
 
-} /* } Labsim.apollon.experiment.phase */
+} /* } Labsim.experiment.tactile */

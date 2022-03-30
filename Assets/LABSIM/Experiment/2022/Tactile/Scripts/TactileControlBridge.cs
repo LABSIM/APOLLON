@@ -3,19 +3,19 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.gameplay.control
+namespace Labsim.experiment.tactile
 {
 
-    public class ApollonTactileControlBridge 
-        : ApollonAbstractGameplayBridge
+    public class TactileControlBridge 
+        : Labsim.apollon.gameplay.ApollonAbstractGameplayBridge
     {
 
         //ctor
-        public ApollonTactileControlBridge()
+        public TactileControlBridge()
             : base()
         { }
 
-        public ApollonTactileControlDispatcher Dispatcher { private set; get; } = null;
+        public TactileControlDispatcher Dispatcher { private set; get; } = null;
         
         #region Bridge abstract implementation 
 
@@ -23,13 +23,13 @@ namespace Labsim.apollon.gameplay.control
         {
 
             // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonTactileControlBehaviour>();
+            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<TactileControlBehaviour>();
             if ((behaviours?.Length ?? 0) == 0)
             {
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonTactileControlBridge.WrapBehaviour() : could not find object of type behaviour.ApollonTactileControlBehaviour from Unity."
+                    "<color=Orange>Warning: </color> TactileControlBridge.WrapBehaviour() : could not find object of type behaviour.TactileControlBehaviour from Unity."
                 );
 
                 return null;
@@ -43,7 +43,7 @@ namespace Labsim.apollon.gameplay.control
             }
 
             // instantiate
-            this.Dispatcher = new ApollonTactileControlDispatcher();
+            this.Dispatcher = new TactileControlDispatcher();
 
             // finally 
             // TODO : implement the logic of multiple instante (prefab)
@@ -51,9 +51,9 @@ namespace Labsim.apollon.gameplay.control
 
         } /* WrapBehaviour() */
 
-        protected override ApollonGameplayManager.GameplayIDType WrapID()
+        protected override Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return ApollonGameplayManager.GameplayIDType.TactileControl;
+            return Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.TactileControl;
         }
         
         protected override void SetActive(bool value)
@@ -73,7 +73,7 @@ namespace Labsim.apollon.gameplay.control
                 this.Behaviour.enabled = true;
                 this.Behaviour.gameObject.SetActive(true);
 
-                var behaviour = this.Behaviour as ApollonTactileControlBehaviour;
+                var behaviour = this.Behaviour as TactileControlBehaviour;
 
                 // add them a bridge delegate
                 // behaviour.Control.Subject.ValueChanged.performed += this.OnAxisZValueChanged;
@@ -87,7 +87,7 @@ namespace Labsim.apollon.gameplay.control
                 // escape
                 if (!this.Behaviour.isActiveAndEnabled) { return; }
 
-                var behaviour = this.Behaviour as ApollonTactileControlBehaviour;
+                var behaviour = this.Behaviour as TactileControlBehaviour;
 
                 // remove them from bridge delegate
                 // behaviour.Control.Subject.ValueChanged.performed -= this.OnAxisZValueChanged;
@@ -123,7 +123,7 @@ namespace Labsim.apollon.gameplay.control
 
         //         // log
         //         UnityEngine.Debug.Log(
-        //             "<color=Blue>Info: </color> ApollonTactileControlBridge.OnUserNeutralCommandTriggered() : event triggered !"
+        //             "<color=Blue>Info: </color> TactileControlBridge.OnUserNeutralCommandTriggered() : event triggered !"
         //         );
 
         //         // dispatch event
@@ -142,7 +142,7 @@ namespace Labsim.apollon.gameplay.control
 
         //         // log
         //         UnityEngine.Debug.Log(
-        //             "<color=Blue>Info: </color> ApollonTactileControlBridge.OnUserResponseTriggered() : event triggered !"
+        //             "<color=Blue>Info: </color> TactileControlBridge.OnUserResponseTriggered() : event triggered !"
         //         );
 
         //         // dispatch event
@@ -154,6 +154,6 @@ namespace Labsim.apollon.gameplay.control
 
         #endregion
 
-    }  /* class ApollonTactileControlBridge */
+    }  /* class TactileControlBridge */
 
-} /* } Labsim.apollon.gameplay.control */
+} /* } Labsim.experiment.tactile */

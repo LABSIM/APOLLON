@@ -1,13 +1,13 @@
 ﻿// avoid namespace pollution
-namespace Labsim.apollon.gameplay.control
+namespace Labsim.experiment.tactile
 {
 
-    public class ApollonTactileControlDispatcher
+    public class TactileControlDispatcher
     {
         #region event args class
 
         public class EventArgs
-            : ApollonEngine.EngineEventArgs
+            : Labsim.apollon.ApollonEngine.EngineEventArgs
         {
 
             // ctor
@@ -50,7 +50,7 @@ namespace Labsim.apollon.gameplay.control
         #endregion
 
         // Constructor
-        public ApollonTactileControlDispatcher()
+        public TactileControlDispatcher()
         {
 
             // // event table
@@ -61,7 +61,7 @@ namespace Labsim.apollon.gameplay.control
             //     { "UserResponseTriggered", null }
             // };
 
-        } /* ApollonTactileControlDispatcher() */
+        } /* TactileControlDispatcher() */
 
         #region actual events
 
@@ -188,6 +188,6 @@ namespace Labsim.apollon.gameplay.control
 
         #endregion
 
-    } /* class ApollonTactileControlDispatcher */
+    } /* class TactileControlDispatcher */
 
-} /* } Labsim.apollon.gameplay.control */
+} /* } Labsim.experiment.tactile */

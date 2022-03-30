@@ -5,7 +5,7 @@ using UXF.UI;
 namespace UXF.EditorUtils
 {
     // IngredientDrawer
-    [CustomPropertyDrawer(typeof(FormElementEntry))]
+    [CustomPropertyDrawer(typeof(UXF.UI.FormElementEntry))]
     public class FormElementEntryDrawer : PropertyDrawer
     {
 
@@ -33,8 +33,8 @@ namespace UXF.EditorUtils
             position.height = EditorGUI.GetPropertyHeight(dataTypeProp);
             EditorGUI.PropertyField(position, dataTypeProp);
 
-            FormDataType dataType = (FormDataType) dataTypeProp.intValue;
-            if (dataType == FormDataType.DropDown)
+            UXF.UI.FormDataType dataType = (UXF.UI.FormDataType) dataTypeProp.intValue;
+            if (dataType == UXF.UI.FormDataType.DropDown)
             {
                 position.y += EditorGUI.GetPropertyHeight(dataTypeProp);
                 position.height = EditorGUI.GetPropertyHeight(dropDownValuesProp);

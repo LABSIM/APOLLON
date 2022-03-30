@@ -1,16 +1,16 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.phase
+namespace Labsim.experiment.tactile
 {
 
     //
     // FSM state
     //
-    public sealed class ApollonTactilePhaseC
-        : ApollonAbstractExperimentState<profile.ApollonTactileProfile>
+    public sealed class TactilePhaseC
+        : Labsim.apollon.experiment.ApollonAbstractExperimentState<TactileProfile>
     {
-        public ApollonTactilePhaseC(profile.ApollonTactileProfile fsm)
+        public TactilePhaseC(TactileProfile fsm)
             : base(fsm)
         {
         }
@@ -20,7 +20,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseC.OnEntry() : begin"
+                "<color=Blue>Info: </color> TactilePhaseC.OnEntry() : begin"
             );
  
             // save timestamps
@@ -29,7 +29,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseC.OnEntry() : end"
+                "<color=Blue>Info: </color> TactilePhaseC.OnEntry() : end"
             );
 
         } /* OnEntry() */
@@ -39,7 +39,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseC.OnExit() : begin"
+                "<color=Blue>Info: </color> TactilePhaseC.OnExit() : begin"
             );
             
             // save timestamps
@@ -48,11 +48,11 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseC.OnExit() : end"
+                "<color=Blue>Info: </color> TactilePhaseC.OnExit() : end"
             );
 
         } /* OnExit() */
 
-    } /* public sealed class ApollonTactilePhaseC */
+    } /* public sealed class TactilePhaseC */
 
-} /* } Labsim.apollon.experiment.phase */
+} /* } Labsim.experiment.tactile */

@@ -1,16 +1,16 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.phase
+namespace Labsim.experiment.tactile
 {
 
     //
     // FSM state
     //
-    public sealed class ApollonTactilePhaseB
-        : ApollonAbstractExperimentState<profile.ApollonTactileProfile>
+    public sealed class TactilePhaseB
+        : Labsim.apollon.experiment.ApollonAbstractExperimentState<TactileProfile>
     {
-        public ApollonTactilePhaseB(profile.ApollonTactileProfile fsm)
+        public TactilePhaseB(TactileProfile fsm)
             : base(fsm)
         {
         }
@@ -20,7 +20,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseB.OnEntry() : begin"
+                "<color=Blue>Info: </color> TactilePhaseB.OnEntry() : begin"
             );
 
             // save timestamps
@@ -36,7 +36,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseB.OnEntry() : will wait " 
+                "<color=Blue>Info: </color> TactilePhaseB.OnEntry() : will wait " 
                 + bounded_random_timeout
                 + " ms"
             );
@@ -46,7 +46,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseB.OnEntry() : end"
+                "<color=Blue>Info: </color> TactilePhaseB.OnEntry() : end"
             );
 
         } /* OnEntry() */
@@ -56,7 +56,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseB.OnExit() : begin"
+                "<color=Blue>Info: </color> TactilePhaseB.OnExit() : begin"
             );
 
             // save timestamps
@@ -65,11 +65,11 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonTactilePhaseB.OnExit() : end"
+                "<color=Blue>Info: </color> TactilePhaseB.OnExit() : end"
             );
 
         } /* OnExit() */
 
-    } /* public sealed class ApollonTactilePhaseB */
+    } /* public sealed class TactilePhaseB */
 
-} /* } Labsim.apollon.experiment.phase */
+} /* } Labsim.experiment.tactile */
