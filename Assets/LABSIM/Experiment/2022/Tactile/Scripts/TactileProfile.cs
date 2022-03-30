@@ -17,9 +17,53 @@ namespace Labsim.experiment.tactile
         }
 
         #region settings/result
-        
+
         public class Settings
         {
+        
+            [System.AttributeUsage(System.AttributeTargets.Field)]  
+            private class JSONSettingsAttribute 
+                : System.Attribute  
+            {
+
+                public string name;
+            
+                public JSONSettingsAttribute(string settings, string phase = "", string unit = "", string separator = "_")  
+                {  
+                    if(!string.IsNullOrEmpty(phase)) {
+                        this.name += phase + separator;
+                    }
+                    this.name += settings;
+                    if(!string.IsNullOrEmpty(unit)) {
+                        this.name += separator + unit;
+                    }
+                }  
+            
+            } 
+
+            private string GetJSONSettingsAttributeName<T>(string field_name)
+            {
+                try 
+                {
+                    return ((JSONSettingsAttribute)System.Attribute.GetCustomAttribute(typeof(T).GetField(field_name), typeof(JSONSettingsAttribute))).name;
+                }
+                catch(System.Exception ex)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Info: </color> TactileProfile.Settings.GetJSONSettingsAttributeName() : failed to extract ("
+                        + field_name
+                        + ") with error ["
+                        + ex.Message
+                        + "]"
+                    );
+
+                    return "Error";
+
+                } /* try */
+            }    
+
             public enum ScenarioIDType
             {
 
@@ -57,20 +101,219 @@ namespace Labsim.experiment.tactile
 
             } /* enum */
 
+            [JSONSettingsAttribute("current_pattern")]
+            public string pattern_type;
+
+            [JSONSettingsAttribute("is_active_condition")]
             public bool bIsActive;
+
+            [JSONSettingsAttribute("is_catch_try_condition")]
             public bool bIsTryCatch;
 
+            [JSONSettingsAttribute("scenario_name")]
             public ScenarioIDType scenario_type;
 
-            public PatternIDType phase_C_stim_pattern = PatternIDType.Undefined;
+            public class PhaseASettings
+            {
 
-            public float
-                phase_A_duration,
-                phase_B_begin_stim_timeout_lower_bound,
-                phase_B_begin_stim_timeout_upper_bound,
-                phase_C_duration,
-                phase_D_duration;
-            
+                [JSONSettingsAttribute(phase:"phase_A", settings:"duration", unit:"ms")]
+                public float duration;
+
+            } /* class PhaseASettings */
+
+            public class PhaseBSettings
+            {
+
+                [JSONSettingsAttribute(phase:"phase_B", settings:"begin_stim_timeout", unit:"ms")]
+                public float 
+                    begin_stim_timeout_lower_bound,
+                    begin_stim_timeout_upper_bound;
+
+            } /* PhaseBSettings */ 
+
+            public class PhaseCSettings
+            {
+
+                [JSONSettingsAttribute(phase:"phase_C", settings:"stim_pattern_name")]
+                public PatternIDType stim_pattern = PatternIDType.Undefined;
+
+                [JSONSettingsAttribute(phase:"phase_C", settings:"total_duration", unit:"ms")]
+                public float total_duration;
+
+            } /* PhaseCSettings */ 
+
+            public class PhaseDSettings
+            {
+
+                [JSONSettingsAttribute(phase:"phase_D", settings:"duration", unit:"ms")]
+                public float duration;
+
+            } /* PhaseDSettings */ 
+
+            public PhaseASettings phase_A_settings = new PhaseASettings(); 
+            public PhaseBSettings phase_B_settings = new PhaseBSettings();
+            public PhaseCSettings phase_C_settings = new PhaseCSettings();
+            public PhaseDSettings phase_D_settings = new PhaseDSettings();
+
+            public bool ImportUXFSettings(UXF.Settings settings)
+            {
+
+                // encapsulate
+                try
+                {
+
+                    // extract general trial settings
+                    this.pattern_type 
+                        = settings.GetString(
+                            this.GetJSONSettingsAttributeName<Settings>("pattern_type")
+                        );
+                    this.bIsTryCatch 
+                        = settings.GetBool(
+                            this.GetJSONSettingsAttributeName<Settings>("bIsTryCatch")
+                        );
+                    this.bIsActive 
+                        = settings.GetBool(
+                            this.GetJSONSettingsAttributeName<Settings>("bIsActive")
+                        );
+                    
+                    // current scenario
+                    switch(
+                        settings.GetString(
+                            this.GetJSONSettingsAttributeName<Settings>("scenario_type")
+                        )
+                    ) {
+                        
+                        // spatial only
+                        case string param when param.Equals(
+                            Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatialOnly),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.scenario_type = Settings.ScenarioIDType.SpatialOnly;
+                            break;
+                        }
+
+                        // temporal only
+                        case string param when param.Equals(
+                            Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.TemporalOnly),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.scenario_type = Settings.ScenarioIDType.TemporalOnly;
+                            break;
+                        }
+
+                        // spatio-temporal
+                        case string param when param.Equals(
+                            Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatioTemporal),
+                            System.StringComparison.InvariantCultureIgnoreCase
+                        ) : {
+                            this.scenario_type = Settings.ScenarioIDType.SpatioTemporal;
+                            break;
+                        }
+
+                        // default
+                        default: 
+                        {
+                            this.scenario_type = Settings.ScenarioIDType.Undefined;
+                            break;
+                        }
+
+                    } /* switch() */
+
+                    // phase A
+                    this.phase_A_settings.duration                     
+                        = settings.GetFloat(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseASettings>("duration")
+                        );
+
+                    // phase B
+                    this.phase_B_settings.begin_stim_timeout_lower_bound
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("begin_stim_timeout")
+                        )[0];
+                    this.phase_B_settings.begin_stim_timeout_upper_bound
+                        = settings.GetFloatList(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("begin_stim_timeout")
+                        )[1];
+
+                    // phase C
+                    this.phase_C_settings.total_duration                     
+                        = settings.GetFloat(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("total_duration")
+                        );
+                    
+                    // phase D
+                    this.phase_D_settings.duration                     
+                        = settings.GetFloat(
+                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("duration")
+                        );
+
+                } 
+                catch(System.Exception ex)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Info: </color> TactileProfile.Settings.ImportUXFSettings() : failed to import settings with error ["
+                        + ex.Message
+                        + "]"
+                    );
+
+                    // failure
+                    return false;
+
+                } /* try */
+
+                // success
+                return true;
+
+            } /* ImportUXFSettings */
+
+            public void LogUXFSettings()
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> TactileProfile.Settings.LogUXFSettings() : imported current settings with pattern["
+                        + this.pattern_type
+                    + "]"
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings>("bIsTryCatch") 
+                        + " : " 
+                        + this.bIsTryCatch
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings>("bIsActive") 
+                        + " : " 
+                        + this.bIsActive
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings>("scenario_type") 
+                        + " : " 
+                        + Labsim.apollon.ApollonEngine.GetEnumDescription(this.scenario_type)
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseASettings>("duration") 
+                        + " : " 
+                        + this.phase_A_settings.duration
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("begin_stim_timeout") 
+                        + " : [" 
+                            + this.phase_B_settings.begin_stim_timeout_lower_bound
+                            + ","
+                            + this.phase_B_settings.begin_stim_timeout_upper_bound
+                        + "]"
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("stim_pattern") 
+                        + " : " 
+                        + Labsim.apollon.ApollonEngine.GetEnumDescription(this.phase_C_settings.stim_pattern)
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("total_duration") 
+                        + " : " 
+                        + this.phase_C_settings.total_duration
+                    + "\n - " 
+                        + this.GetJSONSettingsAttributeName<Settings.PhaseDSettings>("duration") 
+                        + " : " 
+                        + this.phase_D_settings.duration
+                );
+
+            } /* LogUXFSettings() */
 
         } /* class Settings */
 
@@ -102,8 +345,8 @@ namespace Labsim.experiment.tactile
 
                 public struct Touchpoint 
                 {
-                    float x, y, unity_timestamp;
-                    string host_timestamp;
+                    public float x, y, unity_timestamp;
+                    public string host_timestamp;
                 }
 
                 public System.Collections.Generic.List<Touchpoint> user_response = new System.Collections.Generic.List<Touchpoint>();
@@ -140,7 +383,7 @@ namespace Labsim.experiment.tactile
                 + "]\n" 
                 + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
                 + " | "
-                + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern)
+                + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_settings.stim_pattern)
             );
 
         } /* getCurrentStatusInfo() */
@@ -207,115 +450,14 @@ namespace Labsim.experiment.tactile
                 "<color=Blue>Info: </color> TactileProfile.onExperimentTrialBegin() : begin"
             );
 
-            // temporary string
-            string log = "";
-
-            // extract current duration settings
-            this.CurrentSettings.bIsTryCatch                            = arg.Trial.settings.GetBool("is_catch_try_condition");
-            this.CurrentSettings.bIsActive                              = arg.Trial.settings.GetBool("is_active_condition");
-            this.CurrentSettings.phase_A_duration                       = arg.Trial.settings.GetFloat("phase_A_duration_ms");
-            this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[0];
-            this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound = arg.Trial.settings.GetFloatList("phase_B_begin_stim_timeout_ms")[1];
-            this.CurrentSettings.phase_C_duration                       = arg.Trial.settings.GetFloat("phase_C_duration_ms");
-            this.CurrentSettings.phase_D_duration                       = arg.Trial.settings.GetFloat("phase_D_duration_ms");
-
-            // scenario
-            switch (arg.Trial.settings.GetString("scenario_name"))
+            // import current trial settings & log on completion
+            if(this.CurrentSettings.ImportUXFSettings(arg.Trial.settings))
             {
-
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.TemporalOnly),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.scenario_type = Settings.ScenarioIDType.TemporalOnly;
-                    break;
-                }
-
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatialOnly),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.scenario_type = Settings.ScenarioIDType.SpatialOnly;
-                    break;
-                }
-
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.ScenarioIDType.SpatioTemporal),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.scenario_type = Settings.ScenarioIDType.SpatioTemporal;
-                    break;
-                }
-                
-                default:
-                {
-                    this.CurrentSettings.scenario_type = Settings.ScenarioIDType.Undefined;
-                    break;
-                }
-
-            } /* switch() */
-
-            // current pattern
-            switch (arg.Trial.settings.GetString("phase_C_stim_pattern_name"))
-            {
-
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.VV),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.VV;
-                    break;
-                }
-
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.VC),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.VC;
-                    break;
-                }
-
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.CC),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.CC;
-                    break;
-                }
-                
-                case string param when param.Equals(
-                    Labsim.apollon.ApollonEngine.GetEnumDescription(Settings.PatternIDType.CV),
-                    System.StringComparison.InvariantCultureIgnoreCase
-                ) : {
-                    this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.CV;
-                    break;
-                }
-
-                default:
-                {
-                    this.CurrentSettings.phase_C_stim_pattern = Settings.PatternIDType.Undefined;
-                    break;
-                }
-
-            } /* switch() */
-
-            // log settings
-            log +="\n - scenario_name : " + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type)
-                + "\n - phase_A_duration : " + this.CurrentSettings.phase_A_duration 
-                + "\n - phase_B_begin_stim_timeout_lower_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_lower_bound 
-                + "\n - phase_B_begin_stim_timeout_upper_bound : " + this.CurrentSettings.phase_B_begin_stim_timeout_upper_bound 
-                + "\n - phase_C_duration : " + this.CurrentSettings.phase_C_duration 
-                + "\n - phase_C_stim_pattern : " + Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern)
-                + "\n - phase_D_duration : " + this.CurrentSettings.phase_D_duration;
+                this.CurrentSettings.LogUXFSettings();
+            }
 
             // clean response arrays
             this.CurrentResults.phase_E_results.user_response.Clear();
-            
-            // log the final result
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileProfile.onExperimentTrialBegin() : found current settings "
-                + log
-            );
 
             // activate gameplay element
             Labsim.apollon.gameplay.ApollonGameplayManager.Instance.setActive(Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
@@ -352,14 +494,14 @@ namespace Labsim.experiment.tactile
             );
 
             // write result
-            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["scenario"] 
-                = Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
             Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["pattern"] 
-                = Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.phase_C_stim_pattern);
+                = this.CurrentSettings.pattern_type;
             Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["active_condition"] 
                 = this.CurrentSettings.bIsActive.ToString();
             Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] 
                 = this.CurrentSettings.bIsTryCatch.ToString();
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["scenario"] 
+                = Labsim.apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
 
             // phase A
             Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_unity_timestamp"]
@@ -410,6 +552,28 @@ namespace Labsim.experiment.tactile
                 = this.CurrentResults.phase_E_results.timing_on_entry_host_timestamp;
             Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_exit_host_timestamp;
+            Labsim.apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_response"] 
+                = (
+                    "[" 
+                    + System.String.Join(
+                        ";", 
+                        this.CurrentResults.phase_E_results.user_response.Select(
+                            touchpoint 
+                                => (
+                                    "[" 
+                                    + touchpoint.x 
+                                    + ";"
+                                    + touchpoint.y 
+                                    + ";" 
+                                    + touchpoint.unity_timestamp
+                                    + ";"
+                                    + touchpoint.host_timestamp
+                                    + "]"
+                                )
+                        ) 
+                    ) 
+                    + "]"
+                );
                 
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);
