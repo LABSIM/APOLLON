@@ -39,7 +39,7 @@ namespace Labsim.experiment.tactile
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
 
             // hide green frame first
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
@@ -48,7 +48,7 @@ namespace Labsim.experiment.tactile
             this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
 
             // then hide green cross
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);

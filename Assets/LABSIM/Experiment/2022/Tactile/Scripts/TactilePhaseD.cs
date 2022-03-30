@@ -34,13 +34,13 @@ namespace Labsim.experiment.tactile
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
+            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_settings.duration / 2.0f);
 
             // show red frame
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
+            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_settings.duration / 2.0f);
 
             // hide red cross & frame
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
