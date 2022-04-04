@@ -27,6 +27,9 @@ namespace Labsim.experiment.tactile
             this.FSM.CurrentResults.phase_C_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
             this.FSM.CurrentResults.phase_C_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+            // wait a certain amout of time
+            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_C_settings.total_duration);
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> TactilePhaseC.OnEntry() : end"
