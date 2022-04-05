@@ -85,3 +85,4 @@ Material:
     - _FresnelColor: {r: 22.408676, g: 22.408676, b: 22.408676, a: 0.09803922}
     - _MainColor: {r: 2.670157, g: 2.670157, b: 2.670157, a: 0}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
