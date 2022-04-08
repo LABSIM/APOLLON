@@ -33,10 +33,16 @@ public class TactileHandMeshCloner
 {
 
     [UnityEngine.SerializeField]
-    public UnityEngine.SkinnedMeshRenderer SkinnedMeshReference = null;
+    private UnityEngine.GameObject HandReference = null;
+    
+    [UnityEngine.SerializeField]
+    private UnityEngine.GameObject WristAnchor = null;
 
-    // [UnityEngine.SerializeField]
-    // public UnityEngine.GameObject Parent = null;
+    [UnityEngine.SerializeField]
+    private UnityEngine.Material MaterialReference = null;
+    
+    [UnityEngine.SerializeField]
+    private UnityEngine.GameObject SnapshotAnchor = null;
 
     public UnityEngine.GameObject SkinnedMeshSnapshot { private set; get; } = null;
 
@@ -47,27 +53,36 @@ public class TactileHandMeshCloner
         {
 
             if(this.SkinnedMeshSnapshot == null) 
-            {
-                
+            {  
 
-                // intantiate
+                // intantiate a game object
                 this.SkinnedMeshSnapshot = new UnityEngine.GameObject("LH_Snapshot");
-                var filter = this.SkinnedMeshSnapshot.AddComponent<UnityEngine.MeshFilter>();
-                var renderer = this.SkinnedMeshSnapshot.AddComponent<UnityEngine.MeshRenderer>();
-
-                // configure
-                this.SkinnedMeshSnapshot.transform.SetParent(this.transform);
+                this.SkinnedMeshSnapshot.transform.SetParent(this.SnapshotAnchor.transform, false);
                 this.SkinnedMeshSnapshot.layer = UnityEngine.LayerMask.NameToLayer("HandProjectorLayer");
-                this.SkinnedMeshReference.BakeMesh(filter.mesh, false);
+                this.SkinnedMeshSnapshot.transform.SetPositionAndRotation(
+                    this.SnapshotAnchor.transform.TransformPoint(UnityEngine.Vector3.zero),
+                    this.SnapshotAnchor.transform.localRotation
+                );
+
+                // add a mesh filter, move the wrist anchor once (will be updated by the ultraleap script right after) & clone the skinned hand mesh
+                var filter = this.SkinnedMeshSnapshot.AddComponent<UnityEngine.MeshFilter>();
+                this.WristAnchor.transform.SetPositionAndRotation(
+                    UnityEngine.Vector3.zero,
+                    UnityEngine.Quaternion.identity
+                );
+                this.HandReference.GetComponentInChildren<UnityEngine.SkinnedMeshRenderer>().BakeMesh(filter.mesh, false);
+
+                // add a renderer & assign the outlining shader material
+                var renderer = this.SkinnedMeshSnapshot.AddComponent<UnityEngine.MeshRenderer>();
+                renderer.material = this.MaterialReference;
                 renderer.enabled = true;
-                renderer.material = this.SkinnedMeshReference.material;
                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 renderer.receiveShadows = true;
                 renderer.allowOcclusionWhenDynamic = false;
                 renderer.forceRenderingOff = false;
 
-                this.SkinnedMeshSnapshot.SetActive(false);
-                this.SkinnedMeshSnapshot.isStatic = false;
+                // this.SkinnedMeshSnapshot.SetActive(false);
+                // this.SkinnedMeshSnapshot.isStatic = false;
 
             } /* if() */
 
@@ -85,10 +100,10 @@ public class TactileHandMeshCloner
     void Update()
     {
 
-        if(this.SkinnedMeshSnapshot != null && !this.SkinnedMeshSnapshot.activeSelf)
-        {
-            this.SkinnedMeshSnapshot.SetActive(true);
-        }
+        // if(this.SkinnedMeshSnapshot != null && !this.SkinnedMeshSnapshot.activeSelf)
+        // {
+        //     this.SkinnedMeshSnapshot.SetActive(true);
+        // }
 
     }
 
