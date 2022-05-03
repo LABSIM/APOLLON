@@ -30,6 +30,9 @@ namespace Labsim.experiment.tactile
 
         [UnityEngine.SerializeField]
         private UnityEngine.GameObject TouchpointPrefab = null;
+        
+        [UnityEngine.SerializeField]
+        private UnityEngine.BoxCollider ProjectionPlaneCollider = null;
 
         #region MonoBehaviour Impl 
 
@@ -54,23 +57,37 @@ namespace Labsim.experiment.tactile
 
         #endregion
 
-        public void AddTouchpoint()
+        public void AddTouchpoint(UnityEngine.Vector3 hit_pos)
         {
-            
-            var pos 
-                = Leap.Unity.UnityVectorExtension.ToVector3(
-                    Leap.Unity.Hands.Get(Leap.Unity.Chirality.Right).Finger(1).TipPosition
-                );
 
+            // finally clone tuned prefab at object origin
             var touchpoint 
                 = UnityEngine.GameObject.Instantiate(
                     this.TouchpointPrefab,
-                    pos,
-                    UnityEngine.Quaternion.identity,
+                    this.transform.position,
+                    this.transform.rotation,
                     this.transform
                 );
-
-        } 
+        
+            // slide prefab instance to normalized hit position in bounds X = (value-min)/(max-min)
+            var slider = touchpoint.GetComponentInChildren<Leap.Unity.Interaction.InteractionSlider>();
+            slider.defaultHorizontalValue 
+                = (
+                    ((hit_pos.x - this.transform.position.x) / this.transform.lossyScale.x)
+                    - slider.horizontalSlideLimits.x
+                ) 
+                / (slider.horizontalSlideLimits.y - slider.horizontalSlideLimits.x);
+            slider.defaultVerticalValue
+                = (
+                    ((hit_pos.y - this.transform.position.y) / this.transform.lossyScale.y)
+                    - slider.verticalSlideLimits.x
+                ) 
+                / (slider.verticalSlideLimits.y - slider.verticalSlideLimits.x);
+            
+            // active it 
+            touchpoint.SetActive(true);
+            
+        } /* AddTouchpoint() */
 
     } /* class TactileResponseAreaBehaviour */
 
