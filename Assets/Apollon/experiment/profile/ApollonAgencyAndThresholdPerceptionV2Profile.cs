@@ -196,9 +196,7 @@ namespace Labsim.apollon.experiment.profile
             {
 
                 [JSONSettingsAttribute(phase:"phase_C", settings:"inter_stim_timeout", unit:"ms")]
-                public float 
-                    inter_stim_timeout_lower_bound,
-                    inter_stim_timeout_upper_bound;
+                public float[] inter_stim_timeout = new float [2];
 
             } /* PhaseCSettings */ 
 
@@ -465,14 +463,10 @@ namespace Labsim.apollon.experiment.profile
                         ).ToArray();
                     
                     // phase C
-                    this.phase_C_settings.inter_stim_timeout_lower_bound
+                    this.phase_C_settings.inter_stim_timeout
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout")
-                        )[0];
-                    this.phase_C_settings.inter_stim_timeout_upper_bound
-                        = settings.GetFloatList(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout")
-                        )[1];
+                        ).ToArray();
                     
                     // phase B
                     this.phase_F_settings.stim_duration
@@ -690,9 +684,9 @@ namespace Labsim.apollon.experiment.profile
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("inter_stim_timeout") 
                         + " : [" 
-                            + this.phase_C_settings.inter_stim_timeout_lower_bound
+                            + this.phase_C_settings.inter_stim_timeout[0]
                             + ","
-                            + this.phase_C_settings.inter_stim_timeout_upper_bound
+                            + this.phase_C_settings.inter_stim_timeout[1]
                         + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseFSettings>("stim_duration") 

@@ -24,21 +24,30 @@ public class ApollonWhiteNoiseAudioCommand
 
     private float increment;
     private float phase;
+    private bool m_bRunning = false;
 
     System.Random rand = new System.Random();
     UnityEngine.AudioLowPassFilter lowPassFilter;
 
     void Awake()
     {
-        sampling_frequency = UnityEngine.AudioSettings.outputSampleRate;
 
+        sampling_frequency = UnityEngine.AudioSettings.outputSampleRate;
         lowPassFilter = GetComponent<UnityEngine.AudioLowPassFilter>();
+
         Update();
+
+        this.m_bRunning = true;
+        
     }
 
 
     void OnAudioFilterRead(float[] data, int channels)
     {
+
+        if (!this.m_bRunning)
+            return;
+
         float tonalPart = 0;
         float noisePart = 0;
 

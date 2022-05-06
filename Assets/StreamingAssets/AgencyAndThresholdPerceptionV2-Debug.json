@@ -225,19 +225,19 @@
       "phase_F_stim_duration_ms": 1500.0,
       "phase_F_total_duration_ms" : 3000.0,
 
-      "phase_F_angular_strong_acceleration_ratio_from_reference": 2.0,
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
       "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
       "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
-      "phase_F_linear_strong_acceleration_ratio_from_reference": 2.0,
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
       "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
       "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
 
-      "phase_F_linear_weak_acceleration_ratio_from_reference": 2.0,
-      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
-      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
-      "phase_F_angular_weak_acceleration_ratio_from_reference": 2.0,
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
       "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
       "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
 
       "phase_F_angular_mandatory_axis": [ false, false, false ],
       "phase_F_linear_mandatory_axis": [ false, true, false ],
@@ -575,13 +575,13 @@
       "is_sequence_randomized": true,
       "trial_sequence": [
         "active_visuovestibular",
+        "passive_visuovestibular_strong",
         "active_visuovestibular",
+        "passive_visuovestibular_weak",
         "active_visuovestibular",
+        "passive_visuovestibular_strong",
         "active_visuovestibular",
-        "active_visuovestibular",
-        "active_visuovestibular",
-        "active_visuovestibular",
-        "active_visuovestibular"
+        "passive_visuovestibular_weak"
       ]
 
     },
@@ -606,7 +606,7 @@
   },
 
   "block_sequence": [
-    "block_visual"
+    "block_visuovestibular"
   ]
 
 }

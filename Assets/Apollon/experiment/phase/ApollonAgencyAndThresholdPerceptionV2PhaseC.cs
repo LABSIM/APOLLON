@@ -31,8 +31,8 @@ namespace Labsim.apollon.experiment.phase
             // get a (Unity) bounded random amount of time to wait
             float bounded_random_timeout
                 = UnityEngine.Random.Range(
-                    this.FSM.CurrentSettings.phase_C_settings.inter_stim_timeout_lower_bound,
-                    this.FSM.CurrentSettings.phase_C_settings.inter_stim_timeout_upper_bound
+                    this.FSM.CurrentSettings.phase_C_settings.inter_stim_timeout[0],
+                    this.FSM.CurrentSettings.phase_C_settings.inter_stim_timeout[1]
                 );
 
             // log

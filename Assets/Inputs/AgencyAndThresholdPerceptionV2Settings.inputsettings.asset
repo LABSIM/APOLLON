@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: AgencyAndThresholdPerceptionV2Settings.inputsettings
   m_EditorClassIdentifier: 
   m_SupportedDevices:
+  - HID::Thrustmaster Throttle - HOTAS Warthog
   - Keyboard
   - Mouse
-  - HID::Thrustmaster Throttle - HOTAS Warthog
-  - HID::Thustmaster Joystick - HOTAS Warthog
   m_UpdateMode: 2
   m_CompensateForScreenOrientation: 1
   m_FilterNoiseOnCurrent: 0
