@@ -886,7 +886,7 @@ namespace Labsim.apollon.experiment.profile
 
         private static readonly uint _latency_default_BucketSize = 5;
         private static readonly float _latency_default_timeout_lower_bound = 300.0f;
-        private static readonly float _latency_default_timeout_upper_bound = 750.0f;
+        private static readonly float _latency_default_timeout_upper_bound = 1500.0f;
 
         private uint m_currentInitialDefaultLatencyValueCount = 0;
         private System.Collections.Generic.Queue<float> m_currentLatencyBucket = null;
@@ -999,7 +999,11 @@ namespace Labsim.apollon.experiment.profile
         {
             
             // get a latency from random index in the current bucket
-            return this.CurrentLatencyBucket.ToList()[UnityEngine.Random.Range(0, this.CurrentLatencyBucket.Count - 1)];
+            return UnityEngine.Mathf.Clamp(
+                this.CurrentLatencyBucket.ToList()[UnityEngine.Random.Range(0, this.CurrentLatencyBucket.Count - 1)],
+                _latency_default_timeout_lower_bound,
+                _latency_default_timeout_upper_bound 
+            );
 
         } /* GetRandomLatencyFromBucket() */
 

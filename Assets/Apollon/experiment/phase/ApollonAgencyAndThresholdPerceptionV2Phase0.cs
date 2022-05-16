@@ -28,7 +28,7 @@ namespace Labsim.apollon.experiment.phase
             this.FSM.CurrentResults.phase_0_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // setup UI frontend instructions
-            this.FSM.CurrentInstruction = (this.FSM.CurrentSettings.bIsActive ? "Actif" : "Passif");
+            this.FSM.CurrentInstruction = (this.FSM.CurrentSettings.bIsActive ? "Condition manuelle" : "Condition automatique");
 
             // show grey cross & frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
@@ -70,7 +70,7 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // setup UI frontend instructions
-            this.FSM.CurrentInstruction = "Stim 1";
+            this.FSM.CurrentInstruction = "Déplacement 1";
 
             // hide grey frame/cross & show green frame/cross
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);

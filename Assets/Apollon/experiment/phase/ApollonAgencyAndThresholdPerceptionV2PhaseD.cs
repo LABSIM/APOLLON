@@ -38,7 +38,7 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // setup UI frontend instructions
-            this.FSM.CurrentInstruction = "Stim 2";
+            this.FSM.CurrentInstruction = "Déplacement 2";
 
             // hide grey frame/cross & show green frame/cross
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
