@@ -7,7 +7,7 @@ namespace Labsim.experiment.tactile
 {
 
     public class TactileControlBridge 
-        : Labsim.apollon.gameplay.ApollonAbstractGameplayBridge
+        : TactileAbstractBridge
     {
 
         //ctor
@@ -51,9 +51,9 @@ namespace Labsim.experiment.tactile
 
         } /* WrapBehaviour() */
 
-        protected override Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType WrapID()
+        protected override TactileManager.IDType WrapID()
         {
-            return Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.TactileControl;
+            return TactileManager.IDType.TactileControl;
         }
         
         protected override void SetActive(bool value)

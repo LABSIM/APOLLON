@@ -13,8 +13,7 @@ namespace Labsim.experiment.tactile
 
         #region MonoBehaviour Impl         
         
-        [UnityEngine.SerializeField]
-        private TactileTouchpointListBehaviour TouchpointListBehaviour = null;
+        private TactileConditionBehaviour AttachedBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileCondition).Behaviour as TactileConditionBehaviour;
 
         private void Start()
         {
@@ -41,13 +40,13 @@ namespace Labsim.experiment.tactile
             }
 
             // handle button activation
-            if((this.TouchpointListBehaviour.Touchpoints.Count >= TactileTouchpointListBehaviour.s_touchpointMaxCount) && !this.m_button.controlEnabled)
+            if((this.AttachedBehaviour.TouchpointList.Count >= TactileConditionBehaviour.s_touchpointMaxCount) && !this.m_button.controlEnabled)
             {
             
                 this.m_button.controlEnabled = true;
             
             }
-            else if((this.TouchpointListBehaviour.Touchpoints.Count < TactileTouchpointListBehaviour.s_touchpointMaxCount) && this.m_button.controlEnabled)
+            else if((this.AttachedBehaviour.TouchpointList.Count < TactileConditionBehaviour.s_touchpointMaxCount) && this.m_button.controlEnabled)
             {
 
                 this.m_button.controlEnabled = false;
@@ -65,7 +64,6 @@ namespace Labsim.experiment.tactile
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> TactileValidateButtonBehaviour.OnButtonPressed() : call"
             );
-
 
         } /* OnButtonPressed() */
 

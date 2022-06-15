@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 834305268099893187}
   - component: {fileID: 1804234735880358395}
   m_Layer: 0
-  m_Name: SpatialResponseArea
+  m_Name: ResponseArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,9 +250,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7241936238577020464}
-  - component: {fileID: 280433688713404722}
   m_Layer: 0
-  m_Name: TouchpointList
+  m_Name: TouchpointGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,21 +271,6 @@ Transform:
   m_Father: {fileID: 5250156607250875601}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &280433688713404722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4061132861617805445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fcef042875df714c9a414afa621eded, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TouchpointPrefab: {fileID: 9139820286123940461, guid: 0337c50d83a026642a40a7820f68433f,
-    type: 3}
-  ProjectionPlaneCollider: {fileID: 8381925697204016830}
 --- !u!1 &4072639527051537221
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,8 +586,8 @@ GameObject:
   - component: {fileID: 2954526841212171869}
   - component: {fileID: 5097391048519116784}
   - component: {fileID: 7288456916874797588}
-  - component: {fileID: 1840049140397333847}
-  - component: {fileID: 806984864263740095}
+  - component: {fileID: 2569970790976156681}
+  - component: {fileID: 3784062542996097013}
   m_Layer: 0
   m_Name: Validate
   m_TagString: Untagged
@@ -680,23 +664,11 @@ MonoBehaviour:
   _springForce: 0.1
   _OnPress:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 806984864263740095}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnButtonPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _OnUnpress:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1840049140397333847
+--- !u!114 &2569970790976156681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -708,9 +680,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b02e2f8ae628ac4f9faca951fe12db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHover: 1
-  usePrimaryHover: 0
-  defaultColor: {r: 0, g: 1, b: 0, a: 1}
+  useHover: 0
+  usePrimaryHover: 1
+  defaultColor: {r: 0, g: 0.9215687, b: 0.5215686, a: 1}
   suspendedColor: {r: 1, g: 0, b: 0, a: 1}
   hoverColor: {r: 0.65882355, g: 0.18431373, b: 0.93725497, a: 1}
   primaryHoverColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
@@ -718,7 +690,7 @@ MonoBehaviour:
   rends:
   - materialID: 0
     renderer: {fileID: 3762901642655889017}
---- !u!114 &806984864263740095
+--- !u!114 &3784062542996097013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -730,7 +702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e11dd8b3ba4f340a1b981372afa20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TouchpointListBehaviour: {fileID: 280433688713404722}
+  AttachedBehaviour: {fileID: 0}
 --- !u!1 &5697831363562591123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,7 +996,7 @@ MonoBehaviour:
   OnProximity:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 280433688713404722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnFingerTipProximity
         m_Mode: 2
@@ -1057,8 +1029,8 @@ GameObject:
   - component: {fileID: 4728936425231337679}
   - component: {fileID: 5199144096304634612}
   - component: {fileID: 2404698538453338048}
-  - component: {fileID: 8119465445819916054}
-  - component: {fileID: 8425804913169531572}
+  - component: {fileID: 4992430130878898507}
+  - component: {fileID: 5895100291869951283}
   m_Layer: 0
   m_Name: Revert
   m_TagString: Untagged
@@ -1135,23 +1107,11 @@ MonoBehaviour:
   _springForce: 0.1
   _OnPress:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8425804913169531572}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnButtonPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _OnUnpress:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8119465445819916054
+--- !u!114 &4992430130878898507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1163,9 +1123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b02e2f8ae628ac4f9faca951fe12db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHover: 1
-  usePrimaryHover: 0
-  defaultColor: {r: 1, g: 0.04603273, b: 0, a: 1}
+  useHover: 0
+  usePrimaryHover: 1
+  defaultColor: {r: 0, g: 0.9215687, b: 0.5215686, a: 1}
   suspendedColor: {r: 1, g: 0, b: 0, a: 1}
   hoverColor: {r: 0.65882355, g: 0.18431373, b: 0.93725497, a: 1}
   primaryHoverColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
@@ -1173,7 +1133,7 @@ MonoBehaviour:
   rends:
   - materialID: 0
     renderer: {fileID: 4548189488786932848}
---- !u!114 &8425804913169531572
+--- !u!114 &5895100291869951283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1185,7 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5d861fe668d624395476d14f94207e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TouchpointListBehaviour: {fileID: 280433688713404722}
+  AttachedBehaviour: {fileID: 0}
 --- !u!1 &8631536873381360253
 GameObject:
   m_ObjectHideFlags: 0
