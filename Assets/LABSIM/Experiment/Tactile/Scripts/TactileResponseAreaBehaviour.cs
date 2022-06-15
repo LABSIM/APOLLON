@@ -4,7 +4,7 @@ using System.Linq;
 namespace Labsim.experiment.tactile
 {
 
-    public sealed class TactileConditionBehaviour
+    public sealed class TactileResponseAreaBehaviour
         : UnityEngine.MonoBehaviour
     {
 
@@ -15,7 +15,7 @@ namespace Labsim.experiment.tactile
         private bool m_bHasInitialized = false;
 
         // properties
-        // public TactileConditionBridge Bridge { get; set; }
+        public TactileResponseAreaBridge Bridge { get; set; }
         public System.Collections.Generic.List<ITactileTouchpoint> TouchpointList { get; set; } = new System.Collections.Generic.List<ITactileTouchpoint>();
 
         // methods 
@@ -24,7 +24,7 @@ namespace Labsim.experiment.tactile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileConditionBehaviour.AddTouchpoint() : call"
+                "<color=Blue>Info: </color> TactileResponseAreaBehaviour.AddTouchpoint() : call"
             );
 
             // finally, track current into list
@@ -37,7 +37,7 @@ namespace Labsim.experiment.tactile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileConditionBehaviour.ClearAllTouchpoint() : call"
+                "<color=Blue>Info: </color> TactileResponseAreaBehaviour.ClearAllTouchpoint() : call"
             );
 
             // apply for each element & clear refs
@@ -51,7 +51,7 @@ namespace Labsim.experiment.tactile
             
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileConditionBehaviour.ActivateAllTouchpoint() : call"
+                "<color=Blue>Info: </color> TactileResponseAreaBehaviour.ActivateAllTouchpoint() : call"
             );
 
             // apply for each element 
@@ -64,7 +64,7 @@ namespace Labsim.experiment.tactile
         {
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.Initialize() : begin");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : begin");
             
             // instantiate state controller components
             var Idle = this.gameObject.AddComponent<IdleController>();
@@ -73,18 +73,18 @@ namespace Labsim.experiment.tactile
             var SpatioTemporalCondition = this.gameObject.AddComponent<SpatioTemporalConditionController>();
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.Initialize() : state controller added as gameObject's component");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : state controller added as gameObject's component");
 
             // do
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.Initialize() : init ok, mark as initialized");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : init ok, mark as initialized");
             
             // switch state
             this.m_bHasInitialized = true;
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.Initialize() : end");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : end");
 
         } /* Initialize() */
 
@@ -92,12 +92,12 @@ namespace Labsim.experiment.tactile
         {
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.Close() : begin");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Close() : begin");
 
             // do
             
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.Close() : end");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Close() : end");
 
         } /* Close() */
 
@@ -107,7 +107,7 @@ namespace Labsim.experiment.tactile
             : UnityEngine.MonoBehaviour
         {
 
-            private TactileConditionBehaviour _parent = null;
+            private TactileResponseAreaBehaviour _parent = null;
 
             private void Awake()
             {
@@ -122,16 +122,16 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.IdleController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.IdleController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -147,7 +147,7 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.IdleController.OnEnable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.IdleController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -157,16 +157,16 @@ namespace Labsim.experiment.tactile
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.IdleController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.IdleController.OnDisable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -180,7 +180,7 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.IdleController.OnDisable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.IdleController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
@@ -191,7 +191,7 @@ namespace Labsim.experiment.tactile
             : UnityEngine.MonoBehaviour
         {
 
-            private TactileConditionBehaviour _parent = null;
+            private TactileResponseAreaBehaviour _parent = null;
 
             private void Awake()
             {
@@ -206,16 +206,16 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -227,11 +227,12 @@ namespace Labsim.experiment.tactile
 
                 } /* if() */
 
-                // do idling
+                // bind 
+                this._parent.ProjectionPlaneProximityDetector.OnProximity.AddListener(this.OnFingerTipProximity);
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnEnable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -241,16 +242,16 @@ namespace Labsim.experiment.tactile
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnDisable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -262,9 +263,12 @@ namespace Labsim.experiment.tactile
 
                 } /* if() */
 
+                // unbind
+                this._parent.ProjectionPlaneProximityDetector.OnProximity.RemoveListener(this.OnFingerTipProximity);
+
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnDisable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
@@ -274,7 +278,7 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatioTemporalConditionController.OnFingerTipProximity(UnityEngine.GameObject) : call"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatioTemporalConditionController.OnFingerTipProximity(UnityEngine.GameObject) : call"
                 );
 
                 // Returns a point on the given collider that is closest to the specified location.
@@ -386,7 +390,7 @@ namespace Labsim.experiment.tactile
             : UnityEngine.MonoBehaviour
         {
 
-            private TactileConditionBehaviour _parent = null;
+            private TactileResponseAreaBehaviour _parent = null;
 
             private void Awake()
             {
@@ -401,16 +405,16 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.TemporalConditionController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.TemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -422,11 +426,12 @@ namespace Labsim.experiment.tactile
 
                 } /* if() */
 
-                // do idling
+                // bind 
+                this._parent.ProjectionPlaneProximityDetector.OnProximity.AddListener(this.OnFingerTipProximity);
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.TemporalConditionController.OnEnable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -436,16 +441,16 @@ namespace Labsim.experiment.tactile
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.TemporalConditionController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnDisable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.TemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -457,9 +462,12 @@ namespace Labsim.experiment.tactile
 
                 } /* if() */
 
+                // unbind
+                this._parent.ProjectionPlaneProximityDetector.OnProximity.RemoveListener(this.OnFingerTipProximity);
+
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.TemporalConditionController.OnDisable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
@@ -469,7 +477,7 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.TemporalConditionController.OnFingerTipProximity(UnityEngine.GameObject) : call"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.TemporalConditionController.OnFingerTipProximity(UnityEngine.GameObject) : call"
                 );
 
             } /* OnFingerTipProximity() */
@@ -480,7 +488,7 @@ namespace Labsim.experiment.tactile
             : UnityEngine.MonoBehaviour
         {
 
-            private TactileConditionBehaviour _parent = null;
+            private TactileResponseAreaBehaviour _parent = null;
 
             private void Awake()
             {
@@ -495,16 +503,16 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatialConditionController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.SpatialConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -516,11 +524,12 @@ namespace Labsim.experiment.tactile
 
                 } /* if() */
 
-                // do idling
+                // bind 
+                this._parent.ProjectionPlaneProximityDetector.OnProximity.AddListener(this.OnFingerTipProximity);
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatialConditionController.OnEnable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -530,16 +539,16 @@ namespace Labsim.experiment.tactile
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatialConditionController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnDisable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<TactileConditionBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<TactileResponseAreaBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileConditionBehaviour.SpatialConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -551,9 +560,12 @@ namespace Labsim.experiment.tactile
 
                 } /* if() */
 
+                // unbind
+                this._parent.ProjectionPlaneProximityDetector.OnProximity.RemoveListener(this.OnFingerTipProximity);
+
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatialConditionController.OnDisable() : end"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
@@ -563,7 +575,7 @@ namespace Labsim.experiment.tactile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> TactileConditionBehaviour.SpatialConditionController.OnFingerTipProximity(UnityEngine.GameObject) : call"
+                    "<color=Blue>Info: </color> TactileResponseAreaBehaviour.SpatialConditionController.OnFingerTipProximity(UnityEngine.GameObject) : call"
                 );
 
             } /* OnFingerTipProximity() */
@@ -575,13 +587,16 @@ namespace Labsim.experiment.tactile
         #region MonoBehaviour Impl 
         
         [UnityEngine.SerializeField]
-        protected UnityEngine.GameObject TouchpointAnchor = null;
+        private UnityEngine.GameObject TouchpointAnchor = null;
 
         [UnityEngine.SerializeField]
-        protected UnityEngine.GameObject TouchpointPrefab = null;
+        private UnityEngine.GameObject TouchpointPrefab = null;
         
         [UnityEngine.SerializeField]
-        protected UnityEngine.Collider ProjectionPlaneCollider = null;
+        private UnityEngine.Collider ProjectionPlaneCollider = null;
+        
+        [UnityEngine.SerializeField]
+        private Leap.Unity.ProximityDetector ProjectionPlaneProximityDetector = null;
 
         private void Start()
         {
@@ -598,7 +613,7 @@ namespace Labsim.experiment.tactile
             {
 
                 // log
-                UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.OnEnable() : initialize required");
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.OnEnable() : initialize required");
 
                 // call
                 this.Initialize();
@@ -615,7 +630,7 @@ namespace Labsim.experiment.tactile
             {
 
                 // log
-                UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileConditionBehaviour.OnEnable() : close required");
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.OnEnable() : close required");
 
                 // call
                 this.Close();
@@ -626,6 +641,6 @@ namespace Labsim.experiment.tactile
 
         #endregion
 
-    } /* class TactileConditionBehaviour */
+    } /* class TactileResponseAreaBehaviour */
 
 } /* } Labsim.experiment.tactile */

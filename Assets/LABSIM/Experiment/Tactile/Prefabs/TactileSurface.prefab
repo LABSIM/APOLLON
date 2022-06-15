@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3157340305644573671}
   - component: {fileID: 834305268099893187}
   - component: {fileID: 1804234735880358395}
+  - component: {fileID: 3495936038495618835}
   m_Layer: 0
   m_Name: ResponseArea
   m_TagString: Untagged
@@ -113,6 +114,23 @@ MonoBehaviour:
     layerIndex: 0
   _eventTable:
     _entries: []
+--- !u!114 &3495936038495618835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696954137964153728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c078cb6e2f1bc24c9168401065cbf16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TouchpointAnchor: {fileID: 4061132861617805445}
+  TouchpointPrefab: {fileID: 9139820286123940461, guid: 0337c50d83a026642a40a7820f68433f,
+    type: 3}
+  ProjectionPlaneCollider: {fileID: 8381925697204016830}
+  ProjectionPlaneProximityDetector: {fileID: 6938585516397662874}
 --- !u!1 &2967211111552164993
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e11dd8b3ba4f340a1b981372afa20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttachedBehaviour: {fileID: 0}
 --- !u!1 &5697831363562591123
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,19 +1012,7 @@ MonoBehaviour:
       m_Calls: []
   OnProximity:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnFingerTipProximity
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 4384182096645720527}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   Period: 0.005
   TargetObjects: []
   TagName: 
@@ -1145,7 +1150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5d861fe668d624395476d14f94207e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttachedBehaviour: {fileID: 0}
 --- !u!1 &8631536873381360253
 GameObject:
   m_ObjectHideFlags: 0

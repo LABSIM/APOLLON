@@ -288,7 +288,12 @@ namespace Labsim.experiment.tactile
             {
                 { IDType.None, false },
                 { IDType.TactileControl, false },
-                { IDType.TactileCondition, false },
+                { IDType.TactileResponseArea, false },
+                { IDType.TactileSpatialCondition, false },
+                { IDType.TactileTemporalCondition, false },
+                { IDType.TactileSpatioTemporalCondition, false },
+                { IDType.TactileValidateButton, false },
+                { IDType.TactileRevertButton, false },
                 { IDType.All, false }
             };
 
@@ -299,14 +304,10 @@ namespace Labsim.experiment.tactile
 
         #endregion
 
-        #region private member/method
+        #region member/method
 
         private readonly System.Collections.Generic.Dictionary<IDType, bool> _State
             = new System.Collections.Generic.Dictionary<IDType, bool>();
-
-        #endregion
-
-        #region public member/method
 
         public enum IDType
         {
@@ -314,11 +315,26 @@ namespace Labsim.experiment.tactile
             [System.ComponentModel.Description("None")]
             None = 0,
 
-            [System.ComponentModel.Description("TactileControl")]
+            [System.ComponentModel.Description("Control")]
             TactileControl,
 
-            [System.ComponentModel.Description("TactileCondition")]
-            TactileCondition,
+            [System.ComponentModel.Description("ResponseArea")]
+            TactileResponseArea,
+            
+            [System.ComponentModel.Description("SpatialCondition")]
+            TactileSpatialCondition,
+
+            [System.ComponentModel.Description("TemporalCondition")]
+            TactileTemporalCondition,
+
+            [System.ComponentModel.Description("SpatioTemporalCondition")]
+            TactileSpatioTemporalCondition,
+
+            [System.ComponentModel.Description("ValidateButton")]
+            TactileValidateButton,
+            
+            [System.ComponentModel.Description("RevertButton")]
+            TactileRevertButton,
 
             [System.ComponentModel.Description("All")]
             All

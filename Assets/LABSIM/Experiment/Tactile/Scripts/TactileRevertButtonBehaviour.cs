@@ -4,17 +4,36 @@ using System.Linq;
 namespace Labsim.experiment.tactile
 {
     
-    public class TactileRevertButtonBehaviour
+    public sealed class TactileRevertButtonBehaviour
         : UnityEngine.MonoBehaviour
     {
 
         // members
         private Leap.Unity.Interaction.InteractionButton m_button = null;
 
+        // bridge
+        public TactileRevertButtonBridge Bridge { get; set; }
+
+        // property
+        private TactileResponseAreaBehaviour AttachedBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileResponseArea).Behaviour as TactileResponseAreaBehaviour;
+
+        // actions
+        public void OnButtonPressed()
+        {
+            
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileRevertButtonBehaviour.OnButtonPressed() : call"
+            );
+            
+            // call
+            this.AttachedBehaviour.ClearAllTouchpoint();
+
+        } /* OnButtonPressed() */
+
         #region MonoBehaviour Impl 
         
-        private TactileConditionBehaviour AttachedBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileCondition).Behaviour as TactileConditionBehaviour;
-
+        
         private void Start()
         {
 
@@ -56,19 +75,6 @@ namespace Labsim.experiment.tactile
         } /* Update() */
 
         #endregion
-
-        public void OnButtonPressed()
-        {
-            
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileRevertButtonBehaviour.OnButtonPressed() : call"
-            );
-            
-            // call
-            this.AttachedBehaviour.ClearAllTouchpoint();
-
-        } /* OnButtonPressed() */
 
     } /* class TactileRevertButtonBehaviour */
 

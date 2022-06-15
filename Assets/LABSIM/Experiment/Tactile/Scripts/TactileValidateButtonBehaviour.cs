@@ -4,17 +4,32 @@ using System.Linq;
 namespace Labsim.experiment.tactile
 {
 
-    public class TactileValidateButtonBehaviour
+    public sealed class TactileValidateButtonBehaviour
         : UnityEngine.MonoBehaviour
     {
 
         // members
         private Leap.Unity.Interaction.InteractionButton m_button = null;
 
+        // bridge
+        public TactileValidateButtonBridge Bridge { get; set; }
+
+        // property
+        private TactileResponseAreaBehaviour AttachedBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileResponseArea).Behaviour as TactileResponseAreaBehaviour;
+        
+        // actions
+        public void OnButtonPressed()
+        {
+            
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileValidateButtonBehaviour.OnButtonPressed() : call"
+            );
+
+        } /* OnButtonPressed() */
+
         #region MonoBehaviour Impl         
         
-        private TactileConditionBehaviour AttachedBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileCondition).Behaviour as TactileConditionBehaviour;
-
         private void Start()
         {
 
@@ -40,13 +55,13 @@ namespace Labsim.experiment.tactile
             }
 
             // handle button activation
-            if((this.AttachedBehaviour.TouchpointList.Count >= TactileConditionBehaviour.s_touchpointMaxCount) && !this.m_button.controlEnabled)
+            if((this.AttachedBehaviour.TouchpointList.Count >= TactileResponseAreaBehaviour.s_touchpointMaxCount) && !this.m_button.controlEnabled)
             {
             
                 this.m_button.controlEnabled = true;
             
             }
-            else if((this.AttachedBehaviour.TouchpointList.Count < TactileConditionBehaviour.s_touchpointMaxCount) && this.m_button.controlEnabled)
+            else if((this.AttachedBehaviour.TouchpointList.Count < TactileResponseAreaBehaviour.s_touchpointMaxCount) && this.m_button.controlEnabled)
             {
 
                 this.m_button.controlEnabled = false;
@@ -56,16 +71,6 @@ namespace Labsim.experiment.tactile
         } /* Update() */
 
         #endregion
-
-        public void OnButtonPressed()
-        {
-            
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileValidateButtonBehaviour.OnButtonPressed() : call"
-            );
-
-        } /* OnButtonPressed() */
 
     } /* class TactileValidateButtonBehaviour */
 
