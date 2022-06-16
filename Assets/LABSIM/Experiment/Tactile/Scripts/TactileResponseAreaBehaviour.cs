@@ -54,7 +54,7 @@ namespace Labsim.experiment.tactile
                 "<color=Blue>Info: </color> TactileResponseAreaBehaviour.ActivateAllTouchpoint() : call"
             );
 
-            // apply for each element 
+            // apply for each element
             this.TouchpointList.ForEach(touchpoint => touchpoint.Reference.GetComponentInChildren<Leap.Unity.Interaction.InteractionSlider>().controlEnabled = true);
 
         } /* ActivateAllTouchpoint() */

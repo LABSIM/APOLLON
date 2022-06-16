@@ -10,33 +10,22 @@ namespace Labsim.experiment.tactile
 
         // members
         private Leap.Unity.Interaction.InteractionButton m_button = null;
+        private bool m_bHasInitialized = false;
 
         // bridge
         public TactileRevertButtonBridge Bridge { get; set; }
 
         // property
-        private TactileResponseAreaBehaviour AttachedBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileResponseArea).Behaviour as TactileResponseAreaBehaviour;
+        public TactileResponseAreaBehaviour ResponseAreaBehaviour => TactileManager.Instance.getBridge(TactileManager.IDType.TactileResponseArea).Behaviour as TactileResponseAreaBehaviour;
 
-        // actions
-        public void OnButtonPressed()
+        // Init
+        private void Initialize()
         {
-            
+
             // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileRevertButtonBehaviour.OnButtonPressed() : call"
-            );
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileRevertButtonBehaviour.Initialize() : begin");
             
-            // call
-            this.AttachedBehaviour.ClearAllTouchpoint();
-
-        } /* OnButtonPressed() */
-
-        #region MonoBehaviour Impl 
-        
-        
-        private void Start()
-        {
-
+            // bind the button if recquired 
             if((this.m_button = this.GetComponent<Leap.Unity.Interaction.InteractionButton>()) == null)
             {
 
@@ -47,8 +36,36 @@ namespace Labsim.experiment.tactile
 
             } /* if() */
 
-        } /* Start() */
+            // add the callback to the action handler
+            this.m_button.OnPress += this.Bridge.Dispatcher.RaisePressed;
 
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : init ok, mark as initialized");
+            
+            // switch state
+            this.m_bHasInitialized = true;
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : end");
+
+        } /* Initialize() */
+
+        private void Close()
+        {
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Close() : begin");
+
+            // remove the dispatch callback from the action handler
+            this.m_button.OnPress -= this.Bridge.Dispatcher.RaisePressed;
+            
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Close() : end");
+
+        } /* Close() */
+
+        #region MonoBehaviour Impl 
+        
         private void Update()
         {
             
@@ -59,13 +76,13 @@ namespace Labsim.experiment.tactile
             }
 
             // handle button activation
-            if((this.AttachedBehaviour.TouchpointList.Count > 0) && !this.m_button.controlEnabled)
+            if((this.ResponseAreaBehaviour.TouchpointList.Count > 0) && !this.m_button.controlEnabled)
             {
             
                 this.m_button.controlEnabled = true;
             
             }
-            else if((this.AttachedBehaviour.TouchpointList.Count == 0) && this.m_button.controlEnabled)
+            else if((this.ResponseAreaBehaviour.TouchpointList.Count == 0) && this.m_button.controlEnabled)
             {
 
                 this.m_button.controlEnabled = false;
@@ -73,6 +90,40 @@ namespace Labsim.experiment.tactile
             } /* if() */ 
 
         } /* Update() */
+
+        private void OnEnable()
+        {
+
+            // initialize iff. required
+            if (!this.m_bHasInitialized)
+            {
+
+                // log
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileRevertButtonBehaviour.OnEnable() : initialize required");
+
+                // call
+                this.Initialize();
+
+            } /* if() */
+
+        } /* OnEnable() */
+
+        private void OnDisable() 
+        {
+
+            // skip if it hasn't been initialized 
+            if (this.m_bHasInitialized)
+            {
+
+                // log
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileRevertButtonBehaviour.OnEnable() : close required");
+
+                // call
+                this.Close();
+
+            } /* if() */
+
+        } /* OnDisable() */
 
         #endregion
 

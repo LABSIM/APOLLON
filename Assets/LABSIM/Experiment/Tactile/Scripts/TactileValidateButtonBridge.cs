@@ -71,12 +71,18 @@ namespace Labsim.experiment.tactile
                 this.Behaviour.enabled = true;
                 this.Behaviour.gameObject.SetActive(true);
 
+                // bind
+                this.Dispatcher.PressedEvent += this.OnPressed;
+
             }
             else
             {
 
                 // escape
                 if (!this.Behaviour.isActiveAndEnabled) { return; }
+
+                // bind
+                this.Dispatcher.PressedEvent -= this.OnPressed;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -85,6 +91,28 @@ namespace Labsim.experiment.tactile
             } /* if() */
 
         } /* SetActive() */
+
+        #endregion
+
+        #region Dispatcher event delegate
+
+        private async void OnPressed(object sender, TactileResponseAreaDispatcher.EventArgs args)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileValidateButtonBehaviour.OnPressed() : begin"
+            );
+
+            // actions
+            // (this.Behaviour as TactileRevertButtonBehaviour).ResponseAreaBehaviour.ClearAllTouchpoint();
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileValidateButtonBehaviour.OnPressed() : end"
+            );
+
+        } /* OnPressed() */
 
         #endregion
 
