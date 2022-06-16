@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3157340305644573671}
   - component: {fileID: 834305268099893187}
   - component: {fileID: 1804234735880358395}
-  - component: {fileID: 3495936038495618835}
+  - component: {fileID: 2249296750443763424}
   m_Layer: 0
   m_Name: ResponseArea
   m_TagString: Untagged
@@ -114,7 +114,7 @@ MonoBehaviour:
     layerIndex: 0
   _eventTable:
     _entries: []
---- !u!114 &3495936038495618835
+--- !u!114 &2249296750443763424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 696954137964153728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c078cb6e2f1bc24c9168401065cbf16, type: 3}
+  m_Script: {fileID: 11500000, guid: 0495a777a4cac544f9cc143bdd9dbf5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TouchpointAnchor: {fileID: 4061132861617805445}
+  TouchpointGroup: {fileID: 4061132861617805445}
   TouchpointPrefab: {fileID: 9139820286123940461, guid: 0337c50d83a026642a40a7820f68433f,
     type: 3}
   ProjectionPlaneCollider: {fileID: 8381925697204016830}

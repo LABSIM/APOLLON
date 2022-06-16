@@ -335,7 +335,7 @@ namespace Labsim.experiment.tactile
                             this._parent.TouchpointPrefab,
                             this._parent.transform.position + this._parent.transform.TransformDirection(UnityEngine.Vector3.back * 0.001f),
                             this._parent.transform.rotation,
-                            this._parent.transform
+                            this._parent.TouchpointGroup.transform
                         );
 
                     // update index UI
@@ -587,7 +587,7 @@ namespace Labsim.experiment.tactile
         #region MonoBehaviour Impl 
         
         [UnityEngine.SerializeField]
-        private UnityEngine.GameObject TouchpointAnchor = null;
+        private UnityEngine.GameObject TouchpointGroup = null;
 
         [UnityEngine.SerializeField]
         private UnityEngine.GameObject TouchpointPrefab = null;

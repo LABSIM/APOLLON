@@ -4,16 +4,16 @@ using System.Linq;
 namespace Labsim.experiment.tactile
 {
     
-    public sealed class TactileRevertButtonBridge
+    public sealed class TactileSurfaceEntityBridge
         : TactileAbstractBridge
     {
 
         //ctor
-        public TactileRevertButtonBridge()
+        public TactileSurfaceEntityBridge()
             : base()
         { }
 
-        public TactileRevertButtonDispatcher Dispatcher { private set; get; } = null;
+        // public TactileSurfaceEntityDispatcher Dispatcher { private set; get; } = null;
 
         #region Bridge abstract implementation 
 
@@ -21,13 +21,13 @@ namespace Labsim.experiment.tactile
         {
 
             // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<TactileRevertButtonBehaviour>();
+            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<TactileSurfaceEntityBehaviour>();
             if ((behaviours?.Length ?? 0) == 0)
             {
 
                 // log
                 UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> TactileRevertButtonBridge.WrapBehaviour() : could not find object of type behaviour.TactileRevertButtonBehaviour from Unity."
+                    "<color=Orange>Warning: </color> TactileSurfaceEntityBridge.WrapBehaviour() : could not find object of type behaviour.TactileSurfaceEntityBehaviour from Unity."
                 );
 
                 return null;
@@ -40,9 +40,6 @@ namespace Labsim.experiment.tactile
                 behaviour.Bridge = this;
             }
 
-            // instantiate
-            this.Dispatcher = new TactileRevertButtonDispatcher();
-
             // finally 
             // TODO : implement the logic of multiple instante (prefab)
             return behaviours[0];
@@ -51,7 +48,7 @@ namespace Labsim.experiment.tactile
 
         protected override TactileManager.IDType WrapID()
         {
-            return TactileManager.IDType.TactileRevertButton;
+            return TactileManager.IDType.TactileSurfaceEntity;
         }
         
         protected override void SetActive(bool value)
@@ -71,18 +68,12 @@ namespace Labsim.experiment.tactile
                 this.Behaviour.enabled = true;
                 this.Behaviour.gameObject.SetActive(true);
 
-                // bind
-                this.Dispatcher.PressedEvent += this.OnPressed;
-
             }
             else
             {
 
                 // escape
                 if (!this.Behaviour.isActiveAndEnabled) { return; }
-
-                // unbind
-                this.Dispatcher.PressedEvent -= this.OnPressed;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -94,28 +85,6 @@ namespace Labsim.experiment.tactile
 
         #endregion
 
-        #region Dispatcher event delegate
-
-        private async void OnPressed(object sender, TactileRevertButtonDispatcher.EventArgs args)
-        {
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileRevertButtonBridge.OnPressed() : begin"
-            );
-
-            // actions
-            (this.Behaviour as TactileRevertButtonBehaviour).ResponseAreaBehaviour.ClearAllTouchpoint();
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> TactileRevertButtonBridge.OnPressed() : end"
-            );
-
-        } /* OnPressed() */
-
-        #endregion
-
-    } /* class TactileRevertButtonBridge */
+    } /* class TactileSurfaceEntityBehaviour */
 
 } /* } Labsim.experiment.tactile */

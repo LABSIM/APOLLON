@@ -4,7 +4,7 @@ using System.Linq;
 namespace Labsim.experiment.tactile
 {
     
-    public sealed class TactileRevertButtonBridge
+    public sealed class TactileHandMeshClonerBridge
         : TactileAbstractBridge
     {
 

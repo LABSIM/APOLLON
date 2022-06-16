@@ -96,7 +96,7 @@ namespace Labsim.experiment.tactile
 
         #region Dispatcher event delegate
 
-        private async void OnPressed(object sender, TactileResponseAreaDispatcher.EventArgs args)
+        private async void OnPressed(object sender, TactileValidateButtonDispatcher.EventArgs args)
         {
 
             // log
