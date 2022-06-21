@@ -2233,7 +2233,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 770962815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &328554595
+--- !u!114 &328554594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2242,7 +2242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 328554593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: c352c5f42cc0de343b2b52b0eb68ae34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: RH_index_proximal
@@ -2260,7 +2260,8 @@ MonoBehaviour:
   - local_rot_x
   - local_rot_y
   - local_rot_z
-  updateType: 0
+  updateType: 2
+  m_dataAcquisitionFrequencyHz: 100
 --- !u!1001 &338724776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2511,7 +2512,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 770962815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &375583343
+--- !u!114 &375583342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2520,10 +2521,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 375583341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: 663d085c3aa3c354fb2b7549013199e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: RH_wrist
+  objectName: RH_Wrist
   measurementDescriptor: movement
   customHeader:
   - world_pos_x
@@ -2538,7 +2539,8 @@ MonoBehaviour:
   - local_rot_x
   - local_rot_y
   - local_rot_z
-  updateType: 1
+  updateType: 2
+  m_dataAcquisitionFrequencyHz: 100
 --- !u!1 &409759984
 GameObject:
   m_ObjectHideFlags: 0
@@ -3951,7 +3953,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 770962815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &713413909
+--- !u!114 &713413908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3960,10 +3962,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 713413907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a01efa08ac874b40ac19d075af2af6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: RH_index_end
+  objectName: RH_index_tip
   measurementDescriptor: movement
   customHeader:
   - world_pos_x
@@ -3978,7 +3980,8 @@ MonoBehaviour:
   - local_rot_x
   - local_rot_y
   - local_rot_z
-  updateType: 1
+  updateType: 2
+  m_dataAcquisitionFrequencyHz: 100
 --- !u!1 &717635870
 GameObject:
   m_ObjectHideFlags: 0
@@ -12129,7 +12132,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 770962815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1380848866
+--- !u!114 &1380848865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12138,10 +12141,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1380848864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: 94cc33cd8ec90fa418b9dc5f6495e3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: RH_index_distal
+  objectName: RH_index_intermediate
   measurementDescriptor: movement
   customHeader:
   - world_pos_x
@@ -12156,7 +12159,8 @@ MonoBehaviour:
   - local_rot_x
   - local_rot_y
   - local_rot_z
-  updateType: 1
+  updateType: 2
+  m_dataAcquisitionFrequencyHz: 100
 --- !u!1 &1394010086
 GameObject:
   m_ObjectHideFlags: 0
@@ -12166,6 +12170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1394010087}
+  - component: {fileID: 1394010088}
   m_Layer: 0
   m_Name: MonstertechMTXEntity
   m_TagString: Untagged
@@ -12190,6 +12195,35 @@ Transform:
   m_Father: {fileID: 462838225}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394010088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394010086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3785e86c44ec04c896141ec19730f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: monstertechmtxentity
+  measurementDescriptor: movement
+  customHeader:
+  - world_pos_x
+  - world_pos_y
+  - world_pos_z
+  - world_rot_x
+  - world_rot_y
+  - world_rot_z
+  - local_pos_x
+  - local_pos_y
+  - local_pos_z
+  - local_rot_x
+  - local_rot_y
+  - local_rot_z
+  updateType: 2
+  m_dataAcquisitionFrequencyHz: 137.6
 --- !u!1 &1404356982
 GameObject:
   m_ObjectHideFlags: 0
@@ -13691,7 +13725,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 770962815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1834415987
+--- !u!114 &1834415986
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13700,10 +13734,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1834415985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbc7aef009231419c2e645c8e8579b, type: 3}
+  m_Script: {fileID: 11500000, guid: cc8cff31b0ad92349959ab691ca4466c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: RH_index_intermediate
+  objectName: RH_index_middle
   measurementDescriptor: movement
   customHeader:
   - world_pos_x
@@ -13718,7 +13752,8 @@ MonoBehaviour:
   - local_rot_x
   - local_rot_y
   - local_rot_z
-  updateType: 1
+  updateType: 2
+  m_dataAcquisitionFrequencyHz: 100
 --- !u!1 &1835531687
 GameObject:
   m_ObjectHideFlags: 0
@@ -15007,27 +15042,27 @@ PrefabInstance:
         type: 3}
       propertyPath: trackedObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 375583343}
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: trackedObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 328554595}
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: trackedObjects.Array.data[3]
       value: 
-      objectReference: {fileID: 1834415987}
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: trackedObjects.Array.data[4]
       value: 
-      objectReference: {fileID: 1380848866}
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: trackedObjects.Array.data[5]
       value: 
-      objectReference: {fileID: 713413909}
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onTrialEnd.m_PersistentCalls.m_Calls.Array.size
@@ -15468,6 +15503,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2834388984357925155, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 315
+      objectReference: {fileID: 0}
     - target: {fileID: 3059081901329392160, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -15756,7 +15796,7 @@ PrefabInstance:
     - target: {fileID: 7839017981507438752, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_Text
-      value: 
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7948667913022628418, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
