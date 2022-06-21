@@ -33,7 +33,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // get our entity bridge & settings
@@ -73,7 +73,7 @@ namespace Labsim.apollon.experiment.phase
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
-                    UXF.ApplicationHandler.CurrentHighResolutionTime
+                    ApollonHighResolutionTime.Now.ToString()
                 ));
             void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
@@ -396,7 +396,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

@@ -24,7 +24,7 @@ namespace Labsim.experiment.tactile
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_B_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_B_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // get a (Unity) bounded random amount of time to wait
@@ -42,7 +42,7 @@ namespace Labsim.experiment.tactile
             );
 
             // wait a certain amout of time between each bound
-            await this.FSM.DoSleep(bounded_random_timeout);
+            await apollon.ApollonHighResolutionTime.DoSleep(bounded_random_timeout);
 
             // log
             UnityEngine.Debug.Log(
@@ -60,7 +60,7 @@ namespace Labsim.experiment.tactile
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_B_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_B_results.timing_on_exit_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_B_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

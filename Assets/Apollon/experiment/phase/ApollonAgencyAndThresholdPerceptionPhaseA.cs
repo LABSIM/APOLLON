@@ -35,7 +35,7 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
 
             // hide green frame first
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
@@ -267,7 +267,7 @@ namespace Labsim.apollon.experiment.phase
                         frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
                         // wait a certain amout of time
-                        await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+                        await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
 
                         // then turn back to default cross
                         frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
@@ -312,7 +312,7 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
 
             // then hide green cross
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);

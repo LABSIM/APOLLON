@@ -24,11 +24,11 @@ namespace Labsim.experiment.tactile
             );
  
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_C_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_C_settings.total_duration);
+            await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_C_settings.total_duration);
 
             // log
             UnityEngine.Debug.Log(
@@ -46,7 +46,7 @@ namespace Labsim.experiment.tactile
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_C_results.timing_on_exit_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

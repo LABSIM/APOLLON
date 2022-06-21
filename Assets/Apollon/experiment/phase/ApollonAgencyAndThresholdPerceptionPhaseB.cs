@@ -58,7 +58,7 @@ namespace Labsim.apollon.experiment.phase
                         );
 
                         // wait a certain amout of time between each bound
-                        await this.FSM.DoSleep(bounded_random_timeout);
+                        await ApollonHighResolutionTime.DoSleep(bounded_random_timeout);
                     } 
                 ).Unwrap().ContinueWith(
                     antecedent => 

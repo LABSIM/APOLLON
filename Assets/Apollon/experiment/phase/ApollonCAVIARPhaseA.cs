@@ -24,7 +24,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
             
             // synchronisation mechanism (TCS + local function)
@@ -120,7 +120,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

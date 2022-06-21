@@ -64,13 +64,13 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
 
             // show red frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_D_duration / 2.0f);
 
             // hide red cross & frame
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);

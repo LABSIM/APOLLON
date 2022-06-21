@@ -30,7 +30,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // get our entity bridge & our settings
@@ -152,7 +152,7 @@ namespace Labsim.apollon.experiment.phase
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
-                    UXF.ApplicationHandler.CurrentHighResolutionTime
+                    ApollonHighResolutionTime.Now.ToString()
                 ));
             void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
@@ -346,7 +346,7 @@ namespace Labsim.apollon.experiment.phase
                 
                 // save stim results
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_distance = caviar_bridge.Behaviour.transform.TransformPoint(0.0f, 0.0f, 0.0f).z;
-                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = ApollonHighResolutionTime.Now.ToString();
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_unity_timestamp = UnityEngine.Time.time;
 
                 // accelerate/decelerate up to the stim settings or nothing :)
@@ -552,7 +552,7 @@ namespace Labsim.apollon.experiment.phase
             //     );
 
             //     // wait a certain amout of time
-            //     await this.FSM.DoSleep(stim_begin_timestamp);
+            //     await ApollonHighResolutionTime.DoSleep(stim_begin_timestamp);
                 
             //     // log
             //     UnityEngine.Debug.Log(
@@ -743,7 +743,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

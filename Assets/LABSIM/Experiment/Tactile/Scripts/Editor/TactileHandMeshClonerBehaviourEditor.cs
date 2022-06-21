@@ -21,7 +21,10 @@ namespace Labsim.experiment.tactile
             var current_target = this.target as TactileHandMeshClonerBehaviour;
             if(UnityEngine.GUILayout.Button("Snapshot"))
             {
-                current_target.CloneHandMesh();
+                (
+                    TactileManager.Instance.getBridge(TactileManager.IDType.TactileHandMeshCloner) 
+                    as TactileHandMeshClonerBridge
+                ).Dispatcher.RaiseButtonClonePressed();
             }
 
         } /* OnInspectorGUI() */

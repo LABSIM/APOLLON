@@ -7,13 +7,16 @@ namespace Labsim.experiment.tactile
         : UnityEngine.MonoBehaviour
     {
 
-        private bool m_bHasInitialized = false;
-
-        private UnityEngine.GameObject SkinnedMeshSnapshot { set; get; } = null;
-
         // bridge
-        public TactileRevertButtonBridge Bridge { get; set; }
+        private bool m_bHasInitialized = false;
+        
+        // bridge
+        public TactileHandMeshClonerBridge Bridge { get; set; }
 
+        // properties
+        private UnityEngine.GameObject SkinnedMeshSnapshot { set; get; } = null;
+        
+        // methods 
 
         public void CloneHandMesh()
         {
@@ -59,7 +62,39 @@ namespace Labsim.experiment.tactile
 
         } /* CloneHandMesh() */
 
-        
+        // Init
+        private void Initialize()
+        {
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.Initialize() : begin");
+            
+            // do
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.Initialize() : init ok, mark as initialized");
+            
+            // switch state
+            this.m_bHasInitialized = true;
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.Initialize() : end");
+
+        } /* Initialize() */
+
+        private void Close()
+        {
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.Close() : begin");
+
+            // do
+            
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.Close() : end");
+
+        } /* Close() */
+
         #region MonoBehaviour Impl 
         
         [UnityEngine.SerializeField]

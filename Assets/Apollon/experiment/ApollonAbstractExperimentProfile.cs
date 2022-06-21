@@ -270,7 +270,7 @@ namespace Labsim.apollon.experiment
             {
 
                 // synchronous wait
-                await this.DoSleep(duration_in_ms);
+                await ApollonHighResolutionTime.DoSleep(duration_in_ms);
 
             } /* if() */
             
@@ -290,23 +290,11 @@ namespace Labsim.apollon.experiment
             {
 
                 // synchronous wait
-                await this.DoSleep(duration_in_ms);
+                await ApollonHighResolutionTime.DoSleep(duration_in_ms);
 
             } /* if() */
 
         } /* DoFadeOut() */
-
-        public async System.Threading.Tasks.Task DoSleep(float duration_in_ms)
-        {
-        
-            // wait a certain amout of time
-            var chrono = System.Diagnostics.Stopwatch.StartNew();
-            while (chrono.ElapsedMilliseconds < duration_in_ms)
-            {
-                await System.Threading.Tasks.Task.Delay(10);
-            }
-
-        } /* DoSleep() */
 
         #endregion
 

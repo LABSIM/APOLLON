@@ -1,56 +1,57 @@
-﻿// extensions
+// extensions
 using System.Linq;
+using Labsim.apollon;
 
 // avoid namespace pollution
 namespace Labsim.experiment.tactile
 {
 
-    public sealed class TactileManager 
+    public sealed class TactileTrackerManager 
         : apollon.ApollonAbstractManager
     {
 
-        #region bridge handling
+        #region tracker handling
 
-        private readonly System.Collections.Generic.Dictionary<IDType, TactileAbstractBridge> _bridgeTable
-            = new System.Collections.Generic.Dictionary<IDType, TactileAbstractBridge>();
+        private readonly System.Collections.Generic.Dictionary<IDType, TactileAbstractTracker> _trackerTable
+            = new System.Collections.Generic.Dictionary<IDType, TactileAbstractTracker>();
 
-        private void RegisterAllAvailableBridge()
+        private void RegisterAllAvailableTracker()
         {
 
             // register all module
             foreach (System.Type type
-                in System.Reflection.Assembly.GetAssembly(typeof(TactileAbstractBridge)).GetTypes()
+                in System.Reflection.Assembly.GetAssembly(typeof(TactileAbstractTracker)).GetTypes()
                 .Where(
                     myType => myType.IsClass 
                     && !myType.IsAbstract
                     && !myType.IsGenericType
-                    && myType.IsSubclassOf(typeof(TactileAbstractBridge))
+                    && myType.IsSubclassOf(typeof(TactileAbstractTracker))
                 )
             )
             {
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=blue>Info: </color> TactileManager.RegisterAllAvailableBridge() : found bridge ["
+                    "<color=blue>Info: </color> TactileManager.RegisterAllAvailableTracker() : found tracker ["
                     + type.FullName
                     + "]."
                 );
 
                 // get "Instance" property
-                TactileAbstractBridge bridge = null;
-                if ((bridge = System.Activator.CreateInstance(type) as TactileAbstractBridge) != null)
+                TactileAbstractTracker tracker = null;
+                if ((tracker = System.Activator.CreateInstance(type) as TactileAbstractTracker) != null)
                 {
 
                     // check behaviour property, if null then object isn'nt in unity Scene
-                    if(bridge.Behaviour == null)
+                    if(tracker.Behaviour == null)
                     {
                         
                         // mark as disposable
-                        System.GC.SuppressFinalize(bridge);
+                        System.GC.SuppressFinalize(tracker);
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=blue>Info: </color> TactileManager.RegisterAllAvailableBridge() : bridge ["
+                            "<color=blue>Info: </color> TactileManager.RegisterAllAvailableTracker() : tracker ["
                             + type.FullName
                             + "] not in current Scene, mark as dispobale."
                         );
@@ -62,7 +63,7 @@ namespace Labsim.experiment.tactile
                     
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=blue>Info: </color> TactileManager.RegisterAllAvailableBridge() : success to create instance of bridge ["
+                        "<color=blue>Info: </color> TactileManager.RegisterAllAvailableTracker() : success to create instance of tracker ["
                         + type.FullName
                         + "]."
                     );
@@ -70,29 +71,29 @@ namespace Labsim.experiment.tactile
                     // register it
 
                     // check
-                    if (this._bridgeTable.ContainsKey(bridge.ID))
+                    if (this._trackerTable.ContainsKey(tracker.ID))
                     {
 
                         UnityEngine.Debug.LogError(
-                             "<color=red>Error: </color> TactileManager.RegisterAllAvailableBridge("
-                             + bridge.ID
-                             + ") : bridge key already found ..."
+                             "<color=red>Error: </color> TactileManager.RegisterAllAvailableTracker("
+                             + tracker.ID
+                             + ") : tracker key already found ..."
                         );
                         return;
 
                     } /* if() */
 
                     // add to table
-                    this._bridgeTable.Add(bridge.ID, bridge);
+                    this._trackerTable.Add(tracker.ID, tracker);
 
                     // plug module
-                    this.ActivationRequestedEvent += bridge.onActivationRequested;
-                    this.InactivationRequestedEvent += bridge.onInactivationRequested;
+                    this.ActivationRequestedEvent += tracker.onActivationRequested;
+                    this.InactivationRequestedEvent += tracker.onInactivationRequested;
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=blue>Info: </color> TactileManager.RegisterAllAvailableBridge() : bridge ["
-                        + bridge.ID
+                        "<color=blue>Info: </color> TactileManager.RegisterAllAvailableTracker() : tracker ["
+                        + tracker.ID
                         + "], registration ok !"
                     );
 
@@ -102,7 +103,7 @@ namespace Labsim.experiment.tactile
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> TactileManager.RegisterAllAvailableBridge() : could not create instance of gameobject ["
+                        "<color=Red>Error: </color> TactileManager.RegisterAllAvailableTracker() : could not create instance of gameobject ["
                         + type.FullName
                         + "]. fail."
                     );
@@ -111,20 +112,20 @@ namespace Labsim.experiment.tactile
 
             } /* foreach() */
 
-        } /* RegisterAllAvailableBridge() */
+        } /* RegisterAllAvailableTracker() */
 
-        public TactileAbstractBridge getBridge(IDType ID)
+        public TactileAbstractTracker getTracker(IDType ID)
         {
 
             // check 
-            if(this._bridgeTable.ContainsKey(ID))
+            if(this._trackerTable.ContainsKey(ID))
             {
-                return this._bridgeTable[ID];
+                return this._trackerTable[ID];
             }
 
             // log
             UnityEngine.Debug.LogWarning(
-                 "<color=orange>Warning: </color> TactileManager.getBridge("
+                 "<color=orange>Warning: </color> TactileManager.getTracker("
                  + ID
                  + ") : requested ID not found ..."
             );
@@ -132,7 +133,7 @@ namespace Labsim.experiment.tactile
             // failed
             return null;
 
-        } /* getBridge() */
+        } /* getTracker() */
 
         #endregion
 
@@ -267,42 +268,40 @@ namespace Labsim.experiment.tactile
         #region lazy init singleton pattern
 
         // lazy init paradigm
-        private static readonly System.Lazy<TactileManager> _lazyInstance
-            = new System.Lazy<TactileManager>(() => new TactileManager());
+        private static readonly System.Lazy<TactileTrackerManager> _lazyInstance
+            = new System.Lazy<TactileTrackerManager>(() => new TactileTrackerManager());
 
         // Instance  property
-        public static TactileManager Instance => TactileManager._lazyInstance.Value;
+        public static TactileTrackerManager Instance => TactileTrackerManager._lazyInstance.Value;
 
         // private ctor
-        private TactileManager()
+        private TactileTrackerManager()
         {
-            // event table
-            this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
-            {
-                { "ActivationRequested", null },
-                { "InactivationRequested", null }
-            };
+
+            // // event table
+            // this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
+            // {
+            //     { "ActivationRequested", null },
+            //     { "InactivationRequested", null }
+            // };
 
             // set different menu state 
             this._State = new System.Collections.Generic.Dictionary<IDType, bool>
             {
                 { IDType.None, false },
-                { IDType.TactileHandMeshCloner, false },
-                { IDType.TactileSurfaceEntity, false },
-                { IDType.TactileControl, false },
-                { IDType.TactileResponseArea, false },
-                { IDType.TactileSpatialCondition, false },
-                { IDType.TactileTemporalCondition, false },
-                { IDType.TactileSpatioTemporalCondition, false },
-                { IDType.TactileValidateButton, false },
-                { IDType.TactileRevertButton, false },
+                { IDType.TactileSubjectHMD, false },
+                { IDType.TactileSubjectRHWrist, false },
+                { IDType.TactileSubjectRHIndexProximalJoint, false },
+                { IDType.TactileSubjectRHIndexMiddleJoint, false },
+                { IDType.TactileSubjectRHIndexDistalJoint, false },
+                { IDType.TactileSubjectRHIndexTip, false },
                 { IDType.All, false }
             };
 
             // registering
-            this.RegisterAllAvailableBridge();
+            this.RegisterAllAvailableTracker();
 
-        } /* TactileManager() */
+        } /* TactileTrackerManager() */
 
         #endregion
 
@@ -317,32 +316,23 @@ namespace Labsim.experiment.tactile
             [System.ComponentModel.Description("None")]
             None = 0,
 
-            [System.ComponentModel.Description("Control")]
-            TactileControl,
+            [System.ComponentModel.Description("SubjectHMD")]
+            TactileSubjectHMD,
 
-            [System.ComponentModel.Description("HandMeshCloner")]
-            TactileHandMeshCloner,
+            [System.ComponentModel.Description("SubjectRHWrist")]
+            TactileSubjectRHWrist,
 
-            [System.ComponentModel.Description("SurfaceEntity")]
-            TactileSurfaceEntity,
+            [System.ComponentModel.Description("SubjectRHIndexProximalJoint")]
+            TactileSubjectRHIndexProximalJoint,
 
-            [System.ComponentModel.Description("ResponseArea")]
-            TactileResponseArea,
-            
-            [System.ComponentModel.Description("SpatialCondition")]
-            TactileSpatialCondition,
+            [System.ComponentModel.Description("SubjectRHIndexMiddleJoint")]
+            TactileSubjectRHIndexMiddleJoint,
 
-            [System.ComponentModel.Description("TemporalCondition")]
-            TactileTemporalCondition,
+            [System.ComponentModel.Description("SubjectRHIndexDistalJoint")]
+            TactileSubjectRHIndexDistalJoint,
 
-            [System.ComponentModel.Description("SpatioTemporalCondition")]
-            TactileSpatioTemporalCondition,
-
-            [System.ComponentModel.Description("ValidateButton")]
-            TactileValidateButton,
-            
-            [System.ComponentModel.Description("RevertButton")]
-            TactileRevertButton,
+            [System.ComponentModel.Description("SubjectRHIndexTip")]
+            TactileSubjectRHIndexTip,
 
             [System.ComponentModel.Description("All")]
             All
@@ -488,8 +478,24 @@ namespace Labsim.experiment.tactile
 
         } /* onStart() */
 
+        public override void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        {
+            
+            // activate all tracker
+            this.RaiseActivationRequestedEvent(IDType.All);
+
+        } /* onExperimentTrialBegin() */
+
+        public override void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        {
+            
+            // activate all tracker
+            this.RaisInactivationRequestedEvent(IDType.All);
+
+        } /* onExperimentTrialEnd() */
+
         #endregion
 
-    } /* class TactileManager */
+    } /* class TactileTrackerManager */
 
 } /* namespace Labsim.experiment.tactile */

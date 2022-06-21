@@ -341,7 +341,7 @@ namespace Labsim.apollon.experiment.phase
                                 + (this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ))
                                 + " ms] for remaining phase total time"
                             );
-                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ));
+                            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ));
                         
                         }
                     ).Unwrap().ContinueWith(
@@ -625,7 +625,7 @@ namespace Labsim.apollon.experiment.phase
                                 + (this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ))
                                 + " ms] for remaining phase total time"
                             );
-                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ));
+                            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_C_total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_C_stim_duration ));
                         
                         }
                     ).Unwrap().ContinueWith(

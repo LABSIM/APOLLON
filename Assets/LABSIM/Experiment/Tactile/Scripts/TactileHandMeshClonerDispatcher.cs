@@ -40,7 +40,7 @@ namespace Labsim.experiment.tactile
             _eventTable = null;
 
         private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> 
-            _eventPressedList = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
+            _eventButtonClonePressedList = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
 
         #endregion
 
@@ -51,57 +51,57 @@ namespace Labsim.experiment.tactile
             // event table
             this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
             {
-                { "Pressed", null }
+                { "ButtonClonePressed", null }
             };
 
         } /* TactileHandMeshClonerDispatcher() */
 
         #region actual events
 
-        public event System.EventHandler<EventArgs> PressedEvent
+        public event System.EventHandler<EventArgs> ButtonClonePressedEvent
         {
             add
             {
-                this._eventPressedList.Add(value);
+                this._eventButtonClonePressedList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Pressed"] = (System.EventHandler<EventArgs>)this._eventTable["Pressed"] + value;
+                    this._eventTable["ButtonClonePressed"] = (System.EventHandler<EventArgs>)this._eventTable["ButtonClonePressed"] + value;
                 }
             }
 
             remove
             {
-                if (!this._eventPressedList.Contains(value))
+                if (!this._eventButtonClonePressedList.Contains(value))
                 {
                     return;
                 }
-                this._eventPressedList.Remove(value);
+                this._eventButtonClonePressedList.Remove(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Pressed"] = null;
-                    foreach (var eventAcceleration in this._eventPressedList)
+                    this._eventTable["ButtonClonePressed"] = null;
+                    foreach (var eventAcceleration in this._eventButtonClonePressedList)
                     {
-                        this._eventTable["Pressed"] = (System.EventHandler<EventArgs>)this._eventTable["Pressed"] + eventAcceleration;
+                        this._eventTable["ButtonClonePressed"] = (System.EventHandler<EventArgs>)this._eventTable["ButtonClonePressed"] + eventAcceleration;
                     }
                 }
             }
 
-        } /* PressedEvent */
+        } /* ButtonClonePressedEvent */
 
         #endregion
 
         #region raise events
 
-        public void RaisePressed()
+        public void RaiseButtonClonePressed()
         {
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["Pressed"];
+                var callback = (System.EventHandler<EventArgs>)this._eventTable["ButtonClonePressed"];
                 callback?.Invoke(this, new EventArgs());
             }
 
-        } /* RaisePressed() */
+        } /* RaiseButtonClonePressed() */
 
         #endregion
 

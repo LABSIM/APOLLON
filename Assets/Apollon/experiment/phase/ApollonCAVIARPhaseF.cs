@@ -24,7 +24,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_F_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_F_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_F_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // inactivate subject control
@@ -35,7 +35,7 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_F_duration);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_F_duration);
 
             // hide grey cross & frame
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
@@ -60,7 +60,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_F_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_F_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_F_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

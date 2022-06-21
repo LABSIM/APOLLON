@@ -95,7 +95,7 @@ namespace UXF
             
             UXFDataRow newRow = GetCurrentValues();
             newRow.Add(("unity_timestamp", UnityEngine.Time.time));
-            newRow.Add(("host_timestamp", UXF.ApplicationHandler.CurrentHighResolutionTime));
+            newRow.Add(("host_timestamp", Labsim.apollon.ApollonHighResolutionTime.Now.ToString()));
             data.AddCompleteRow(newRow);
         }
 

@@ -24,7 +24,7 @@ namespace Labsim.experiment.tactile
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // show grey(active)/green(passive) cross, green frame & counter if active
@@ -39,7 +39,7 @@ namespace Labsim.experiment.tactile
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
+            await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
 
             // hide green frame first
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
@@ -48,7 +48,7 @@ namespace Labsim.experiment.tactile
             this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
+            await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
 
             // then hide green cross
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
@@ -69,7 +69,7 @@ namespace Labsim.experiment.tactile
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log
