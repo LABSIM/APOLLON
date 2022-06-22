@@ -368,6 +368,7 @@ namespace Labsim.experiment.tactile
                             slider.defaultHorizontalValue,
                             slider.defaultVerticalValue,
                             apollon.ApollonHighResolutionTime.Now.ToString(),
+                            UnityEngine.Time.time,
                             touchpoint_obj
                         );
                     this._parent.AddTouchpoint(touchpoint);

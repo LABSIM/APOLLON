@@ -13,11 +13,12 @@ namespace Labsim.experiment.tactile
         // bridge
         public TactileHandMeshClonerBridge Bridge { get; set; }
 
-        // properties
+        // property
         private UnityEngine.GameObject SkinnedMeshSnapshot { set; get; } = null;
         
-        // methods 
+        #region Methods 
 
+        // CloneHandMesh 
         public void CloneHandMesh()
         {
             
@@ -62,7 +63,7 @@ namespace Labsim.experiment.tactile
 
         } /* CloneHandMesh() */
 
-        // Init
+        // Initialize
         private void Initialize()
         {
 
@@ -82,6 +83,7 @@ namespace Labsim.experiment.tactile
 
         } /* Initialize() */
 
+        // Close
         private void Close()
         {
 
@@ -94,6 +96,8 @@ namespace Labsim.experiment.tactile
             UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.Close() : end");
 
         } /* Close() */
+
+        #endregion 
 
         #region MonoBehaviour Impl 
         
