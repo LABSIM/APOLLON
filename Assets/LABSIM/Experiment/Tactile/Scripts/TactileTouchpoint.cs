@@ -7,12 +7,12 @@ namespace Labsim.experiment.tactile
     {
         
         // Ctor
-        public TactileTouchpoint(float x, float y, float timestamp, UnityEngine.GameObject obj)
+        public TactileTouchpoint(float x, float y, string timestamp, UnityEngine.GameObject obj)
         {
             
             this.X = x;
             this.Y = y;
-            this.Timestamp_ms = timestamp;
+            this.Timestamp = timestamp;
             this.Reference = obj;
 
         } /* Touchpoint() */
@@ -20,7 +20,7 @@ namespace Labsim.experiment.tactile
         // Property impl
         public float X { get; private set; } = -1.0f;
         public float Y { get; private set; } = -1.0f;
-        public float Timestamp_ms { get; private set; } = -1.0f;
+        public string Timestamp { get; private set; } = "-1.0f";
         public UnityEngine.GameObject Reference { get; private set; } = null;
 
     } /* class TactileTouchpoint */ 

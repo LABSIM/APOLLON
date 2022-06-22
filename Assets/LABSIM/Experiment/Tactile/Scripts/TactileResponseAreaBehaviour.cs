@@ -367,7 +367,7 @@ namespace Labsim.experiment.tactile
                         = new TactileTouchpoint(
                             slider.defaultHorizontalValue,
                             slider.defaultVerticalValue,
-                            0.0f,
+                            apollon.ApollonHighResolutionTime.Now.ToString(),
                             touchpoint_obj
                         );
                     this._parent.AddTouchpoint(touchpoint);

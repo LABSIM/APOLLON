@@ -7,7 +7,7 @@ namespace Labsim.experiment.tactile
 
         float X { get; }
         float Y { get; }
-        float Timestamp_ms { get; }
+        string Timestamp { get; }
         UnityEngine.GameObject Reference { get; }
 
     } /* interface ITactileTouchpoint */ 

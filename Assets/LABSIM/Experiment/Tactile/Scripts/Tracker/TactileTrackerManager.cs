@@ -289,6 +289,7 @@ namespace Labsim.experiment.tactile
             this._State = new System.Collections.Generic.Dictionary<IDType, bool>
             {
                 { IDType.None, false },
+                { IDType.TactileResponseArea, false },
                 { IDType.TactileSubjectHMD, false },
                 { IDType.TactileSubjectRHWrist, false },
                 { IDType.TactileSubjectRHIndexProximalJoint, false },
@@ -315,6 +316,9 @@ namespace Labsim.experiment.tactile
 
             [System.ComponentModel.Description("None")]
             None = 0,
+
+            [System.ComponentModel.Description("ResponseArea")]
+            TactileResponseArea,
 
             [System.ComponentModel.Description("SubjectHMD")]
             TactileSubjectHMD,
