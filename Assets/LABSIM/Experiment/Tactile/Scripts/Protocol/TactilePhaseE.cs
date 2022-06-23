@@ -27,23 +27,50 @@ namespace Labsim.experiment.tactile
             this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+            // get bridge
+            var validate_bridge = TactileManager.Instance.getBridge(TactileManager.IDType.TactileValidateButton) as TactileValidateButtonBridge;
+            var response_bridge = TactileManager.Instance.getBridge(TactileManager.IDType.TactileResponseArea) as TactileResponseAreaBridge;
+
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
             void sync_local_function(object sender, TactileValidateButtonDispatcher.EventArgs e)
                 => sync_point?.TrySetResult(true);
 
             // register our synchronisation function
-            (
-                TactileManager.Instance.getBridge(
-                    TactileManager.IDType.TactileValidateButton
-                ) as TactileValidateButtonBridge
-            ).Dispatcher.PressedEvent += sync_local_function;
+            validate_bridge.Dispatcher.PressedEvent += sync_local_function;
             
             // show tactile surface + reponse area + buttons
             TactileManager.Instance.setActive(TactileManager.IDType.TactileSurfaceEntity);
             TactileManager.Instance.setActive(TactileManager.IDType.TactileResponseArea);
             TactileManager.Instance.setActive(TactileManager.IDType.TactileValidateButton);
             TactileManager.Instance.setActive(TactileManager.IDType.TactileRevertButton);
+
+            // switch to corresponding state
+            switch(this.FSM.CurrentSettings.scenario_type)
+            {
+
+                case TactileProfile.Settings.ScenarioIDType.SpatialOnly:
+                {
+                    break;
+                }
+
+                case TactileProfile.Settings.ScenarioIDType.TemporalOnly:
+                {
+                    break;
+                }
+
+                case TactileProfile.Settings.ScenarioIDType.SpatioTemporal:
+                {
+                    break;
+                }
+
+                default:
+                case TactileProfile.Settings.ScenarioIDType.Undefined:
+                {
+                    break;
+                }
+
+            } /* switch() */
 
             // wait for user response validation
             await sync_point.Task;

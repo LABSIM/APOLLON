@@ -102,19 +102,24 @@ namespace Labsim.experiment.tactile
             this.customHeader = new string[]
             {
                 "host_timestamp",
-                "point_0_timestamp",
+                "point_0_unity_timestamp",
+                "point_0_host_timestamp",
                 "point_0_pos_x",
                 "point_0_pos_y",
-                "point_1_timestamp",
+                "point_0_unity_timestamp",
+                "point_0_host_timestamp",
                 "point_1_pos_x",
                 "point_1_pos_y",
-                "point_2_timestamp",
+                "point_1_unity_timestamp",
+                "point_1_host_timestamp",
                 "point_2_pos_x",
                 "point_2_pos_y",
-                "point_3_timestamp",
+                "point_3_unity_timestamp",
+                "point_3_host_timestamp",
                 "point_3_pos_x",
                 "point_3_pos_y",
-                "point_4_timestamp",
+                "point_4_unity_timestamp",
+                "point_4_host_timestamp",
                 "point_4_pos_x",
                 "point_4_pos_y"
             };
@@ -138,7 +143,8 @@ namespace Labsim.experiment.tactile
             foreach(var touchpoint in behaviour.TouchpointList.Select((value, idx) => new { item = value, index = idx }))
             {
                 
-                values.Add(("point_" + touchpoint.index.ToString() + "_timestamp", touchpoint.item.Timestamp));
+                values.Add(("point_" + touchpoint.index.ToString() + "_unity_timestamp", touchpoint.item.UnityTimestamp));
+                values.Add(("point_" + touchpoint.index.ToString() + "_host_timestamp", touchpoint.item.HostTimestamp));
                 values.Add(("point_" + touchpoint.index.ToString() + "_pos_x", touchpoint.item.X));
                 values.Add(("point_" + touchpoint.index.ToString() + "_pos_y", touchpoint.item.Y));
 
@@ -148,7 +154,8 @@ namespace Labsim.experiment.tactile
             for(int idx = /* 0 based max count */ 4; idx > behaviour.TouchpointList.Count - 1; --idx)
             {
 
-                values.Add(("point_" + idx.ToString() + "_timestamp", "NULL"));
+                values.Add(("point_" + idx.ToString() + "_unity_timestamp", "NULL"));
+                values.Add(("point_" + idx.ToString() + "_host_timestamp", "NULL"));
                 values.Add(("point_" + idx.ToString() + "_pos_x", "NULL"));
                 values.Add(("point_" + idx.ToString() + "_pos_y", "NULL"));
             

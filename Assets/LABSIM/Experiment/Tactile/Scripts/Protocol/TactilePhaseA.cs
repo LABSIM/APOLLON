@@ -30,22 +30,59 @@ namespace Labsim.experiment.tactile
             // show grey(active)/green(passive) cross, green frame & counter if active
             if (this.FSM.CurrentSettings.bIsActive) 
             {
+            
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> TactilePhaseA.OnEntry() : active condition"
+                );
+
+                // show cross
                 Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+            
             } 
             else
             {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> TactilePhaseA.OnEntry() : passive condition"
+                );
+
+                // show cross
                 Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
-            }
+            
+            } /* if() */ 
+
+            // show frame
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setActive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
-            // // wait a certain amout of time
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactilePhaseA.OnEntry() : 1st blocking wait " 
+                    + this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f 
+                + " ms"
+            );
+            
+            // wait a certain amout of time
             await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);
 
             // hide green frame first
             Labsim.apollon.frontend.ApollonFrontendManager.Instance.setInactive(Labsim.apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactilePhaseA.OnEntry() : fade in to black"
+            );
+
             // fade in to black asynchronously for all scenario condition
             this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactilePhaseA.OnEntry() : 2nd blocking wait " 
+                    + this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f 
+                + " ms"
+            );
 
             // wait a certain amout of time
             await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_settings.duration / 2.0f);

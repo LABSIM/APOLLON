@@ -37,7 +37,7 @@ namespace Labsim.experiment.tactile
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> TactilePhaseB.OnEntry() : will wait " 
-                + bounded_random_timeout
+                    + bounded_random_timeout
                 + " ms"
             );
 

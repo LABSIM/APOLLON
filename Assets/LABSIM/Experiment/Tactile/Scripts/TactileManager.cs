@@ -296,6 +296,11 @@ namespace Labsim.experiment.tactile
                 { IDType.TactileSpatioTemporalCondition, false },
                 { IDType.TactileValidateButton, false },
                 { IDType.TactileRevertButton, false },
+                { IDType.TactileHapticEntity, false },
+                { IDType.TactileStimCC, false },
+                { IDType.TactileStimCV, false },
+                { IDType.TactileStimVC, false },
+                { IDType.TactileStimVV, false },
                 { IDType.All, false }
             };
 
@@ -343,6 +348,21 @@ namespace Labsim.experiment.tactile
             
             [System.ComponentModel.Description("RevertButton")]
             TactileRevertButton,
+
+            [System.ComponentModel.Description("HapticEntity")]
+            TactileHapticEntity,
+
+            [System.ComponentModel.Description("StimCC")]
+            TactileStimCC,
+
+            [System.ComponentModel.Description("StimCV")]
+            TactileStimCV,
+
+            [System.ComponentModel.Description("StimVC")]
+            TactileStimVC,
+
+            [System.ComponentModel.Description("StimVV")]
+            TactileStimVV,
 
             [System.ComponentModel.Description("All")]
             All
