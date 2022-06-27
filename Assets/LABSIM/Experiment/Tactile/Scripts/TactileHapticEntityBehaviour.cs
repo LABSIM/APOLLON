@@ -490,25 +490,6 @@ namespace Labsim.experiment.tactile
         #endregion
 
         #region MonoBehaviour Impl 
-        
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject TouchpointGroup = null;
-
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject TouchpointPrefab = null;
-        
-        [UnityEngine.SerializeField]
-        private UnityEngine.Collider ProjectionPlaneCollider = null;
-        
-        [UnityEngine.SerializeField]
-        private Leap.Unity.ProximityDetector ProjectionPlaneProximityDetector = null;
-
-        private void Start()
-        {
-
-            this.ProjectionPlaneCollider.gameObject.layer = UnityEngine.LayerMask.NameToLayer("HandProjectorLayer");
-
-        } /* Start() */
 
         private void OnEnable()
         {
