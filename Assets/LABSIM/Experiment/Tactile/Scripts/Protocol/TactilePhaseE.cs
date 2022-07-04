@@ -51,16 +51,19 @@ namespace Labsim.experiment.tactile
 
                 case TactileProfile.Settings.ScenarioIDType.SpatialOnly:
                 {
+                    response_bridge.Dispatcher.RaiseSpatialCondition();
                     break;
                 }
 
                 case TactileProfile.Settings.ScenarioIDType.TemporalOnly:
                 {
+                    response_bridge.Dispatcher.RaiseTemporalCondition();
                     break;
                 }
 
                 case TactileProfile.Settings.ScenarioIDType.SpatioTemporal:
                 {
+                    response_bridge.Dispatcher.RaiseSpatioTemporalCondition();
                     break;
                 }
 
@@ -103,6 +106,9 @@ namespace Labsim.experiment.tactile
                 );
 
             } /* foreach() */
+
+            // reset idle 
+            response_bridge.Dispatcher.RaiseIdle();
 
             // log
             UnityEngine.Debug.Log(
