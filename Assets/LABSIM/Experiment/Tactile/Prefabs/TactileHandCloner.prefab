@@ -185,7 +185,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1438375678841915648}
-  - component: {fileID: 8893840319209949795}
   m_Layer: 0
   m_Name: TactileHandCloner
   m_TagString: Untagged
@@ -205,26 +204,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5385297046184715506}
-  - {fileID: 8918592445735787788}
+  - {fileID: 9097783156819675344}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8893840319209949795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438375678841915775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72bbc9c8a01dd3742ae63944365e455b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HandReference: {fileID: 0}
-  WristAnchor: {fileID: 0}
-  MaterialReference: {fileID: 0}
-  SnapshotAnchor: {fileID: 1438375679995185335}
 --- !u!1 &1438375679995185335
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +961,19 @@ MonoBehaviour:
   _springForce: 0.1
   _OnPress:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnUltraleapButtonClonePress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnUnpress:
     m_PersistentCalls:
       m_Calls: []
@@ -1004,6 +999,54 @@ MonoBehaviour:
   rends:
   - materialID: 0
     renderer: {fileID: 8525595218875317926}
+--- !u!1 &8611299128881995403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9097783156819675344}
+  - component: {fileID: 6576968768511173597}
+  m_Layer: 0
+  m_Name: HandMeshCloner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9097783156819675344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611299128881995403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8918592445735787788}
+  m_Father: {fileID: 1438375678841915648}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6576968768511173597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611299128881995403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bbc9c8a01dd3742ae63944365e455b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HandReference: {fileID: 0}
+  WristAnchor: {fileID: 0}
+  MaterialReference: {fileID: 0}
+  SnapshotAnchor: {fileID: 1438375679995185335}
 --- !u!1 &8937585159984691663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,8 +1144,8 @@ Transform:
   m_Children:
   - {fileID: 3486503565905565312}
   - {fileID: 8171688842467487842}
-  m_Father: {fileID: 1438375678841915648}
-  m_RootOrder: 1
+  m_Father: {fileID: 9097783156819675344}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5772709059553911009
 MonoBehaviour:

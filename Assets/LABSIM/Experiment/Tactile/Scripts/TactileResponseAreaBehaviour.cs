@@ -75,8 +75,6 @@ namespace Labsim.experiment.tactile
             // log
             UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : state controller added as gameObject's component");
 
-            // do
-
             // log
             UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Initialize() : init ok, mark as initialized");
             
@@ -93,8 +91,6 @@ namespace Labsim.experiment.tactile
 
             // log
             UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Close() : begin");
-
-            // do
             
             // log
             UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileResponseAreaBehaviour.Close() : end");

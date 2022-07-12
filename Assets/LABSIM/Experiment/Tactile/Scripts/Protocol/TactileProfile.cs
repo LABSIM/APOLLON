@@ -125,9 +125,7 @@ namespace Labsim.experiment.tactile
             {
 
                 [JSONSettingsAttribute(phase:"phase_B", settings:"begin_stim_timeout", unit:"ms")]
-                public float 
-                    begin_stim_timeout_lower_bound,
-                    begin_stim_timeout_upper_bound;
+                public float[] begin_stim_timeout = new float [2];
 
             } /* PhaseBSettings */ 
 
@@ -226,14 +224,10 @@ namespace Labsim.experiment.tactile
                         );
 
                     // phase B
-                    this.phase_B_settings.begin_stim_timeout_lower_bound
+                    this.phase_B_settings.begin_stim_timeout
                         = settings.GetFloatList(
                             this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("begin_stim_timeout")
-                        )[0];
-                    this.phase_B_settings.begin_stim_timeout_upper_bound
-                        = settings.GetFloatList(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("begin_stim_timeout")
-                        )[1];
+                        ).ToArray();
 
                     // phase C
                     this.phase_C_settings.total_duration                     
@@ -244,7 +238,7 @@ namespace Labsim.experiment.tactile
                     // phase D
                     this.phase_D_settings.duration                     
                         = settings.GetFloat(
-                            this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("duration")
+                            this.GetJSONSettingsAttributeName<Settings.PhaseDSettings>("duration")
                         );
 
                 } 
@@ -295,9 +289,7 @@ namespace Labsim.experiment.tactile
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseBSettings>("begin_stim_timeout") 
                         + " : [" 
-                            + this.phase_B_settings.begin_stim_timeout_lower_bound
-                            + ","
-                            + this.phase_B_settings.begin_stim_timeout_upper_bound
+                            + System.String.Join(",",this.phase_B_settings.begin_stim_timeout) 
                         + "]"
                     + "\n - " 
                         + this.GetJSONSettingsAttributeName<Settings.PhaseCSettings>("stim_pattern") 
@@ -403,8 +395,44 @@ namespace Labsim.experiment.tactile
                 "<color=Blue>Info: </color> TactileProfile.onExperimentSessionBegin() : begin"
             );
 
+            // synchronisation mechanism (TCS + local function)
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            void sync_local_function(object sender, TactileHandMeshClonerDispatcher.EventArgs e)
+                => sync_point?.TrySetResult(true);
+
+            // register our synchronisation function
+            (
+                TactileManager.Instance.getBridge(
+                    TactileManager.IDType.TactileHandMeshCloner
+                ) as TactileHandMeshClonerBridge
+            ).Dispatcher.ButtonClonePressedEvent += sync_local_function;
+            
+            // activate hand cloner
+            TactileManager.Instance.setActive(TactileManager.IDType.TactileHandMeshCloner);
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionBegin() : waiting for initial hand mesh cloning"
+            );
+
+            // wait synchronisation point indefinitely & reset it once hit
+            await sync_point.Task;
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionBegin() : hand mesh cloned"
+            );
+
+            // inactivate hand cloner
+            TactileManager.Instance.setInactive(TactileManager.IDType.TactileHandMeshCloner);
+
             // fade in
             await this.DoFadeIn(2500.0f, false);
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> TactileProfile.onExperimentSessionBegin() : fade in done"
+            );
 
             // deactivate default DB & activate room setup
             var we_behaviour    
@@ -461,6 +489,7 @@ namespace Labsim.experiment.tactile
 
             // activate gameplay element
             Labsim.apollon.gameplay.ApollonGameplayManager.Instance.setActive(Labsim.apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            TactileManager.Instance.setActive(TactileManager.IDType.TactileHapticEntity);
 
             // base call
             base.onExperimentTrialBegin(sender, arg);

@@ -54,21 +54,49 @@ namespace Labsim.apollon
 
         } /* class HighResolutionTimepoint */
 
-        // setup high resolution chrono & setup abolute refpoint
+        // setup high resolution chrono, absolute refpoint & sleep resolution
         private static readonly System.DateTime _hr_refpoint = System.DateTime.Now;
         private static readonly System.Diagnostics.Stopwatch _hr_chrono = System.Diagnostics.Stopwatch.StartNew();
+        private static readonly int _hr_sleepResolution = 10; 
 
         public static HighResolutionTimepoint Now => new HighResolutionTimepoint();
 
         public static async System.Threading.Tasks.Task DoSleep(double duration_in_ms)
         {
-        
-            // wait a certain amout of time
-            var timepoint = ApollonHighResolutionTime.Now;
-            while (timepoint.ElapsedMilliseconds < duration_in_ms)
-            {
-                await System.Threading.Tasks.Task.Delay(10);
-            }
+
+            // OK... but strange behaviour
+            await System.Threading.Tasks.Task.Delay((int)duration_in_ms);
+            
+            // NOT OK
+            // // synchronisation mechanism (TCS + running task )
+            // var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            // var running_task
+            //     // wait for random wait
+            //     = System.Threading.Tasks.Task.Factory.StartNew(
+            //         async () => 
+            //         { 
+                        
+            //             // wait a certain amout of time
+            //             var timepoint = ApollonHighResolutionTime.Now;
+            //             while (timepoint.ElapsedMilliseconds < duration_in_ms)
+            //             {
+
+            //                 // wait the resolution delay
+            //                 await System.Threading.Tasks.Task.Delay(ApollonHighResolutionTime._hr_sleepResolution);
+
+            //             } /* while() */
+
+            //             // success
+            //             sync_point?.TrySetResult(true);
+
+            //         },
+            //         System.Threading.CancellationToken.None,
+            //         System.Threading.Tasks.TaskCreationOptions.DenyChildAttach,
+            //         System.Threading.Tasks.TaskScheduler.Default
+            //     );
+            
+            // // sync
+            // await sync_point.Task;
 
         } /* DoSleep() */
         

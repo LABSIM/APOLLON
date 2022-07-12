@@ -278,12 +278,12 @@ namespace Labsim.experiment.tactile
         private TactileTrackerManager()
         {
 
-            // // event table
-            // this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
-            // {
-            //     { "ActivationRequested", null },
-            //     { "InactivationRequested", null }
-            // };
+            // event table
+            this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
+            {
+                { "ActivationRequested", null },
+                { "InactivationRequested", null }
+            };
 
             // set different menu state 
             this._State = new System.Collections.Generic.Dictionary<IDType, bool>

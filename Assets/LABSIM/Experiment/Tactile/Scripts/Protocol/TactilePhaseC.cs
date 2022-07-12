@@ -26,7 +26,7 @@ namespace Labsim.experiment.tactile
             // save timestamps
             this.FSM.CurrentResults.phase_C_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
-            
+
             // bridge
             var haptic_bridge = TactileManager.Instance.getBridge(TactileManager.IDType.TactileHapticEntity) as TactileHapticEntityBridge;
 
@@ -111,6 +111,9 @@ namespace Labsim.experiment.tactile
 
             // wait a certain amout of time
             await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_C_settings.total_duration);
+
+            // inactivate
+            TactileManager.Instance.setInactive(TactileManager.IDType.TactileHapticEntity);
 
             // log
             UnityEngine.Debug.Log(

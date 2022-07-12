@@ -21,12 +21,17 @@ namespace Labsim.experiment.tactile
         // CloneHandMesh 
         public void CloneHandMesh()
         {
-            
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.CloneHandMesh() : begin");
+
             if(UnityEngine.Application.isPlaying)
             {
 
                 if(this.SkinnedMeshSnapshot == null) 
                 {  
+
+                    // log
+                    UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.CloneHandMesh() : Ok ! cloning reference hand");
 
                     // intantiate a game object
                     this.SkinnedMeshSnapshot = new UnityEngine.GameObject("LH_Snapshot");
@@ -60,6 +65,9 @@ namespace Labsim.experiment.tactile
                 } /* if() */
 
             } /* if() */
+
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.CloneHandMesh() : end");
 
         } /* CloneHandMesh() */
 
@@ -146,6 +154,21 @@ namespace Labsim.experiment.tactile
             } /* if() */
 
         } /* OnDisable() */
+
+        #endregion
+
+        #region Ultraleap interactions 
+
+        public void OnUltraleapButtonClonePress()
+        {
+            
+            // log
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> TactileHandMeshClonerBehaviour.OnUltraleapButtonClonePress() : Ultraleap UI button pressed !");
+
+            // raise internal event
+            this.Bridge.Dispatcher.RaiseButtonClonePressed();
+
+        } /* OnUltraleapButtonClonePress() */
 
         #endregion
 

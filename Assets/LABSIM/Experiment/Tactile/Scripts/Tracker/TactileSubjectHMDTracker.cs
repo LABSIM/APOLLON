@@ -75,7 +75,9 @@ namespace Labsim.experiment.tactile
                 this.m_trackerTask 
                     = System.Threading.Tasks.Task.Factory.StartNew(
                         this.RecordRowTaskCallback,
-                        this.m_cancellationTokenSource.Token
+                        this.m_cancellationTokenSource.Token,
+                        System.Threading.Tasks.TaskCreationOptions.DenyChildAttach, 
+                        System.Threading.Tasks.TaskScheduler.Default
                     );
 
             }
