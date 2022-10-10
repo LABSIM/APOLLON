@@ -74,9 +74,9 @@ namespace Labsim.apollon.gameplay.element
         void Awake()
         {
 
-            // inactive by default
-            this.enabled = false;
-            this.gameObject.SetActive(false);
+            // // inactive by default
+            // this.enabled = false;
+            // this.gameObject.SetActive(false);
 
         } /* Awake() */
 

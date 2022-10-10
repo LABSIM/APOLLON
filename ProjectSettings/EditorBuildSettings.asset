@@ -9,6 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Experiment/AgencyAndThresholdPerceptionV2.unity
     guid: 593a5dd8aad1a924ab47ba9f3df12042
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8264bf70eef11fa42bde15fd25bc24c5,
+      type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 2983873f15eb573448f1dc3074ff7a56,
       type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 0950538501bace245893f7c4ee80aad8,
