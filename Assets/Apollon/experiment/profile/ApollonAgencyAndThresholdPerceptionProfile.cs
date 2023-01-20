@@ -270,7 +270,7 @@ namespace Labsim.apollon.experiment.profile
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
                         ) as gameplay.entity.ApollonActiveSeatEntityBridge
-                    ).Dispatcher.RaiseVisualOnly();
+                    ).ConcreteDispatcher.RaiseVisualOnly();
                     break;
                 }
                 case "vestibular-only":
@@ -282,7 +282,7 @@ namespace Labsim.apollon.experiment.profile
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
                         ) as gameplay.entity.ApollonActiveSeatEntityBridge
-                    ).Dispatcher.RaiseVestibularOnly();
+                    ).ConcreteDispatcher.RaiseVestibularOnly();
                     break;
                 }
                 case "visuo-vestibular":
@@ -294,7 +294,7 @@ namespace Labsim.apollon.experiment.profile
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
                         ) as gameplay.entity.ApollonActiveSeatEntityBridge
-                    ).Dispatcher.RaiseVisuoVestibular();
+                    ).ConcreteDispatcher.RaiseVisuoVestibular();
                     break;
                 }
                 default:
@@ -430,7 +430,7 @@ namespace Labsim.apollon.experiment.profile
             } /* if() */
 
             // get back to idle state
-            seat_bridge.Dispatcher.RaiseIdle();
+            seat_bridge.ConcreteDispatcher.RaiseIdle();
 
             // base call
             base.onExperimentTrialEnd(sender, arg);

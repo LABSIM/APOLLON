@@ -25,7 +25,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // get a random timeout
@@ -42,7 +42,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // wait a certain amout of time between each bound
-            await this.FSM.DoSleep(random_latency);
+            await ApollonHighResolutionTime.DoSleep(random_latency);
 
             // log
             UnityEngine.Debug.Log(
@@ -60,7 +60,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

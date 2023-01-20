@@ -2,14 +2,11 @@
 namespace Labsim.apollon.gameplay.control
 {
 
-    public class ApollonAgencyAndThresholdPerceptionV2ControlBehaviour 
-        : UnityEngine.MonoBehaviour
+    public class ApollonAgencyAndThresholdPerceptionV2ControlBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonAgencyAndThresholdPerceptionV2ControlBridge>
     {
 
         #region properties/members
-
-        // bridge
-        public ApollonAgencyAndThresholdPerceptionV2ControlBridge Bridge { get; set; } = null;
 
         // controls
         public ApollonAgencyAndThresholdPerceptionV2Control Control { get; private set; } = null;

@@ -7,7 +7,7 @@ namespace Labsim.apollon.gameplay.control
 {
 
     public class ApollonAgencyAndThresholdPerceptionControlBridge 
-        : ApollonAbstractGameplayBridge
+        : ApollonGameplayBridge<ApollonAgencyAndThresholdPerceptionControlBridge>
     {
 
         //ctor
@@ -15,41 +15,33 @@ namespace Labsim.apollon.gameplay.control
             : base()
         { }
 
-        public ApollonAgencyAndThresholdPerceptionControlDispatcher Dispatcher { private set; get; } = null;
+        public ApollonAgencyAndThresholdPerceptionControlBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonAgencyAndThresholdPerceptionControlBehaviour;
+
+        public ApollonAgencyAndThresholdPerceptionControlDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonAgencyAndThresholdPerceptionControlDispatcher;
         
         #region Bridge abstract implementation 
-
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonAgencyAndThresholdPerceptionControlBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonAgencyAndThresholdPerceptionControlBridge.WrapBehaviour() : could not find object of type behaviour.ApollonAgencyAndThresholdPerceptionControlBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonAgencyAndThresholdPerceptionControlDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonAgencyAndThresholdPerceptionControlBehaviour>(
+                "ApollonAgencyAndThresholdPerceptionControlBridge",
+                "ApollonAgencyAndThresholdPerceptionControlBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonAgencyAndThresholdPerceptionControlDispatcher>(
+                "ApollonAgencyAndThresholdPerceptionControlBridge",
+                "ApollonAgencyAndThresholdPerceptionControlDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -114,7 +106,7 @@ namespace Labsim.apollon.gameplay.control
         {
            
             // dispatch event
-            this.Dispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
+            this.ConcreteDispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
 
         } /* OnAxisZValueChanged() */
 
@@ -131,7 +123,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserNeutralCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserNeutralCommandTriggered();
 
             } /* if() */
 
@@ -150,7 +142,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserPositiveCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserPositiveCommandTriggered();
 
             } /* if() */
 
@@ -169,7 +161,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserNegativeCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserNegativeCommandTriggered();
 
             } /* if() */
 
@@ -188,7 +180,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserResponseTriggered();
+                this.ConcreteDispatcher.RaiseUserResponseTriggered();
 
             } /* if() */
 

@@ -6,8 +6,9 @@ namespace Labsim.apollon.gameplay
     // FSM CRTP
     //  -- Finite State Machine Curiously Recurring Template Pattern
     //
-    public abstract class ApollonAbstractGameplayFiniteStateMachine<T> : ApollonAbstractGameplayBridge 
-        where T : ApollonAbstractGameplayFiniteStateMachine<T>
+    public abstract class ApollonGameplayBridge<T> 
+        : ApollonAbstractGameplayBridge 
+        where T : ApollonGameplayBridge<T>
     {
 
         // properties
@@ -36,6 +37,6 @@ namespace Labsim.apollon.gameplay
             
         } /* SetState() */
 
-    } /* abstract class ApollonAbstractGameplayFiniteStateMachine */
+    } /* abstract class ApollonGameplayBridge */
 
 } /* namespace Labsim.apollon.gameplay */

@@ -25,7 +25,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_F_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_F_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_F_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // get angular/linear acceleration threshold raw string from user settings
@@ -247,11 +247,11 @@ namespace Labsim.apollon.experiment.phase
             if(!bHasRealMotion) 
             {            
 
-                void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonVirtualMotionSystemCommandDispatcher.EventArgs e)
+                void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs e)
                     => sync_idle_point?.TrySetResult(true);
 
                 // register our synchronisation function
-                virtual_motion_system_bridge.Dispatcher.IdleEvent += sync_end_stim_local_function;
+                virtual_motion_system_bridge.ConcreteDispatcher.IdleEvent += sync_end_stim_local_function;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -264,7 +264,7 @@ namespace Labsim.apollon.experiment.phase
                 if(this.FSM.CurrentSettings.bIsTryCatch)
                 {
 
-                    virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
+                    virtual_motion_system_bridge.ConcreteDispatcher.RaiseAccelerate(
                         current_angular_acceleration_target.Select(
                             (e, idx) 
                                 => new { 
@@ -343,7 +343,7 @@ namespace Labsim.apollon.experiment.phase
                 else
                 {
 
-                    virtual_motion_system_bridge.Dispatcher.RaiseAccelerate(
+                    virtual_motion_system_bridge.ConcreteDispatcher.RaiseAccelerate(
                         current_angular_acceleration_target,
                         current_angular_velocity_saturation_threshold,
                         current_angular_displacement_limiter,
@@ -381,7 +381,7 @@ namespace Labsim.apollon.experiment.phase
                                 + (this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ))
                                 + " ms] for remaining phase total time"
                             );
-                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ));
+                            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ));
                         
                             // hit barrier 
                             sync_point.TrySetResult(true);
@@ -396,17 +396,17 @@ namespace Labsim.apollon.experiment.phase
                 );
 
                 // unregister our motion synchronisation function
-                virtual_motion_system_bridge.Dispatcher.IdleEvent -= sync_end_stim_local_function;
+                virtual_motion_system_bridge.ConcreteDispatcher.IdleEvent -= sync_end_stim_local_function;
 
             }
             else
             {
 
-                void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonMotionSystemCommandDispatcher.EventArgs e)
+                void sync_end_stim_local_function(object sender, gameplay.device.command.ApollonMotionSystemCommandDispatcher.MotionSystemCommandEventArgs e)
                     => sync_idle_point?.TrySetResult(true);
 
                 // register our synchronisation function
-                motion_system_bridge.Dispatcher.IdleEvent += sync_end_stim_local_function;
+                motion_system_bridge.ConcreteDispatcher.IdleEvent += sync_end_stim_local_function;
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -419,7 +419,7 @@ namespace Labsim.apollon.experiment.phase
                 if(this.FSM.CurrentSettings.bIsTryCatch)
                 {
 
-                    motion_system_bridge.Dispatcher.RaiseAccelerate(
+                    motion_system_bridge.ConcreteDispatcher.RaiseAccelerate(
                         current_angular_acceleration_target.Select(
                             (e, idx) 
                                 => new { 
@@ -498,7 +498,7 @@ namespace Labsim.apollon.experiment.phase
                 else
                 {
 
-                    motion_system_bridge.Dispatcher.RaiseAccelerate(
+                    motion_system_bridge.ConcreteDispatcher.RaiseAccelerate(
                         current_angular_acceleration_target,
                         current_angular_velocity_saturation_threshold,
                         current_angular_displacement_limiter,
@@ -536,7 +536,7 @@ namespace Labsim.apollon.experiment.phase
                                 + (this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ))
                                 + " ms] for remaining phase total time"
                             );
-                            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ));
+                            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_F_settings.total_duration - ( 2.0f * this.FSM.CurrentSettings.phase_F_settings.stim_duration ));
                         
                             // hit barrier 
                             sync_point.TrySetResult(true);
@@ -551,7 +551,7 @@ namespace Labsim.apollon.experiment.phase
                 );
 
                 // unregister our motion synchronisation function
-                motion_system_bridge.Dispatcher.IdleEvent -= sync_end_stim_local_function;
+                motion_system_bridge.ConcreteDispatcher.IdleEvent -= sync_end_stim_local_function;
 
             } /* if() */
 
@@ -571,7 +571,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_F_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_F_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_F_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

@@ -24,7 +24,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // get our entity bridge & settings
@@ -88,10 +88,10 @@ namespace Labsim.apollon.experiment.phase
             }
             
             // decelerate up to stop
-            caviar_bridge.Dispatcher.RaiseDecelerate(linear_absolute_deceleration,0.0f);
+            caviar_bridge.ConcreteDispatcher.RaiseDecelerate(linear_absolute_deceleration,0.0f);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(phase_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
 
             // log
             UnityEngine.Debug.Log(
@@ -104,7 +104,7 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(phase_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
 
             // hide red cross & frame
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
@@ -128,7 +128,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

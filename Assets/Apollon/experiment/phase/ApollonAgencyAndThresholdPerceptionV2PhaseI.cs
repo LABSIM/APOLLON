@@ -25,7 +25,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_I_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_I_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_I_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // currrent timestamp
@@ -33,7 +33,7 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<(float, float, string, long)>();
-            void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlDispatcher.EventArgs e)
+            void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlDispatcher.AgencyAndThresholdPerceptionV2ControlEventArgs e)
                 => sync_point?.TrySetResult((
                     /* user responded */ 
                     frontend.ApollonFrontendManager.Instance.getBridge(
@@ -42,14 +42,14 @@ namespace Labsim.apollon.experiment.phase
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
-                    UXF.ApplicationHandler.CurrentHighResolutionTime,
+                    ApollonHighResolutionTime.Now.ToString(),
                     /* current timestamp */
                     current_stopwatch.ElapsedMilliseconds
                 ));
 
             // user interaction lambda
             System.EventHandler<
-                gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlDispatcher.EventArgs
+                gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlDispatcher.AgencyAndThresholdPerceptionV2ControlEventArgs
             > user_interaction_local_function 
                 = (sender, args) 
                     => 
@@ -84,12 +84,12 @@ namespace Labsim.apollon.experiment.phase
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
                 ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
-            ).Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            ).ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
             (
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
                 ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
-            ).Dispatcher.AxisZValueChangedEvent += user_interaction_local_function;
+            ).ConcreteDispatcher.AxisZValueChangedEvent += user_interaction_local_function;
 
             // wait until any result
             (float, float, string, long) result = await sync_point.Task;
@@ -99,12 +99,12 @@ namespace Labsim.apollon.experiment.phase
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
                 ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
-            ).Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            ).ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
             (
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV2Control
                 ) as gameplay.control.ApollonAgencyAndThresholdPerceptionV2ControlBridge
-            ).Dispatcher.AxisZValueChangedEvent -= user_interaction_local_function;
+            ).ConcreteDispatcher.AxisZValueChangedEvent -= user_interaction_local_function;
 
             // hide confidence slider                            
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.ConfidenceSliderGUI);
@@ -136,7 +136,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_I_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_I_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_I_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

@@ -4,7 +4,7 @@ namespace Labsim.apollon.gameplay.element
 {
 
     public class ApollonFogElementBehaviour 
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonFogElementBridge>
     {
 
         #region Properties/Members
@@ -20,7 +20,7 @@ namespace Labsim.apollon.gameplay.element
         private float FogStartDistanceIncrement { get; set; } = 0.0f;
         private float FogEndDistanceIncrement { get; set; } = 0.0f;
         private UnityEngine.Color FogColorIncrement { get; set; } = new UnityEngine.Color();
-
+        
         #endregion
 
         #region Unity MonoBehaviour entry point

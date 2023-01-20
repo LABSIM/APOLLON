@@ -126,7 +126,7 @@ namespace Labsim.apollon.experiment
 
         #region actions
        
-        public async System.Threading.Tasks.Task DoRunProtocol(params System.Func<System.Threading.Tasks.Task>[] protocol)
+        protected async System.Threading.Tasks.Task DoRunProtocol(params System.Func<System.Threading.Tasks.Task>[] main_loop)
         {
 
             // log
@@ -135,7 +135,7 @@ namespace Labsim.apollon.experiment
             );
 
             // simply
-            foreach(var step in protocol) { await step(); }
+            await this.DoForeachLoop(main_loop);
 
             // log
             UnityEngine.Debug.Log(
@@ -147,6 +147,46 @@ namespace Labsim.apollon.experiment
 
         } /* DoRunProtocol() */
         
+        protected async System.Threading.Tasks.Task DoWhileLoop(System.Func<bool> predicate, params System.Func<System.Threading.Tasks.Task>[] sub_loop)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.DoWhileLoop() : begin"
+            );
+
+            // execute
+            do 
+            {
+                
+                await this.DoForeachLoop(sub_loop);
+
+            } while(predicate());
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.DoWhileLoop() : end"
+            );
+
+        } /* DoWhileLoop() */
+
+        protected async System.Threading.Tasks.Task DoForeachLoop(params System.Func<System.Threading.Tasks.Task>[] sub_loop)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.DoForeachLoop() : begin"
+            );
+
+            // execute
+            foreach(var step in sub_loop) { await step(); }
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.DoForeachLoop() : end"
+            );
+
+        } /* ForeachLoop() */
         public void DoBlockConfiguration(UXF.Block block, System.Collections.Generic.List<string> seq)
         {
 
@@ -279,7 +319,7 @@ namespace Labsim.apollon.experiment
             {
 
                 // synchronous wait
-                await this.DoSleep(duration_in_ms);
+                await ApollonHighResolutionTime.DoSleep(duration_in_ms);
 
             } /* if() */
             
@@ -299,23 +339,23 @@ namespace Labsim.apollon.experiment
             {
 
                 // synchronous wait
-                await this.DoSleep(duration_in_ms);
+                await ApollonHighResolutionTime.DoSleep(duration_in_ms);
 
             } /* if() */
 
         } /* DoFadeOut() */
 
-        public async System.Threading.Tasks.Task DoSleep(float duration_in_ms)
-        {
+        // public async System.Threading.Tasks.Task DoSleep(float duration_in_ms)
+        // {
         
-            // wait a certain amout of time
-            var chrono = System.Diagnostics.Stopwatch.StartNew();
-            while (chrono.ElapsedMilliseconds < duration_in_ms)
-            {
-                await System.Threading.Tasks.Task.Delay(10);
-            }
+        //     // wait a certain amout of time
+        //     var chrono = System.Diagnostics.Stopwatch.StartNew();
+        //     while (chrono.ElapsedMilliseconds < duration_in_ms)
+        //     {
+        //         await System.Threading.Tasks.Task.Delay(10);
+        //     }
 
-        } /* DoSleep() */
+        // } /* DoSleep() */
 
         #endregion
 

@@ -56,7 +56,7 @@ namespace UXF
 			var row = new UXFDataRow();
 
 			row.Add(("unity_timestamp", Time.time.ToString()));
-			row.Add(("host_timestamp", UXF.ApplicationHandler.CurrentHighResolutionTime));
+			row.Add(("host_timestamp", Labsim.apollon.ApollonHighResolutionTime.Now.ToString()));
 			row.Add(("log_type", type.ToString()));
 			row.Add(("message", logString.Replace(",", string.Empty)));
 			row.Add(("stacktrace", stackTrace.Replace(",", string.Empty).Replace("\n", ".  ").Replace("\r", ".  ")));
@@ -74,7 +74,7 @@ namespace UXF
 			var row = new UXFDataRow();
 
 			row.Add(("unity_timestamp", Time.time.ToString()));
-			row.Add(("host_timestamp", UXF.ApplicationHandler.CurrentHighResolutionTime));
+			row.Add(("host_timestamp", Labsim.apollon.ApollonHighResolutionTime.Now.ToString()));
 			row.Add(("log_type", logType));
 			row.Add(("message", text.Replace(",", string.Empty)));
 			row.Add(("stacktrace", "NA"));

@@ -3,44 +3,38 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonHOTASWarthogThrottleSensorBridge 
-        : ApollonAbstractGameplayBridge
+        : ApollonGameplayBridge<ApollonHOTASWarthogThrottleSensorBridge>
     {
 
         //ctor
         public ApollonHOTASWarthogThrottleSensorBridge()
             : base()
         { }
-        
-        #region Bridge abstract implementation 
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        public ApollonHOTASWarthogThrottleSensorBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonHOTASWarthogThrottleSensorBehaviour;
+        
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonHOTASWarthogThrottleSensorBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonHOTASWarthogThrottleSensorBridge.WrapBehaviour() : could not find object of type ApollonHOTASWarthogThrottleSensorBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonHOTASWarthogThrottleSensorBehaviour>(
+                "ApollonHOTASWarthogThrottleSensorBridge",
+                "ApollonHOTASWarthogThrottleSensorBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonGameplayDispatcher>(
+                "ApollonHOTASWarthogThrottleSensorBridge",
+                "ApollonGameplayDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {

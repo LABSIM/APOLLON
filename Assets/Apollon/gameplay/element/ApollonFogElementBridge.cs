@@ -2,7 +2,8 @@
 namespace Labsim.apollon.gameplay.element
 {
 
-    public class ApollonFogElementBridge : ApollonAbstractGameplayBridge
+    public class ApollonFogElementBridge
+        : ApollonGameplayBridge<ApollonFogElementBridge>
     {
 
         //ctor
@@ -10,35 +11,33 @@ namespace Labsim.apollon.gameplay.element
             : base()
         { }
 
-        public ApollonFogElementDispatcher Dispatcher { private set; get; } = null;
+        public ApollonFogElementBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonFogElementBehaviour;
 
-        #region Bridge abstract implementation 
+        public ApollonFogElementDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonFogElementDispatcher;
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
-            
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonFogElementBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
 
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonFogElementBridge.WrapBehaviour() : could not find object of type behaviour.ApollonFogElementBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // instantiate
-            this.Dispatcher = new ApollonFogElementDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonFogElementBehaviour>(
+                "ApollonFogElementBridge",
+                "ApollonFogElementBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonFogElementDispatcher>(
+                "ApollonFogElementBridge",
+                "ApollonFogElementDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -63,7 +62,7 @@ namespace Labsim.apollon.gameplay.element
                 this.Behaviour.gameObject.SetActive(true);
 
                 // subscribe
-                this.Dispatcher.ParameterChangedEvent += this.OnParameterChanged;
+                this.ConcreteDispatcher.ParameterChangedEvent += this.OnParameterChanged;
 
             }
             else
@@ -73,7 +72,7 @@ namespace Labsim.apollon.gameplay.element
                 if (!this.Behaviour.isActiveAndEnabled) { return; }
 
                 // unscribe
-                this.Dispatcher.ParameterChangedEvent -= this.OnParameterChanged;
+                this.ConcreteDispatcher.ParameterChangedEvent -= this.OnParameterChanged;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -87,7 +86,7 @@ namespace Labsim.apollon.gameplay.element
 
         #region event delegate
 
-        public void OnParameterChanged(object sender, ApollonFogElementDispatcher.EventArgs args)
+        public void OnParameterChanged(object sender, ApollonFogElementDispatcher.FogElementEventArgs args)
         {
 
             // log

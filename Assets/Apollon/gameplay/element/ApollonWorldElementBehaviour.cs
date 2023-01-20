@@ -3,8 +3,8 @@
 namespace Labsim.apollon.gameplay.element
 {
     public class ApollonWorldElementBehaviour 
-        : UnityEngine.MonoBehaviour, 
-        UnityEngine.ISerializationCallbackReceiver
+        : ApolloConcreteGameplayBehaviour<ApollonWorldElementBridge>
+        , UnityEngine.ISerializationCallbackReceiver
     {
 
         private System.Collections.Generic.Dictionary<string, UnityEngine.GameObject> m_references

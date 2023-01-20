@@ -8,6 +8,26 @@ namespace Labsim.apollon
     public sealed class ApollonEngine
     {
 
+        #region task scheduler mechanism [async/await == multi-thread <=> UnityEngine.Coroutine == single-thread]
+
+        // Use this as a global Coroutine tasker mechanism to handle internal Async/Await logic
+        private readonly System.Lazy<ApollonEngineComponent> _lazyUnityComponent
+            = new System.Lazy<ApollonEngineComponent>(
+                () => UnityEngine.GameObject.FindObjectOfType<ApollonEngineComponent>()
+            );
+        private ApollonEngineComponent UnityComponent => this._lazyUnityComponent.Value;
+
+        // facade
+        public static void Schedule(System.Action task)
+        {
+
+            // schedule a new action into UnityEngine system
+            ApollonEngine.Instance.UnityComponent.PendAction(task);
+
+        } /* Schedule() */
+
+        #endregion
+
         #region manager handling
 
         private readonly System.Collections.Generic.List<string> _managerList
@@ -546,7 +566,7 @@ namespace Labsim.apollon
             public EngineEventArgs()
                 : base()
             {
-                this.Time = System.DateTime.Now;
+                this.Time = ApollonHighResolutionTime.Now;
             }
 
             public EngineEventArgs(EngineEventArgs rhs)
@@ -555,7 +575,7 @@ namespace Labsim.apollon
             }
 
             // property
-            public System.DateTime Time { get; protected set; }
+            public ApollonHighResolutionTime.HighResolutionTimepoint Time { get; protected set; }
 
         } /* EngineEventArgs */
 
@@ -615,8 +635,8 @@ namespace Labsim.apollon
         private static readonly System.Lazy<ApollonEngine> _lazyInstance
             = new System.Lazy<ApollonEngine>(() => new ApollonEngine());
 
-        // Instance  property
-        public static ApollonEngine Instance { get { return _lazyInstance.Value; } }
+        // Instance
+        public static ApollonEngine Instance => ApollonEngine._lazyInstance.Value;
 
         // private ctor
         private ApollonEngine()
@@ -634,6 +654,17 @@ namespace Labsim.apollon
                 { "EngineExperimentTrialBegin", null },
                 { "EngineExperimentTrialEnd", null }
             };
+
+            // check/init component
+            if(this.UnityComponent == null)
+            {
+                
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> ApollonEngine.ApollonEngine() : could not find UnityComponent reference in scene !"
+                );
+
+            } /* if() */
 
             // register all managers
             this.RegisterAllAvailableManager();

@@ -17,6 +17,36 @@ namespace Labsim.apollon.gameplay
         private void RegisterAllAvailableGameplayBridge()
         {
 
+            // clear if it's already filled
+            if(this._gameplayBridgeTable.Count > 0)
+            {
+
+                foreach(ApollonAbstractGameplayBridge entry in this._gameplayBridgeTable.Values)
+                {
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonGameplayManager.RegisterAllAvailableGameplayBridge() : unbinding entry ["
+                            + Labsim.apollon.ApollonEngine.GetEnumDescription(entry.ID)
+                        + "]"
+                    );
+                    
+                    // unmap
+                    this.GameplayActivationRequestedEvent   -= entry.onActivationRequested;
+                    this.GameplayInactivationRequestedEvent -= entry.onInactivationRequested;       
+
+                } /* foreach() */
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=blue>Info: </color> ApollonGameplayManager.RegisterAllAvailableGameplayBridge() : clear all table entries"
+                );
+
+                // clear all
+                this._gameplayBridgeTable.Clear();
+
+            } /* if() */
+
             // register all module
             foreach (System.Type type
                 in System.Reflection.Assembly.GetAssembly(typeof(ApollonAbstractGameplayBridge)).GetTypes()
@@ -41,9 +71,64 @@ namespace Labsim.apollon.gameplay
                 if ((bridge = System.Activator.CreateInstance(type) as ApollonAbstractGameplayBridge) != null)
                 {
 
-                    // check behaviour property, if null then object isn'nt in unity Scene
-                    if(bridge.Behaviour == null)
+                    // is it a prefab ? is it attached to a GO ? is it on current scene ?
+
+                    bool 
+                        isPrefabInstance             = false,
+                        isPrefabOriginal             = false, 
+                        isDisconnectedPrefabInstance = false,
+                        isAttached                   = bridge.Behaviour != null && bridge.Behaviour.transform != null,
+                        isInLoadedScene
+                            = isAttached 
+                            ? (
+                                bridge.Behaviour.gameObject.scene != null 
+                                ? UnityEngine.SceneManagement.SceneManager.GetSceneByName(bridge.Behaviour.gameObject.scene.name).IsValid()
+                                : false
+                            )
+                            : false;
+                    
+                    #if UNITY_EDITOR
+                    if (UnityEngine.Application.isEditor && isAttached) 
                     {
+
+                        isPrefabInstance 
+                            = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(bridge.Behaviour.gameObject)   != null 
+                            && UnityEditor.PrefabUtility.GetPrefabInstanceHandle(bridge.Behaviour.transform) != null;
+
+                        isPrefabOriginal 
+                            = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(bridge.Behaviour.gameObject)   == null 
+                            && UnityEditor.PrefabUtility.GetPrefabInstanceHandle(bridge.Behaviour.transform) != null;
+
+                        isDisconnectedPrefabInstance 
+                            = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(bridge.Behaviour.gameObject)   != null 
+                            && UnityEditor.PrefabUtility.GetPrefabInstanceHandle(bridge.Behaviour.transform) == null;
+
+                    } /* if() */
+                    #endif
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonGameplayManager.RegisterAllAvailableGameplayBridge() : bridge ["
+                        + type.FullName
+                        + "] isPrefabInstance{"
+                        + isPrefabInstance
+                        + "}, isPrefabOriginal{"
+                        + isPrefabOriginal
+                        + "}, isDisconnectedPrefabInstance{"
+                        + isDisconnectedPrefabInstance
+                        + "}, isAttached{"
+                        + isAttached
+                        + "}, isInLoadedScene{"
+                        + isInLoadedScene + "/" + ((isAttached && (bridge.Behaviour.gameObject.scene != null)) ? bridge.Behaviour.gameObject.scene.name : "null")
+                        + "}"
+                    );
+
+                    // check behaviour property, if null or if there is no attached scene then object... is not in current unity Scene, it's a prefab
+                    if(!isAttached
+                    #if UNITY_EDITOR
+                    || !isInLoadedScene
+                    #endif
+                    ) {
                         
                         // mark as disposable
                         System.GC.SuppressFinalize(bridge);
@@ -52,7 +137,7 @@ namespace Labsim.apollon.gameplay
                         UnityEngine.Debug.Log(
                             "<color=blue>Info: </color> ApollonGameplayManager.RegisterAllAvailableGameplayBridge() : bridge ["
                             + type.FullName
-                            + "] not in current Scene, mark as dispobale."
+                            + "] not in current Scene, mark as disposable."
                         );
 
                         // next module 
@@ -66,6 +151,32 @@ namespace Labsim.apollon.gameplay
                         + type.FullName
                         + "]."
                     );
+
+                    // // check behaviour property, if null then object isn'nt in unity Scene
+                    // if(bridge.Behaviour == null)
+                    // {
+                        
+                    //     // mark as disposable
+                    //     System.GC.SuppressFinalize(bridge);
+
+                    //     // log
+                    //     UnityEngine.Debug.Log(
+                    //         "<color=blue>Info: </color> ApollonGameplayManager.RegisterAllAvailableGameplayBridge() : bridge ["
+                    //         + type.FullName
+                    //         + "] not in current Scene, mark as dispobale."
+                    //     );
+
+                    //     // next module 
+                    //     continue;
+
+                    // } /* if() */
+                    
+                    // // log
+                    // UnityEngine.Debug.Log(
+                    //     "<color=blue>Info: </color> ApollonGameplayManager.RegisterAllAvailableGameplayBridge() : success to create instance of bridge ["
+                    //     + type.FullName
+                    //     + "]."
+                    // );
 
                     // register it
 
@@ -133,6 +244,52 @@ namespace Labsim.apollon.gameplay
             return null;
 
         } /* getBridge() */
+
+        public T getConcreteBridge<T>(GameplayIDType ID)
+            where T : ApollonAbstractGameplayBridge
+        {
+
+            // check 
+            if(this._gameplayBridgeTable.ContainsKey(ID))
+            {
+
+                if(this._gameplayBridgeTable[ID] is T)
+                {
+                    return this._gameplayBridgeTable[ID] as T;
+                }
+                else
+                {
+
+                    // log
+                    UnityEngine.Debug.LogWarning(
+                        "<color=orange>Warning: </color> ApollonGameplayManager.getConcreteBridge<"
+                        + typeof(T).ToString()
+                        + ">("
+                        + ID
+                        + ") : bridge isn't the requested generic argument type..."
+                    );
+
+                } /* if() */
+
+            }
+            else
+            {
+
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=orange>Warning: </color> ApollonGameplayManager.getConcreteBridge<"
+                    + typeof(T).ToString()
+                    + ">("
+                    + ID
+                    + ") : requested ID not found ..."
+                );
+
+            } /* if() */
+
+            // failed
+            return null;
+
+        } /* getConcreteBridge() */
 
         #endregion
 
@@ -300,6 +457,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.RadioSondeSensor, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionControl, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionV2Control, false },
+                { GameplayIDType.AgencyAndThresholdPerceptionV3Control, false },
                 { GameplayIDType.CAVIARControl, false },
                 { GameplayIDType.All, false }
             };
@@ -364,6 +522,9 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("AgencyAndThresholdPerceptionV2Control")]
             AgencyAndThresholdPerceptionV2Control,
+
+            [System.ComponentModel.Description("AgencyAndThresholdPerceptionV3Control")]
+            AgencyAndThresholdPerceptionV3Control,
 
             [System.ComponentModel.Description("CAVIARControl")]
             CAVIARControl,

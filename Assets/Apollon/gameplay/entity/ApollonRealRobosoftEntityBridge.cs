@@ -2,7 +2,8 @@
 namespace Labsim.apollon.gameplay.entity
 {
 
-    public class ApollonRealRobosoftEntityBridge : ApollonAbstractGameplayBridge
+    public class ApollonRealRobosoftEntityBridge 
+        : ApollonGameplayBridge<ApollonRealRobosoftEntityBridge>
     {
 
         // ctor
@@ -10,30 +11,30 @@ namespace Labsim.apollon.gameplay.entity
             : base()
         { }
         
+        public ApollonRealRobosoftEntityBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonRealRobosoftEntityBehaviour;
+
         #region Bridge abstract implementation 
         
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
-            
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonRealRobosoftEntityBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
 
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonRealRobosoftEntityBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */            
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonRealRobosoftEntityBehaviour>(
+                "ApollonRealRobosoftEntityBridge",
+                "ApollonRealRobosoftEntityBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonGameplayDispatcher>(
+                "ApollonRealRobosoftEntityBridge",
+                "ApollonGameplayDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {

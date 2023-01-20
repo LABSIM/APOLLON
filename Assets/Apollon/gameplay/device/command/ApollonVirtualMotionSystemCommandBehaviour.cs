@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.command
 {
 
     public class ApollonVirtualMotionSystemCommandBehaviour
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonVirtualMotionSystemCommandBridge>
     {
 
         #region properties/members
@@ -24,7 +24,6 @@ namespace Labsim.apollon.gameplay.device.command
         public UnityEngine.Vector3 LinearDisplacementLimiter { get; set; } = new UnityEngine.Vector3();
         public float Duration { get; set; } = 0.0f;
         public System.Diagnostics.Stopwatch Chrono { get; private set; } = new System.Diagnostics.Stopwatch();
-        public ApollonVirtualMotionSystemCommandBridge Bridge { get; set; }
 
         private bool m_bHasInitialized = false;
 
@@ -129,7 +128,7 @@ namespace Labsim.apollon.gameplay.device.command
                 );
 
                 // change state
-                this._parent.Bridge.Dispatcher.RaiseIdle();
+                this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
 
                 // log
                 UnityEngine.Debug.Log(
@@ -189,8 +188,8 @@ namespace Labsim.apollon.gameplay.device.command
                 this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
                 this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
                 this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                this._rigidbody.velocity = UnityEngine.Vector3.zero;
-                this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
+                // this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                // this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -310,7 +309,7 @@ namespace Labsim.apollon.gameplay.device.command
                     //this._rigidbody.AddTorque(this._parent.AngularVelocitySaturation, UnityEngine.ForceMode.VelocityChange);
 
                     // notify saturation event
-                    this._parent.Bridge.Dispatcher.RaiseSaturation();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseSaturation();
 
                 }
                 // or if max point on any axis nor elapsed time is reached
@@ -371,8 +370,8 @@ namespace Labsim.apollon.gameplay.device.command
                         "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.AccelerateController.FixedUpdate() : stimulation duration/angle reached, raise deceleration event"
                     );
 
-                    // notify stop event
-                    this._parent.Bridge.Dispatcher.RaiseDecelerate();            
+                    // notify idle event
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();          
 
                 }
                 else
@@ -479,12 +478,12 @@ namespace Labsim.apollon.gameplay.device.command
             {
 
                 // check if saturation point is reached
-                if ((UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) <= 0.0001f)
-                    && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) <= 0.0001f)
-                    && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) <= 0.0001f)
-                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) <= 0.0001f)
-                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) <= 0.0001f)
-                    && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) <= 0.0001f)
+                if ((this._rigidbody.angularVelocity.x <= 0.0001f)
+                    && (this._rigidbody.angularVelocity.y <= 0.0001f)
+                    && (this._rigidbody.angularVelocity.z <= 0.0001f)
+                    && (this._rigidbody.velocity.x <= 0.0001f)
+                    && (this._rigidbody.velocity.y <= 0.0001f)
+                    && (this._rigidbody.velocity.z <= 0.0001f)
                 )
                 {
 
@@ -510,7 +509,7 @@ namespace Labsim.apollon.gameplay.device.command
                         );
 
                         // notify idle event
-                        this._parent.Bridge.Dispatcher.RaiseIdle();                        
+                        this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();                        
 
                     } /* if() */
 
@@ -671,8 +670,8 @@ namespace Labsim.apollon.gameplay.device.command
                         "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.HoldController.FixedUpdate() : stimulation duration/angle reached, raise stop event"
                     );
 
-                    // notify saturation event
-                    this._parent.Bridge.Dispatcher.RaiseDecelerate();
+                    // notify idle event
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
 
                 } /* if() */
 
@@ -760,7 +759,7 @@ namespace Labsim.apollon.gameplay.device.command
                     );
 
                     // notify Init event
-                    this._parent.Bridge.Dispatcher.RaiseInit();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseInit();
 
                     return;
 

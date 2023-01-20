@@ -25,7 +25,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_G_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_G_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_G_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
             
             // fade out from black for vestibular-only scenario
@@ -44,7 +44,7 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_G_settings.duration);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_G_settings.duration);
 
             // finally, hide green frame/cross
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
@@ -65,7 +65,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_G_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_G_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_G_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

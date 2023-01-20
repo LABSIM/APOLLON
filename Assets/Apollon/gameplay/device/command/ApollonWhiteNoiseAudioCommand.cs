@@ -33,14 +33,24 @@ public class ApollonWhiteNoiseAudioCommand
     {
 
         sampling_frequency = UnityEngine.AudioSettings.outputSampleRate;
-        lowPassFilter = GetComponent<UnityEngine.AudioLowPassFilter>();
-
+        lowPassFilter      = GetComponent<UnityEngine.AudioLowPassFilter>();
         Update();
-
-        this.m_bRunning = true;
         
     }
 
+    private void OnEnable() 
+    {
+        
+        this.m_bRunning = true;
+
+    }
+
+    private void OnDisable() 
+    {
+        
+        this.m_bRunning = false;
+
+    }
 
     void OnAudioFilterRead(float[] data, int channels)
     {

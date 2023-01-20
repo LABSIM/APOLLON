@@ -7,7 +7,7 @@ namespace Labsim.apollon.gameplay.control
 {
 
     public class ApollonAgencyAndThresholdPerceptionV2ControlBridge 
-        : ApollonAbstractGameplayBridge
+        : ApollonGameplayBridge<ApollonAgencyAndThresholdPerceptionV2ControlBridge>
     {
 
         //ctor
@@ -15,41 +15,33 @@ namespace Labsim.apollon.gameplay.control
             : base()
         { }
 
-        public ApollonAgencyAndThresholdPerceptionV2ControlDispatcher Dispatcher { private set; get; } = null;
-        
-        #region Bridge abstract implementation 
+        public ApollonAgencyAndThresholdPerceptionV2ControlBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonAgencyAndThresholdPerceptionV2ControlBehaviour;
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        public ApollonAgencyAndThresholdPerceptionV2ControlDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonAgencyAndThresholdPerceptionV2ControlDispatcher;
+        
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonAgencyAndThresholdPerceptionV2ControlBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonAgencyAndThresholdPerceptionV2ControlBridge.WrapBehaviour() : could not find object of type behaviour.ApollonAgencyAndThresholdPerceptionV2ControlBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonAgencyAndThresholdPerceptionV2ControlDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonAgencyAndThresholdPerceptionV2ControlBehaviour>(
+                "ApollonAgencyAndThresholdPerceptionV2ControlBridge",
+                "ApollonAgencyAndThresholdPerceptionV2ControlBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonAgencyAndThresholdPerceptionV2ControlDispatcher>(
+                "ApollonAgencyAndThresholdPerceptionV2ControlBridge",
+                "ApollonAgencyAndThresholdPerceptionV2ControlDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -114,7 +106,7 @@ namespace Labsim.apollon.gameplay.control
         {
            
             // dispatch event
-            this.Dispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
+            this.ConcreteDispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
 
         } /* OnAxisZValueChanged() */
 
@@ -131,7 +123,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserNeutralCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserNeutralCommandTriggered();
 
             } /* if() */
 
@@ -150,7 +142,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserPositiveCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserPositiveCommandTriggered();
 
             } /* if() */
 
@@ -169,7 +161,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserNegativeCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserNegativeCommandTriggered();
 
             } /* if() */
 
@@ -188,7 +180,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserResponseTriggered();
+                this.ConcreteDispatcher.RaiseUserResponseTriggered();
 
             } /* if() */
 

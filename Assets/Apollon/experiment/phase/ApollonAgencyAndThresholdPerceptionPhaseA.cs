@@ -35,7 +35,7 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
 
             // hide green frame first
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
@@ -57,9 +57,9 @@ namespace Labsim.apollon.experiment.phase
 
                     // synchronisation mechanism (TCS + local function)
                     var sync_point = new System.Threading.Tasks.TaskCompletionSource<int>();
-                    void sync_positive_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
+                    void sync_positive_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.AgencyAndThresholdPerceptionControlEventArgs e)
                         => sync_point?.TrySetResult(1);
-                    void sync_negative_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
+                    void sync_negative_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.AgencyAndThresholdPerceptionControlEventArgs e)
                         => sync_point?.TrySetResult(-1);
 
                     // register our synchronisation function
@@ -67,12 +67,12 @@ namespace Labsim.apollon.experiment.phase
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl
                         ) as gameplay.control.ApollonAgencyAndThresholdPerceptionControlBridge
-                    ).Dispatcher.UserPositiveCommandTriggeredEvent += sync_positive_local_function;
+                    ).ConcreteDispatcher.UserPositiveCommandTriggeredEvent += sync_positive_local_function;
                     (
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl
                         ) as gameplay.control.ApollonAgencyAndThresholdPerceptionControlBridge
-                    ).Dispatcher.UserNegativeCommandTriggeredEvent += sync_negative_local_function;
+                    ).ConcreteDispatcher.UserNegativeCommandTriggeredEvent += sync_negative_local_function;
 
                     // wait synchronisation point indefinitely & reset it once hit
                     this.FSM.CurrentResults.user_command = await sync_point.Task;
@@ -267,7 +267,7 @@ namespace Labsim.apollon.experiment.phase
                         frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
                         // wait a certain amout of time
-                        await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+                        await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
 
                         // then turn back to default cross
                         frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
@@ -280,12 +280,12 @@ namespace Labsim.apollon.experiment.phase
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl
                         ) as gameplay.control.ApollonAgencyAndThresholdPerceptionControlBridge
-                    ).Dispatcher.UserPositiveCommandTriggeredEvent -= sync_positive_local_function;
+                    ).ConcreteDispatcher.UserPositiveCommandTriggeredEvent -= sync_positive_local_function;
                     (
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl
                         ) as gameplay.control.ApollonAgencyAndThresholdPerceptionControlBridge
-                    ).Dispatcher.UserNegativeCommandTriggeredEvent -= sync_negative_local_function;
+                    ).ConcreteDispatcher.UserNegativeCommandTriggeredEvent -= sync_negative_local_function;
 
                 } while(!bConditionIsOk);
 
@@ -312,7 +312,7 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_A_duration / 2.0f);
 
             // then hide green cross
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);

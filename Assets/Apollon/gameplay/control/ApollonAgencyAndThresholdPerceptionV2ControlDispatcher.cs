@@ -3,15 +3,16 @@ namespace Labsim.apollon.gameplay.control
 {
 
     public class ApollonAgencyAndThresholdPerceptionV2ControlDispatcher
+        : ApolloConcreteGameplayDispatcher<ApollonAgencyAndThresholdPerceptionV2ControlBridge>
     {
         #region event args class
 
-        public class EventArgs
-            : ApollonEngine.EngineEventArgs
+        public class AgencyAndThresholdPerceptionV2ControlEventArgs
+            : ApollonGameplayDispatcher.GameplayEventArgs
         {
 
             // ctor
-            public EventArgs(float z = 0.0f, bool button15 = false)
+            public AgencyAndThresholdPerceptionV2ControlEventArgs(float z = 0.0f, bool button15 = false)
                 : base()
             {
                 this.Z = z;
@@ -19,7 +20,7 @@ namespace Labsim.apollon.gameplay.control
             }
 
             // ctor
-            public EventArgs(EventArgs rhs)
+            public AgencyAndThresholdPerceptionV2ControlEventArgs(AgencyAndThresholdPerceptionV2ControlEventArgs rhs)
                 : base(rhs)
             {
                 this.Z = rhs.Z;
@@ -30,28 +31,18 @@ namespace Labsim.apollon.gameplay.control
             public float Z { get; protected set; }
             public bool Button15 { get; protected set; }
 
-        } /* EventArgs() */
+        } /* AgencyAndThresholdPerceptionV2ControlEventArgs() */
 
         #endregion
 
         #region Dictionary & each list of event
 
-        private readonly System.Collections.Generic.Dictionary<string, System.Delegate> _eventTable = null;
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> _eventAxisZValueChangedList
-            = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> _eventUserNeutralCommandTriggeredList
-            = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> _eventUserPositiveCommandTriggeredList
-            = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> _eventUserNegativeCommandTriggeredList
-            = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> _eventUserResponseTriggeredList
-            = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
+        private readonly System.Collections.Generic.List<System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>> 
+            _eventAxisZValueChangedList            = new System.Collections.Generic.List<System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>>(),
+            _eventUserNeutralCommandTriggeredList  = new System.Collections.Generic.List<System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>>(),
+            _eventUserPositiveCommandTriggeredList = new System.Collections.Generic.List<System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>>(),
+            _eventUserNegativeCommandTriggeredList = new System.Collections.Generic.List<System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>>(),
+            _eventUserResponseTriggeredList        = new System.Collections.Generic.List<System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>>();
 
         #endregion
 
@@ -60,27 +51,25 @@ namespace Labsim.apollon.gameplay.control
         {
 
             // event table
-            this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
-            {
-                { "AxisZValueChanged", null },
-                { "UserNeutralCommandTriggered", null },
-                { "UserPositiveCommandTriggered", null },
-                { "UserNegativeCommandTriggered", null },
-                { "UserResponseTriggered", null }
-            };
+
+            this._eventTable.Add("AxisZValueChanged",            null);
+            this._eventTable.Add("UserNeutralCommandTriggered",  null);
+            this._eventTable.Add("UserPositiveCommandTriggered", null);
+            this._eventTable.Add("UserNegativeCommandTriggered", null);
+            this._eventTable.Add("UserResponseTriggered",        null);
 
         } /* ApollonAgencyAndThresholdPerceptionV2ControlDispatcher() */
 
         #region actual events
 
-        public event System.EventHandler<EventArgs> AxisZValueChangedEvent
+        public event System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs> AxisZValueChangedEvent
         {
             add
             {
                 this._eventAxisZValueChangedList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["AxisZValueChanged"] = (System.EventHandler<EventArgs>)this._eventTable["AxisZValueChanged"] + value;
+                    this._eventTable["AxisZValueChanged"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["AxisZValueChanged"] + value;
                 }
             }
 
@@ -96,21 +85,21 @@ namespace Labsim.apollon.gameplay.control
                     this._eventTable["AxisZValueChanged"] = null;
                     foreach (var eventAxisZValueChanged in this._eventAxisZValueChangedList)
                     {
-                        this._eventTable["AxisZValueChanged"] = (System.EventHandler<EventArgs>)this._eventTable["AxisZValueChanged"] + eventAxisZValueChanged;
+                        this._eventTable["AxisZValueChanged"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["AxisZValueChanged"] + eventAxisZValueChanged;
                     }
                 }
             }
 
         } /* AxisZValueChangedEvent */
 
-        public event System.EventHandler<EventArgs> UserNeutralCommandTriggeredEvent
+        public event System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs> UserNeutralCommandTriggeredEvent
         {
             add
             {
                 this._eventUserNeutralCommandTriggeredList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["UserNeutralCommandTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserNeutralCommandTriggered"] + value;
+                    this._eventTable["UserNeutralCommandTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserNeutralCommandTriggered"] + value;
                 }
             }
 
@@ -126,21 +115,21 @@ namespace Labsim.apollon.gameplay.control
                     this._eventTable["UserNeutralCommandTriggered"] = null;
                     foreach (var eventUserNeutralCommandTriggered in this._eventUserNeutralCommandTriggeredList)
                     {
-                        this._eventTable["UserNeutralCommandTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserNeutralCommandTriggered"] + eventUserNeutralCommandTriggered;
+                        this._eventTable["UserNeutralCommandTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserNeutralCommandTriggered"] + eventUserNeutralCommandTriggered;
                     }
                 }
             }
 
         } /* UserNeutralCommandTriggeredEvent */
 
-        public event System.EventHandler<EventArgs> UserPositiveCommandTriggeredEvent
+        public event System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs> UserPositiveCommandTriggeredEvent
         {
             add
             {
                 this._eventUserPositiveCommandTriggeredList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["UserPositiveCommandTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserPositiveCommandTriggered"] + value;
+                    this._eventTable["UserPositiveCommandTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserPositiveCommandTriggered"] + value;
                 }
             }
 
@@ -156,21 +145,21 @@ namespace Labsim.apollon.gameplay.control
                     this._eventTable["UserPositiveCommandTriggered"] = null;
                     foreach (var eventUserPositiveCommandTriggered in this._eventUserPositiveCommandTriggeredList)
                     {
-                        this._eventTable["UserPositiveCommandTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserPositiveCommandTriggered"] + eventUserPositiveCommandTriggered;
+                        this._eventTable["UserPositiveCommandTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserPositiveCommandTriggered"] + eventUserPositiveCommandTriggered;
                     }
                 }
             }
 
         } /* UserPositiveCommandTriggeredEvent */
 
-        public event System.EventHandler<EventArgs> UserNegativeCommandTriggeredEvent
+        public event System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs> UserNegativeCommandTriggeredEvent
         {
             add
             {
                 this._eventUserNegativeCommandTriggeredList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["UserNegativeCommandTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserNegativeCommandTriggered"] + value;
+                    this._eventTable["UserNegativeCommandTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserNegativeCommandTriggered"] + value;
                 }
             }
 
@@ -186,21 +175,21 @@ namespace Labsim.apollon.gameplay.control
                     this._eventTable["UserNegativeCommandTriggered"] = null;
                     foreach (var eventUserNegativeCommandTriggered in this._eventUserNegativeCommandTriggeredList)
                     {
-                        this._eventTable["UserNegativeCommandTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserNegativeCommandTriggered"] + eventUserNegativeCommandTriggered;
+                        this._eventTable["UserNegativeCommandTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserNegativeCommandTriggered"] + eventUserNegativeCommandTriggered;
                     }
                 }
             }
 
         } /* UserNegativeCommandTriggeredEvent */
 
-        public event System.EventHandler<EventArgs> UserResponseTriggeredEvent
+        public event System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs> UserResponseTriggeredEvent
         {
             add
             {
                 this._eventUserResponseTriggeredList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["UserResponseTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserResponseTriggered"] + value;
+                    this._eventTable["UserResponseTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserResponseTriggered"] + value;
                 }
             }
 
@@ -216,7 +205,7 @@ namespace Labsim.apollon.gameplay.control
                     this._eventTable["UserResponseTriggered"] = null;
                     foreach (var eventUserResponseTriggered in this._eventUserResponseTriggeredList)
                     {
-                        this._eventTable["UserResponseTriggered"] = (System.EventHandler<EventArgs>)this._eventTable["UserResponseTriggered"] + eventUserResponseTriggered;
+                        this._eventTable["UserResponseTriggered"] = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserResponseTriggered"] + eventUserResponseTriggered;
                     }
                 }
             }
@@ -231,8 +220,8 @@ namespace Labsim.apollon.gameplay.control
         {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["AxisZValueChanged"];
-                callback?.Invoke(this, new EventArgs(z: value));
+                var callback = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["AxisZValueChanged"];
+                callback?.Invoke(this, new AgencyAndThresholdPerceptionV2ControlEventArgs(z: value));
             }
         } /* RaiseAxisZValueChanged() */
 
@@ -240,8 +229,8 @@ namespace Labsim.apollon.gameplay.control
         {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["UserNeutralCommandTriggered"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserNeutralCommandTriggered"];
+                callback?.Invoke(this, new AgencyAndThresholdPerceptionV2ControlEventArgs());
             }
         } /* RaiseUserNeutralCommandTriggered() */
 
@@ -249,8 +238,8 @@ namespace Labsim.apollon.gameplay.control
         {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["UserPositiveCommandTriggered"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserPositiveCommandTriggered"];
+                callback?.Invoke(this, new AgencyAndThresholdPerceptionV2ControlEventArgs());
             }
         } /* RaiseUserPositiveCommandTriggered() */
 
@@ -258,8 +247,8 @@ namespace Labsim.apollon.gameplay.control
         {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["UserNegativeCommandTriggered"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserNegativeCommandTriggered"];
+                callback?.Invoke(this, new AgencyAndThresholdPerceptionV2ControlEventArgs());
             }
         } /* RaiseUserNegativeCommandTriggered() */
 
@@ -267,8 +256,8 @@ namespace Labsim.apollon.gameplay.control
         {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["UserResponseTriggered"];
-                callback?.Invoke(this, new EventArgs(button15: true));
+                var callback = (System.EventHandler<AgencyAndThresholdPerceptionV2ControlEventArgs>)this._eventTable["UserResponseTriggered"];
+                callback?.Invoke(this, new AgencyAndThresholdPerceptionV2ControlEventArgs(button15: true));
             }
         } /* RaiseUserResponseTriggered() */
 

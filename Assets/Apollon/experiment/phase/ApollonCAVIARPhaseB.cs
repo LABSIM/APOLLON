@@ -24,7 +24,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_B_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_B_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // show green cross & frame
@@ -75,8 +75,8 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // accelerate up to the first phase C settings & smooth fog
-            caviar_bridge.Dispatcher.RaiseAccelerate(linear_acceleration,linear_velocity);
-            fog_bridge.Dispatcher.RaiseSmoothLinearFogRequested(
+            caviar_bridge.ConcreteDispatcher.RaiseAccelerate(linear_acceleration,linear_velocity);
+            fog_bridge.ConcreteDispatcher.RaiseSmoothLinearFogRequested(
                 this.FSM.CurrentSettings.phase_C_settings.First().fog_start_distance,
                 this.FSM.CurrentSettings.phase_C_settings.First().fog_end_distance,
                 UnityEngine.Color.white,
@@ -84,7 +84,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(phase_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
 
             // log
             UnityEngine.Debug.Log(
@@ -97,7 +97,7 @@ namespace Labsim.apollon.experiment.phase
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // wait a certain amout of time
-            await this.FSM.DoSleep(phase_duration / 2.0f);
+            await ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
 
             // then hide cross
             frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
@@ -130,7 +130,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_B_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_B_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_B_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

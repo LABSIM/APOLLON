@@ -25,7 +25,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_J_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_J_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_J_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // fade in 
@@ -54,13 +54,13 @@ namespace Labsim.apollon.experiment.phase
                 default:
                 case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VisualOnly:
                 {   
-                    virtual_motion_system_bridge.Dispatcher.RaiseReset(this.FSM.CurrentSettings.phase_J_settings.duration);
+                    virtual_motion_system_bridge.ConcreteDispatcher.RaiseReset(this.FSM.CurrentSettings.phase_J_settings.duration);
                     break;
                 }
                 case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VestibularOnly:
                 case profile.ApollonAgencyAndThresholdPerceptionV2Profile.Settings.ScenarioIDType.VisuoVestibular:
                 {
-                    motion_system_bridge.Dispatcher.RaiseReset(this.FSM.CurrentSettings.phase_J_settings.duration);
+                    motion_system_bridge.ConcreteDispatcher.RaiseReset(this.FSM.CurrentSettings.phase_J_settings.duration);
                     break;
                 }
 
@@ -81,10 +81,10 @@ namespace Labsim.apollon.experiment.phase
             } /* if() */
 
             // get back to idle state
-            seat_bridge.Dispatcher.RaiseIdle();
+            seat_bridge.ConcreteDispatcher.RaiseIdle();
 
             // wait
-            await this.FSM.DoSleep(this.FSM.CurrentSettings.phase_J_settings.duration);
+            await ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.phase_J_settings.duration);
 
             // log
             UnityEngine.Debug.Log(
@@ -102,7 +102,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_J_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_J_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_J_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

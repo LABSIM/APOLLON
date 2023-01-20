@@ -1189,7 +1189,7 @@ namespace Labsim.apollon.experiment.profile
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
                         ) as gameplay.entity.ApollonActiveSeatEntityBridge
-                    ).Dispatcher.RaiseVisualOnly();
+                    ).ConcreteDispatcher.RaiseVisualOnly();
                     break;
                 }
                 case "vestibular-only":
@@ -1201,7 +1201,7 @@ namespace Labsim.apollon.experiment.profile
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
                         ) as gameplay.entity.ApollonActiveSeatEntityBridge
-                    ).Dispatcher.RaiseVestibularOnly();
+                    ).ConcreteDispatcher.RaiseVestibularOnly();
                     break;
                 }
                 case "visuo-vestibular":
@@ -1213,7 +1213,7 @@ namespace Labsim.apollon.experiment.profile
                         gameplay.ApollonGameplayManager.Instance.getBridge(
                             gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
                         ) as gameplay.entity.ApollonActiveSeatEntityBridge
-                    ).Dispatcher.RaiseVisuoVestibular();
+                    ).ConcreteDispatcher.RaiseVisuoVestibular();
                     break;
                 }
                 default:
@@ -1243,7 +1243,7 @@ namespace Labsim.apollon.experiment.profile
             // initialize to position on first trial - wait 5s
             if(ApollonExperimentManager.Instance.Session.FirstTrial == ApollonExperimentManager.Instance.Trial)
             {
-                await this.DoSleep(5000.0f);
+                await ApollonHighResolutionTime.DoSleep(5000.0f);
             }
 
             // log
