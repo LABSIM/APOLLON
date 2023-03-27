@@ -459,6 +459,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.AgencyAndThresholdPerceptionV2Control, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionV3Control, false },
                 { GameplayIDType.CAVIARControl, false },
+                { GameplayIDType.YaleEntityCommand, false },
                 { GameplayIDType.All, false }
             };
 
@@ -528,6 +529,9 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("CAVIARControl")]
             CAVIARControl,
+
+            [System.ComponentModel.Description("YaleEntityCommand")]
+            YaleEntityCommand,
 
             [System.ComponentModel.Description("All")]
             All
