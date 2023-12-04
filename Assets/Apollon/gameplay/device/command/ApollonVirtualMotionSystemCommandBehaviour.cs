@@ -95,32 +95,32 @@ namespace Labsim.apollon.gameplay.device.command
                     "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.InitController.OnEnable() : rigidbody initialized"
                 );
 
-                // virtual world setup
-                // - user dependant PoV offset : height + depth
-                // - max angular velocity aka. saturation point
-                // - CenterOf -Rotation/Mass offset --> chair settings
-                // - perfect world == no dampening/drag & no gravity 
-                float PoV_height_offset = 0.0f, PoV_depth_offset = 0.0f;
-                if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
-                    || !float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
-                ) {
+                // // virtual world setup
+                // // - user dependant PoV offset : height + depth
+                // // - max angular velocity aka. saturation point
+                // // - CenterOf -Rotation/Mass offset --> chair settings
+                // // - perfect world == no dampening/drag & no gravity 
+                // float PoV_height_offset = 0.0f, PoV_depth_offset = 0.0f;
+                // if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
+                //     || !float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
+                // ) {
 
-                    // log
-                    UnityEngine.Debug.LogWarning(
-                        "<color=Yellow>Warning: </color> ApollonVirtualMotionSystemCommandBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
-                        + PoV_height_offset 
-                        + ","
-                        + PoV_depth_offset
-                        + " ]"
-                    );
+                //     // log
+                //     UnityEngine.Debug.LogWarning(
+                //         "<color=Yellow>Warning: </color> ApollonVirtualMotionSystemCommandBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
+                //         + PoV_height_offset 
+                //         + ","
+                //         + PoV_depth_offset
+                //         + " ]"
+                //     );
 
-                } /* if() */
-                this._rigidbody.centerOfMass 
-                    = (
-                        UnityEngine.Vector3.up * ( PoV_height_offset / 100.0f )
-                    ) + (
-                        UnityEngine.Vector3.back * (PoV_depth_offset / 100.0f)
-                    );
+                // } /* if() */
+                // this._rigidbody.centerOfMass 
+                //     = (
+                //         UnityEngine.Vector3.up * ( PoV_height_offset / 100.0f )
+                //     ) + (
+                //         UnityEngine.Vector3.back * (PoV_depth_offset / 100.0f)
+                //     );
 
                 // log
                 UnityEngine.Debug.Log(
@@ -940,28 +940,28 @@ namespace Labsim.apollon.gameplay.device.command
             // skip if no experimental setup is found necessary
             if (experiment.ApollonExperimentManager.Instance.Session == null) return;
 
-            // get current user mass detail
-            float user_mass = 60.0f;
-            if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["mass"].ToString(), out user_mass))
-            {
+            // // get current user mass detail
+            // float user_mass = 60.0f;
+            // if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["mass"].ToString(), out user_mass))
+            // {
 
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Yellow>Warning: </color> ApollonVirtualMotionSystemCommandBehaviour.OnEnable() : failed to get current participant mass detail, setup mass to default value [ "
-                    + user_mass
-                    + " ]"
-                );
+            //     // log
+            //     UnityEngine.Debug.LogWarning(
+            //         "<color=Yellow>Warning: </color> ApollonVirtualMotionSystemCommandBehaviour.OnEnable() : failed to get current participant mass detail, setup mass to default value [ "
+            //         + user_mass
+            //         + " ]"
+            //     );
 
-            } /* if() */
+            // } /* if() */
 
-            // add to settings 
-            this.gameObject.GetComponentInParent<UnityEngine.Rigidbody>().mass += user_mass;
+            // // add to settings 
+            // this.gameObject.GetComponentInParent<UnityEngine.Rigidbody>().mass += user_mass;
 
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.OnEnable() : added participant mass detail to simulated setup, total mass value is [ "
-                + this.gameObject.GetComponentInParent<UnityEngine.Rigidbody>().mass
-                + " ]");
+            // // log
+            // UnityEngine.Debug.Log(
+            //     "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBehaviour.OnEnable() : added participant mass detail to simulated setup, total mass value is [ "
+            //     + this.gameObject.GetComponentInParent<UnityEngine.Rigidbody>().mass
+            //     + " ]");
 
             // save initial orientation/position
             // this.InitialPosition = this.Anchor.transform.position;

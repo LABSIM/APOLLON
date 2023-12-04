@@ -1,0 +1,1465 @@
+{
+  
+  "APOLLON_profile": "AgencyAndThresholdPerceptionV4",
+
+  "trial_final_fade_in_duration_ms": 100.0,
+  "trial_initial_fade_out_duration_ms": 100.0,
+  "trial_inter_sleep_duration_ms": 700.0,
+
+  "trial_pattern": {
+
+    "test_preliminaire_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.75, 0.75, 0.75 ],
+      "visual_degradation_fog_density": 1.0,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 15.0 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -10.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 10.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 2500.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_preliminaire_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.75, 0.75, 0.75 ],
+      "visual_degradation_fog_density": 1.0,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 15.0 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -10.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 10.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 2500.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_preliminaire_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.75, 0.75, 0.75 ],
+      "visual_degradation_fog_density": 1.0,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 15.0 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -10.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 10.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 2500.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_strong_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_strong_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_strong_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_weak_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_weak_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_weak_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_reference_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "reference",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_reference_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "reference",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_passive_reference_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "reference",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_strong_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_strong_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_strong_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_weak_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_weak_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_weak_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_reference_down": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "reference",
+      "passive_side_name": "down",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_reference_up": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "reference",
+      "passive_side_name": "up",
+
+      "with_visual_degradation": true,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    },
+
+    "test_active_reference_reference": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "reference",
+      "passive_side_name": "reference",
+
+      "with_visual_degradation": false,
+      "visual_degradation_fog_mode_name": "exponential_squared",
+      "visual_degradation_fog_color": [ 0.3, 0.3, 0.3 ],
+      "visual_degradation_fog_density": 0.125,
+      "visual_degradation_fog_start_distance_m": 0.0,
+      "visual_degradation_fog_end_distance_m": 10.0,
+
+      "phase_0_duration_ms": 4000.0,
+      "phase_0_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_0_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_0_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0015 ],
+      "phase_0_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.01  ],
+      "phase_0_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_reset_duration_ms": 4000.0,
+      "phase_A_response_max_duration_ms": 4000.0,
+
+      "phase_B_SOA_ms": -2000.0,
+      "phase_B_duration_ms": 7000.0,
+
+      "phase_B_primary_stim_duration_ms": 1500.0,
+      "phase_B_primary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_primary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_primary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_primary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_primary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_primary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_primary_linear_mandatory_axis": [ false, false, false ],
+      
+      "phase_B_secondary_stim_duration_ms": 1500.0,
+      "phase_B_secondary_angular_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_angular_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_angular_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_angular_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_secondary_linear_strong_acceleration_scale_from_reference_ratio" : [ 1.1, 1.1, 1.1 ],
+      "phase_B_secondary_linear_weak_acceleration_scale_from_reference_ratio" : [ 0.9, 0.9, 0.9 ],
+      "phase_B_secondary_linear_down_acceleration_rotation_from_reference_deg" : [ 0.0, -45.0, 0.0 ],
+      "phase_B_secondary_linear_up_acceleration_rotation_from_reference_deg" : [ 0.0, 45.0, 0.0 ],
+      "phase_B_secondary_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+      "phase_B_secondary_linear_mandatory_axis": [ false, false, false ],
+
+      "phase_C_duration_ms": 1000.0,
+
+      "phase_F_duration_ms": 10000.0
+
+    }
+
+  },
+
+  "block_pattern": {
+
+    "block_test": {
+
+      "is_practice_condition": false,
+      "is_sequence_randomized": true,
+
+      "trial_sequence": [
+        
+        "test_preliminaire_down",
+        "test_preliminaire_up",
+        "test_preliminaire_reference"
+
+      ]
+
+    }
+
+  },
+
+  "block_sequence": ["block_test", "block_test"]
+
+}

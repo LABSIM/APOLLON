@@ -269,6 +269,9 @@ namespace Labsim.apollon.experiment
             [System.ComponentModel.Description("AgencyAndThresholdPerceptionV3")]
             AgencyAndThresholdPerceptionV3,
 
+            [System.ComponentModel.Description("AgencyAndThresholdPerceptionV4")]
+            AgencyAndThresholdPerceptionV4,
+
             [System.ComponentModel.Description("CAVIAR")]
             CAVIAR
 
@@ -465,6 +468,19 @@ namespace Labsim.apollon.experiment
                     this.setActiveProfile(ProfileIDType.AgencyAndThresholdPerceptionV3);
                     break;
                 }
+
+                // AgencyAndThresholdPerception V4
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.AgencyAndThresholdPerceptionV4), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [AgencyAndThresholdPerceptionV4]"
+                    );
+                    this.setActiveProfile(ProfileIDType.AgencyAndThresholdPerceptionV4);
+                    break;
+                }
+
 
                 // CAVIAR
                 case string param when param.Equals(
