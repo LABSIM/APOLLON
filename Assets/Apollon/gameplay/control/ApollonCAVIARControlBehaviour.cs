@@ -3,13 +3,10 @@ namespace Labsim.apollon.gameplay.control
 {
 
     public class ApollonCAVIARControlBehaviour 
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonCAVIARControlBridge>
     {
 
         #region properties/members
-
-        // bridge
-        public ApollonCAVIARControlBridge Bridge { get; set; } = null;
 
         // controls
         public ApollonCAVIARControl Control { get; private set; } = null;

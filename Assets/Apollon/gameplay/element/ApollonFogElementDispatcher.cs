@@ -3,15 +3,17 @@ namespace Labsim.apollon.gameplay.element
 {
 
     public class ApollonFogElementDispatcher
+        : ApolloConcreteGameplayDispatcher<ApollonFogElementBridge>
     {
+
         #region Event args class
 
-        public class EventArgs
-            : ApollonEngine.EngineEventArgs
+        public class FogElementEventArgs
+            : ApollonGameplayDispatcher.GameplayEventArgs
         {
 
             // ctor
-            public EventArgs(
+            public FogElementEventArgs(
                 float smoothing_duration = -1.0f, 
                 UnityEngine.FogMode fog_mode = UnityEngine.FogMode.Linear, 
                 float fog_start_distance = -1.0f,
@@ -28,7 +30,7 @@ namespace Labsim.apollon.gameplay.element
             }
 
             // ctor
-            public EventArgs(EventArgs rhs)
+            public FogElementEventArgs(FogElementEventArgs rhs)
                 : base(rhs)
             {
                 // assign
@@ -46,16 +48,14 @@ namespace Labsim.apollon.gameplay.element
             public float FogEndDistance { get; protected set; }
             public UnityEngine.Color FogColor { get; protected set; }
 
-        } /* EventArgs() */
+        } /* FogElementEventArgs() */
 
         #endregion
 
-        #region Dictionary & each list of event
+        #region list of event
 
-        private readonly System.Collections.Generic.Dictionary<string, System.Delegate> _eventTable = null;
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> _eventParameterChangedList
-            = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
+        private readonly System.Collections.Generic.List<System.EventHandler<FogElementEventArgs>> _eventParameterChangedList
+            = new System.Collections.Generic.List<System.EventHandler<FogElementEventArgs>>();
 
         #endregion
 
@@ -64,23 +64,20 @@ namespace Labsim.apollon.gameplay.element
         {
 
             // event table
-            this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
-            {
-                { "ParameterChanged", null }
-            };
+            this._eventTable.Add("ParameterChanged", null);
 
         } /* ApollonFogElementDispatcher() */
 
         #region actual events
 
-        public event System.EventHandler<EventArgs> ParameterChangedEvent
+        public event System.EventHandler<FogElementEventArgs> ParameterChangedEvent
         {
             add
             {
                 this._eventParameterChangedList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["ParameterChanged"] = (System.EventHandler<EventArgs>)this._eventTable["ParameterChanged"] + value;
+                    this._eventTable["ParameterChanged"] = (System.EventHandler<FogElementEventArgs>)this._eventTable["ParameterChanged"] + value;
                 }
             }
 
@@ -96,7 +93,7 @@ namespace Labsim.apollon.gameplay.element
                     this._eventTable["ParameterChanged"] = null;
                     foreach (var eventParameterChanged in this._eventParameterChangedList)
                     {
-                        this._eventTable["ParameterChanged"] = (System.EventHandler<EventArgs>)this._eventTable["ParameterChanged"] + eventParameterChanged;
+                        this._eventTable["ParameterChanged"] = (System.EventHandler<FogElementEventArgs>)this._eventTable["ParameterChanged"] + eventParameterChanged;
                     }
                 }
             }
@@ -114,10 +111,10 @@ namespace Labsim.apollon.gameplay.element
         ) {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["ParameterChanged"];
+                var callback = (System.EventHandler<FogElementEventArgs>)this._eventTable["ParameterChanged"];
                 callback?.Invoke(
                     this, 
-                    new EventArgs(
+                    new FogElementEventArgs(
                         fog_mode: UnityEngine.FogMode.Linear,
                         fog_start_distance: start_distance,
                         fog_end_distance: end_distance,
@@ -135,10 +132,10 @@ namespace Labsim.apollon.gameplay.element
         ) {
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["ParameterChanged"];
+                var callback = (System.EventHandler<FogElementEventArgs>)this._eventTable["ParameterChanged"];
                 callback?.Invoke(
                     this, 
-                    new EventArgs(
+                    new FogElementEventArgs(
                         fog_mode: UnityEngine.FogMode.Linear,
                         fog_start_distance: start_distance,
                         fog_end_distance: end_distance,

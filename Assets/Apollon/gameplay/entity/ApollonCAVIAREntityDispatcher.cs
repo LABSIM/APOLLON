@@ -2,15 +2,16 @@
 namespace Labsim.apollon.gameplay.entity
 {
     public class ApollonCAVIAREntityDispatcher
+        : ApolloConcreteGameplayDispatcher<ApollonCAVIAREntityBridge>
     {
         #region event args class
 
-        public class EventArgs
-            : ApollonEngine.EngineEventArgs
+        public class CAVIAREntityEventArgs
+            : ApollonGameplayDispatcher.GameplayEventArgs
         {
 
             // ctor
-            public EventArgs(float linear_acceleration = 0.0f, float linear_velocity = 0.0f)
+            public CAVIAREntityEventArgs(float linear_acceleration = 0.0f, float linear_velocity = 0.0f)
                 : base()
             {
                 this.LinearAcceleration = linear_acceleration;
@@ -18,7 +19,7 @@ namespace Labsim.apollon.gameplay.entity
             }
 
             // ctor
-            public EventArgs(EventArgs rhs)
+            public CAVIAREntityEventArgs(CAVIAREntityEventArgs rhs)
                 : base(rhs)
             {
                 this.LinearAcceleration = rhs.LinearAcceleration;
@@ -29,21 +30,18 @@ namespace Labsim.apollon.gameplay.entity
             public float LinearAcceleration { get; protected set; }
             public float LinearVelocity { get; protected set; }
 
-        } /* EventArgs() */
+        } /* CAVIAREntityEventArgs() */
 
         #endregion
 
         #region Dictionary & each list of event
 
-        private readonly System.Collections.Generic.Dictionary<string, System.Delegate>
-            _eventTable = null;
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> 
-            _eventAccelerateList        = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventDecelerateList        = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventIdleList              = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventHoldList              = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventWaypointReachedList   = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
+        private readonly System.Collections.Generic.List<System.EventHandler<CAVIAREntityEventArgs>> 
+            _eventAccelerateList        = new System.Collections.Generic.List<System.EventHandler<CAVIAREntityEventArgs>>(),
+            _eventDecelerateList        = new System.Collections.Generic.List<System.EventHandler<CAVIAREntityEventArgs>>(),
+            _eventIdleList              = new System.Collections.Generic.List<System.EventHandler<CAVIAREntityEventArgs>>(),
+            _eventHoldList              = new System.Collections.Generic.List<System.EventHandler<CAVIAREntityEventArgs>>(),
+            _eventWaypointReachedList   = new System.Collections.Generic.List<System.EventHandler<CAVIAREntityEventArgs>>();
 
         #endregion
 
@@ -52,27 +50,24 @@ namespace Labsim.apollon.gameplay.entity
         {
 
             // event table
-            this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
-            {
-                { "Accelerate", null },
-                { "Decelerate", null },
-                { "Idle", null },
-                { "Hold", null },
-                { "WaypointReached", null }
-            };
+            this._eventTable.Add("Accelerate",      null);
+            this._eventTable.Add("Decelerate",      null);
+            this._eventTable.Add("Idle",            null);
+            this._eventTable.Add("Hold",            null);
+            this._eventTable.Add("WaypointReached", null);
 
         } /* ApollonCAVIAREntityDispatcher() */
 
         #region actual events
 
-        public event System.EventHandler<EventArgs> AccelerateEvent
+        public event System.EventHandler<CAVIAREntityEventArgs> AccelerateEvent
         {
             add
             {
                 this._eventAccelerateList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Accelerate"] = (System.EventHandler<EventArgs>)this._eventTable["Accelerate"] + value;
+                    this._eventTable["Accelerate"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Accelerate"] + value;
                 }
             }
 
@@ -88,21 +83,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["Accelerate"] = null;
                     foreach (var eventAcceleration in this._eventAccelerateList)
                     {
-                        this._eventTable["Accelerate"] = (System.EventHandler<EventArgs>)this._eventTable["Accelerate"] + eventAcceleration;
+                        this._eventTable["Accelerate"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Accelerate"] + eventAcceleration;
                     }
                 }
             }
 
         } /* AccelerateEvent */
 
-        public event System.EventHandler<EventArgs> DecelerateEvent
+        public event System.EventHandler<CAVIAREntityEventArgs> DecelerateEvent
         {
             add
             {
                 this._eventDecelerateList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Decelerate"] = (System.EventHandler<EventArgs>)this._eventTable["Decelerate"] + value;
+                    this._eventTable["Decelerate"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Decelerate"] + value;
                 }
             }
 
@@ -118,21 +113,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["Decelerate"] = null;
                     foreach (var eventAcceleration in this._eventDecelerateList)
                     {
-                        this._eventTable["Decelerate"] = (System.EventHandler<EventArgs>)this._eventTable["Decelerate"] + eventAcceleration;
+                        this._eventTable["Decelerate"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Decelerate"] + eventAcceleration;
                     }
                 }
             }
 
         } /* DecelerateEvent */
 
-        public event System.EventHandler<EventArgs> IdleEvent
+        public event System.EventHandler<CAVIAREntityEventArgs> IdleEvent
         {
             add
             {
                 this._eventIdleList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Idle"] = (System.EventHandler<EventArgs>)this._eventTable["Idle"] + value;
+                    this._eventTable["Idle"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Idle"] + value;
                 }
             }
 
@@ -148,21 +143,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["Idle"] = null;
                     foreach (var eventAcceleration in this._eventIdleList)
                     {
-                        this._eventTable["Idle"] = (System.EventHandler<EventArgs>)this._eventTable["Idle"] + eventAcceleration;
+                        this._eventTable["Idle"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Idle"] + eventAcceleration;
                     }
                 }
             }
 
         } /* IdleEvent */
 
-        public event System.EventHandler<EventArgs> HoldEvent
+        public event System.EventHandler<CAVIAREntityEventArgs> HoldEvent
         {
             add
             {
                 this._eventHoldList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Hold"] = (System.EventHandler<EventArgs>)this._eventTable["Hold"] + value;
+                    this._eventTable["Hold"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Hold"] + value;
                 }
             }
 
@@ -178,21 +173,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["Hold"] = null;
                     foreach (var eventAcceleration in this._eventHoldList)
                     {
-                        this._eventTable["Hold"] = (System.EventHandler<EventArgs>)this._eventTable["Hold"] + eventAcceleration;
+                        this._eventTable["Hold"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Hold"] + eventAcceleration;
                     }
                 }
             }
 
         } /* HoldEvent */
 
-        public event System.EventHandler<EventArgs> WaypointReachedEvent
+        public event System.EventHandler<CAVIAREntityEventArgs> WaypointReachedEvent
         {
             add
             {
                 this._eventWaypointReachedList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["WaypointReached"] = (System.EventHandler<EventArgs>)this._eventTable["WaypointReached"] + value;
+                    this._eventTable["WaypointReached"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["WaypointReached"] + value;
                 }
             }
 
@@ -208,7 +203,7 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["WaypointReached"] = null;
                     foreach (var eventAcceleration in this._eventWaypointReachedList)
                     {
-                        this._eventTable["WaypointReached"] = (System.EventHandler<EventArgs>)this._eventTable["WaypointReached"] + eventAcceleration;
+                        this._eventTable["WaypointReached"] = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["WaypointReached"] + eventAcceleration;
                     }
                 }
             }
@@ -226,10 +221,10 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["Accelerate"];
+                var callback = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Accelerate"];
                 callback?.Invoke(
                     this, 
-                    new EventArgs(
+                    new CAVIAREntityEventArgs(
                         linear_acceleration: linear_acceleration_value, 
                         linear_velocity: linear_volocity_value
                     )
@@ -245,10 +240,10 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["Decelerate"];
+                var callback = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Decelerate"];
                 callback?.Invoke(
                     this, 
-                    new EventArgs(
+                    new CAVIAREntityEventArgs(
                         linear_acceleration: linear_acceleration_value, 
                         linear_velocity: linear_volocity_value
                     )
@@ -262,8 +257,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["Idle"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Idle"];
+                callback?.Invoke(this, new CAVIAREntityEventArgs());
             }
 
         } /* RaiseIdle() */
@@ -273,8 +268,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["Hold"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["Hold"];
+                callback?.Invoke(this, new CAVIAREntityEventArgs());
             }
 
         } /* RaiseHold() */
@@ -284,8 +279,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["WaypointReached"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<CAVIAREntityEventArgs>)this._eventTable["WaypointReached"];
+                callback?.Invoke(this, new CAVIAREntityEventArgs());
             }
 
         } /* RaiseWaypointReached() */

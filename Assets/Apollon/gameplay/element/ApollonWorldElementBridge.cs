@@ -2,7 +2,8 @@
 namespace Labsim.apollon.gameplay.element
 {
 
-    public class ApollonWorldElementBridge : ApollonAbstractGameplayBridge
+    public class ApollonWorldElementBridge
+        : ApollonGameplayBridge<ApollonWorldElementBridge>
     {
 
         //ctor
@@ -10,30 +11,30 @@ namespace Labsim.apollon.gameplay.element
             : base()
         { }
 
-        #region Bridge abstract implementation 
+        public ApollonWorldElementBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonWorldElementBehaviour;
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
-            
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonWorldElementBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
 
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonWorldElementBridge.WrapBehaviour() : could not find object of type behaviour.ApollonWorldElementBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonWorldElementBehaviour>(
+                "ApollonWorldElementBridge",
+                "ApollonWorldElementBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonGameplayDispatcher>(
+                "ApollonWorldElementBridge",
+                "ApollonGameplayDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {

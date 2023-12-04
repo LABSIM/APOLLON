@@ -7,7 +7,7 @@ namespace Labsim.apollon.gameplay.control
 {
 
     public class ApollonCAVIARControlBridge 
-        : ApollonAbstractGameplayBridge
+        : ApollonGameplayBridge<ApollonCAVIARControlBridge>
     {
 
         //ctor
@@ -15,41 +15,33 @@ namespace Labsim.apollon.gameplay.control
             : base()
         { }
 
-        public ApollonCAVIARControlDispatcher Dispatcher { private set; get; } = null;
-        
-        #region Bridge abstract implementation 
+        public ApollonCAVIARControlBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonCAVIARControlBehaviour;
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        public ApollonCAVIARControlDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonCAVIARControlDispatcher;
+
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonCAVIARControlBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonCAVIARControlBridge.WrapBehaviour() : could not find object of type behaviour.ApollonCAVIARControlBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonCAVIARControlDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonCAVIARControlBehaviour>(
+                "ApollonCAVIARControlBridge",
+                "ApollonCAVIARControlBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonCAVIARControlDispatcher>(
+                "ApollonCAVIARControlBridge",
+                "ApollonCAVIARControlDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -110,7 +102,7 @@ namespace Labsim.apollon.gameplay.control
         {
            
             // dispatch event
-            this.Dispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
+            this.ConcreteDispatcher.RaiseAxisZValueChanged(context.ReadValue<float>());
 
         } /* OnAxisZValueChanged() */
 
@@ -127,7 +119,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserNeutralCommandTriggered();
+                this.ConcreteDispatcher.RaiseUserNeutralCommandTriggered();
 
             } /* if() */
 
@@ -146,7 +138,7 @@ namespace Labsim.apollon.gameplay.control
                 );
 
                 // dispatch event
-                this.Dispatcher.RaiseUserResponseTriggered();
+                this.ConcreteDispatcher.RaiseUserResponseTriggered();
 
             } /* if() */
 

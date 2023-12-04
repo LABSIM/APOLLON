@@ -7,7 +7,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonRadioSondeSensorBridge 
-        : ApollonAbstractGameplayBridge
+        : ApollonGameplayBridge<ApollonRadioSondeSensorBridge>
     {
 
         //ctor
@@ -15,41 +15,33 @@ namespace Labsim.apollon.gameplay.device.sensor
             : base()
         { }
 
-        public ApollonRadioSondeSensorDispatcher Dispatcher { private set; get; } = null;
-        
-        #region Bridge abstract implementation 
+        public ApollonRadioSondeSensorBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonRadioSondeSensorBehaviour;
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        public ApollonRadioSondeSensorDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonRadioSondeSensorDispatcher;
+        
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonRadioSondeSensorBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonRadioSondeSensorBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRadioSondeSensorBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonRadioSondeSensorDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonRadioSondeSensorBehaviour>(
+                "ApollonRadioSondeSensorBridge",
+                "ApollonRadioSondeSensorBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonRadioSondeSensorDispatcher>(
+                "ApollonRadioSondeSensorBridge",
+                "ApollonRadioSondeSensorDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {

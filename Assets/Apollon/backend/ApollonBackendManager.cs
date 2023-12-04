@@ -33,6 +33,8 @@ namespace Labsim.apollon.backend
         
         private void RegisterAllAvailableHandle<T>()
         {
+            
+            // TODO handle multiple loading system as other Manager but be carefull with T
 
             // register all native backend handle
             foreach (System.Type type

@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.command
 {
 
     public class ApollonVirtualMotionSystemCommandBridge 
-        : gameplay.ApollonAbstractGameplayFiniteStateMachine<ApollonVirtualMotionSystemCommandBridge>
+        : ApollonGameplayBridge<ApollonVirtualMotionSystemCommandBridge>
     {
 
         //ctor
@@ -11,42 +11,33 @@ namespace Labsim.apollon.gameplay.device.command
             : base()
         { }
 
-        public ApollonVirtualMotionSystemCommandDispatcher Dispatcher { private set; get; } = null;
+        public ApollonVirtualMotionSystemCommandBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonVirtualMotionSystemCommandBehaviour;
 
+        public ApollonVirtualMotionSystemCommandDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonVirtualMotionSystemCommandDispatcher;
 
-        #region Bridge abstract implementation 
-
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        #region Bridge abstract implementation
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonVirtualMotionSystemCommandBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonVirtualMotionSystemCommandBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonVirtualMotionSystemCommandDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonVirtualMotionSystemCommandBehaviour>(
+                "ApollonVirtualMotionSystemCommandBridge",
+                "ApollonVirtualMotionSystemCommandBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonVirtualMotionSystemCommandDispatcher>(
+                "ApollonVirtualMotionSystemCommandBridge",
+                "ApollonVirtualMotionSystemCommandDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -71,19 +62,14 @@ namespace Labsim.apollon.gameplay.device.command
                 this.Behaviour.gameObject.SetActive(true);
                 
                 // subscribe
-                this.Dispatcher.InitEvent += this.OnInitRequested;
-                this.Dispatcher.IdleEvent += this.OnIdleRequested;
-                this.Dispatcher.AccelerateEvent += this.OnAccelerateRequested;
-                this.Dispatcher.DecelerateEvent += this.OnDecelerateRequested;
-                this.Dispatcher.SaturationEvent += this.OnSaturationRequested;
-                this.Dispatcher.ResetEvent += this.OnResetRequested;
+                this.ConcreteDispatcher.InitEvent       += this.OnInitRequested;
+                this.ConcreteDispatcher.IdleEvent       += this.OnIdleRequested;
+                this.ConcreteDispatcher.AccelerateEvent += this.OnAccelerateRequested;
+                this.ConcreteDispatcher.DecelerateEvent += this.OnDecelerateRequested;
+                this.ConcreteDispatcher.SaturationEvent += this.OnSaturationRequested;
+                this.ConcreteDispatcher.ResetEvent      += this.OnResetRequested;
 
-                // activate the motion system backend
-                backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
-                    backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-                );
-
-                // go init
+                // entry state FSM
                 await this.SetState(new InitState(this));
 
             }
@@ -96,18 +82,13 @@ namespace Labsim.apollon.gameplay.device.command
                 // nullify FSM
                 await this.SetState(null);
 
-                // inactivate the motion system backend
-                backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
-                    backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-                );
-
                 // unsubscribe
-                this.Dispatcher.InitEvent -= this.OnInitRequested;
-                this.Dispatcher.IdleEvent -= this.OnIdleRequested;
-                this.Dispatcher.AccelerateEvent -= this.OnAccelerateRequested;
-                this.Dispatcher.DecelerateEvent -= this.OnDecelerateRequested;
-                this.Dispatcher.SaturationEvent -= this.OnSaturationRequested;
-                this.Dispatcher.ResetEvent -= this.OnResetRequested;
+                this.ConcreteDispatcher.InitEvent       -= this.OnInitRequested;
+                this.ConcreteDispatcher.IdleEvent       -= this.OnIdleRequested;
+                this.ConcreteDispatcher.AccelerateEvent -= this.OnAccelerateRequested;
+                this.ConcreteDispatcher.DecelerateEvent -= this.OnDecelerateRequested;
+                this.ConcreteDispatcher.SaturationEvent -= this.OnSaturationRequested;
+                this.ConcreteDispatcher.ResetEvent      -= this.OnResetRequested;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -579,7 +560,7 @@ namespace Labsim.apollon.gameplay.device.command
 
         #region FSM event delegate
 
-        private async void OnInitRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        private async void OnInitRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs args)
         {
 
             // log
@@ -597,7 +578,7 @@ namespace Labsim.apollon.gameplay.device.command
 
         } /* OnInitRequested() */
 
-        private async void OnIdleRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        private async void OnIdleRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs args)
         {
 
             // log
@@ -615,7 +596,7 @@ namespace Labsim.apollon.gameplay.device.command
 
         } /* OnIdleRequested() */
 
-        private async void OnAccelerateRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        private async void OnAccelerateRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs args)
         {
 
             // log
@@ -689,7 +670,7 @@ namespace Labsim.apollon.gameplay.device.command
 
         } /* OnAccelerateRequested() */
 
-        private async void OnDecelerateRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        private async void OnDecelerateRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs args)
         {
 
             // log
@@ -712,7 +693,7 @@ namespace Labsim.apollon.gameplay.device.command
 
         } /* OnAccelerateRequested() */
 
-        private async void OnSaturationRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        private async void OnSaturationRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs args)
         {
 
             // log
@@ -730,13 +711,16 @@ namespace Labsim.apollon.gameplay.device.command
 
         } /* OnSaturationRequested() */
 
-        private async void OnResetRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.EventArgs args)
+        private async void OnResetRequested(object sender, ApollonVirtualMotionSystemCommandDispatcher.VirtualMotionSystemCommandEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> ApollonVirtualMotionSystemCommandBridge.OnResetRequested() : begin"
             );
+
+            // inject duration
+            (this.Behaviour as ApollonVirtualMotionSystemCommandBehaviour).Duration = args.Duration;
 
             // activate state
             await this.SetState(new ResetState(this));

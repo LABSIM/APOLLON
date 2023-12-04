@@ -4,7 +4,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonRadioSondeSensorBehaviour 
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonRadioSondeSensorBridge>
     {
         
         [UnityEngine.SerializeField]
@@ -24,10 +24,6 @@ namespace Labsim.apollon.gameplay.device.sensor
     
         [UnityEngine.SerializeField]
         private UnityEngine.LayerMask terrainMask;
-
-        // Apollon bridge
-
-        public ApollonRadioSondeSensorBridge Bridge { get; set; }
 
         #endregion
 
@@ -117,7 +113,7 @@ namespace Labsim.apollon.gameplay.device.sensor
                 }
 
                 // dispatch event
-                this.Bridge.Dispatcher.RaiseHitChangedEvent(
+                this.ConcreteBridge.ConcreteDispatcher.RaiseHitChangedEvent(
                     this.SensorHitPointDistance,
                     this.SensorHitPointPosition,
                     this.SensorHitPointOrientation

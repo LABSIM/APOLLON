@@ -1,0 +1,612 @@
+{
+  
+  "APOLLON_profile": "AgencyAndThresholdPerceptionV2",
+
+  "trial_final_fade_in_duration_ms": 100.0,
+  "trial_initial_fade_out_duration_ms": 100.0,
+  "trial_inter_sleep_duration_ms": 700.0,
+
+  "trial_pattern": {
+
+    "active_vestibular": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "vestibular-only",
+      "passive_intensity_name": "faible",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "passive_vestibular_strong": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": false,
+      "scenario_name": "vestibular-only",
+      "passive_intensity_name": "strong",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "passive_vestibular_weak": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": false,
+      "scenario_name": "vestibular-only",
+      "passive_intensity_name": "weak",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "active_visuovestibular": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "faible",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "passive_visuovestibular_strong": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": false,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "strong",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "passive_visuovestibular_weak": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": false,
+      "scenario_name": "visuo-vestibular",
+      "passive_intensity_name": "weak",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "active_visual": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": true,
+      "scenario_name": "visual-only",
+      "passive_intensity_name": "faible",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "passive_visual_strong": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": false,
+      "scenario_name": "visual-only",
+      "passive_intensity_name": "strong",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    },
+
+    "passive_visual_weak": {
+
+      "is_catch_try_condition": false,
+      "is_active_condition": false,
+      "scenario_name": "visual-only",
+      "passive_intensity_name": "weak",
+
+      "phase_0_duration_ms": 1000.0,
+
+      "phase_A_confirm_duration_ms": 1000.0,
+      "phase_A_response_max_duration_ms": 15000.0,
+      
+      "phase_B_stim_duration_ms": 1500.0,
+      "phase_B_total_duration_ms" : 3000.0,
+
+      "phase_B_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_B_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_B_angular_mandatory_axis": [ false, false, false ],
+      "phase_B_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_C_inter_stim_timeout_ms": [ 200.0, 1000.0 ],
+
+      "phase_F_stim_duration_ms": 1500.0,
+      "phase_F_total_duration_ms" : 3000.0,
+
+      "phase_F_angular_strong_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_strong_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_strong_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_weak_acceleration_offset_from_reference_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_angular_weak_displacement_limiter_deg": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_acceleration_offset_from_reference_m_per_s2": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+      "phase_F_linear_weak_displacement_limiter_m": [ 0.0, 0.0, 0.0 ],
+
+      "phase_F_angular_mandatory_axis": [ false, false, false ],
+      "phase_F_linear_mandatory_axis": [ false, true, false ],
+
+      "phase_G_duration_ms": 1000.0,
+
+      "phase_J_duration_ms": 3000.0
+
+    }
+
+  },
+
+  "block_pattern": {
+
+    "block_vestibular": {
+
+      "is_practice_condition": false,
+      "is_sequence_randomized": true,
+      "trial_sequence": [
+        "active_vestibular",
+        "passive_vestibular_strong",
+        "active_vestibular",
+        "passive_vestibular_weak",
+        "active_vestibular",
+        "passive_vestibular_strong",
+        "active_vestibular",
+        "passive_vestibular_weak"
+      ]
+
+    },
+
+    "block_visuovestibular": {
+
+      "is_practice_condition": false,
+      "is_sequence_randomized": true,
+      "trial_sequence": [
+        "active_visuovestibular",
+        "passive_visuovestibular_strong",
+        "active_visuovestibular",
+        "passive_visuovestibular_weak",
+        "active_visuovestibular",
+        "passive_visuovestibular_strong",
+        "active_visuovestibular",
+        "passive_visuovestibular_weak"
+      ]
+
+    },
+
+    "block_visual": {
+
+      "is_practice_condition": false,
+      "is_sequence_randomized": true,
+      "trial_sequence": [
+        "active_visual",
+        "passive_visual_strong",
+        "active_visual",
+        "passive_visual_weak",
+        "active_visual",
+        "passive_visual_strong",
+        "active_visual",
+        "passive_visual_weak"
+      ]
+
+    }
+
+  },
+
+  "block_sequence": [
+    "block_visuovestibular"
+  ]
+
+}

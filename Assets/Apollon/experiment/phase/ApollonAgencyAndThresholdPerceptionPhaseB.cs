@@ -39,11 +39,11 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_detection_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, string)>();  
-            void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
+            void sync_user_response_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.AgencyAndThresholdPerceptionControlEventArgs e)
                     => sync_detection_point?.TrySetResult((true, UnityEngine.Time.time, System.DateTime.Now.ToString("HH:mm:ss.ffffff")));
 
             // register our synchronisation function
-            control_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
 
             var phase_running_task 
                 // wait for random wait
@@ -58,7 +58,7 @@ namespace Labsim.apollon.experiment.phase
                         );
 
                         // wait a certain amout of time between each bound
-                        await this.FSM.DoSleep(bounded_random_timeout);
+                        await ApollonHighResolutionTime.DoSleep(bounded_random_timeout);
                     } 
                 ).Unwrap().ContinueWith(
                     antecedent => 
@@ -90,7 +90,7 @@ namespace Labsim.apollon.experiment.phase
             ) = await sync_detection_point.Task;
 
             // unregister our control synchronisation function
-            control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
 
             // log
             UnityEngine.Debug.Log(

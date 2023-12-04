@@ -9,7 +9,7 @@ namespace Labsim.apollon.gameplay.entity
 {
 
     public class ApollonActiveSeatEntityBehaviour
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonActiveSeatEntityBridge>
     {
 
         #region properties/members
@@ -30,7 +30,6 @@ namespace Labsim.apollon.gameplay.entity
         private UnityEngine.GameObject m_entity = null;
         protected ref UnityEngine.GameObject Entity => ref this.m_entity;
         
-        public ApollonActiveSeatEntityBridge Bridge { get; set; }
         private bool m_bHasInitialized = false;
 
         #endregion
@@ -122,7 +121,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 } /* if() */
 
-                // move subject reference to current VIRTUAL motion platform
+                // move subject reference to current virtual motion platform
                 this._parent.Subject.transform.parent = this._parent.VirtualMotionSystem.transform;
 
                 // log
@@ -172,8 +171,8 @@ namespace Labsim.apollon.gameplay.entity
 
                 } /* if() */
 
-                // move subject reference to current Entity 
-                this._parent.Subject.transform.parent = this._parent.Entity.transform;
+                // move subject reference to current virtual motion platform
+                this._parent.Subject.transform.parent = this._parent.VirtualMotionSystem.transform;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -222,8 +221,8 @@ namespace Labsim.apollon.gameplay.entity
 
                 } /* if() */
 
-                // move subject reference to current Entity 
-                this._parent.Subject.transform.parent = this._parent.Entity.transform;
+                // move subject reference to current virtual motion platform
+                this._parent.Subject.transform.parent = this._parent.VirtualMotionSystem.transform;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -244,9 +243,9 @@ namespace Labsim.apollon.gameplay.entity
             UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonActiveSeatEntityBehaviour.Initialize() : begin");
             
             // instantiate state controller components
-            var idle = this.gameObject.AddComponent<IdleController>();
-            var visualOnly = this.gameObject.AddComponent<VisualOnlyController>();
-            var vestibular_only = this.gameObject.AddComponent<VestibularOnlyController>();
+            var idle                  = this.gameObject.AddComponent<IdleController>();
+            var visualOnly            = this.gameObject.AddComponent<VisualOnlyController>();
+            var vestibular_only       = this.gameObject.AddComponent<VestibularOnlyController>();
             var visuo_vestibular_only = this.gameObject.AddComponent<VisuoVestibularController>();
             
             UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonActiveSeatEntityBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");

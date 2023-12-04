@@ -30,7 +30,7 @@ namespace Labsim.apollon.experiment.phase
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // get our entity bridge & our settings
@@ -143,7 +143,7 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
-            void sync_user_response_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.EventArgs e)
+            void sync_user_response_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs e)
                 => sync_point?.TrySetResult((
                     /* detection!  */ 
                     true, 
@@ -152,14 +152,14 @@ namespace Labsim.apollon.experiment.phase
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
-                    UXF.ApplicationHandler.CurrentHighResolutionTime
+                    ApollonHighResolutionTime.Now.ToString()
                 ));
-            void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
+            void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
             // blend function
             System.EventHandler<
-                gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.EventArgs
+                gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.RadioSondeSensorEventArgs
             > blend_local_function 
                 = (sender, args) 
                     => 
@@ -251,8 +251,8 @@ namespace Labsim.apollon.experiment.phase
                     }; /* lambda */
         
             // register our synchronisation function
-            control_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-            caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+            control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            caviar_bridge.ConcreteDispatcher.WaypointReachedEvent += sync_end_stim_local_function;
             if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
 
@@ -261,7 +261,7 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.Instance.getBridge(
                         gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
                     ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
-                ).Dispatcher.HitChangedEvent += blend_local_function;
+                ).ConcreteDispatcher.HitChangedEvent += blend_local_function;
             
             } /* if() */
 
@@ -346,7 +346,7 @@ namespace Labsim.apollon.experiment.phase
                 
                 // save stim results
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_distance = caviar_bridge.Behaviour.transform.TransformPoint(0.0f, 0.0f, 0.0f).z;
-                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = ApollonHighResolutionTime.Now.ToString();
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_unity_timestamp = UnityEngine.Time.time;
 
                 // accelerate/decelerate up to the stim settings or nothing :)
@@ -366,7 +366,7 @@ namespace Labsim.apollon.experiment.phase
                     );
 
                     // accel.
-                    caviar_bridge.Dispatcher.RaiseAccelerate(
+                    caviar_bridge.ConcreteDispatcher.RaiseAccelerate(
                         phase_settings.stim_acceleration,
                         phase_settings.stim_velocity
                     );
@@ -388,7 +388,7 @@ namespace Labsim.apollon.experiment.phase
                     );
 
                     // decel.
-                    caviar_bridge.Dispatcher.RaiseDecelerate(
+                    caviar_bridge.ConcreteDispatcher.RaiseDecelerate(
                         phase_settings.stim_acceleration,
                         phase_settings.stim_velocity
                     );
@@ -449,15 +449,15 @@ namespace Labsim.apollon.experiment.phase
                     );
 
                     // // unregister our synchronisation function
-                    // hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-                    // caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+                    // hotas_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+                    // caviar_bridge.ConcreteDispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
 
                     // re-tasking
                     sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
 
                     // // register our synchronisation function
-                    // hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-                    // caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+                    // hotas_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+                    // caviar_bridge.ConcreteDispatcher.WaypointReachedEvent += sync_end_stim_local_function;
 
                 // end
                 } else { 
@@ -488,8 +488,8 @@ namespace Labsim.apollon.experiment.phase
             } while (!bRequestEndWaitLoop); /* while() */
 
             // unregister our synchronisation function
-            control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-            caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+            control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            caviar_bridge.ConcreteDispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
             if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
 
@@ -498,7 +498,7 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.Instance.getBridge(
                         gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
                     ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
-                ).Dispatcher.HitChangedEvent -= blend_local_function;
+                ).ConcreteDispatcher.HitChangedEvent -= blend_local_function;
             
             } /* if() */
             
@@ -519,8 +519,8 @@ namespace Labsim.apollon.experiment.phase
             //     => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
             // // register our synchronisation function
-            // hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-            // caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+            // hotas_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            // caviar_bridge.ConcreteDispatcher.WaypointReachedEvent += sync_end_stim_local_function;
 
             // // async end point task
             // System.Threading.Tasks.Task
@@ -552,7 +552,7 @@ namespace Labsim.apollon.experiment.phase
             //     );
 
             //     // wait a certain amout of time
-            //     await this.FSM.DoSleep(stim_begin_timestamp);
+            //     await ApollonHighResolutionTime.DoSleep(stim_begin_timestamp);
                 
             //     // log
             //     UnityEngine.Debug.Log(
@@ -585,7 +585,7 @@ namespace Labsim.apollon.experiment.phase
             //         );
 
             //         // accel.
-            //         caviar_bridge.Dispatcher.RaiseAccelerate(
+            //         caviar_bridge.ConcreteDispatcher.RaiseAccelerate(
             //             phase_settings.stim_acceleration,
             //             phase_settings.stim_velocity
             //         );
@@ -607,7 +607,7 @@ namespace Labsim.apollon.experiment.phase
             //         );
 
             //         // decel.
-            //         caviar_bridge.Dispatcher.RaiseDecelerate(
+            //         caviar_bridge.ConcreteDispatcher.RaiseDecelerate(
             //             phase_settings.stim_acceleration,
             //             phase_settings.stim_velocity
             //         );
@@ -664,15 +664,15 @@ namespace Labsim.apollon.experiment.phase
             //         );
 
             //         // unregister our synchronisation function
-            //         hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-            //         caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+            //         hotas_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            //         caviar_bridge.ConcreteDispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
 
             //         // re-tasking
             //         sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
 
             //         // register our synchronisation function
-            //         hotas_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-            //         caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+            //         hotas_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            //         caviar_bridge.ConcreteDispatcher.WaypointReachedEvent += sync_end_stim_local_function;
 
             //     // if there is already a response == end, then
             //     } else if(!this.FSM.CurrentResults.phase_C_results[CurrentID].user_response) {
@@ -701,8 +701,8 @@ namespace Labsim.apollon.experiment.phase
             // );
                     
             // // unregister our synchronisation function
-            // hotas_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-            // caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+            // hotas_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            // caviar_bridge.ConcreteDispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
 
             // log
             UnityEngine.Debug.Log(
@@ -743,7 +743,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

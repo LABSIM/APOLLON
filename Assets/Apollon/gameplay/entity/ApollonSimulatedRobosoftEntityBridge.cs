@@ -2,38 +2,39 @@
 namespace Labsim.apollon.gameplay.entity
 {
 
-    public class ApollonSimulatedRobosoftEntityBridge : ApollonAbstractGameplayBridge
+    public class ApollonSimulatedRobosoftEntityBridge
+        : ApollonGameplayBridge<ApollonSimulatedRobosoftEntityBridge>
     {
 
         // ctor
         public ApollonSimulatedRobosoftEntityBridge()
             : base()
         { }
+        
+        public ApollonSimulatedRobosoftEntityBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonSimulatedRobosoftEntityBehaviour;
 
         #region Bridge abstract implementation 
-
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonSimulatedRobosoftEntityBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonSimulatedRobosoftEntityBridge.WrapBehaviour() : could not find object of type behaviour.ApollonSimulatedRobosoftEntityBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonSimulatedRobosoftEntityBehaviour>(
+                "ApollonSimulatedRobosoftEntityBridge",
+                "ApollonSimulatedRobosoftEntityBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonGameplayDispatcher>(
+                "ApollonSimulatedRobosoftEntityBridge",
+                "ApollonGameplayDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {

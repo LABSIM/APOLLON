@@ -2,8 +2,8 @@
 namespace Labsim.apollon.gameplay.entity
 {
 
-    public class ApollonActiveSeatEntityBridge 
-        : ApollonAbstractGameplayFiniteStateMachine<ApollonActiveSeatEntityBridge>
+    public class ApollonActiveSeatEntityBridge
+        : ApollonGameplayBridge<ApollonActiveSeatEntityBridge>
     {
 
         //ctor
@@ -11,42 +11,33 @@ namespace Labsim.apollon.gameplay.entity
             : base()
         { }
 
-        public ApollonActiveSeatEntityDispatcher Dispatcher { private set; get; } = null;
+        public ApollonActiveSeatEntityBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonActiveSeatEntityBehaviour;
 
+        public ApollonActiveSeatEntityDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonActiveSeatEntityDispatcher;
 
         #region Bridge abstract implementation 
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonActiveSeatEntityBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonActiveSeatEntityBridge.WrapBehaviour() : could not find object of type behaviour.ApollonRealRobosoftEntityBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonActiveSeatEntityDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonActiveSeatEntityBehaviour>(
+                "ApollonActiveSeatEntityBridge",
+                "ApollonActiveSeatEntityBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonActiveSeatEntityDispatcher>(
+                "ApollonActiveSeatEntityBridge",
+                "ApollonActiveSeatEntityDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -71,10 +62,10 @@ namespace Labsim.apollon.gameplay.entity
                 this.Behaviour.gameObject.SetActive(true);
                 
                 // subscribe
-                this.Dispatcher.IdleEvent += this.OnIdleRequested;
-                this.Dispatcher.VisualOnlyEvent += this.OnVisualOnlyRequested;
-                this.Dispatcher.VestibularOnlyEvent += this.OnVestibularOnlyRequested;
-                this.Dispatcher.VisuoVestibularEvent += this.OnVisuoVestibularRequested;
+                this.ConcreteDispatcher.IdleEvent            += this.OnIdleRequested;
+                this.ConcreteDispatcher.VisualOnlyEvent      += this.OnVisualOnlyRequested;
+                this.ConcreteDispatcher.VestibularOnlyEvent  += this.OnVestibularOnlyRequested;
+                this.ConcreteDispatcher.VisuoVestibularEvent += this.OnVisuoVestibularRequested;
 
                 // go idle
                 await this.SetState(new IdleState(this));
@@ -90,10 +81,10 @@ namespace Labsim.apollon.gameplay.entity
                 await this.SetState(null);
 
                 // unsubscribe
-                this.Dispatcher.IdleEvent -= this.OnIdleRequested;
-                this.Dispatcher.VisualOnlyEvent -= this.OnVisualOnlyRequested;
-                this.Dispatcher.VestibularOnlyEvent -= this.OnVestibularOnlyRequested;
-                this.Dispatcher.VisuoVestibularEvent -= this.OnVisuoVestibularRequested;
+                this.ConcreteDispatcher.IdleEvent            -= this.OnIdleRequested;
+                this.ConcreteDispatcher.VisualOnlyEvent      -= this.OnVisualOnlyRequested;
+                this.ConcreteDispatcher.VestibularOnlyEvent  -= this.OnVestibularOnlyRequested;
+                this.ConcreteDispatcher.VisuoVestibularEvent -= this.OnVisuoVestibularRequested;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -107,7 +98,8 @@ namespace Labsim.apollon.gameplay.entity
 
         #region FSM state implementation
 
-        internal sealed class IdleState : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
+        internal sealed class IdleState 
+            : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
         {
 
             public IdleState(ApollonActiveSeatEntityBridge fsm)
@@ -183,7 +175,8 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* internal sealed class IdleState */
 
-        internal sealed class VisualOnlyState : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
+        internal sealed class VisualOnlyState 
+            : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
         {
 
             public VisualOnlyState(ApollonActiveSeatEntityBridge fsm)
@@ -259,7 +252,8 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* internal sealed class VisualOnlyState */
 
-        internal sealed class VestibularOnlyState : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
+        internal sealed class VestibularOnlyState 
+            : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
         {
 
             public VestibularOnlyState(ApollonActiveSeatEntityBridge fsm)
@@ -335,7 +329,8 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* internal sealed class VestibularOnlyState */
 
-        internal sealed class VisuoVestibularState : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
+        internal sealed class VisuoVestibularState 
+            : ApollonAbstractGameplayState<ApollonActiveSeatEntityBridge>
         {
 
             public VisuoVestibularState(ApollonActiveSeatEntityBridge fsm)
@@ -415,7 +410,7 @@ namespace Labsim.apollon.gameplay.entity
 
         #region FSM event delegate
 
-        private async void OnIdleRequested(object sender, ApollonActiveSeatEntityDispatcher.EventArgs args)
+        private async void OnIdleRequested(object sender, ApollonActiveSeatEntityDispatcher.GameplayEventArgs args)
         {
 
             // log
@@ -433,7 +428,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnIdleRequested() */
 
-        private async void OnVisualOnlyRequested(object sender, ApollonActiveSeatEntityDispatcher.EventArgs args)
+        private async void OnVisualOnlyRequested(object sender, ApollonActiveSeatEntityDispatcher.GameplayEventArgs args)
         {
 
             // log
@@ -451,7 +446,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnVisualOnlyRequested() */
 
-        private async void OnVestibularOnlyRequested(object sender, ApollonActiveSeatEntityDispatcher.EventArgs args)
+        private async void OnVestibularOnlyRequested(object sender, ApollonActiveSeatEntityDispatcher.GameplayEventArgs args)
         {
 
             // log
@@ -469,7 +464,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnVestibularOnlyRequested() */
 
-        private async void OnVisuoVestibularRequested(object sender, ApollonActiveSeatEntityDispatcher.EventArgs args)
+        private async void OnVisuoVestibularRequested(object sender, ApollonActiveSeatEntityDispatcher.GameplayEventArgs args)
         {
 
             // log

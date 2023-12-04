@@ -3,7 +3,8 @@
 namespace Labsim.apollon.gameplay.entity
 {
 
-    public class ApollonSimulatedRobosoftEntityBehaviour : UnityEngine.MonoBehaviour
+    public class ApollonSimulatedRobosoftEntityBehaviour 
+        : ApolloConcreteGameplayBehaviour<ApollonSimulatedRobosoftEntityBridge>
     {
 
         [UnityEngine.SerializeField]
@@ -43,7 +44,7 @@ namespace Labsim.apollon.gameplay.entity
 
         void Start()
         {
-
+            
             // save initial state
             this.m_initialRigibodyForce = this.gameObject.GetComponent<UnityEngine.Rigidbody>().transform.position;
            

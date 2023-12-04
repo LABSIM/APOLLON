@@ -24,15 +24,15 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
             
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
-            void sync_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.EventArgs e)
+            void sync_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs e)
                 => sync_point?.TrySetResult(true);
             System.EventHandler<
-                gameplay.control.ApollonCAVIARControlDispatcher.EventArgs
+                gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs
             > blend_local_function 
                 = (sender, args) 
                     => 
@@ -74,12 +74,12 @@ namespace Labsim.apollon.experiment.phase
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
                 ) as gameplay.control.ApollonCAVIARControlBridge
-            ).Dispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
+            ).ConcreteDispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
             (
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
                 ) as gameplay.control.ApollonCAVIARControlBridge
-            ).Dispatcher.AxisZValueChangedEvent += blend_local_function;
+            ).ConcreteDispatcher.AxisZValueChangedEvent += blend_local_function;
 
             // show grey cross & frame
             frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
@@ -97,12 +97,12 @@ namespace Labsim.apollon.experiment.phase
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
                 ) as gameplay.control.ApollonCAVIARControlBridge
-            ).Dispatcher.AxisZValueChangedEvent -= blend_local_function;   
+            ).ConcreteDispatcher.AxisZValueChangedEvent -= blend_local_function;   
             (
                 gameplay.ApollonGameplayManager.Instance.getBridge(
                     gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
                 ) as gameplay.control.ApollonCAVIARControlBridge
-            ).Dispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
+            ).ConcreteDispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
 
             // log
             UnityEngine.Debug.Log(
@@ -120,7 +120,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

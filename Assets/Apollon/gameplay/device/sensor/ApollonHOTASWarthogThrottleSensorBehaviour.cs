@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonHOTASWarthogThrottleSensorBehaviour 
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonHOTASWarthogThrottleSensorBridge>
     {
 
         [UnityEngine.SerializeField]
@@ -15,10 +15,6 @@ namespace Labsim.apollon.gameplay.device.sensor
         [UnityEngine.Tooltip("")]
         [UnityEngine.Range(-180.0f, 180.0f)]
         private float m_axisZ_max_angle = 25.00f;
-
-        // Apollon bridge
-
-        public ApollonHOTASWarthogThrottleSensorBridge Bridge { get; set; }
 
         #region Unity Mono Behaviour implementation
 

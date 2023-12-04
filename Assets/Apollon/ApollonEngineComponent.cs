@@ -8,6 +8,18 @@ namespace Labsim.apollon
     public class ApollonEngineComponent : UnityEngine.MonoBehaviour
     {
 
+        private System.Collections.Generic.Queue<System.Action> m_pendingAction = new System.Collections.Generic.Queue<System.Action>();
+        public void PendAction(System.Action task)
+        {
+
+            lock(this.m_pendingAction)
+            {
+                this.m_pendingAction.Enqueue(task);
+            }
+            
+        } /* PendAction() */
+
+
         // Use this for initialization
         public void Start()
         {
@@ -35,8 +47,24 @@ namespace Labsim.apollon
         // Update is fixed call
         public void FixedUpdate()
         {
+
+            lock(this.m_pendingAction)
+            {
+
+                // flush pending action from Apollon engine 
+                while(this.m_pendingAction.Count != 0)
+                {
+                    
+                    // execute them
+                    this.m_pendingAction.Dequeue()();
+
+                } /* while() */
+
+            } /* lock() */
+
             ApollonEngine.Instance.FixedUpdate();
-        }
+        
+        } /* FixedUpdate() */ 
 
         // Call whenever a new experimentation session is launched
         public void ExperimentSessionBegin(UXF.Session experimentSession)

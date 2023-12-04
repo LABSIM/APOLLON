@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Unity Editor",
+            "name": "Unity Editor (Unity)",
             "type": "unity",
             "path": "/c:/Users/labsi/dev/unity/APOLLON/Library/EditorInstance.json",
             "request": "launch"

@@ -29,7 +29,7 @@ namespace Labsim.apollon.experiment.phase
 
                 // synchronisation mechanism (TCS + local function)
                 var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
-                void sync_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.EventArgs e)
+                void sync_local_function(object sender, gameplay.control.ApollonAgencyAndThresholdPerceptionControlDispatcher.AgencyAndThresholdPerceptionControlEventArgs e)
                     => sync_point?.TrySetResult(true);
 
                 // register our synchronisation function
@@ -37,7 +37,7 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.Instance.getBridge(
                         gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl
                     ) as gameplay.control.ApollonAgencyAndThresholdPerceptionControlBridge
-                ).Dispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
+                ).ConcreteDispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
 
                 // show grey cross & frame
                 frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
@@ -55,7 +55,7 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.Instance.getBridge(
                         gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl
                     ) as gameplay.control.ApollonAgencyAndThresholdPerceptionControlBridge
-                ).Dispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
+                ).ConcreteDispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
 
             } /* if() */
 

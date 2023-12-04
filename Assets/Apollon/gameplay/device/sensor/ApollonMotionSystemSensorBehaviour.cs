@@ -3,18 +3,10 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonMotionSystemSensorBehaviour
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonMotionSystemSensorBridge>
     {
 
-        #region properties/members
-
-        public ApollonMotionSystemSensorBridge Bridge { get; set; }
-
         private bool m_bHasInitialized = false;
-
-        #endregion
-
-        #region MonoBehaviour implementation
 
         void Awake()
         {
@@ -36,8 +28,6 @@ namespace Labsim.apollon.gameplay.device.sensor
             
 
         } /* OnDisable() */
-
-        #endregion
 
     } /* public class ApollonMotionSystemSensorBehaviour */
 

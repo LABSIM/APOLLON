@@ -2,40 +2,16 @@
 namespace Labsim.apollon.gameplay.entity
 {
     public class ApollonActiveSeatEntityDispatcher
+        : ApolloConcreteGameplayDispatcher<ApollonActiveSeatEntityBridge>
     {
-        #region event args class
 
-        public class EventArgs
-            : ApollonEngine.EngineEventArgs
-        {
+        #region each list of event
 
-            // ctor
-            public EventArgs()
-                : base()
-            {
-
-            }
-
-            // ctor
-            public EventArgs(EventArgs rhs)
-                : base(rhs)
-            {
-            }
-
-        } /* EventArgs() */
-
-        #endregion
-
-        #region Dictionary & each list of event
-
-        private readonly System.Collections.Generic.Dictionary<string, System.Delegate>
-            _eventTable = null;
-
-        private readonly System.Collections.Generic.List<System.EventHandler<EventArgs>> 
-            _eventIdleCommandList = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventVisualOnlyCommandList = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventVestibularOnlyCommandList = new System.Collections.Generic.List<System.EventHandler<EventArgs>>(),
-            _eventVisuoVestibularCommandList = new System.Collections.Generic.List<System.EventHandler<EventArgs>>();
+        private readonly System.Collections.Generic.List<System.EventHandler<GameplayEventArgs>> 
+            _eventIdleCommandList = new System.Collections.Generic.List<System.EventHandler<GameplayEventArgs>>(),
+            _eventVisualOnlyCommandList = new System.Collections.Generic.List<System.EventHandler<GameplayEventArgs>>(),
+            _eventVestibularOnlyCommandList = new System.Collections.Generic.List<System.EventHandler<GameplayEventArgs>>(),
+            _eventVisuoVestibularCommandList = new System.Collections.Generic.List<System.EventHandler<GameplayEventArgs>>();
 
         #endregion
 
@@ -43,27 +19,24 @@ namespace Labsim.apollon.gameplay.entity
         public ApollonActiveSeatEntityDispatcher()
         {
 
-            // event table
-            this._eventTable = new System.Collections.Generic.Dictionary<string, System.Delegate>
-            {
-                { "Idle", null },
-                { "VisualOnly", null },
-                { "VestibularOnly", null },
-                { "VisuoVestibular", null }
-            };
+            // event table filling
+            this._eventTable.Add("Idle",            null);
+            this._eventTable.Add("VisualOnly",      null);
+            this._eventTable.Add("VestibularOnly",  null);
+            this._eventTable.Add("VisuoVestibular", null);
 
         } /* ApollonActiveSeatEntityDispatcher() */
 
         #region actual events
 
-        public event System.EventHandler<EventArgs> IdleEvent
+        public event System.EventHandler<GameplayEventArgs> IdleEvent
         {
             add
             {
                 this._eventIdleCommandList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Idle"] = (System.EventHandler<EventArgs>)this._eventTable["Idle"] + value;
+                    this._eventTable["Idle"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["Idle"] + value;
                 }
             }
 
@@ -79,21 +52,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["Idle"] = null;
                     foreach (var eventIdle in this._eventIdleCommandList)
                     {
-                        this._eventTable["Idle"] = (System.EventHandler<EventArgs>)this._eventTable["Idle"] + eventIdle;
+                        this._eventTable["Idle"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["Idle"] + eventIdle;
                     }
                 }
             }
 
         } /* IdleEvent */
 
-        public event System.EventHandler<EventArgs> VisualOnlyEvent
+        public event System.EventHandler<GameplayEventArgs> VisualOnlyEvent
         {
             add
             {
                 this._eventVisualOnlyCommandList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["VisualOnly"] = (System.EventHandler<EventArgs>)this._eventTable["VisualOnly"] + value;
+                    this._eventTable["VisualOnly"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["VisualOnly"] + value;
                 }
             }
 
@@ -109,21 +82,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["VisualOnly"] = null;
                     foreach (var eventVisualOnly in this._eventVisualOnlyCommandList)
                     {
-                        this._eventTable["VisualOnly"] = (System.EventHandler<EventArgs>)this._eventTable["VisualOnly"] + eventVisualOnly;
+                        this._eventTable["VisualOnly"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["VisualOnly"] + eventVisualOnly;
                     }
                 }
             }
 
         } /* VisualOnlyEvent */
 
-        public event System.EventHandler<EventArgs> VestibularOnlyEvent
+        public event System.EventHandler<GameplayEventArgs> VestibularOnlyEvent
         {
             add
             {
                 this._eventVestibularOnlyCommandList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["VestibularOnly"] = (System.EventHandler<EventArgs>)this._eventTable["VestibularOnly"] + value;
+                    this._eventTable["VestibularOnly"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["VestibularOnly"] + value;
                 }
             }
 
@@ -139,21 +112,21 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["VestibularOnly"] = null;
                     foreach (var eventVestibularOnly in this._eventVestibularOnlyCommandList)
                     {
-                        this._eventTable["VestibularOnly"] = (System.EventHandler<EventArgs>)this._eventTable["VestibularOnly"] + eventVestibularOnly;
+                        this._eventTable["VestibularOnly"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["VestibularOnly"] + eventVestibularOnly;
                     }
                 }
             }
 
         } /* VestibularOnlyEvent */
 
-        public event System.EventHandler<EventArgs> VisuoVestibularEvent
+        public event System.EventHandler<GameplayEventArgs> VisuoVestibularEvent
         {
             add
             {
                 this._eventVisuoVestibularCommandList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["VisuoVestibular"] = (System.EventHandler<EventArgs>)this._eventTable["VisuoVestibular"] + value;
+                    this._eventTable["VisuoVestibular"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["VisuoVestibular"] + value;
                 }
             }
 
@@ -169,7 +142,7 @@ namespace Labsim.apollon.gameplay.entity
                     this._eventTable["VisuoVestibular"] = null;
                     foreach (var eventVisuoVestibular in this._eventVisuoVestibularCommandList)
                     {
-                        this._eventTable["VisuoVestibular"] = (System.EventHandler<EventArgs>)this._eventTable["VisuoVestibular"] + eventVisuoVestibular;
+                        this._eventTable["VisuoVestibular"] = (System.EventHandler<GameplayEventArgs>)this._eventTable["VisuoVestibular"] + eventVisuoVestibular;
                     }
                 }
             }
@@ -185,8 +158,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["Idle"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<GameplayEventArgs>)this._eventTable["Idle"];
+                callback?.Invoke(this, new GameplayEventArgs());
             }
 
         } /* RaiseIdle() */
@@ -196,8 +169,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["VisualOnly"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<GameplayEventArgs>)this._eventTable["VisualOnly"];
+                callback?.Invoke(this, new GameplayEventArgs());
             }
 
         } /* RaiseVisualOnly() */
@@ -207,8 +180,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["VestibularOnly"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<GameplayEventArgs>)this._eventTable["VestibularOnly"];
+                callback?.Invoke(this, new GameplayEventArgs());
             }
 
         } /* RaiseVestibularOnly() */
@@ -218,8 +191,8 @@ namespace Labsim.apollon.gameplay.entity
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<EventArgs>)this._eventTable["VisuoVestibular"];
-                callback?.Invoke(this, new EventArgs());
+                var callback = (System.EventHandler<GameplayEventArgs>)this._eventTable["VisuoVestibular"];
+                callback?.Invoke(this, new GameplayEventArgs());
             }
 
         } /* RaiseVisuoVestibular() */

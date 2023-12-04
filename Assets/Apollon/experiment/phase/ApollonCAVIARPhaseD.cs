@@ -33,7 +33,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // get our entity bridge & settings
@@ -64,7 +64,7 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
-            void sync_user_response_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.EventArgs e)
+            void sync_user_response_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs e)
                 => sync_point?.TrySetResult((
                     /* detection!  */ 
                     true, 
@@ -73,14 +73,14 @@ namespace Labsim.apollon.experiment.phase
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
-                    UXF.ApplicationHandler.CurrentHighResolutionTime
+                    ApollonHighResolutionTime.Now.ToString()
                 ));
-            void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
+            void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
             // blend function
             System.EventHandler<
-                gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.EventArgs
+                gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.RadioSondeSensorEventArgs
             > blend_local_function 
                 = (sender, args) 
                     => 
@@ -172,8 +172,8 @@ namespace Labsim.apollon.experiment.phase
                     }; /* lambda */
 
             // register our synchronisation function
-            control_bridge.Dispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
-            caviar_bridge.Dispatcher.WaypointReachedEvent += sync_end_stim_local_function;
+            control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
+            caviar_bridge.ConcreteDispatcher.WaypointReachedEvent += sync_end_stim_local_function;
             if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
 
@@ -182,7 +182,7 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.Instance.getBridge(
                         gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
                     ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
-                ).Dispatcher.HitChangedEvent += blend_local_function;
+                ).ConcreteDispatcher.HitChangedEvent += blend_local_function;
             
             } /* if() */
 
@@ -245,7 +245,7 @@ namespace Labsim.apollon.experiment.phase
                 {
 
                     // accelerate up to the next phase C settings
-                    caviar_bridge.Dispatcher.RaiseAccelerate(
+                    caviar_bridge.ConcreteDispatcher.RaiseAccelerate(
                         UnityEngine.Mathf.Abs(phase_acceleration),
                         this.FSM.CurrentSettings.phase_C_settings[this.NextID].target_velocity
                     );
@@ -255,7 +255,7 @@ namespace Labsim.apollon.experiment.phase
                 {
 
                     // decelerate up to the next phase C settings
-                    caviar_bridge.Dispatcher.RaiseDecelerate(
+                    caviar_bridge.ConcreteDispatcher.RaiseDecelerate(
                         UnityEngine.Mathf.Abs(phase_acceleration),
                         this.FSM.CurrentSettings.phase_C_settings[this.NextID].target_velocity
                     );
@@ -285,7 +285,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // apply fog
-            fog_bridge.Dispatcher.RaiseSmoothLinearFogRequested(
+            fog_bridge.ConcreteDispatcher.RaiseSmoothLinearFogRequested(
                 this.FSM.CurrentSettings.phase_C_settings[this.NextID].fog_start_distance,
                 this.FSM.CurrentSettings.phase_C_settings[this.NextID].fog_end_distance,
                 UnityEngine.Color.white,
@@ -360,8 +360,8 @@ namespace Labsim.apollon.experiment.phase
             } while (!bRequestEndWaitLoop); /* while() */
 
             // unregister our synchronisation function
-            control_bridge.Dispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
-            caviar_bridge.Dispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
+            control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
+            caviar_bridge.ConcreteDispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
             if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
 
@@ -370,7 +370,7 @@ namespace Labsim.apollon.experiment.phase
                     gameplay.ApollonGameplayManager.Instance.getBridge(
                         gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
                     ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
-                ).Dispatcher.HitChangedEvent -= blend_local_function;
+                ).ConcreteDispatcher.HitChangedEvent -= blend_local_function;
             
             } /* if() */
 
@@ -396,7 +396,7 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_host_timestamp = UXF.ApplicationHandler.CurrentHighResolutionTime;
+            this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_D_results[this.PreviousID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

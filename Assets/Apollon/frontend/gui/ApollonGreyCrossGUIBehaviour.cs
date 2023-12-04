@@ -9,6 +9,9 @@ namespace Labsim.apollon.frontend.gui
 
         [UnityEngine.SerializeField]
         TMPro.TextMeshPro counterUI = null;
+        
+        [UnityEngine.SerializeField]
+        TMPro.TextMeshPro instructionUI = null;
 
         // Use this for initialization
         void Start()
@@ -21,13 +24,23 @@ namespace Labsim.apollon.frontend.gui
         {
 
         }
+
         private void OnEnable() 
         {
 
             if(counterUI != null)
             {
 
-                counterUI.text = experiment.ApollonExperimentManager.Instance.Profile.CounterStatus;
+                counterUI.text  = experiment.ApollonExperimentManager.Instance.Profile.CounterStatus;
+                counterUI.color = /* dark grey */ new UnityEngine.Color(0.02f, 0.02f, 0.02f, 1.0f);
+
+            } /*if() */
+
+            if(instructionUI != null)
+            {
+
+                instructionUI.text  = experiment.ApollonExperimentManager.Instance.Profile.InstructionStatus;
+                instructionUI.color = /* dark grey */ new UnityEngine.Color(0.02f, 0.02f, 0.02f, 1.0f);
 
             } /*if() */
 

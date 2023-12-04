@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.entity
 {
 
     public class ApollonCAVIAREntityBridge 
-        : ApollonAbstractGameplayFiniteStateMachine<ApollonCAVIAREntityBridge>
+        : ApollonGameplayBridge<ApollonCAVIAREntityBridge>
     {
 
         //ctor
@@ -11,41 +11,33 @@ namespace Labsim.apollon.gameplay.entity
             : base()
         { }
 
-        public ApollonCAVIAREntityDispatcher Dispatcher { private set; get; } = null;
+        public ApollonCAVIAREntityBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonCAVIAREntityBehaviour;
+
+        public ApollonCAVIAREntityDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonCAVIAREntityDispatcher;
 
         #region Bridge abstract implementation 
 
-        protected override UnityEngine.MonoBehaviour WrapBehaviour()
+        protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            // retreive
-            var behaviours = UnityEngine.Resources.FindObjectsOfTypeAll<ApollonCAVIAREntityBehaviour>();
-            if ((behaviours?.Length ?? 0) == 0)
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.WrapBehaviour() : could not find object of type behaviour.ApollonCAVIAREntityBehaviour from Unity."
-                );
-
-                return null;
-
-            } /* if() */
-
-            // tail 
-            foreach (var behaviour in behaviours)
-            {
-                behaviour.Bridge = this;
-            }
-
-            // instantiate
-            this.Dispatcher = new ApollonCAVIAREntityDispatcher();
-
-            // finally 
-            // TODO : implement the logic of multiple instante (prefab)
-            return behaviours[0];
+            return this.WrapBehaviour<ApollonCAVIAREntityBehaviour>(
+                "ApollonCAVIAREntityBridge",
+                "ApollonCAVIAREntityBehaviour"
+            );
 
         } /* WrapBehaviour() */
+
+        protected override ApollonGameplayDispatcher WrapDispatcher()
+        {
+
+            return this.WrapDispatcher<ApollonCAVIAREntityDispatcher>(
+                "ApollonCAVIAREntityBridge",
+                "ApollonCAVIAREntityDispatcher"
+            );
+
+        } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
@@ -78,11 +70,11 @@ namespace Labsim.apollon.gameplay.entity
                     );
                 
                 // subscribe
-                this.Dispatcher.AccelerateEvent += this.OnAccelerateRequested;
-                this.Dispatcher.DecelerateEvent += this.OnDecelerateRequested;
-                this.Dispatcher.HoldEvent += this.OnHoldRequested;
-                this.Dispatcher.IdleEvent += this.OnIdleRequested;
-                caviar_control_bridge.Dispatcher.AxisZValueChangedEvent += this.OnThrotthleAxisZValueChanged;
+                this.ConcreteDispatcher.AccelerateEvent                         += this.OnAccelerateRequested;
+                this.ConcreteDispatcher.DecelerateEvent                         += this.OnDecelerateRequested;
+                this.ConcreteDispatcher.HoldEvent                               += this.OnHoldRequested;
+                this.ConcreteDispatcher.IdleEvent                               += this.OnIdleRequested;
+                caviar_control_bridge.ConcreteDispatcher.AxisZValueChangedEvent += this.OnThrotthleAxisZValueChanged;
 
                 // go init
                 await this.SetState(new InitState(this));
@@ -106,11 +98,11 @@ namespace Labsim.apollon.gameplay.entity
                     );
                 
                 // unsubscribe
-                caviar_control_bridge.Dispatcher.AxisZValueChangedEvent -= this.OnThrotthleAxisZValueChanged;
-                this.Dispatcher.AccelerateEvent -= this.OnAccelerateRequested;
-                this.Dispatcher.DecelerateEvent -= this.OnDecelerateRequested;
-                this.Dispatcher.HoldEvent -= this.OnHoldRequested;
-                this.Dispatcher.IdleEvent -= this.OnIdleRequested;
+                this.ConcreteDispatcher.AccelerateEvent                         -= this.OnAccelerateRequested;
+                this.ConcreteDispatcher.DecelerateEvent                         -= this.OnDecelerateRequested;
+                this.ConcreteDispatcher.HoldEvent                               -= this.OnHoldRequested;
+                this.ConcreteDispatcher.IdleEvent                               -= this.OnIdleRequested;
+                caviar_control_bridge.ConcreteDispatcher.AxisZValueChangedEvent -= this.OnThrotthleAxisZValueChanged;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -512,7 +504,7 @@ namespace Labsim.apollon.gameplay.entity
 
         #region FSM event delegate
 
-        private void OnThrotthleAxisZValueChanged(object sender, control.ApollonCAVIARControlDispatcher.EventArgs args) 
+        private void OnThrotthleAxisZValueChanged(object sender, control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs args) 
         {
 
             // extract event args, get behaviour & update altitude
@@ -520,7 +512,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnThrotthleAxisZValueChanged() */
 
-        private async void OnAccelerateRequested(object sender, ApollonCAVIAREntityDispatcher.EventArgs args)
+        private async void OnAccelerateRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
@@ -545,7 +537,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnAccelerateRequested() */
 
-        private async void OnDecelerateRequested(object sender, ApollonCAVIAREntityDispatcher.EventArgs args)
+        private async void OnDecelerateRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
@@ -570,7 +562,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnDecelerateRequested() */
 
-        private async void OnIdleRequested(object sender, ApollonCAVIAREntityDispatcher.EventArgs args)
+        private async void OnIdleRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
@@ -588,7 +580,7 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* OnIdleRequested() */
 
-        private async void OnHoldRequested(object sender, ApollonCAVIAREntityDispatcher.EventArgs args)
+        private async void OnHoldRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
@@ -636,7 +628,7 @@ namespace Labsim.apollon.gameplay.entity
                 );
 
                 // notifying
-                this.Dispatcher.RaiseWaypointReached();
+                this.ConcreteDispatcher.RaiseWaypointReached();
             }
             
             // log

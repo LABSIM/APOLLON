@@ -6,19 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Experiment/AgencyAndThresholdPerception.unity
-    guid: 7e589fd877ff67447a30c024c913a028
-  - enabled: 0
-    path: Assets/Scenes/Experiment/CAVIAR.unity
-    guid: cffc75f85023a9b42949dc38690ed7ca
+    path: Assets/Scenes/Experiment/AgencyAndThresholdPerceptionV3.unity
+    guid: e12be71b525e35f449bdb5f0c9e59c59
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8264bf70eef11fa42bde15fd25bc24c5,
+      type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 2983873f15eb573448f1dc3074ff7a56,
       type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 0950538501bace245893f7c4ee80aad8,
       type: 2}
     Varjo.XR.Settings: {fileID: 11400000, guid: 01bbbb52158fabc499eede82a4764e23,
       type: 2}
-    com.unity.input.settings: {fileID: 11400000, guid: 32b3aa7be16b14341a43c764dde0208f,
+    com.unity.input.settings: {fileID: 11400000, guid: e9255f156833d4f44af17b34335bbde3,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 70aa3c1f569a7f14b8745d27fe11fc44,
       type: 2}

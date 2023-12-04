@@ -9,7 +9,7 @@ namespace Labsim.apollon.gameplay.entity
 {
 
     public class ApollonCAVIAREntityBehaviour
-        : UnityEngine.MonoBehaviour
+        : ApolloConcreteGameplayBehaviour<ApollonCAVIAREntityBridge>
     {
 
         #region properties/members
@@ -21,7 +21,6 @@ namespace Labsim.apollon.gameplay.entity
         public UnityEngine.Vector3 TargetLinearVelocity { get; set; } = new UnityEngine.Vector3();
         public UnityEngine.Vector3 InitialPosition { get; private set; } = new UnityEngine.Vector3();
         public UnityEngine.Quaternion InitialRotation { get; private set; } = new UnityEngine.Quaternion();
-        public ApollonCAVIAREntityBridge Bridge { get; set; }
 
         private bool m_bHasInitialized = false;
         private float
@@ -135,7 +134,7 @@ namespace Labsim.apollon.gameplay.entity
                 );
 
                 // change state
-                this._parent.Bridge.Dispatcher.RaiseIdle();
+                this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
 
                 // log
                 UnityEngine.Debug.Log(
@@ -301,7 +300,7 @@ namespace Labsim.apollon.gameplay.entity
                     );
 
                     // notify hold event
-                    this._parent.Bridge.Dispatcher.RaiseHold();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseHold();
 
                 }
                 else
@@ -402,7 +401,7 @@ namespace Labsim.apollon.gameplay.entity
                         
 
                         // notify Idle event
-                        this._parent.Bridge.Dispatcher.RaiseIdle();
+                        this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
 
                     }
                     else
@@ -414,7 +413,7 @@ namespace Labsim.apollon.gameplay.entity
                         );
 
                         // notify saturation event
-                        this._parent.Bridge.Dispatcher.RaiseHold();
+                        this._parent.ConcreteBridge.ConcreteDispatcher.RaiseHold();
 
                     } /* if() */
 
