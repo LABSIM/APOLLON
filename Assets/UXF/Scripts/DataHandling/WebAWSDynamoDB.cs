@@ -448,7 +448,7 @@ namespace UXF
             {
                 case UnityEditor.BuildTargetGroup.Android:
                 case UnityEditor.BuildTargetGroup.iOS:
-                case UnityEditor.BuildTargetGroup.Lumin:
+                // case UnityEditor.BuildTargetGroup.Lumin:
                 case UnityEditor.BuildTargetGroup.PS4:
                 case UnityEditor.BuildTargetGroup.Switch:
                 case UnityEditor.BuildTargetGroup.tvOS:

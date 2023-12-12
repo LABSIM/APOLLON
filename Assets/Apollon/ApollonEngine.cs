@@ -13,7 +13,7 @@ namespace Labsim.apollon
         // Use this as a global Coroutine tasker mechanism to handle internal Async/Await logic
         private readonly System.Lazy<ApollonEngineComponent> _lazyUnityComponent
             = new System.Lazy<ApollonEngineComponent>(
-                () => UnityEngine.GameObject.FindObjectOfType<ApollonEngineComponent>()
+                () => UnityEngine.GameObject.FindFirstObjectByType<ApollonEngineComponent>()
             );
         private ApollonEngineComponent UnityComponent => this._lazyUnityComponent.Value;
 

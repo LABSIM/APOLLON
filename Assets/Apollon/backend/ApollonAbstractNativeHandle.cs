@@ -6,7 +6,7 @@ using System.Security;
 using Microsoft.Win32.SafeHandles;
 
 // avoid namespace pollution
-namespace Labsim.apollon.backend
+namespace Labsim.apollon.backend 
 {
 
     public abstract class ApollonAbstractNativeHandle
