@@ -19,7 +19,7 @@ namespace UXF
 		public bool logDebugLogCalls = true;
 
 		private Session session;
-		private string[] header = new string[]{ "unity_timestamp", "host_timestamp", "log_type", "message"};
+		private string[] header = new string[]{ "timestamp", "log_type", "message"};
 		private UXFDataTable table;
 
 		void Awake()
@@ -46,7 +46,7 @@ namespace UXF
 		/// </summary>
 		public void Initialise()
 		{
-			table = new UXFDataTable("unity_timestamp", "host_timestamp", "log_type", "message", "stacktrace");
+			table = new UXFDataTable("timestamp", "log_type", "message", "stacktrace");
             if (logDebugLogCalls) Application.logMessageReceived += HandleLog;
 			session.preSessionEnd.AddListener(Finalise); // finalise logger when cleaning up the session
 		}		
@@ -55,8 +55,7 @@ namespace UXF
 		{
 			var row = new UXFDataRow();
 
-			row.Add(("unity_timestamp", Time.time.ToString()));
-			row.Add(("host_timestamp", Labsim.apollon.ApollonHighResolutionTime.Now.ToString()));
+			row.Add(("timestamp", Time.time.ToString()));
 			row.Add(("log_type", type.ToString()));
 			row.Add(("message", logString.Replace(",", string.Empty)));
 			row.Add(("stacktrace", stackTrace.Replace(",", string.Empty).Replace("\n", ".  ").Replace("\r", ".  ")));
@@ -73,8 +72,7 @@ namespace UXF
 		{
 			var row = new UXFDataRow();
 
-			row.Add(("unity_timestamp", Time.time.ToString()));
-			row.Add(("host_timestamp", Labsim.apollon.ApollonHighResolutionTime.Now.ToString()));
+			row.Add(("timestamp", Time.time.ToString()));
 			row.Add(("log_type", logType));
 			row.Add(("message", text.Replace(",", string.Empty)));
 			row.Add(("stacktrace", "NA"));
@@ -87,7 +85,10 @@ namespace UXF
         /// </summary>
         public void Finalise(Session session)
 		{
-			session.SaveDataTable(table, "log", dataType: UXFDataType.SessionLog);
+			if (session.saveData)
+			{
+				session.SaveDataTable(table, "log", dataType: UXFDataType.SessionLog);
+			}
 
 			if (logDebugLogCalls) Application.logMessageReceived -= HandleLog;
 			session.preSessionEnd.RemoveListener(Finalise);

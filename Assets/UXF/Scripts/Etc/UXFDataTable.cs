@@ -42,11 +42,45 @@ namespace UXF
         }
 
         /// <summary>
+        /// Build a table from lines of CSV text.
+        /// </summary>
+        /// <param name="csvLines"></param>
+        /// <returns></returns>
+        public static UXFDataTable FromCSV(string[] csvLines)
+        {
+            string[] headers = csvLines[0].Split(',');
+            var table = new UXFDataTable(csvLines.Length - 1, headers);
+
+            // traverse down rows
+            for (int i = 1; i < csvLines.Length; i++)
+            {
+                string[] values = csvLines[i].Split(',');
+
+                // if last line, just 1 item in the row, and it is blank, then ignore it
+                if (i == csvLines.Length - 1 && values.Length == 1 && values[0].Trim() == string.Empty ) break;
+
+                // check if number of columns is correct
+                if (values.Length != headers.Length) throw new Exception($"CSV line {i} has {values.Length} columns, but expected {headers.Length}");
+
+                // build across the row
+                var row = new UXFDataRow();
+                for (int j = 0; j < values.Length; j++)
+                    row.Add((headers[j], values[j].Trim('\"')));
+
+                table.AddCompleteRow(row);
+            }
+
+            return table;
+        }
+
+        /// <summary>
         /// Add a complete row to the table
         /// </summary>
         /// <param name="newRow"></param>
         public void AddCompleteRow(UXFDataRow newRow)
         {
+            if (newRow == null) throw new ArgumentNullException("newRow");
+
             bool sameKeys = (dict
                 .Keys
                 .All(
@@ -89,7 +123,7 @@ namespace UXF
         /// <summary>
         /// Return the table as a set of strings, each string a line a row with comma-seperated values.
         /// </summary>
-        /// <param name="formatProvider">Format provider (e.g. CultureInfo for decimal separator). Defaults to en-US.</param>
+        /// <param name="formatProvider">Format provider (e.g. CultureInfo for decimal separator). Defaults to current culture.</param>
         /// <returns></returns>
         public string[] GetCSVLines(CultureInfo culture = null, string decimalFormat = "0.######")
         {
@@ -123,6 +157,7 @@ namespace UXF
                 case float floatNum:     return floatNum.ToString(decimalFormat, culture);
                 case double doubleNum:   return doubleNum.ToString(decimalFormat, culture);
                 case decimal decimalNum: return decimalNum.ToString(decimalFormat, culture);
+                case null:               return "null";
                 default:                 return item.ToString().Replace(culture.TextInfo.ListSeparator, "_");
             };
         }

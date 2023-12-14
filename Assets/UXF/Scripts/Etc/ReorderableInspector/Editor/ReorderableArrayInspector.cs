@@ -62,7 +62,7 @@ namespace SubjectNerd.Utilities
 		{
 			FORCE_INIT = true;
 
-			EditorApplication.delayCall = () => { EditorApplication.delayCall = () => { FORCE_INIT = false; }; };
+			EditorApplication.delayCall += () => { EditorApplication.delayCall += () => { FORCE_INIT = false; }; };
 		}
 
 		private static GUIStyle styleHighlight;
@@ -101,15 +101,7 @@ namespace SubjectNerd.Utilities
 
 				propList.drawElementCallback = delegate (Rect rect, int index, bool active, bool focused)
 				{
-					SerializedProperty targetElement;
-					try
-					{
-						targetElement = property.GetArrayElementAtIndex(index);
-					}
-					catch (NullReferenceException)
-					{
-						return;
-					}
+					SerializedProperty targetElement = property.GetArrayElementAtIndex(index);
 
 					bool isExpanded = targetElement.isExpanded;
 					rect.height = EditorGUI.GetPropertyHeight(targetElement, GUIContent.none, isExpanded);
@@ -156,15 +148,7 @@ namespace SubjectNerd.Utilities
 
 			private float ElementHeightCallback(SerializedProperty property, int index)
 			{
-				SerializedProperty arrayElement;
-				try
-				{
-					arrayElement = property.GetArrayElementAtIndex(index);
-				}
-				catch (NullReferenceException)
-				{
-					return 0f;
-				}
+				SerializedProperty arrayElement = property.GetArrayElementAtIndex(index);
 				float calculatedHeight = EditorGUI.GetPropertyHeight(arrayElement,
 																	GUIContent.none,
 																	arrayElement.isExpanded);
@@ -198,9 +182,13 @@ namespace SubjectNerd.Utilities
 				if (evt == null)
 					return true;
 
-				if (evt.type == EventType.DragUpdated || evt.type == EventType.DragPerform)
-				{
-					if (dropRect.Contains(evt.mousePosition) == false)
+#if UNITY_2018_2_OR_NEWER
+                if (evt.type == EventType.DragUpdated || evt.type == EventType.DragPerform)
+#else
+                if (evt.type == EventType.dragUpdated || evt.type == EventType.dragPerform)
+#endif
+                {
+                    if (dropRect.Contains(evt.mousePosition) == false)
 						return true;
 
 					DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
@@ -317,7 +305,7 @@ namespace SubjectNerd.Utilities
 			isInitialized = false;
 		}
 
-		#region Initialization
+#region Initialization
 		private void OnEnable()
 		{
 			InitInspector();
@@ -335,9 +323,7 @@ namespace SubjectNerd.Utilities
 			if (isInitialized && FORCE_INIT == false)
 				return;
 
-			try { styleEditBox = new GUIStyle(EditorStyles.helpBox) { padding = new RectOffset(5, 5, 5, 5) }; }
-			catch (NullReferenceException) { return; }
-			
+			styleEditBox = new GUIStyle(EditorStyles.helpBox) { padding = new RectOffset(5, 5, 5, 5) };
 			FindTargetProperties();
 			FindContextMenu();
 		}
@@ -358,7 +344,7 @@ namespace SubjectNerd.Utilities
 					if (iterProp.isArray && iterProp.propertyType != SerializedPropertyType.String)
 					{
 #if LIST_ALL_ARRAYS
-						bool canTurnToList = true
+						bool canTurnToList = true;
 #else
 						bool canTurnToList = iterProp.HasAttribute<ReorderableAttribute>();
 #endif
@@ -630,11 +616,7 @@ namespace SubjectNerd.Utilities
 
 			if (EditorGUI.EndChangeCheck())
 			{
-				try
-				{
-					serializedObject.ApplyModifiedProperties();
-				}
-				catch (System.Exception) { return; }
+				serializedObject.ApplyModifiedProperties();
 				InitInspector(true);
 			}
 
@@ -652,34 +634,27 @@ namespace SubjectNerd.Utilities
 		{
 			if (property.NextVisible(true))
 			{
-				try
+				// Remember depth iteration started from
+				int depth = property.Copy().depth;
+				do
 				{
-					// Remember depth iteration started from
-					int depth = property.Copy().depth;
-					do
+					// If goes deeper than the iteration depth, get out
+					if (property.depth != depth)
+						break;
+					if (isSubEditor && property.name.Equals("m_Script"))
+						continue;
+
+					if (filter != null)
 					{
-						// If goes deeper than the iteration depth, get out
-						if (property.depth != depth)
+						var filterResult = filter();
+						if (filterResult == IterControl.Break)
 							break;
-						if (isSubEditor && property.name.Equals("m_Script"))
+						if (filterResult == IterControl.Continue)
 							continue;
+					}
 
-						if (filter != null)
-						{
-							var filterResult = filter();
-							if (filterResult == IterControl.Break)
-								break;
-							if (filterResult == IterControl.Continue)
-								continue;
-						}
-
-						DrawPropertySortableArray(property);
-					} while (property == null || property.NextVisible(false));
-				}
-				catch (NullReferenceException) 
-				{
-					return;
-				}
+					DrawPropertySortableArray(property);
+				} while (property.NextVisible(false));
 			}
 		}
 

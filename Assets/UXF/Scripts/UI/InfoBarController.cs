@@ -12,7 +12,7 @@ namespace UXF.UI
 
         public Session session;
 
-        public Text trialStatus, folder, blockNum, trialNum, profileStatus;
+        public Text trialStatus, folder, blockNum, trialNum;
 
         /// <summary>
 		/// Awake is called when the script instance is being loaded.
@@ -40,7 +40,6 @@ namespace UXF.UI
             trialStatus.text = "Awaiting session start";
             trialNum.text = FormatProgress("Trial", 0, 0);
 			blockNum.text = FormatProgress("Block", 0, 0);
-			profileStatus.text = "Apollon experiment profile status";
         }
 
         void SessionBegin(Session session)
@@ -54,13 +53,11 @@ namespace UXF.UI
             trialStatus.text = "Trial in progress";
 			trialNum.text = FormatProgress("Trial", trial.number, trial.session.Trials.ToList().Count);
 			blockNum.text = FormatProgress("Block", trial.block.number, trial.session.blocks.Count);
-			profileStatus.text = Labsim.apollon.experiment.ApollonExperimentManager.Instance.Profile.Status;
         }
 
         void TrialEnd(Trial trial)
         {
             trialStatus.text = "Trial finished";
-			profileStatus.text = Labsim.apollon.experiment.ApollonExperimentManager.Instance.Profile.Status;
         }
 
         void SessionEnd(Session session)

@@ -1,42 +1,69 @@
 using UnityEditor;
 using UnityEngine;
+using System.Reflection;
 
 namespace UXF.EditorUtils
 {
-    [CustomEditor(typeof(UXF.Tracker), true)]
+    [CustomEditor(typeof(Tracker), true)]
     [CanEditMultipleObjects]
     public class TrackerEditor : Editor
     {
-        SerializedProperty customHeader, measurementDescriptor;
+        GUIStyle smallText = new GUIStyle();
+        Tracker thisTracker;
         
         void OnEnable()
         {
-            customHeader = serializedObject.FindProperty("customHeader");
-            measurementDescriptor = serializedObject.FindProperty("measurementDescriptor");
+            smallText.font = EditorStyles.miniFont;
+            smallText.fontSize = 9;
+            thisTracker = (Tracker)serializedObject.targetObject;
         }
 
         public override void OnInspectorGUI()
         {
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_Script"));
+            EditorGUI.EndDisabledGroup();
+            
             serializedObject.Update();
-            DrawDefaultInspector();
+
+            FieldInfo[] childFields = target.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            // draw all default fields
+            foreach (FieldInfo field in childFields)
+            {
+                if (field.IsPublic || field.GetCustomAttribute(typeof(SerializeField)) != null)
+                {                    
+                    var prop = serializedObject.FindProperty(field.Name);
+                    EditorGUILayout.PropertyField(prop);
+                }
+            }
+
             EditorGUILayout.Space();
 
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(customHeader);
+            EditorGUILayout.LabelField("Custom Header");
+            EditorGUILayout.TextField("(\"time\" is added automatically)", smallText);
             EditorGUI.indentLevel += 1;
-
-            foreach (SerializedProperty element in customHeader)
-            {
-                GUI.enabled = false;
-                EditorGUILayout.TextField(element.stringValue);
-                GUI.enabled = true;
-            }
+            GUI.enabled = false;
+            EditorGUILayout.TextField(string.Join(", ", thisTracker.CustomHeader));
+            GUI.enabled = true;
             EditorGUI.indentLevel -= 1;
             
             EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Measurement Descriptor");
+            EditorGUI.indentLevel += 1;
             GUI.enabled = false;
-            EditorGUILayout.PropertyField(measurementDescriptor);
+            EditorGUILayout.TextField(thisTracker.MeasurementDescriptor);
             GUI.enabled = true;
+            EditorGUI.indentLevel -= 1;
+            
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Example Filename");
+            EditorGUI.indentLevel += 1;
+            GUI.enabled = false;
+            EditorGUILayout.TextField(string.Format("{0}_T001.csv", thisTracker.DataName));
+            GUI.enabled = true;
+            EditorGUI.indentLevel -= 1;
 
             serializedObject.ApplyModifiedProperties();
         }

@@ -59,7 +59,11 @@ public class EasyEventEditorHandler
     private const string eeeGroupSameComponentTypeKey = "EEE.groupSameComponentType";
     private const string eeeUseHotkeys = "EEE.usehotkeys";
 
+#if UNITY_2021_1_OR_NEWER
+    // no need in Unity 2021
+#else
     private static bool patchApplied = false;
+#endif
     private static FieldInfo internalDrawerTypeMap = null;
     private static System.Type attributeUtilityType = null;
 
@@ -335,6 +339,9 @@ public class EasyEventEditorHandler
 
     public static void ApplyEventPropertyDrawerPatch(bool forceApply = false)
     {
+#if UNITY_2021_1_OR_NEWER
+    // no need in Unity 2021
+#else
         EEESettings settings = GetEditorSettings();
 
         if (!patchApplied || forceApply)
@@ -342,6 +349,7 @@ public class EasyEventEditorHandler
             ApplyEventDrawerPatch(settings.overrideEventDrawer);
             patchApplied = true;
         }
+#endif
     }
 
     public static EEESettings GetEditorSettings()
@@ -382,7 +390,7 @@ internal class SettingsGUIContent
     public static void DrawSettingsButtons(EasyEventEditorHandler.EEESettings settings)
     {
         EditorGUI.indentLevel += 1;
-
+//
         settings.overrideEventDrawer = EditorGUILayout.ToggleLeft(enableToggleGuiContent, settings.overrideEventDrawer);
 
         EditorGUI.BeginDisabledGroup(!settings.overrideEventDrawer);
@@ -403,6 +411,9 @@ internal class SettingsGUIContent
 // Using the IMGUI method
 static class EasyEventEditorSettingsProvider
 {
+#if UNITY_2021_1_OR_NEWER
+    // no need in Unity 2021
+#else
     [SettingsProvider]
     public static SettingsProvider CreateSettingsProvider()
     {
@@ -430,11 +441,15 @@ static class EasyEventEditorSettingsProvider
 
         return provider;
     }
+#endif
 }
-#else
 public class EasyEventEditorSettings : EditorWindow
 {
+#if UNITY_2021_1_OR_NEWER
+    // no need in Unity 2021
+#else
     [MenuItem("Edit/Easy Event Editor Settings")]
+#endif
     static void Init()
     {
         EasyEventEditorSettings window = GetWindow<EasyEventEditorSettings>(false, "EEE Settings");

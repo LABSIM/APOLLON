@@ -11,29 +11,8 @@ namespace UXF
     /// </summary>
     public class PositionRotationTracker : Tracker
     {
-        /// <summary>
-        /// Sets measurementDescriptor and customHeader to appropriate values
-        /// </summary>
-        protected override void SetupDescriptorAndHeader()
-        {
-            measurementDescriptor = "movement";
-            
-            customHeader = new string[]
-            {
-                "world_pos_x",
-                "world_pos_y",
-                "world_pos_z",
-                "world_rot_x",
-                "world_rot_y",
-                "world_rot_z",
-                "local_pos_x",
-                "local_pos_y",
-                "local_pos_z",
-                "local_rot_x",
-                "local_rot_y",
-                "local_rot_z"
-            };
-        }
+        public override string MeasurementDescriptor => "movement";
+        public override IEnumerable<string> CustomHeader => new string[] { "pos_x", "pos_y", "pos_z", "rot_x", "rot_y", "rot_z" };
 
         /// <summary>
         /// Returns current position and rotation values
@@ -42,26 +21,18 @@ namespace UXF
         protected override UXFDataRow GetCurrentValues()
         {
             // get position and rotation
-            Vector3 world_p = gameObject.transform.position;
-            Vector3 world_r = gameObject.transform.eulerAngles;
-            Vector3 local_p = gameObject.transform.localPosition;
-            Vector3 local_r = gameObject.transform.localEulerAngles;
+            Vector3 p = gameObject.transform.position;
+            Vector3 r = gameObject.transform.eulerAngles;
 
-            // return world [position, rotation] (x, y, z) & local [position, rotation] (x, y, z) as an array
+            // return position, rotation (x, y, z) as an array
             var values = new UXFDataRow()
             {
-                ("world_pos_x", world_p.x),
-                ("world_pos_y", world_p.y),
-                ("world_pos_z", world_p.z),
-                ("world_rot_x", world_r.x),
-                ("world_rot_y", world_r.y),
-                ("world_rot_z", world_r.z),
-                ("local_pos_x", local_p.x),
-                ("local_pos_y", local_p.y),
-                ("local_pos_z", local_p.z),
-                ("local_rot_x", local_r.x),
-                ("local_rot_y", local_r.y),
-                ("local_rot_z", local_r.z)
+                ("pos_x", p.x),
+                ("pos_y", p.y),
+                ("pos_z", p.z),
+                ("rot_x", r.x),
+                ("rot_y", r.y),
+                ("rot_z", r.z)
             };
 
             return values;

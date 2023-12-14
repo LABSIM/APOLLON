@@ -22,8 +22,10 @@ namespace UXF
         [Tooltip("Enable collect browser info from the participant, and store them in the session.participantDetails dictionary. (Key-value pairs are: \"screen_width\": int, \"screen_height\": int, \"user_agent\": string)")]
         public bool collectBrowserInfo = true;
 
-        [SubjectNerd.Utilities.EditScriptable]
+        // [SubjectNerd.Utilities.EditScriptable]
         public AWSCredentials credentials;
+
+#if UNITY_WEBGL
 
         [DllImport("__Internal")]
         private static extern void DDB_Setup(string region, string identityPool, string callbackGameObjectName);
@@ -45,6 +47,22 @@ namespace UXF
 
         [DllImport("__Internal")]
         private static extern string GetUserInfo();
+#else
+        private static void DDB_Setup(string region, string identityPool, string callbackGameObjectName) => Error();
+        private static void DDB_CreateTable(string tableName, string primaryKeyName, string sortKeyName, string callbackGameObjectName) => Error();
+        private static void DDB_PutItem(string tableName, string jsonItem, string callbackGameObjectName) => Error();
+        private static void DDB_BatchWriteItem(string tableName, string jsonRequests, string callbackGameObjectName) => Error();
+        private static void DDB_GetItem(string tableName, string jsonItem, string callbackGameObjectName, string guid) => Error();
+        private static void DDB_Cleanup() => Error();
+        private static string GetUserInfo() => Error();
+
+        private static string Error()
+        {
+            throw new InvalidProgramException("WebAWSDynamoDB is not supported on this platform.");
+        }
+
+#endif
+
 
         private const string primaryKey = "ppid_session_dataname";
         private const string sortKey = "trial_num";
@@ -448,7 +466,7 @@ namespace UXF
             {
                 case UnityEditor.BuildTargetGroup.Android:
                 case UnityEditor.BuildTargetGroup.iOS:
-                // case UnityEditor.BuildTargetGroup.Lumin:
+                case UnityEditor.BuildTargetGroup.Lumin:
                 case UnityEditor.BuildTargetGroup.PS4:
                 case UnityEditor.BuildTargetGroup.Switch:
                 case UnityEditor.BuildTargetGroup.tvOS:

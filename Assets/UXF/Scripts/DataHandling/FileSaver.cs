@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Linq;
-
+using System.Globalization;
 
 namespace UXF
 {
@@ -18,6 +18,13 @@ namespace UXF
 
         [Tooltip("Enable to sort session files into folders. The trial_results CSV is never put into a folder.")]
         public bool sortDataIntoFolders = true;
+
+        /// <summary>
+        /// Enable to force the data to save with an english-US format (i.e. `,` to serapate values,
+        /// and `.` to separate decimal points).
+        /// </summary>
+        [Tooltip("Enable to force the data to save with an english-US format (i.e. `,` to serapate values, and `.` to separate decimal points).")]
+        public bool forceENUSLocale = true;
 
         /// <summary>
         /// Enable to print debug messages to the console.
@@ -45,12 +52,21 @@ namespace UXF
         /// </summary>
         public override void SetUp()
         {
+            if (forceENUSLocale)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            }
+
             quitting = false;
-            Directory.CreateDirectory(base.storagePath);
+            Directory.CreateDirectory(base.StoragePath);
 
             if (!IsActive)
             {
                 parallelThread = new Thread(Worker);
+                if (forceENUSLocale)
+                {
+                    parallelThread.CurrentCulture = new CultureInfo("en-US");
+                }
                 parallelThread.Start();
             }
             else
@@ -142,7 +158,7 @@ namespace UXF
             string[] lines = table.GetCSVLines();
             
             string directory = GetSessionPath(experiment, ppid, sessionNum);
-            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.ToLower());
+            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.GetFolderName());
             Directory.CreateDirectory(directory);
             string name = string.IsNullOrEmpty(ext) ? string.Format("{0}.csv", dataName) : string.Format("{0}{1}", dataName, ext);
             string savePath = Path.Combine(directory, name);
@@ -150,7 +166,7 @@ namespace UXF
             if (verboseDebug) Utilities.UXFDebugLogFormat("Queuing save of file: {0}", savePath);
 
             ManageInWorker(() => { File.WriteAllLines(savePath, lines); });
-            return GetRelativePath(storagePath, savePath);;
+            return GetRelativePath(StoragePath, savePath);
         }
 
         public override string HandleJSONSerializableObject(List<object> serializableObject, string experiment, string ppid, int sessionNum, string dataName, UXFDataType dataType, int optionalTrialNum = 0)
@@ -163,7 +179,7 @@ namespace UXF
             string text = MiniJSON.Json.Serialize(serializableObject);
 
             string directory = GetSessionPath(experiment, ppid, sessionNum);
-            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.ToLower());
+            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.GetFolderName());
             Directory.CreateDirectory(directory);
             string name = string.IsNullOrEmpty(ext) ? string.Format("{0}.json", dataName) : string.Format("{0}{1}", dataName, ext);
             string savePath = Path.Combine(directory, name);
@@ -171,7 +187,7 @@ namespace UXF
             if (verboseDebug) Utilities.UXFDebugLogFormat("Queuing save of file: {0}", savePath);
 
             ManageInWorker(() => { File.WriteAllText(savePath, text); });
-            return GetRelativePath(storagePath, savePath);;
+            return GetRelativePath(StoragePath, savePath);;
         }
 
         public override string HandleJSONSerializableObject(Dictionary<string, object> serializableObject, string experiment, string ppid, int sessionNum, string dataName, UXFDataType dataType, int optionalTrialNum = 0)
@@ -184,7 +200,7 @@ namespace UXF
             string text = MiniJSON.Json.Serialize(serializableObject);
 
             string directory = GetSessionPath(experiment, ppid, sessionNum);
-            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.ToLower());
+            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.GetFolderName());
             Directory.CreateDirectory(directory);
             string name = string.IsNullOrEmpty(ext) ? string.Format("{0}.json", dataName) : string.Format("{0}{1}", dataName, ext);
             string savePath = Path.Combine(directory, name);
@@ -192,7 +208,7 @@ namespace UXF
             if (verboseDebug) Utilities.UXFDebugLogFormat("Queuing save of file: {0}", savePath);
 
             ManageInWorker(() => { File.WriteAllText(savePath, text); });
-            return GetRelativePath(storagePath, savePath);;
+            return GetRelativePath(StoragePath, savePath);;
         }
 
         public override string HandleText(string text, string experiment, string ppid, int sessionNum, string dataName, UXFDataType dataType, int optionalTrialNum = 0)
@@ -203,7 +219,7 @@ namespace UXF
             if (dataType.GetDataLevel() == UXFDataLevel.PerTrial) dataName = string.Format("{0}_T{1:000}", dataName, optionalTrialNum);
 
             string directory = GetSessionPath(experiment, ppid, sessionNum);
-            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.ToLower());
+            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.GetFolderName());
             Directory.CreateDirectory(directory);
 
             string name = string.IsNullOrEmpty(ext) ? string.Format("{0}.txt", dataName) : string.Format("{0}{1}", dataName, ext);
@@ -212,7 +228,7 @@ namespace UXF
             if (verboseDebug) Utilities.UXFDebugLogFormat("Queuing save of file: {0}", savePath);
 
             ManageInWorker(() => { File.WriteAllText(savePath, text); });
-            return GetRelativePath(storagePath, savePath);;
+            return GetRelativePath(StoragePath, savePath);;
         }
 
         public override string HandleBytes(byte[] bytes, string experiment, string ppid, int sessionNum, string dataName, UXFDataType dataType, int optionalTrialNum = 0)
@@ -223,7 +239,7 @@ namespace UXF
             if (dataType.GetDataLevel() == UXFDataLevel.PerTrial) dataName = string.Format("{0}_T{1:000}", dataName, optionalTrialNum);
 
             string directory = GetSessionPath(experiment, ppid, sessionNum);
-            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.ToLower());
+            if (sortDataIntoFolders && dataType != UXFDataType.TrialResults) directory = Path.Combine(directory, dataType.GetFolderName());
             Directory.CreateDirectory(directory);
 
             string name = string.IsNullOrEmpty(ext) ? string.Format("{0}.txt", dataName) : string.Format("{0}{1}", dataName, ext);
@@ -232,30 +248,30 @@ namespace UXF
             if (verboseDebug) Utilities.UXFDebugLogFormat("Queuing save of file: {0}", savePath);
 
             ManageInWorker(() => { File.WriteAllBytes(savePath, bytes); });
-            return GetRelativePath(storagePath, savePath);
+            return GetRelativePath(StoragePath, savePath);
         }
 
 
         public string GetSessionPath(string experiment, string ppid, int sessionNum)
         {
-            string storageLocationSafe = base.storagePath;
-            if (!System.IO.Directory.Exists(base.storagePath))
+            string storageLocationSafe = base.StoragePath;
+            if (!System.IO.Directory.Exists(base.StoragePath))
             {
                 storageLocationSafe = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "UXF_Data");
                 Directory.CreateDirectory(storageLocationSafe);
-                Utilities.UXFDebugLogErrorFormat("Selected storage location ({0}) does not exist! Defaulting to {1}.", base.storagePath, storageLocationSafe);
+                Utilities.UXFDebugLogErrorFormat("Selected storage location ({0}) does not exist! Defaulting to {1}.", base.StoragePath, storageLocationSafe);
             }
             return Path.Combine(storageLocationSafe, experiment, ppid, SessionNumToName(sessionNum));
         }
 
         public string GetSessionPath(Session session)
         {
-            string storageLocationSafe = base.storagePath;
-            if (!System.IO.Directory.Exists(base.storagePath))
+            string storageLocationSafe = base.StoragePath;
+            if (!System.IO.Directory.Exists(base.StoragePath))
             {
                 storageLocationSafe = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "UXF_Data");
                 Directory.CreateDirectory(storageLocationSafe);
-                Utilities.UXFDebugLogErrorFormat("Selected storage location ({0}) does not exist! Defaulting to {1}.", base.storagePath, storageLocationSafe);
+                Utilities.UXFDebugLogErrorFormat("Selected storage location ({0}) does not exist! Defaulting to {1}.", base.StoragePath, storageLocationSafe);
             }
             return Path.Combine(storageLocationSafe, session.experimentName, session.ppid, SessionNumToName(session.number));
         }
@@ -291,74 +307,4 @@ namespace UXF
             return Uri.UnescapeDataString(diff.OriginalString);
         }
     }
-
-
-    public abstract class LocalFileDataHander : DataHandler
-    {
-        [Space, Tooltip("Should the location the data is stored in be: Acquired via the UI, or, a fixed path?")]
-        public DataSaveLocation dataSaveLocation;
-
-        /// <summary>
-        /// Local path where the data should be stored.
-        /// </summary>
-        [Tooltip("If fixed path is selected, where should the data be stored? You could set this value by writing a script that writes to this field in Awake()."), SerializeField]
-        [BasteRainGames.HideIfEnumValue("dataSaveLocation", BasteRainGames.HideIf.Equal, (int) DataSaveLocation.AcquireFromUI)]
-        public string storagePath = "~";
-
-        [HideInInspector]
-        public UnityEvent onValidateEvent = new UnityEvent();
-
-        /// <summary>
-        /// Called when the script is loaded or a value is changed in the
-        /// inspector (Called in the editor only).
-        /// </summary>
-        void OnValidate()
-        {
-            onValidateEvent.Invoke();
-        }
-
-
-# if UNITY_EDITOR
-        /// <summary>
-        /// Returns true if this data handler is definitley compatible with this build target.
-        /// </summary>
-        /// <param name="buildTarget"></param>
-        /// <returns></returns>
-        public override bool IsCompatibleWith(UnityEditor.BuildTargetGroup buildTarget)
-        {
-            switch (buildTarget)
-            {
-                case UnityEditor.BuildTargetGroup.Standalone:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-         /// <summary>
-        /// Returns true if this data handler is definitley incompatible with this build target.
-        /// </summary>
-        /// <param name="buildTarget"></param>
-        /// <returns></returns>
-        public override bool IsIncompatibleWith(UnityEditor.BuildTargetGroup buildTarget)
-        {
-            switch (buildTarget)
-            {
-                case UnityEditor.BuildTargetGroup.WebGL:
-                case UnityEditor.BuildTargetGroup.Android:
-                case UnityEditor.BuildTargetGroup.iOS:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-# endif
-
-    }
-
-    public enum DataSaveLocation
-    {
-        AcquireFromUI, Fixed
-    }
-
 }
