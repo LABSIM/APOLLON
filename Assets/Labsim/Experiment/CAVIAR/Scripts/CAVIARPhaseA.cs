@@ -1,16 +1,16 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.phase
+namespace Labsim.experiment.CAVIAR
 {
 
     //
     // Wait for input neutral - FSM State
     //
-    public sealed class ApollonCAVIARPhaseA
-        : ApollonAbstractExperimentState<profile.ApollonCAVIARProfile>
+    public sealed class CAVIARPhaseA
+        : apollon.experiment.ApollonAbstractExperimentState<CAVIARProfile>
     {
-        public ApollonCAVIARPhaseA(profile.ApollonCAVIARProfile fsm)
+        public CAVIARPhaseA(CAVIARProfile fsm)
             : base(fsm)
         {
         }
@@ -20,19 +20,19 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnEntry() : begin"
+                "<color=Blue>Info: </color> CAVIARPhaseA.OnEntry() : begin"
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+            this.FSM.CurrentResults.phase_A_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
             
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
-            void sync_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs e)
+            void sync_local_function(object sender, CAVIARControlDispatcher.CAVIARControlEventArgs e)
                 => sync_point?.TrySetResult(true);
             System.EventHandler<
-                gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs
+                CAVIARControlDispatcher.CAVIARControlEventArgs
             > blend_local_function 
                 = (sender, args) 
                     => 
@@ -42,8 +42,8 @@ namespace Labsim.apollon.experiment.phase
                         var value = UnityEngine.Mathf.Clamp( (1.0f - UnityEngine.Mathf.Abs(args.Z)), 0.0f, 1.0f );
 
                         // update cross properties
-                        foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
-                            frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI
+                        foreach(var child in apollon.frontend.ApollonFrontendManager.Instance.getBridge(
+                            apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI
                         ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
                         {
 
@@ -55,8 +55,8 @@ namespace Labsim.apollon.experiment.phase
                         } /* foreach() */
 
                         // update frame properties
-                        foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
-                            frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI
+                        foreach(var child in apollon.frontend.ApollonFrontendManager.Instance.getBridge(
+                            apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI
                         ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
                         {
 
@@ -71,42 +71,42 @@ namespace Labsim.apollon.experiment.phase
 
             // register our synchronisation function
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                ) as gameplay.control.ApollonCAVIARControlBridge
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                ) as CAVIARControlBridge
             ).ConcreteDispatcher.UserNeutralCommandTriggeredEvent += sync_local_function;
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                ) as gameplay.control.ApollonCAVIARControlBridge
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                ) as CAVIARControlBridge
             ).ConcreteDispatcher.AxisZValueChangedEvent += blend_local_function;
 
             // show grey cross & frame
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
 
             // wait synchronisation point indefinitely & reset it once hit
             await sync_point.Task;
 
             // hide grey cross & frame
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
             
             // unregister our synchronisation function
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                ) as gameplay.control.ApollonCAVIARControlBridge
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                ) as CAVIARControlBridge
             ).ConcreteDispatcher.AxisZValueChangedEvent -= blend_local_function;   
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                ) as gameplay.control.ApollonCAVIARControlBridge
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                ) as CAVIARControlBridge
             ).ConcreteDispatcher.UserNeutralCommandTriggeredEvent -= sync_local_function;
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnEntry() : end"
+                "<color=Blue>Info: </color> CAVIARPhaseA.OnEntry() : end"
             );
 
         } /* OnEntry() */
@@ -116,20 +116,20 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnExit() : begin"
+                "<color=Blue>Info: </color> CAVIARPhaseA.OnExit() : begin"
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+            this.FSM.CurrentResults.phase_A_results.timing_on_exit_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseA.OnExit() : end"
+                "<color=Blue>Info: </color> CAVIARPhaseA.OnExit() : end"
             );
 
         } /* OnExit() */
 
-    } /* class ApollonCAVIARPhaseA */
+    } /* class CAVIARPhaseA */
     
 } /* } Labsim.apollon.experiment.phase */

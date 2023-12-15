@@ -1,19 +1,19 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.phase
+namespace Labsim.experiment.CAVIAR
 {
 
     //
     // Wait for input neutral - FSM State
     //
-    public sealed class ApollonCAVIARPhaseC
-        : ApollonAbstractExperimentState<profile.ApollonCAVIARProfile>
+    public sealed class CAVIARPhaseC
+        : apollon.experiment.ApollonAbstractExperimentState<CAVIARProfile>
     {
 
         public int CurrentID { private set; get; } = -1;
 
-        public ApollonCAVIARPhaseC(profile.ApollonCAVIARProfile fsm, int currentID)
+        public CAVIARPhaseC(CAVIARProfile fsm, int currentID)
             : base(fsm)
         {
             this.CurrentID = currentID;
@@ -24,34 +24,34 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                "<color=Blue>Info: </color> CAVIARPhaseC["
                     + this.CurrentID
                 + "].OnEntry() : begin"
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_entry_unity_timestamp = UnityEngine.Time.time;
            
             // get our entity bridge & our settings
             var caviar_bridge
                 = (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity
-                    ) as gameplay.entity.ApollonCAVIAREntityBridge
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity
+                    ) as CAVIAREntityBridge
                 );
             var control_bridge
                 = (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                    ) as gameplay.control.ApollonCAVIARControlBridge
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                    ) as CAVIARControlBridge
                 );
             var phase_settings
                 = this.FSM.CurrentSettings.phase_C_settings[this.CurrentID];
             var we_behaviour
-                 = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
-                ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
+                 = apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                ).Behaviour as apollon.gameplay.element.ApollonWorldElementBehaviour;
 
             // inactivate all visual cues through LINQ request
             foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
@@ -67,22 +67,22 @@ namespace Labsim.apollon.experiment.phase
                 {
 
                     // 3D object - tetrahedre / default
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3D:
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DTetrahedre:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC3D:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC3DTetrahedre:
                     {
                         we_behaviour.References["VCTag_3DTetrahedre"].SetActive(true);
                         break;
                     }
 
                     // 3D object - cube
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC3DCube:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC3DCube:
                     {
                         we_behaviour.References["VCTag_3DCube"].SetActive(true);
                         break;
                     }
                         
                     // 2D Object - all
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2D:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC2D:
                     {
                         we_behaviour.References["VCTag_2DCombined"].SetActive(true);
                         break;
@@ -90,34 +90,34 @@ namespace Labsim.apollon.experiment.phase
 
                     // 2D Object - grid [default]
                     default:
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DGrid:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC2DGrid:
                     {
                         we_behaviour.References["VCTag_2DGrid"].SetActive(true);
                         break;
                     }
 
                     // 2D object - square
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DSquare:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC2DSquare:
                     {
                         we_behaviour.References["VCTag_2DSquare"].SetActive(true);
                         break;
                     }
 
                     // 2D object - circle
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VC2DCircle:
+                    case CAVIARProfile.Settings.VisualCueIDType.VC2DCircle:
                     {
                         we_behaviour.References["VCTag_2DCircle"].SetActive(true);
                         break;
                     }
 
                     // Controle
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.Control:
+                    case CAVIARProfile.Settings.VisualCueIDType.Control:
                     {
                         break;
                     }
 
                     // HUD - Radiosonde
-                    case profile.ApollonCAVIARProfile.Settings.VisualCueIDType.VCHUDRadiosonde:
+                    case CAVIARProfile.Settings.VisualCueIDType.VCHUDRadiosonde:
                     {
                         we_behaviour.References["VCTag_HUDRadiosonde"].SetActive(true);
                         break;
@@ -143,7 +143,7 @@ namespace Labsim.apollon.experiment.phase
 
             // synchronisation mechanism (TCS + local function)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<(bool, float, float, string)>();
-            void sync_user_response_local_function(object sender, gameplay.control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs e)
+            void sync_user_response_local_function(object sender, CAVIARControlDispatcher.CAVIARControlEventArgs e)
                 => sync_point?.TrySetResult((
                     /* detection!  */ 
                     true, 
@@ -152,14 +152,14 @@ namespace Labsim.apollon.experiment.phase
                     /* unity render timestamp */
                     UnityEngine.Time.time,
                     /* host timestamp */
-                    ApollonHighResolutionTime.Now.ToString()
+                    apollon.ApollonHighResolutionTime.Now.ToString()
                 ));
-            void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs e)
+            void sync_end_stim_local_function(object sender, CAVIAREntityDispatcher.CAVIAREntityEventArgs e)
                 => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
             // blend function
             System.EventHandler<
-                gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.RadioSondeSensorEventArgs
+                apollon.gameplay.device.sensor.ApollonRadioSondeSensorDispatcher.RadioSondeSensorEventArgs
             > blend_local_function 
                 = (sender, args) 
                     => 
@@ -168,14 +168,14 @@ namespace Labsim.apollon.experiment.phase
                         // extract elevation above terrain value
                         float
                             value       = args.DistanceFromSensorToHit,
-                            target      = ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_elevation_above_terrain_meter"),
+                            target      = apollon.experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_elevation_above_terrain_meter"),
                             gap         = UnityEngine.Mathf.Abs(value - target) * 100.0f / target,
                             lower_bound = 10.0f,
                             upper_bound = 90.0f;
 
                         // update cross properties
-                        foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
-                            frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI
+                        foreach(var child in apollon.frontend.ApollonFrontendManager.Instance.getBridge(
+                            apollon.frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI
                         ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
                         {
 
@@ -213,8 +213,8 @@ namespace Labsim.apollon.experiment.phase
                         } /* foreach() */
 
                         // update frame properties
-                        foreach(var child in frontend.ApollonFrontendManager.Instance.getBridge(
-                            frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI
+                        foreach(var child in apollon.frontend.ApollonFrontendManager.Instance.getBridge(
+                            apollon.frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI
                         ).Behaviour.GetComponentsInChildren<UnityEngine.MeshRenderer>() )
                         {
 
@@ -253,14 +253,14 @@ namespace Labsim.apollon.experiment.phase
             // register our synchronisation function
             control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent += sync_user_response_local_function;
             caviar_bridge.ConcreteDispatcher.WaypointReachedEvent += sync_end_stim_local_function;
-            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            if(apollon.experiment.ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
 
                 // if practicing
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
-                    ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
+                    ) as apollon.gameplay.device.sensor.ApollonRadioSondeSensorBridge
                 ).ConcreteDispatcher.HitChangedEvent += blend_local_function;
             
             } /* if() */
@@ -293,7 +293,7 @@ namespace Labsim.apollon.experiment.phase
                     
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                            "<color=Blue>Info: </color> CAVIARPhaseC["
                                 + this.CurrentID
                             + "].OnEntry() : it seems user detected something["
                                 + result.Item2
@@ -321,7 +321,7 @@ namespace Labsim.apollon.experiment.phase
 
                         //     // log
                         //     UnityEngine.Debug.Log(
-                        //         "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                        //         "<color=Blue>Info: </color> CAVIARPhaseC["
                         //             + this.CurrentID
                         //         + "].OnEntry() : it seems user doesn't detected anything before stim... continuing !"
                         //     );
@@ -337,7 +337,7 @@ namespace Labsim.apollon.experiment.phase
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                    "<color=Blue>Info: </color> CAVIARPhaseC["
                         + this.CurrentID
                     + "].OnEntry() : stim will begin, current distance["
                         + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
@@ -346,7 +346,7 @@ namespace Labsim.apollon.experiment.phase
                 
                 // save stim results
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_distance = caviar_bridge.Behaviour.transform.TransformPoint(0.0f, 0.0f, 0.0f).z;
-                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+                this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
                 this.FSM.CurrentResults.phase_C_results[this.CurrentID].user_stim_unity_timestamp = UnityEngine.Time.time;
 
                 // accelerate/decelerate up to the stim settings or nothing :)
@@ -355,7 +355,7 @@ namespace Labsim.apollon.experiment.phase
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                        "<color=Blue>Info: </color> CAVIARPhaseC["
                             + this.CurrentID
                         + "].OnEntry() : begin stim, raise acceleration["
                         + "stim_acceleration:"
@@ -377,7 +377,7 @@ namespace Labsim.apollon.experiment.phase
                     
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                        "<color=Blue>Info: </color> CAVIARPhaseC["
                             + this.CurrentID
                         + "].OnEntry() : begin stim, raise deceleration["
                         + "stim_acceleration:"
@@ -399,7 +399,7 @@ namespace Labsim.apollon.experiment.phase
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIARPhaseC["
+                        "<color=Orange>Warning: </color> CAVIARPhaseC["
                             + this.CurrentID
                         + "].OnEntry() : begin stim, requested stim velocity is identical to target valocity, skip."
                     );
@@ -437,7 +437,7 @@ namespace Labsim.apollon.experiment.phase
                 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                        "<color=Blue>Info: </color> CAVIARPhaseC["
                             + this.CurrentID
                         + "].OnEntry() : it seems user detected something["
                             + result.Item2
@@ -473,7 +473,7 @@ namespace Labsim.apollon.experiment.phase
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                            "<color=Blue>Info: </color> CAVIARPhaseC["
                                 + this.CurrentID
                             + "].OnEntry() : it seems user doesn't detected anything... :("
                         );
@@ -490,14 +490,14 @@ namespace Labsim.apollon.experiment.phase
             // unregister our synchronisation function
             control_bridge.ConcreteDispatcher.UserResponseTriggeredEvent -= sync_user_response_local_function;
             caviar_bridge.ConcreteDispatcher.WaypointReachedEvent -= sync_end_stim_local_function;
-            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            if(apollon.experiment.ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
 
                 // if practicing
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
-                    ) as gameplay.device.sensor.ApollonRadioSondeSensorBridge
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor
+                    ) as apollon.gameplay.device.sensor.ApollonRadioSondeSensorBridge
                 ).ConcreteDispatcher.HitChangedEvent -= blend_local_function;
             
             } /* if() */
@@ -515,7 +515,7 @@ namespace Labsim.apollon.experiment.phase
             //         /* host timestamp */
             //         UXF.FileIOManager.CurrentHighResolutionTime
             //     ));
-            // void sync_end_stim_local_function(object sender, gameplay.entity.ApollonCAVIAREntityDispatcher.EventArgs e)
+            // void sync_end_stim_local_function(object sender, gameplay.entity.CAVIAREntityDispatcher.EventArgs e)
             //     => sync_point?.TrySetResult((false, -1.0f, -1.0f, "-1"));
 
             // // register our synchronisation function
@@ -546,7 +546,7 @@ namespace Labsim.apollon.experiment.phase
 
             //     // log
             //     UnityEngine.Debug.Log(
-            //         "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //         "<color=Blue>Info: </color> CAVIARPhaseC["
             //             + this.CurrentID
             //         + "].OnEntry() : stim detected, will be notified when reached"
             //     );
@@ -556,7 +556,7 @@ namespace Labsim.apollon.experiment.phase
                 
             //     // log
             //     UnityEngine.Debug.Log(
-            //         "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //         "<color=Blue>Info: </color> CAVIARPhaseC["
             //             + this.CurrentID
             //         + "].OnEntry() : stim will begin, current distance["
             //             + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
@@ -574,7 +574,7 @@ namespace Labsim.apollon.experiment.phase
 
             //         // log
             //         UnityEngine.Debug.Log(
-            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //             "<color=Blue>Info: </color> CAVIARPhaseC["
             //                 + this.CurrentID
             //             + "].OnEntry() : begin stim, raise acceleration["
             //             + "stim_acceleration:"
@@ -596,7 +596,7 @@ namespace Labsim.apollon.experiment.phase
                     
             //         // log
             //         UnityEngine.Debug.Log(
-            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //             "<color=Blue>Info: </color> CAVIARPhaseC["
             //                 + this.CurrentID
             //             + "].OnEntry() : begin stim, raise deceleration["
             //             + "stim_acceleration:"
@@ -618,7 +618,7 @@ namespace Labsim.apollon.experiment.phase
 
             //         // log
             //         UnityEngine.Debug.LogWarning(
-            //             "<color=Orange>Warning: </color> ApollonCAVIARPhaseC["
+            //             "<color=Orange>Warning: </color> CAVIARPhaseC["
             //                 + this.CurrentID
             //             + "].OnEntry() : begin stim, requested stim velocity is identical to target valocity, skip."
             //         );
@@ -652,7 +652,7 @@ namespace Labsim.apollon.experiment.phase
                 
             //         // log
             //         UnityEngine.Debug.Log(
-            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //             "<color=Blue>Info: </color> CAVIARPhaseC["
             //                 + this.CurrentID
             //             + "].OnEntry() : it seems user detected something["
             //                 + result.Item2
@@ -685,7 +685,7 @@ namespace Labsim.apollon.experiment.phase
 
             //         // log
             //         UnityEngine.Debug.Log(
-            //             "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //             "<color=Blue>Info: </color> CAVIARPhaseC["
             //                 + this.CurrentID
             //             + "].OnEntry() : it seems user doesn't detected anything... :("
             //         );
@@ -695,7 +695,7 @@ namespace Labsim.apollon.experiment.phase
             // } while (!waypoint_reached_task.IsCompleted); /* while() */
                     
             // UnityEngine.Debug.Log(
-            //     "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+            //     "<color=Blue>Info: </color> CAVIARPhaseC["
             //         + this.CurrentID
             //     + "].OnEntry() : it seems user doesn't detected anything... :("
             // );
@@ -706,7 +706,7 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                "<color=Blue>Info: </color> CAVIARPhaseC["
                     + this.CurrentID
                 + "].OnEntry() : end, current distance["
                     + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
@@ -737,24 +737,24 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                "<color=Blue>Info: </color> CAVIARPhaseC["
                     + this.CurrentID
                 + "].OnExit() : begin"
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+            this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_C_results[this.CurrentID].timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseC["
+                "<color=Blue>Info: </color> CAVIARPhaseC["
                     + this.CurrentID
                 + "].OnExit() : end"
             );
 
         } /* OnExit() */
 
-    } /* class ApollonCAVIARPhaseC */
+    } /* class CAVIARPhaseC */
     
 } /* } Labsim.apollon.experiment.phase */

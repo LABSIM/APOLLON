@@ -2,7 +2,7 @@
 namespace Labsim.apollon.gameplay.entity
 {
     public class ApollonActiveSeatEntityDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonActiveSeatEntityBridge>
+        : ApollonConcreteGameplayDispatcher<ApollonActiveSeatEntityBridge>
     {
 
         #region each list of event

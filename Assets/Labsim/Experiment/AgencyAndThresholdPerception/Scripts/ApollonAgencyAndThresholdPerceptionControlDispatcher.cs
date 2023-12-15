@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.control
 {
 
     public class ApollonAgencyAndThresholdPerceptionControlDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonAgencyAndThresholdPerceptionControlBridge>
+        : ApollonConcreteGameplayDispatcher<ApollonAgencyAndThresholdPerceptionControlBridge>
     {
         #region event args class
 

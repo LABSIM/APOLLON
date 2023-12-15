@@ -41,7 +41,7 @@ namespace Labsim.apollon.gameplay
 
     }  /* abstract ApollonGameplayDispatcher */
 
-    public abstract class ApolloConcreteGameplayDispatcher<T> 
+    public abstract class ApollonConcreteGameplayDispatcher<T> 
         : ApollonGameplayDispatcher
         where T : ApollonAbstractGameplayBridge
     {

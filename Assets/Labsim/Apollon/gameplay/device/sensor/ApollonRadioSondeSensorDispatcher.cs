@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonRadioSondeSensorDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonRadioSondeSensorBridge>
+        : ApollonConcreteGameplayDispatcher<ApollonRadioSondeSensorBridge>
     {
         #region event args class
 

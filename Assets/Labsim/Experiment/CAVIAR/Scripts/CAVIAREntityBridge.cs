@@ -1,47 +1,47 @@
 ﻿
-namespace Labsim.apollon.gameplay.entity
+namespace Labsim.experiment.CAVIAR
 {
 
-    public class ApollonCAVIAREntityBridge 
-        : ApollonGameplayBridge<ApollonCAVIAREntityBridge>
+    public class CAVIAREntityBridge 
+        : apollon.gameplay.ApollonGameplayBridge<CAVIAREntityBridge>
     {
 
         //ctor
-        public ApollonCAVIAREntityBridge()
+        public CAVIAREntityBridge()
             : base()
         { }
 
-        public ApollonCAVIAREntityBehaviour ConcreteBehaviour 
-            => this.Behaviour as ApollonCAVIAREntityBehaviour;
+        public CAVIAREntityBehaviour ConcreteBehaviour 
+            => this.Behaviour as CAVIAREntityBehaviour;
 
-        public ApollonCAVIAREntityDispatcher ConcreteDispatcher 
-            => this.Dispatcher as ApollonCAVIAREntityDispatcher;
+        public CAVIAREntityDispatcher ConcreteDispatcher 
+            => this.Dispatcher as CAVIAREntityDispatcher;
 
         #region Bridge abstract implementation 
 
-        protected override ApollonGameplayBehaviour WrapBehaviour()
+        protected override apollon.gameplay.ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            return this.WrapBehaviour<ApollonCAVIAREntityBehaviour>(
-                "ApollonCAVIAREntityBridge",
-                "ApollonCAVIAREntityBehaviour"
+            return this.WrapBehaviour<CAVIAREntityBehaviour>(
+                "CAVIAREntityBridge",
+                "CAVIAREntityBehaviour"
             );
 
         } /* WrapBehaviour() */
 
-        protected override ApollonGameplayDispatcher WrapDispatcher()
+        protected override apollon.gameplay.ApollonGameplayDispatcher WrapDispatcher()
         {
 
-            return this.WrapDispatcher<ApollonCAVIAREntityDispatcher>(
-                "ApollonCAVIAREntityBridge",
-                "ApollonCAVIAREntityDispatcher"
+            return this.WrapDispatcher<CAVIAREntityDispatcher>(
+                "CAVIAREntityBridge",
+                "CAVIAREntityDispatcher"
             );
 
         } /* WrapDispatcher() */
 
-        protected override ApollonGameplayManager.GameplayIDType WrapID()
+        protected override apollon.gameplay.ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return ApollonGameplayManager.GameplayIDType.CAVIAREntity;
+            return apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity;
         }
 
         protected override async void SetActive(bool value)
@@ -64,9 +64,9 @@ namespace Labsim.apollon.gameplay.entity
                 // get bridge
                 var caviar_control_bridge
                     = (
-                        gameplay.ApollonGameplayManager.Instance.getBridge(
-                            gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                        ) as gameplay.control.ApollonCAVIARControlBridge
+                        apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                            apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                        ) as CAVIARControlBridge
                     );
                 
                 // subscribe
@@ -92,9 +92,9 @@ namespace Labsim.apollon.gameplay.entity
                 // get bridge
                 var caviar_control_bridge
                     = (
-                        gameplay.ApollonGameplayManager.Instance.getBridge(
-                            gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
-                        ) as gameplay.control.ApollonCAVIARControlBridge
+                        apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                            apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl
+                        ) as CAVIARControlBridge
                     );
                 
                 // unsubscribe
@@ -117,10 +117,10 @@ namespace Labsim.apollon.gameplay.entity
         #region FSM state implementation
 
         internal sealed class InitState 
-            : ApollonAbstractGameplayState<ApollonCAVIAREntityBridge>
+            : apollon.gameplay.ApollonAbstractGameplayState<CAVIAREntityBridge>
         {
 
-            public InitState(ApollonCAVIAREntityBridge fsm)
+            public InitState(CAVIAREntityBridge fsm)
                 : base(fsm)
             {
             }
@@ -130,17 +130,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.InitState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.InitState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.InitController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.InitController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.InitState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.InitState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -153,7 +153,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.InitState.OnEntry() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.InitState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -163,17 +163,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.InitState.OnExit() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.InitState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.InitController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.InitController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.InitState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.InitState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -186,7 +186,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.InitState.OnExit() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.InitState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -194,10 +194,10 @@ namespace Labsim.apollon.gameplay.entity
         } /* internal sealed class InitState */
 
         internal sealed class IdleState 
-            : ApollonAbstractGameplayState<ApollonCAVIAREntityBridge>
+            : apollon.gameplay.ApollonAbstractGameplayState<CAVIAREntityBridge>
         {
 
-            public IdleState(ApollonCAVIAREntityBridge fsm)
+            public IdleState(CAVIAREntityBridge fsm)
                 : base(fsm)
             {
             }
@@ -207,17 +207,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.IdleState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.IdleState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.IdleController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.IdleState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.IdleState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -230,7 +230,7 @@ namespace Labsim.apollon.gameplay.entity
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.IdleState.OnEntry() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.IdleState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -240,17 +240,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.IdleState.OnExit() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.IdleState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.IdleController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.IdleState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.IdleState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -263,7 +263,7 @@ namespace Labsim.apollon.gameplay.entity
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.IdleState.OnExit() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.IdleState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -271,10 +271,10 @@ namespace Labsim.apollon.gameplay.entity
         } /* internal sealed class IdleState */
 
         internal sealed class AccelerateState 
-            : ApollonAbstractGameplayState<ApollonCAVIAREntityBridge>
+            : apollon.gameplay.ApollonAbstractGameplayState<CAVIAREntityBridge>
         {
 
-            public AccelerateState(ApollonCAVIAREntityBridge fsm)
+            public AccelerateState(CAVIAREntityBridge fsm)
                 : base(fsm)
             {
             }
@@ -284,17 +284,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.AccelerateState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.AccelerateState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.AccelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.AccelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.AccelerateState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.AccelerateState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -307,7 +307,7 @@ namespace Labsim.apollon.gameplay.entity
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.AccelerateState.OnEntry() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.AccelerateState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -317,17 +317,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.AccelerateState.OnExit() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.AccelerateState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.AccelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.AccelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.AccelerateState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.AccelerateState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -340,7 +340,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.AccelerateState.OnExit() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.AccelerateState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -348,10 +348,10 @@ namespace Labsim.apollon.gameplay.entity
         } /* internal sealed class AccelerateState */
 
         internal sealed class DecelerateState 
-            : ApollonAbstractGameplayState<ApollonCAVIAREntityBridge>
+            : apollon.gameplay.ApollonAbstractGameplayState<CAVIAREntityBridge>
         {
 
-            public DecelerateState(ApollonCAVIAREntityBridge fsm)
+            public DecelerateState(CAVIAREntityBridge fsm)
                 : base(fsm)
             {
             }
@@ -361,17 +361,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DecelerateState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.DecelerateState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.DecelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.DecelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.DecelerateState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.DecelerateState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -384,7 +384,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DecelerateState.OnEntry() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.DecelerateState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -394,17 +394,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DecelerateState.OnExit() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.DecelerateState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.DecelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.DecelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.DecelerateState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.DecelerateState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -417,7 +417,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DecelerateState.OnExit() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.DecelerateState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -425,9 +425,9 @@ namespace Labsim.apollon.gameplay.entity
         } /* internal sealed class DecelerateState */
 
         internal sealed class HoldState 
-            : ApollonAbstractGameplayState<ApollonCAVIAREntityBridge>
+            : apollon.gameplay.ApollonAbstractGameplayState<CAVIAREntityBridge>
         {
-            public HoldState(ApollonCAVIAREntityBridge fsm)
+            public HoldState(CAVIAREntityBridge fsm)
                 : base(fsm)
             {
             }
@@ -437,17 +437,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.HoldState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.HoldState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.HoldController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.HoldState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.HoldState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -460,7 +460,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.HoldState.OnEntry() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.HoldState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -470,17 +470,17 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.HoldState.OnExit() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.HoldState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonCAVIAREntityBehaviour.HoldController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<CAVIAREntityBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> ApollonCAVIAREntityBridge.HoldState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> CAVIAREntityBridge.HoldState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -493,7 +493,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.HoldState.OnExit() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.HoldState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -504,24 +504,24 @@ namespace Labsim.apollon.gameplay.entity
 
         #region FSM event delegate
 
-        private void OnThrotthleAxisZValueChanged(object sender, control.ApollonCAVIARControlDispatcher.CAVIARControlEventArgs args) 
+        private void OnThrotthleAxisZValueChanged(object sender, CAVIARControlDispatcher.CAVIARControlEventArgs args) 
         {
 
             // extract event args, get behaviour & update altitude
-            (this.Behaviour as ApollonCAVIAREntityBehaviour).SetUserThrottleAxisZValue(args.Z);
+            (this.Behaviour as CAVIAREntityBehaviour).SetUserThrottleAxisZValue(args.Z);
 
         } /* OnThrotthleAxisZValueChanged() */
 
-        private async void OnAccelerateRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
+        private async void OnAccelerateRequested(object sender, CAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnAccelerateRequested() : begin"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnAccelerateRequested() : begin"
             );
 
             // get behaviour
-            var behaviour = this.Behaviour as ApollonCAVIAREntityBehaviour;
+            var behaviour = this.Behaviour as CAVIAREntityBehaviour;
 
             // set internal settings
             behaviour.TargetLinearAcceleration = UnityEngine.Vector3.forward * args.LinearAcceleration;
@@ -532,21 +532,21 @@ namespace Labsim.apollon.gameplay.entity
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnAccelerateRequested() : end"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnAccelerateRequested() : end"
             );
 
         } /* OnAccelerateRequested() */
 
-        private async void OnDecelerateRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
+        private async void OnDecelerateRequested(object sender, CAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnDecelerateRequested() : begin"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnDecelerateRequested() : begin"
             );
 
             // get behaviour
-            var behaviour = this.Behaviour as ApollonCAVIAREntityBehaviour;
+            var behaviour = this.Behaviour as CAVIAREntityBehaviour;
 
             // set internal settings
             behaviour.TargetLinearAcceleration = UnityEngine.Vector3.back * args.LinearAcceleration;
@@ -557,17 +557,17 @@ namespace Labsim.apollon.gameplay.entity
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnDecelerateRequested() : end"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnDecelerateRequested() : end"
             );
 
         } /* OnDecelerateRequested() */
 
-        private async void OnIdleRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
+        private async void OnIdleRequested(object sender, CAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnIdleRequested() : begin"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnIdleRequested() : begin"
             );
 
             // activate state
@@ -575,17 +575,17 @@ namespace Labsim.apollon.gameplay.entity
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnIdleRequested() : end"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnIdleRequested() : end"
             );
 
         } /* OnIdleRequested() */
 
-        private async void OnHoldRequested(object sender, ApollonCAVIAREntityDispatcher.CAVIAREntityEventArgs args)
+        private async void OnHoldRequested(object sender, CAVIAREntityDispatcher.CAVIAREntityEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnHoldRequested() : begin"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnHoldRequested() : begin"
             );
 
             // activate state
@@ -593,7 +593,7 @@ namespace Labsim.apollon.gameplay.entity
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.OnHoldRequested() : end"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.OnHoldRequested() : end"
             );
 
         } /* OnHoldRequested() */
@@ -607,14 +607,14 @@ namespace Labsim.apollon.gameplay.entity
         
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DoNotifyWhenWaypointReached() : begin, waiting distance["
+                "<color=Blue>Info: </color> CAVIAREntityBridge.DoNotifyWhenWaypointReached() : begin, waiting distance["
                 + distance_to_reach
                 + "]"
                 + (bRaiseEventDispatcher ? " with event dispatch" : " silently")
             );
 
             // wait until waypoint reached
-            while ( (this.Behaviour as ApollonCAVIAREntityBehaviour).Reference.transform.position.z < distance_to_reach )
+            while ( (this.Behaviour as CAVIAREntityBehaviour).Reference.transform.position.z < distance_to_reach )
             {
                 await System.Threading.Tasks.Task.Delay(10);
             }
@@ -624,7 +624,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DoNotifyWhenWaypointReached() : waypoint reached, notifying"
+                    "<color=Blue>Info: </color> CAVIAREntityBridge.DoNotifyWhenWaypointReached() : waypoint reached, notifying"
                 );
 
                 // notifying
@@ -633,13 +633,13 @@ namespace Labsim.apollon.gameplay.entity
             
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIAREntityBridge.DoNotifyWhenWaypointReached() : end"
+                "<color=Blue>Info: </color> CAVIAREntityBridge.DoNotifyWhenWaypointReached() : end"
             );
 
         } /* DoNotifyWhenWaypointReached() */
 
         #endregion
 
-    }  /* class ApollonCAVIAREntityBridge */
+    }  /* class CAVIAREntityBridge */
 
 } /* } Labsim.apollon.gameplay.entity */

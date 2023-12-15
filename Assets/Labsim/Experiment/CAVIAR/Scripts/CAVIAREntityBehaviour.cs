@@ -5,11 +5,11 @@ using System.Collections;
 using System.Threading;
 
 // avoid namespace pollution
-namespace Labsim.apollon.gameplay.entity
+namespace Labsim.experiment.CAVIAR
 {
 
-    public class ApollonCAVIAREntityBehaviour
-        : ApolloConcreteGameplayBehaviour<ApollonCAVIAREntityBridge>
+    public class CAVIAREntityBehaviour
+        : apollon.gameplay.ApolloConcreteGameplayBehaviour<CAVIAREntityBridge>
     {
 
         #region properties/members
@@ -38,7 +38,7 @@ namespace Labsim.apollon.gameplay.entity
         internal class InitController
             : UnityEngine.MonoBehaviour
         {
-            private ApollonCAVIAREntityBehaviour _parent = null;
+            private CAVIAREntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -53,18 +53,18 @@ namespace Labsim.apollon.gameplay.entity
             {
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.InitController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.InitController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<CAVIAREntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.InitController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> CAVIAREntityBehaviour.InitController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -98,7 +98,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.InitController.OnEnable() : rigidbody initialized"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.InitController.OnEnable() : rigidbody initialized"
                 );
 
                 // virtual world setup
@@ -107,13 +107,13 @@ namespace Labsim.apollon.gameplay.entity
                 // - CenterOf -Rotation/Mass offset --> chair settings
                 // - perfect world == no dampening/drag & no gravity 
                 float PoV_height_offset = 0.0f, PoV_depth_offset = 0.0f;
-                if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
-                    || !float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
+                if (!float.TryParse(apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
+                    || !float.TryParse(apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
                 ) {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Yellow>Warning: </color> ApollonCAVIAREntityBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
+                        "<color=Yellow>Warning: </color> CAVIAREntityBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
                         + PoV_height_offset 
                         + ","
                         + PoV_depth_offset
@@ -130,7 +130,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.InitController.OnEnable() : rigidbody configured with current user settings, going idle state"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.InitController.OnEnable() : rigidbody configured with current user settings, going idle state"
                 );
 
                 // change state
@@ -138,7 +138,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.InitController.OnEnable() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.InitController.OnEnable() : end"
                 );
                 
             } /* OnEnable() */
@@ -149,7 +149,7 @@ namespace Labsim.apollon.gameplay.entity
             : UnityEngine.MonoBehaviour
         {
 
-            private ApollonCAVIAREntityBehaviour _parent = null;
+            private CAVIAREntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -165,18 +165,18 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.IdleController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<CAVIAREntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> CAVIAREntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -197,7 +197,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnEnable() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.IdleController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -207,16 +207,16 @@ namespace Labsim.apollon.gameplay.entity
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.IdleController.OnDisable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<CAVIAREntityBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> CAVIAREntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -230,7 +230,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.IdleController.OnDisable() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.IdleController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
@@ -241,7 +241,7 @@ namespace Labsim.apollon.gameplay.entity
             : UnityEngine.MonoBehaviour
         {
 
-            private ApollonCAVIAREntityBehaviour _parent = null;
+            private CAVIAREntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -257,18 +257,18 @@ namespace Labsim.apollon.gameplay.entity
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.AccelerateController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.AccelerateController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<CAVIAREntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> CAVIAREntityBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -282,7 +282,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.AccelerateController.OnEnable() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.AccelerateController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -296,7 +296,7 @@ namespace Labsim.apollon.gameplay.entity
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.AccelerateController.FixedUpdate() : linear saturation velocity reached, raise hold event"
+                        "<color=Blue>Info: </color> CAVIAREntityBehaviour.AccelerateController.FixedUpdate() : linear saturation velocity reached, raise hold event"
                     );
 
                     // notify hold event
@@ -336,7 +336,7 @@ namespace Labsim.apollon.gameplay.entity
             : UnityEngine.MonoBehaviour
         {
 
-            private ApollonCAVIAREntityBehaviour _parent = null;
+            private CAVIAREntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -352,18 +352,18 @@ namespace Labsim.apollon.gameplay.entity
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.DecelerateController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.DecelerateController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<CAVIAREntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.DecelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> CAVIAREntityBehaviour.DecelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -377,7 +377,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.DecelerateController.OnEnable() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.DecelerateController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -396,7 +396,7 @@ namespace Labsim.apollon.gameplay.entity
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.DecelerateController.FixedUpdate() : linear saturation velocity reached with no speed detected, raise idle event"
+                            "<color=Blue>Info: </color> CAVIAREntityBehaviour.DecelerateController.FixedUpdate() : linear saturation velocity reached with no speed detected, raise idle event"
                         );
                         
 
@@ -409,7 +409,7 @@ namespace Labsim.apollon.gameplay.entity
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.DecelerateController.FixedUpdate() : linear saturation velocity reached, raise hold event"
+                            "<color=Blue>Info: </color> CAVIAREntityBehaviour.DecelerateController.FixedUpdate() : linear saturation velocity reached, raise hold event"
                         );
 
                         // notify saturation event
@@ -451,7 +451,7 @@ namespace Labsim.apollon.gameplay.entity
             : UnityEngine.MonoBehaviour
         {
 
-            private ApollonCAVIAREntityBehaviour _parent = null;
+            private CAVIAREntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -468,18 +468,18 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.HoldController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.HoldController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonCAVIAREntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<CAVIAREntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.HoldController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> CAVIAREntityBehaviour.HoldController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -492,7 +492,7 @@ namespace Labsim.apollon.gameplay.entity
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.HoldController.OnEnable() : end"
+                    "<color=Blue>Info: </color> CAVIAREntityBehaviour.HoldController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -542,7 +542,7 @@ namespace Labsim.apollon.gameplay.entity
             {
 
                 // log
-                UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.OnEnable() : initialize required");
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.OnEnable() : initialize required");
 
                 // call
                 this.Initialize();
@@ -559,7 +559,7 @@ namespace Labsim.apollon.gameplay.entity
             {
 
                 // log
-                UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.OnEnable() : close required");
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.OnEnable() : close required");
 
                 // call
                 this.Close();
@@ -575,16 +575,16 @@ namespace Labsim.apollon.gameplay.entity
         {
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : begin");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.Initialize() : begin");
             
             // skip if no experimental setup is found necessary
-            if (experiment.ApollonExperimentManager.Instance.Trial == null) return;
+            if (apollon.experiment.ApollonExperimentManager.Instance.Trial == null) return;
 
             // get global session settings
             this.m_settings_pilotable_elevation_above_terrain
-                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_elevation_above_terrain_meter");
+                = apollon.experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_elevation_above_terrain_meter");
             this.m_settings_pilotable_climb_rate
-                = experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_climb_rate_meter_per_second");
+                = apollon.experiment.ApollonExperimentManager.Instance.Trial.settings.GetFloat("pilotable_climb_rate_meter_per_second");
 
             // instantiate state controller components
             this.gameObject.AddComponent<IdleController>();
@@ -612,14 +612,14 @@ namespace Labsim.apollon.gameplay.entity
             {
 
                 // log
-                UnityEngine.Debug.LogError("<color=Red>Error: </color> ApollonCAVIAREntityBehaviour.Initialize() : failed to raycast elevation above terrain... exiting.");
+                UnityEngine.Debug.LogError("<color=Red>Error: </color> CAVIAREntityBehaviour.Initialize() : failed to raycast elevation above terrain... exiting.");
 
                 // exit
                 return;
 
             } /* if() */
 
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : get hit point for elevation above terrain: " + hit.point);
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.Initialize() : get hit point for elevation above terrain: " + hit.point);
 
             // set & save initial orientation/position
             this.Reference.transform.SetPositionAndRotation(
@@ -633,13 +633,13 @@ namespace Labsim.apollon.gameplay.entity
             this.InitialPosition = this.Reference.transform.position;
             this.InitialRotation = this.Reference.transform.rotation;
             
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : state controller added as gameObject's component and position initialized, mark as initialized");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.Initialize() : state controller added as gameObject's component and position initialized, mark as initialized");
             
             // switch state
             this.m_bHasInitialized = true;
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Initialize() : end");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.Initialize() : end");
 
         } /* Initialize() */
 
@@ -647,14 +647,14 @@ namespace Labsim.apollon.gameplay.entity
         {
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Close() : begin");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.Close() : begin");
 
             // restore initial orientation/position
             this.Reference.transform.position = this.InitialPosition;
             this.Reference.transform.rotation = this.InitialRotation;
             
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonCAVIAREntityBehaviour.Close() : end");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> CAVIAREntityBehaviour.Close() : end");
 
         } /* Close() */
 
@@ -666,6 +666,6 @@ namespace Labsim.apollon.gameplay.entity
 
         } /* SetAltitudeFromThrottleAxisZValue() */
 
-    } /* public class ApollonCAVIAREntityBehaviour */
+    } /* public class CAVIAREntityBehaviour */
 
 } /* } Labsim.apollon.gameplay.entity */

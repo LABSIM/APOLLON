@@ -3,49 +3,49 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.gameplay.control
+namespace Labsim.experiment.CAVIAR
 {
 
-    public class ApollonCAVIARControlBridge 
-        : ApollonGameplayBridge<ApollonCAVIARControlBridge>
+    public class CAVIARControlBridge 
+        : apollon.gameplay.ApollonGameplayBridge<CAVIARControlBridge>
     {
 
         //ctor
-        public ApollonCAVIARControlBridge()
+        public CAVIARControlBridge()
             : base()
         { }
 
-        public ApollonCAVIARControlBehaviour ConcreteBehaviour 
-            => this.Behaviour as ApollonCAVIARControlBehaviour;
+        public CAVIARControlBehaviour ConcreteBehaviour 
+            => this.Behaviour as CAVIARControlBehaviour;
 
-        public ApollonCAVIARControlDispatcher ConcreteDispatcher 
-            => this.Dispatcher as ApollonCAVIARControlDispatcher;
+        public CAVIARControlDispatcher ConcreteDispatcher 
+            => this.Dispatcher as CAVIARControlDispatcher;
 
         #region Bridge abstract implementation
         
-        protected override ApollonGameplayBehaviour WrapBehaviour()
+        protected override apollon.gameplay.ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            return this.WrapBehaviour<ApollonCAVIARControlBehaviour>(
-                "ApollonCAVIARControlBridge",
-                "ApollonCAVIARControlBehaviour"
+            return this.WrapBehaviour<CAVIARControlBehaviour>(
+                "CAVIARControlBridge",
+                "CAVIARControlBehaviour"
             );
 
         } /* WrapBehaviour() */
 
-        protected override ApollonGameplayDispatcher WrapDispatcher()
+        protected override apollon.gameplay.ApollonGameplayDispatcher WrapDispatcher()
         {
 
-            return this.WrapDispatcher<ApollonCAVIARControlDispatcher>(
-                "ApollonCAVIARControlBridge",
-                "ApollonCAVIARControlDispatcher"
+            return this.WrapDispatcher<CAVIARControlDispatcher>(
+                "CAVIARControlBridge",
+                "CAVIARControlDispatcher"
             );
 
         } /* WrapDispatcher() */
 
-        protected override ApollonGameplayManager.GameplayIDType WrapID()
+        protected override apollon.gameplay.ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return ApollonGameplayManager.GameplayIDType.CAVIARControl;
+            return apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl;
         }
         
         protected override void SetActive(bool value)
@@ -65,7 +65,7 @@ namespace Labsim.apollon.gameplay.control
                 this.Behaviour.enabled = true;
                 this.Behaviour.gameObject.SetActive(true);
 
-                var behaviour = this.Behaviour as ApollonCAVIARControlBehaviour;
+                var behaviour = this.Behaviour as CAVIARControlBehaviour;
 
                 // add them a bridge delegate
                 behaviour.Control.Subject.ValueChanged.performed += this.OnAxisZValueChanged;
@@ -79,7 +79,7 @@ namespace Labsim.apollon.gameplay.control
                 // escape
                 if (!this.Behaviour.isActiveAndEnabled) { return; }
 
-                var behaviour = this.Behaviour as ApollonCAVIARControlBehaviour;
+                var behaviour = this.Behaviour as CAVIARControlBehaviour;
 
                 // remove them from bridge delegate
                 behaviour.Control.Subject.ValueChanged.performed -= this.OnAxisZValueChanged;
@@ -115,7 +115,7 @@ namespace Labsim.apollon.gameplay.control
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARControlBridge.OnUserNeutralCommandTriggered() : event triggered !"
+                    "<color=Blue>Info: </color> CAVIARControlBridge.OnUserNeutralCommandTriggered() : event triggered !"
                 );
 
                 // dispatch event
@@ -134,7 +134,7 @@ namespace Labsim.apollon.gameplay.control
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARControlBridge.OnUserResponseTriggered() : event triggered !"
+                    "<color=Blue>Info: </color> CAVIARControlBridge.OnUserResponseTriggered() : event triggered !"
                 );
 
                 // dispatch event
@@ -146,6 +146,6 @@ namespace Labsim.apollon.gameplay.control
 
         #endregion
 
-    }  /* class ApollonCAVIARControlBridge */
+    }  /* class CAVIARControlBridge */
 
 } /* } Labsim.apollon.gameplay.control */

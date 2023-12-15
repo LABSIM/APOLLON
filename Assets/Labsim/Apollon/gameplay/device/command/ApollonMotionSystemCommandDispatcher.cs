@@ -2,7 +2,7 @@
 namespace Labsim.apollon.gameplay.device.command
 {
     public class ApollonMotionSystemCommandDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonMotionSystemCommandBridge>
+        : ApollonConcreteGameplayDispatcher<ApollonMotionSystemCommandBridge>
     {
         #region event args class
 

@@ -15,12 +15,12 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Labsim.apollon.gameplay.control
+namespace Labsim.experiment.CAVIAR
 {
-    public partial class @ApollonCAVIARControl: IInputActionCollection2, IDisposable
+    public partial class @CAVIARControl: IInputActionCollection2, IDisposable
     {
         public InputActionAsset asset { get; }
-        public @ApollonCAVIARControl()
+        public @CAVIARControl()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""CAVIARControl"",
@@ -728,8 +728,8 @@ namespace Labsim.apollon.gameplay.control
         private readonly InputAction m_Subject_UserResponse;
         public struct SubjectActions
         {
-            private @ApollonCAVIARControl m_Wrapper;
-            public SubjectActions(@ApollonCAVIARControl wrapper) { m_Wrapper = wrapper; }
+            private @CAVIARControl m_Wrapper;
+            public SubjectActions(@CAVIARControl wrapper) { m_Wrapper = wrapper; }
             public InputAction @ValueChanged => m_Wrapper.m_Subject_ValueChanged;
             public InputAction @NeutralCommandTriggered => m_Wrapper.m_Subject_NeutralCommandTriggered;
             public InputAction @UserResponse => m_Wrapper.m_Subject_UserResponse;
@@ -797,8 +797,8 @@ namespace Labsim.apollon.gameplay.control
         private readonly InputAction m_Supervisor_TrackedDeviceOrientation;
         public struct SupervisorActions
         {
-            private @ApollonCAVIARControl m_Wrapper;
-            public SupervisorActions(@ApollonCAVIARControl wrapper) { m_Wrapper = wrapper; }
+            private @CAVIARControl m_Wrapper;
+            public SupervisorActions(@CAVIARControl wrapper) { m_Wrapper = wrapper; }
             public InputAction @Navigate => m_Wrapper.m_Supervisor_Navigate;
             public InputAction @Submit => m_Wrapper.m_Supervisor_Submit;
             public InputAction @Cancel => m_Wrapper.m_Supervisor_Cancel;

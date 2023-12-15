@@ -1,13 +1,13 @@
 ﻿// avoid namespace pollution
-namespace Labsim.apollon.gameplay.entity
+namespace Labsim.experiment.CAVIAR
 {
-    public class ApollonCAVIAREntityDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonCAVIAREntityBridge>
+    public class CAVIAREntityDispatcher
+        : apollon.gameplay.ApollonConcreteGameplayDispatcher<CAVIAREntityBridge>
     {
         #region event args class
 
         public class CAVIAREntityEventArgs
-            : ApollonGameplayDispatcher.GameplayEventArgs
+            : apollon.gameplay.ApollonGameplayDispatcher.GameplayEventArgs
         {
 
             // ctor
@@ -46,7 +46,7 @@ namespace Labsim.apollon.gameplay.entity
         #endregion
 
         // Constructor
-        public ApollonCAVIAREntityDispatcher()
+        public CAVIAREntityDispatcher()
         {
 
             // event table
@@ -56,7 +56,7 @@ namespace Labsim.apollon.gameplay.entity
             this._eventTable.Add("Hold",            null);
             this._eventTable.Add("WaypointReached", null);
 
-        } /* ApollonCAVIAREntityDispatcher() */
+        } /* CAVIAREntityDispatcher() */
 
         #region actual events
 
@@ -287,6 +287,6 @@ namespace Labsim.apollon.gameplay.entity
 
         #endregion
 
-    } /* class ApollonCAVIAREntityDispatcher */
+    } /* class CAVIAREntityDispatcher */
 
 } /* } Labsim.apollon.gameplay.entity */

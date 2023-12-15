@@ -1,19 +1,19 @@
 ﻿using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.profile
+namespace Labsim.experiment.CAVIAR
 {
 
-    public class ApollonCAVIARProfile 
-        : ApollonAbstractExperimentFiniteStateMachine< ApollonCAVIARProfile >
+    public class CAVIARProfile 
+        : apollon.experiment.ApollonAbstractExperimentFiniteStateMachine< CAVIARProfile >
     {
 
         // Ctor
-        public ApollonCAVIARProfile()
+        public CAVIARProfile()
             : base()
         {
             // default profile
-            this.m_profileID = ApollonExperimentManager.ProfileIDType.CAVIAR;
+            this.m_profileID = apollon.experiment.ApollonExperimentManager.ProfileIDType.CAVIAR;
         }
 
         #region settings/result
@@ -266,7 +266,7 @@ namespace Labsim.apollon.experiment.profile
         protected override System.String getCurrentStatusInfo()
         {
 
-            return "[" + ApollonEngine.GetEnumDescription(this.ID) + "] : no active status";
+            return "[" + apollon.ApollonEngine.GetEnumDescription(this.ID) + "] : no active status";
 
         } /* getCurrentStatusInfo() */
 
@@ -277,36 +277,36 @@ namespace Labsim.apollon.experiment.profile
 
         } /* getCurrentCounterStatusInfo() */
 
-        public async override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public async override void onExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : begin"
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentSessionBegin() : begin"
             );
 
             // fade in
             await this.DoFadeIn(2500.0f, false);
 
             // inactivate all gameplay & frontend
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.All);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.All);
 
             // base call
             base.onExperimentSessionBegin(sender, arg);
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentSessionBegin() : end"
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentSessionBegin() : end"
             );
 
         } /* onExperimentSessionBegin() */
 
-        public override async void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : begin"
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialBegin() : begin"
             );
 
             // temporary string
@@ -330,7 +330,7 @@ namespace Labsim.apollon.experiment.profile
             this.CurrentResults.phase_D_results.Clear();
 
             // instantiate loopable phase ([C -> D] -> [C -> D] -> ...) 
-            for (ushort idx = 0; idx < ApollonCAVIARProfile.InternalPhaseLoopCount; ++idx) 
+            for (ushort idx = 0; idx < CAVIARProfile.InternalPhaseLoopCount; ++idx) 
             {
 
                 // get current visual cue identifier
@@ -343,7 +343,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 3D object - cube
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3DCube),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3DCube),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC3DCube);
@@ -352,7 +352,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 3D object - tetrahedre
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3DTetrahedre),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3DTetrahedre),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC3DTetrahedre);
@@ -361,7 +361,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 3D object - default
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3D),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC3D),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC3D);
@@ -370,7 +370,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 2D object - grid
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DGrid),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DGrid),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC2DGrid);
@@ -379,7 +379,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 2D object - circle
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DCircle),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DCircle),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC2DCircle);
@@ -389,7 +389,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 2D object - square
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DSquare),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2DSquare),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC2DSquare);
@@ -398,7 +398,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // 2D object - default
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2D),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VC2D),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VC2D);
@@ -407,7 +407,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // Controle
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Control),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.Control),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.Control);
@@ -416,7 +416,7 @@ namespace Labsim.apollon.experiment.profile
 
                         // Controle
                         case string param when param.Equals(
-                            ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDRadiosonde),
+                            apollon.ApollonEngine.GetEnumDescription(Settings.VisualCueIDType.VCHUDRadiosonde),
                             System.StringComparison.InvariantCultureIgnoreCase
                         ) : {
                             cue_list.Add(Settings.VisualCueIDType.VCHUDRadiosonde);
@@ -427,7 +427,7 @@ namespace Labsim.apollon.experiment.profile
                             {
                                 // log error
                                 UnityEngine.Debug.LogError(
-                                    "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found invalid string value["
+                                    "<color=Red>Error: </color> CAVIARProfile.onExperimentTrialBegin() : found invalid string value["
                                     + cue
                                     + "] for setting["
                                     + "phase_C" + idx + "_visual_cue_type_string"
@@ -460,7 +460,7 @@ namespace Labsim.apollon.experiment.profile
                 log += "\n - [C" + idx + "] visual_cue_type : "     + string.Join(
                                                                         ",",  
                                                                         this.CurrentSettings.phase_C_settings[idx].visual_cue_type.ConvertAll( 
-                                                                            new System.Converter<Settings.VisualCueIDType,string>(ApollonEngine.GetEnumDescription) 
+                                                                            new System.Converter<Settings.VisualCueIDType,string>(apollon.ApollonEngine.GetEnumDescription) 
                                                                         )
                                                                     )
                     + "\n - [C" + idx + "] total_distance : "       + this.CurrentSettings.phase_C_settings[idx].total_distance 
@@ -478,7 +478,7 @@ namespace Labsim.apollon.experiment.profile
             
             // log the final result
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found current settings "
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialBegin() : found current settings "
                 + log
             );
 
@@ -486,8 +486,8 @@ namespace Labsim.apollon.experiment.profile
             arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
 
             // activate world, CAVIAR entity, Radiosonde sensor, HOTAS Throttle
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.FogElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement);
 
             // activate current database
             var db_str = arg.Trial.settings.GetString("database_name");
@@ -496,16 +496,16 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found settings database name ["
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialBegin() : found settings database name ["
                     + db_str
                 + "], try finding the only associated game object tag"
             );
 
             // get bridge
             var we_behaviour
-                 = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
-                ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
+                 = apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                ).Behaviour as apollon.gameplay.element.ApollonWorldElementBehaviour;
 
             // LINQ         
             foreach (var db_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("DBTag_")).Select(kvp => kvp.Value))
@@ -513,7 +513,7 @@ namespace Labsim.apollon.experiment.profile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : referenced gameObject[" + db_ref.name + "], inactivating"
+                    "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialBegin() : referenced gameObject[" + db_ref.name + "], inactivating"
                 );
 
                 // inactivate all first
@@ -526,7 +526,7 @@ namespace Labsim.apollon.experiment.profile
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : found game object, activating"
+                    "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialBegin() : found game object, activating"
                 );
 
                 // mark as active
@@ -557,15 +557,15 @@ namespace Labsim.apollon.experiment.profile
 
                 // log
                 UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : could not find requested game object by name, error..."
+                    "<color=Red>Error: </color> CAVIARProfile.onExperimentTrialBegin() : could not find requested game object by name, error..."
                 );
 
             } /* if() */
 
             // finally activate raycasting element
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity);
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor);
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.RadioSondeSensor);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl);
 
             // base call
             base.onExperimentTrialBegin(sender, arg);
@@ -575,88 +575,88 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialBegin() : end"
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialBegin() : end"
             );
 
             // build protocol
             await this.DoRunProtocol(
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseA(this       ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseB(this       ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseC(this, 0    ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseD(this, 0, 1 ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseC(this, 1    ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseD(this, 1, 2 ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseC(this, 2    ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseD(this, 2, 3 ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseC(this, 3    ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseE(this       ) ); },
-                async () => { await this.SetState( new phase.ApollonCAVIARPhaseF(this       ) ); },
+                async () => { await this.SetState( new CAVIARPhaseA(this       ) ); },
+                async () => { await this.SetState( new CAVIARPhaseB(this       ) ); },
+                async () => { await this.SetState( new CAVIARPhaseC(this, 0    ) ); },
+                async () => { await this.SetState( new CAVIARPhaseD(this, 0, 1 ) ); },
+                async () => { await this.SetState( new CAVIARPhaseC(this, 1    ) ); },
+                async () => { await this.SetState( new CAVIARPhaseD(this, 1, 2 ) ); },
+                async () => { await this.SetState( new CAVIARPhaseC(this, 2    ) ); },
+                async () => { await this.SetState( new CAVIARPhaseD(this, 2, 3 ) ); },
+                async () => { await this.SetState( new CAVIARPhaseC(this, 3    ) ); },
+                async () => { await this.SetState( new CAVIARPhaseE(this       ) ); },
+                async () => { await this.SetState( new CAVIARPhaseF(this       ) ); },
                 async () => { await this.SetState( null ); }
             );
             
         } /* onExperimentTrialBegin() */
 
-        public override async void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void onExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialEnd() : begin"
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialEnd() : begin"
             );
 
             // write result
 
             // phase A
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_A_results.timing_on_exit_host_timestamp;
 
             // phase B
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_B_results.timing_on_exit_host_timestamp;
 
             // phase C
-            for (ushort idx = 0; idx < ApollonCAVIARProfile.InternalPhaseLoopCount; ++idx) 
+            for (ushort idx = 0; idx < CAVIARProfile.InternalPhaseLoopCount; ++idx) 
             {
 
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_entry_unity_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_entry_unity_timestamp"]
                     = this.CurrentResults.phase_C_results[idx].timing_on_entry_unity_timestamp.ToString();
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_exit_unity_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_exit_unity_timestamp"]
                     = this.CurrentResults.phase_C_results[idx].timing_on_exit_unity_timestamp.ToString();
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_entry_host_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_entry_host_timestamp"]
                     = this.CurrentResults.phase_C_results[idx].timing_on_entry_host_timestamp;
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_exit_host_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_timing_on_exit_host_timestamp"]
                     = this.CurrentResults.phase_C_results[idx].timing_on_exit_host_timestamp;
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_response"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_response"] 
                     = this.CurrentResults.phase_C_results[idx].user_response.ToString();
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_distance"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_distance"] 
                     = this.CurrentResults.phase_C_results[idx].user_stim_distance.ToString();
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_host_timestamp"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_host_timestamp"] 
                     = this.CurrentResults.phase_C_results[idx].user_stim_host_timestamp;
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_unity_timestamp"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_stim_unity_timestamp"] 
                     = this.CurrentResults.phase_C_results[idx].user_stim_unity_timestamp.ToString();
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_distance"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_distance"] 
                     = string.Join(
                         ";",  
                         this.CurrentResults.phase_C_results[idx].user_perception_distance
                     );
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_host_timestamp"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_host_timestamp"] 
                     = string.Join(
                         ";",  
                         this.CurrentResults.phase_C_results[idx].user_perception_host_timestamp
                     );
-                ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_unity_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C" + idx + "_user_perception_unity_timestamp"]
                     = string.Join(
                         ";",  
                         this.CurrentResults.phase_C_results[idx].user_perception_unity_timestamp
@@ -665,30 +665,30 @@ namespace Labsim.apollon.experiment.profile
             } /* for() */
 
             // phase D
-            for (ushort idx = 0; idx < ApollonCAVIARProfile.InternalPhaseLoopCount -1; ++idx)
+            for (ushort idx = 0; idx < CAVIARProfile.InternalPhaseLoopCount -1; ++idx)
             {
 
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_entry_unity_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_entry_unity_timestamp"]
                     = this.CurrentResults.phase_D_results[idx].timing_on_entry_unity_timestamp.ToString();
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_exit_unity_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_exit_unity_timestamp"]
                     = this.CurrentResults.phase_D_results[idx].timing_on_exit_unity_timestamp.ToString();
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_entry_host_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_entry_host_timestamp"]
                     = this.CurrentResults.phase_D_results[idx].timing_on_entry_host_timestamp;
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_exit_host_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_timing_on_exit_host_timestamp"]
                     = this.CurrentResults.phase_D_results[idx].timing_on_exit_host_timestamp;
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_response"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_response"] 
                     = this.CurrentResults.phase_D_results[idx].user_response.ToString();
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_distance"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_distance"] 
                     = string.Join(
                         ";",  
                         this.CurrentResults.phase_D_results[idx].user_perception_distance
                     );
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_host_timestamp"] 
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_host_timestamp"] 
                     = string.Join(
                         ";",  
                         this.CurrentResults.phase_D_results[idx].user_perception_host_timestamp
                     );
-                ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_unity_timestamp"]
+                apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D" + idx + (idx + 1) + "_user_perception_unity_timestamp"]
                     = string.Join(
                         ";",  
                         this.CurrentResults.phase_D_results[idx].user_perception_unity_timestamp
@@ -697,38 +697,38 @@ namespace Labsim.apollon.experiment.profile
             } /* for() */
 
             // phase E
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_E_results.timing_on_exit_host_timestamp;
 
             // phase F
-            ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_unity_timestamp"]
                 = this.CurrentResults.phase_F_results.timing_on_entry_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_unity_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_unity_timestamp"]
                 = this.CurrentResults.phase_F_results.timing_on_exit_unity_timestamp.ToString();
-            ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_host_timestamp"]
                 = this.CurrentResults.phase_F_results.timing_on_entry_host_timestamp;
-            ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_host_timestamp"]
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_host_timestamp"]
                 = this.CurrentResults.phase_F_results.timing_on_exit_host_timestamp;
 
             // fade in
             await this.DoFadeIn(this._trial_fade_in_duration, false);
 
             // inactivate gameplay & frontend
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.All);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.All);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.All);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.All);
            
             // base call
             base.onExperimentTrialEnd(sender, arg);
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARProfile.onExperimentTrialEnd() : end"
+                "<color=Blue>Info: </color> CAVIARProfile.onExperimentTrialEnd() : end"
             );
 
         } /* onExperimentTrialEnd() */

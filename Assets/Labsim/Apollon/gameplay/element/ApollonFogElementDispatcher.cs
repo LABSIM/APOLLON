@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.element
 {
 
     public class ApollonFogElementDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonFogElementBridge>
+        : ApollonConcreteGameplayDispatcher<ApollonFogElementBridge>
     {
 
         #region Event args class

@@ -1,16 +1,16 @@
 using System.Linq;
 
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.phase
+namespace Labsim.experiment.CAVIAR
 {
 
     //
     // Wait for input neutral - FSM State
     //
-    public sealed class ApollonCAVIARPhaseE
-        : ApollonAbstractExperimentState<profile.ApollonCAVIARProfile>
+    public sealed class CAVIARPhaseE
+        : apollon.experiment.ApollonAbstractExperimentState<CAVIARProfile>
     {
-        public ApollonCAVIARPhaseE(profile.ApollonCAVIARProfile fsm)
+        public CAVIARPhaseE(CAVIARProfile fsm)
             : base(fsm)
         {
         }
@@ -20,19 +20,19 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseE.OnEntry() : begin"
+                "<color=Blue>Info: </color> CAVIARPhaseE.OnEntry() : begin"
             );
 
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+            this.FSM.CurrentResults.phase_E_results.timing_on_entry_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // get our entity bridge & settings
             var caviar_bridge
                 = (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity
-                    ) as gameplay.entity.ApollonCAVIAREntityBridge
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIAREntity
+                    ) as CAVIAREntityBridge
                 );
 
             // get our acceleration value & timestamp
@@ -52,7 +52,7 @@ namespace Labsim.apollon.experiment.phase
                     
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseE.OnEntry() : calculated following parameter ["
+                "<color=Blue>Info: </color> CAVIARPhaseE.OnEntry() : calculated following parameter ["
                 + "entry_linear_velocity:" 
                     + entry_linear_velocity 
                 + ",linear_absolute_deceleration:" 
@@ -65,23 +65,23 @@ namespace Labsim.apollon.experiment.phase
             );
 
             // if practicing
-            if(ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
+            if(apollon.experiment.ApollonExperimentManager.Instance.Trial.settings.GetBool("is_practice_condition"))
             {
             
                 // hide guidance
                 // frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleCrossGUI);
-                frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI);
+                apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.SimpleFrameGUI);
             
             } /* if() */
 
             // show red cross
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // inactivate all visual cues through LINQ request
             var we_behaviour
-                 = gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
-                ).Behaviour as gameplay.element.ApollonWorldElementBehaviour;
+                 = apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                ).Behaviour as apollon.gameplay.element.ApollonWorldElementBehaviour;
             foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
             {
                 vc_ref.SetActive(false);
@@ -91,28 +91,28 @@ namespace Labsim.apollon.experiment.phase
             caviar_bridge.ConcreteDispatcher.RaiseDecelerate(linear_absolute_deceleration,0.0f);
 
             // wait a certain amout of time
-            await ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
+            await apollon.ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseE.OnEntry() : mid-phase, current distance["
+                "<color=Blue>Info: </color> CAVIARPhaseE.OnEntry() : mid-phase, current distance["
                     + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
                 + "]"
             );
 
             // show red frame
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // wait a certain amout of time
-            await ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
+            await apollon.ApollonHighResolutionTime.DoSleep(phase_duration / 2.0f);
 
             // hide red cross & frame
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseE.OnEntry() : end, current distance["
+                "<color=Blue>Info: </color> CAVIARPhaseE.OnEntry() : end, current distance["
                     + caviar_bridge.Behaviour.transform.TransformPoint(0.0f,0.0f,0.0f).z
                 + "]"
             );
@@ -124,20 +124,20 @@ namespace Labsim.apollon.experiment.phase
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseE.OnExit() : begin"
+                "<color=Blue>Info: </color> CAVIARPhaseE.OnExit() : begin"
             );
             
             // save timestamps
-            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = ApollonHighResolutionTime.Now.ToString();
+            this.FSM.CurrentResults.phase_E_results.timing_on_exit_host_timestamp = apollon.ApollonHighResolutionTime.Now.ToString();
             this.FSM.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonCAVIARPhaseE.OnExit() : end"
+                "<color=Blue>Info: </color> CAVIARPhaseE.OnExit() : end"
             );
 
         } /* OnExit() */
 
-    } /* class ApollonCAVIARPhaseE */
+    } /* class CAVIARPhaseE */
     
 } /* } Labsim.apollon.experiment.phase */

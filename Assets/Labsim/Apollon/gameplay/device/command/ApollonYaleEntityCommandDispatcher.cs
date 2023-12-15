@@ -2,7 +2,7 @@
 namespace Labsim.apollon.gameplay.device.command
 {
     public class ApollonYaleEntityCommandDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonYaleEntityCommandBridge>
+        : ApollonConcreteGameplayDispatcher<ApollonYaleEntityCommandBridge>
     {
         #region event args class
 

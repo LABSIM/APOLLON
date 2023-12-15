@@ -1,14 +1,14 @@
 ﻿// avoid namespace pollution
-namespace Labsim.apollon.gameplay.control
+namespace Labsim.experiment.CAVIAR
 {
 
-    public class ApollonCAVIARControlDispatcher
-        : ApolloConcreteGameplayDispatcher<ApollonCAVIARControlBridge>
+    public class CAVIARControlDispatcher
+        : apollon.gameplay.ApollonConcreteGameplayDispatcher<CAVIARControlBridge>
     {
         #region event args class
 
         public class CAVIARControlEventArgs
-            : ApollonGameplayDispatcher.GameplayEventArgs
+            : apollon.gameplay.ApollonGameplayDispatcher.GameplayEventArgs
         {
 
             // ctor
@@ -49,7 +49,7 @@ namespace Labsim.apollon.gameplay.control
         #endregion
 
         // Constructor
-        public ApollonCAVIARControlDispatcher()
+        public CAVIARControlDispatcher()
         {
 
             // event table
@@ -57,7 +57,7 @@ namespace Labsim.apollon.gameplay.control
             this._eventTable.Add("UserNeutralCommandTriggered", null);
             this._eventTable.Add("UserResponseTriggered",       null);
             
-        } /* ApollonCAVIARControlDispatcher() */
+        } /* CAVIARControlDispatcher() */
 
         #region actual events
 
@@ -184,6 +184,6 @@ namespace Labsim.apollon.gameplay.control
 
         #endregion
 
-    } /* class ApollonCAVIARControlDispatcher */
+    } /* class CAVIARControlDispatcher */
 
 } /* } Labsim.apollon.gameplay.control */
