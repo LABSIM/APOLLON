@@ -19,25 +19,25 @@
 //
 
 // System using derective 
-using System.Xml;
-using System.Xml.Serialization;
-using System.Xml.Schema;
+// using System.Xml;
+// using System.Xml.Serialization;
+// using System.Xml.Schema;
 
 // avoid namespace pollution
 namespace Labsim.apollon.io.datamodel
 {
 
-    [XmlRoot("Apollon")]
+    [System.Xml.Serialization.XmlRoot("Apollon")]
     public class ApollonOutputFileImpl
     {
 
-        [XmlElement(ElementName = "configuration_full_filename")]
+        [System.Xml.Serialization.XmlElement(ElementName = "configuration_full_filename")]
         public string m_configurationFullFilename = "";
 
-        [XmlElement(ElementName = "application_start_time")]
+        [System.Xml.Serialization.XmlElement(ElementName = "application_start_time")]
         public string m_applicationStartTime = "";
 
-        [XmlElement(ElementName = "application_stop_time")]
+        [System.Xml.Serialization.XmlElement(ElementName = "application_stop_time")]
         public string m_applicationStopTime = "";
 
     } /* class ApollonOutputFileImpl */

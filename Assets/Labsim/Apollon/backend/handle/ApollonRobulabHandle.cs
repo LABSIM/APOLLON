@@ -19,7 +19,7 @@
 //
 
 // extensions
-using System.Runtime.InteropServices;
+// using System.Runtime.InteropServices;
 
 // avoid namespace pollution
 namespace Labsim.apollon.backend.handle
@@ -76,24 +76,24 @@ namespace Labsim.apollon.backend.handle
 
         // delegate prototype
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool InstantiateDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool DeleteDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool InitializeDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool ExecuteOneStepDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool GetIMUDelegate(
             ref System.Single Phi,
             ref System.Single Theta,
@@ -103,68 +103,68 @@ namespace Labsim.apollon.backend.handle
             ref System.Single AccZ
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool GetOdometryDelegate(
             ref System.Single PosX,
             ref System.Single PosY,
             ref System.Single Orientation
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool GetLocalizationDelegate(
             ref System.Single PosX,
             ref System.Single PosY,
             ref System.Single Orientation
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool GetBatteryLevelDelegate(
             ref System.Single BatteryLevel
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool GetEmergencyStopStateDelegate(
-                [MarshalAs(UnmanagedType.Bool)] ref System.Boolean State
+                [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] ref System.Boolean State
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool ResetEmergencyStopStateDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool ResetOdometryDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool ResetLocalizationDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool ResetMissionDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool SetLinearVelocityTargetDelegate(
             System.Single MeterPerSecond
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool SetAngularVelocityTargetDelegate(
             System.Single RadianPerSecond
         );
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool StartMissionDelegate();
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         public delegate bool StopMissionDelegate();
 
         private InstantiateDelegate m_instantiateDelegate = null;
@@ -762,7 +762,7 @@ namespace Labsim.apollon.backend.handle
 
                 UnityEngine.Debug.LogError(
                     "<color=red>Error: </color> ApollonRobulabHandle.LoadNativeLibrary() : failed to set default dll search path policy : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -786,7 +786,7 @@ namespace Labsim.apollon.backend.handle
 
                 UnityEngine.Debug.LogError(
                     "<color=red>Error: </color> ApollonRobulabHandle.LoadNativeLibrary() : failed to add dll directory search path : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -809,7 +809,7 @@ namespace Labsim.apollon.backend.handle
 
                 UnityEngine.Debug.LogError(
                     "<color=red>Error: </color> ApollonRobulabHandle.LoadNativeLibrary() : failed to load dll : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -836,7 +836,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.Instantiate
-                    = Marshal.GetDelegateForFunctionPointer<InstantiateDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<InstantiateDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllInstantiateEntryPointName)
                     )
                 ) == null
@@ -847,7 +847,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind InstantiateDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllInstantiateEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -866,7 +866,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.Delete
-                    = Marshal.GetDelegateForFunctionPointer<DeleteDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<DeleteDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllDeleteEntryPointName)
                     )
                 ) == null
@@ -877,7 +877,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind DeleteDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllDeleteEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -896,7 +896,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.Initialize
-                    = Marshal.GetDelegateForFunctionPointer<InitializeDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<InitializeDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllInitializeEntryPointName)
                     )
                 ) == null
@@ -907,7 +907,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind InitializeDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllInitializeEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -926,7 +926,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.ExecuteOneStep
-                    = Marshal.GetDelegateForFunctionPointer<ExecuteOneStepDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<ExecuteOneStepDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllExecuteOneStepEntryPointName)
                     )
                 ) == null
@@ -937,7 +937,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind ExecuteOneStepDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllExecuteOneStepEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -956,7 +956,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.GetIMU
-                    = Marshal.GetDelegateForFunctionPointer<GetIMUDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GetIMUDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllGetIMUEntryPointName)
                     )
                 ) == null
@@ -967,7 +967,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind GetIMUDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllGetIMUEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -986,7 +986,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.GetLocalization
-                    = Marshal.GetDelegateForFunctionPointer<GetLocalizationDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GetLocalizationDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllGetLocalizationEntryPointName)
                     )
                 ) == null
@@ -997,7 +997,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind GetLocalizationDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllGetLocalizationEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1016,7 +1016,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.GetOdometry
-                    = Marshal.GetDelegateForFunctionPointer<GetOdometryDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GetOdometryDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllGetOdometryEntryPointName)
                     )
                 ) == null
@@ -1027,7 +1027,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind GetOdometryDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllGetOdometryEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1046,7 +1046,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.GetBatteryLevel
-                    = Marshal.GetDelegateForFunctionPointer<GetBatteryLevelDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GetBatteryLevelDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllGetBatteryLevelEntryPointName)
                     )
                 ) == null
@@ -1057,7 +1057,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind GetBatteryLevelDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllGetBatteryLevelEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1076,7 +1076,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.GetEmergencyStopState
-                    = Marshal.GetDelegateForFunctionPointer<GetEmergencyStopStateDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GetEmergencyStopStateDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllGetEmergencyStopStateEntryPointName)
                     )
                 ) == null
@@ -1087,7 +1087,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind GetEmergencyStopStateDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllGetEmergencyStopStateEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1106,7 +1106,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.ResetEmergencyStopState
-                    = Marshal.GetDelegateForFunctionPointer<ResetEmergencyStopStateDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<ResetEmergencyStopStateDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllResetEmergencyStopStateEntryPointName)
                     )
                 ) == null
@@ -1117,7 +1117,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind ResetEmergencyStopStateDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllResetEmergencyStopStateEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1136,7 +1136,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.ResetOdometry
-                    = Marshal.GetDelegateForFunctionPointer<ResetOdometryDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<ResetOdometryDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllResetOdometryEntryPointName)
                     )
                 ) == null
@@ -1147,7 +1147,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind ResetOdometryDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllResetOdometryEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1166,7 +1166,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.ResetLocalization
-                    = Marshal.GetDelegateForFunctionPointer<ResetLocalizationDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<ResetLocalizationDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllResetLocalizationEntryPointName)
                     )
                 ) == null
@@ -1177,7 +1177,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind ResetLocalizationDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllResetLocalizationEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1196,7 +1196,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.ResetMission
-                    = Marshal.GetDelegateForFunctionPointer<ResetMissionDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<ResetMissionDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllResetMissionEntryPointName)
                     )
                 ) == null
@@ -1207,7 +1207,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind ResetMissionDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllResetMissionEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1226,7 +1226,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.SetLinearVelocityTarget
-                    = Marshal.GetDelegateForFunctionPointer<SetLinearVelocityTargetDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<SetLinearVelocityTargetDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllSetLinearVelocityTargetEntryPointName)
                     )
                 ) == null
@@ -1237,7 +1237,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind SetLinearVelocityTargetDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllSetLinearVelocityTargetEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1256,7 +1256,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.SetAngularVelocityTarget
-                    = Marshal.GetDelegateForFunctionPointer<SetAngularVelocityTargetDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<SetAngularVelocityTargetDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllSetAngularVelocityTargetEntryPointName)
                     )
                 ) == null
@@ -1267,7 +1267,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind SetAngularVelocityTargetDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllSetAngularVelocityTargetEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1286,7 +1286,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.StartMission
-                    = Marshal.GetDelegateForFunctionPointer<StartMissionDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<StartMissionDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllStartMissionEntryPointName)
                     )
                 ) == null
@@ -1297,7 +1297,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind StartMissionDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllStartMissionEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail
@@ -1316,7 +1316,7 @@ namespace Labsim.apollon.backend.handle
             if (
                 (
                 this.StopMission
-                    = Marshal.GetDelegateForFunctionPointer<StopMissionDelegate>(
+                    = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<StopMissionDelegate>(
                         NativeDLLInteropServices.GetProcAddress(this.m_handle, RobulabSpecificDLLSettings._dllStopMissionEntryPointName)
                     )
                 ) == null
@@ -1327,7 +1327,7 @@ namespace Labsim.apollon.backend.handle
                     "<color=red>Error: </color> ApollonRobulabHandle.BindNativeLibrary() : failed to bind StopMissionDelegate to corresponding entry point ["
                     + RobulabSpecificDLLSettings._dllStopMissionEntryPointName
                     + "] : "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
                 // fail

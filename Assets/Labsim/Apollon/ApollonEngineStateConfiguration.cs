@@ -18,11 +18,8 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ApollonEngineStateConfiguration : MonoBehaviour
+public class ApollonEngineStateConfiguration 
+    : UnityEngine.MonoBehaviour
 {
     void Awake()
     {

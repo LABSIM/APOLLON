@@ -21,7 +21,6 @@
 // avoid namespace pollution
 namespace Labsim.apollon.io.file
 {
-
     static class ApollonRecordFileController
     {
 

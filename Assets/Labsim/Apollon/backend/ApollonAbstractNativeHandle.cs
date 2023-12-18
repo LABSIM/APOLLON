@@ -19,11 +19,11 @@
 //
 
 // using directives 
-using System.Runtime.InteropServices;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Permissions;
-using System.Security;
-using Microsoft.Win32.SafeHandles;
+// using System.Runtime.InteropServices;
+// using System.Runtime.ConstrainedExecution;
+// using System.Security.Permissions;
+// using System.Security;
+// using Microsoft.Win32.SafeHandles;
 
 // avoid namespace pollution
 namespace Labsim.apollon.backend 
@@ -35,9 +35,9 @@ namespace Labsim.apollon.backend
 
         #region .dll system safe handle
 
-        [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
+        [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode = true)]
         protected class NativeDLLSafeHandle
-            : SafeHandleZeroOrMinusOneIsInvalid
+            :  Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid
         {
 
             private NativeDLLSafeHandle()
@@ -45,7 +45,7 @@ namespace Labsim.apollon.backend
             {
             }
 
-            [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
+            [System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.MayFail)]
             protected override bool ReleaseHandle()
             {
                 return NativeDLLInteropServices.FreeLibrary(this.handle);
@@ -60,7 +60,7 @@ namespace Labsim.apollon.backend
         
         #region .dll system interop services (PInvoke)
 
-        [SuppressUnmanagedCodeSecurity()]
+        [System.Security.SuppressUnmanagedCodeSecurity()]
         protected static class NativeDLLInteropServices
         {
 
@@ -74,22 +74,22 @@ namespace Labsim.apollon.backend
 
             };
 
-            [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
+            [System.Runtime.InteropServices.DllImport("kernel32", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
+            [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
             internal extern static bool SetDefaultDllDirectories(uint directoryFlags);
 
-            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
+            [System.Runtime.InteropServices.DllImport("kernel32", CharSet = System.Runtime.InteropServices.CharSet.Unicode, SetLastError = true)]
             internal extern static int AddDllDirectory(string lpPathName);
 
-            [DllImport("kernel32", CharSet = CharSet.Ansi, SetLastError = true)]
-            internal extern static NativeDLLSafeHandle LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpLibFileName);
+            [System.Runtime.InteropServices.DllImport("kernel32", CharSet = System.Runtime.InteropServices.CharSet.Ansi, SetLastError = true)]
+            internal extern static NativeDLLSafeHandle LoadLibrary([System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPStr)] string lpLibFileName);
 
-            [DllImport("kernel32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+            [System.Runtime.InteropServices.DllImport("kernel32", CharSet = System.Runtime.InteropServices.CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
             internal extern static System.IntPtr GetProcAddress(NativeDLLSafeHandle hModule, string lpProcName);
 
-            [DllImport("kernel32", SetLastError = true)]
-            [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
-            [return: MarshalAs(UnmanagedType.Bool)]
+            [System.Runtime.InteropServices.DllImport("kernel32", SetLastError = true)]
+            [System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.MayFail)]
+            [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
             internal extern static bool FreeLibrary(System.IntPtr hModule);
 
         } /* internal class NativeMethods */
@@ -117,7 +117,7 @@ namespace Labsim.apollon.backend
             : base()
         { }
 
-        [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
+        [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode = true)]
         protected override void Dispose(bool bDisposing = true)
         {
 
@@ -128,7 +128,7 @@ namespace Labsim.apollon.backend
                 // log
                 UnityEngine.Debug.LogError(
                     "<color=Red>Error: </color> ApollonAbstractNativeHandle.Dispose(" + bDisposing + ") : failed to dispose library. "
-                    + Marshal.GetLastWin32Error()
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
             } /* if() */
@@ -160,7 +160,7 @@ namespace Labsim.apollon.backend
                     // log
                     UnityEngine.Debug.LogError(
                         "<color=Red>Error: </color> ApollonAbstractNativeHandle.OnHandleActivationRequested() : failed to load library. "
-                        + Marshal.GetLastWin32Error()
+                        + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                     );
 
                     // fail 
@@ -175,7 +175,7 @@ namespace Labsim.apollon.backend
                     // log
                     UnityEngine.Debug.LogError(
                         "<color=Red>Error: </color> ApollonAbstractNativeHandle.OnHandleActivationRequested() : failed to bind library entries to delegates. "
-                        + Marshal.GetLastWin32Error()
+                        + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                     );
 
                     // fail 
@@ -190,7 +190,7 @@ namespace Labsim.apollon.backend
                     // log
                     UnityEngine.Debug.LogError(
                         "<color=Red>Error: </color> ApollonAbstractNativeHandle.OnHandleActivationRequested() : failed to construct library. "
-                        + Marshal.GetLastWin32Error()
+                        + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                     );
 
                     // fail 

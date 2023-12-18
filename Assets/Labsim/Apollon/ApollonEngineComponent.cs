@@ -18,13 +18,12 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-using UXF;
-
 // avoid namespace pollution
 namespace Labsim.apollon
 {
 
-    public class ApollonEngineComponent : UnityEngine.MonoBehaviour
+    public class ApollonEngineComponent 
+        : UnityEngine.MonoBehaviour
     {
 
         private System.Collections.Generic.Queue<System.Action> m_pendingAction = new System.Collections.Generic.Queue<System.Action>();

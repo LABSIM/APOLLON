@@ -25,7 +25,8 @@ using System.Linq;
 namespace Labsim.apollon.gameplay
 {
 
-    public sealed class ApollonGameplayManager : ApollonAbstractManager
+    public sealed class ApollonGameplayManager 
+        : ApollonAbstractManager
     {
 
         #region bridge handling

@@ -18,12 +18,6 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-// using directives
-using System;
-using System.Text;
-using System.Collections;
-using System.Threading;
-
 // avoid namespace pollution
 namespace Labsim.apollon.gameplay.entity
 {

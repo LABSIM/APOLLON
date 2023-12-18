@@ -18,9 +18,6 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-// using directives 
-using System.Linq;
-
 // avoid namespace pollution
 namespace Labsim.apollon.backend
 {
