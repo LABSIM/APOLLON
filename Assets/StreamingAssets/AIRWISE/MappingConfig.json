@@ -1,0 +1,18 @@
+{
+  "DefaultDesiredX": 1,
+  "DefaultDesiredY": 2,
+  "DefaultDesiredZ": 0,
+  "DefaultDesiredOtherAxis": 0,
+  "filterX": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterY": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterZ": {
+    "mode": 0,
+    "K": 1
+  }
+}

@@ -19,7 +19,6 @@
 //
 
 // using directive
-using System.Diagnostics;
 using System.Linq;
 
 // avoid namespace pollution
@@ -772,11 +771,6 @@ namespace Labsim.apollon
             }
             //If we have no description attribute, just return the ToString of the enum
             return enumerationValue.ToString();
-        }
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
         }
 
         #endregion

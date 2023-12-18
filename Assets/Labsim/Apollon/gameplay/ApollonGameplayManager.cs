@@ -470,6 +470,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.RealRobosoftEntity, false },
                 { GameplayIDType.ActiveSeatEntity, false },
                 { GameplayIDType.CAVIAREntity, false },
+                { GameplayIDType.AIRWISEEntity, false },
                 { GameplayIDType.VirtualMotionSystemCommand, false },
                 { GameplayIDType.MotionSystemCommand, false },
                 { GameplayIDType.MotionSystemSensor, false },
@@ -480,7 +481,6 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.AgencyAndThresholdPerceptionV3Control, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionV4Control, false },
                 { GameplayIDType.CAVIARControl, false },
-                { GameplayIDType.YaleEntityCommand, false },
                 { GameplayIDType.All, false }
             };
 
@@ -524,6 +524,9 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("CAVIAREntity")]
             CAVIAREntity,
 
+            [System.ComponentModel.Description("AIRWISEEntity")]
+            AIRWISEEntity,
+
             [System.ComponentModel.Description("MotionSystemCommand")]
             MotionSystemCommand,
 
@@ -553,9 +556,6 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("CAVIARControl")]
             CAVIARControl,
-
-            [System.ComponentModel.Description("YaleEntityCommand")]
-            YaleEntityCommand,
 
             [System.ComponentModel.Description("All")]
             All
