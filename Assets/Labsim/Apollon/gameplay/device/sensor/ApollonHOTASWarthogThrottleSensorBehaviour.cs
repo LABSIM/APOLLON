@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonHOTASWarthogThrottleSensorBehaviour 
-        : ApolloConcreteGameplayBehaviour<ApollonHOTASWarthogThrottleSensorBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonHOTASWarthogThrottleSensorBridge>
     {
 
         [UnityEngine.SerializeField]

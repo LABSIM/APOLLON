@@ -9,7 +9,7 @@ namespace Labsim.apollon.gameplay.entity
 {
 
     public class ApollonActiveSeatEntityBehaviour
-        : ApolloConcreteGameplayBehaviour<ApollonActiveSeatEntityBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonActiveSeatEntityBridge>
     {
 
         #region properties/members

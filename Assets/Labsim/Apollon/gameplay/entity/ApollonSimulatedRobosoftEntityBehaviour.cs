@@ -4,7 +4,7 @@ namespace Labsim.apollon.gameplay.entity
 {
 
     public class ApollonSimulatedRobosoftEntityBehaviour 
-        : ApolloConcreteGameplayBehaviour<ApollonSimulatedRobosoftEntityBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonSimulatedRobosoftEntityBridge>
     {
 
         [UnityEngine.SerializeField]

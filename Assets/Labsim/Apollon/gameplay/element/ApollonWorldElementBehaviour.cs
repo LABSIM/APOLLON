@@ -3,7 +3,7 @@
 namespace Labsim.apollon.gameplay.element
 {
     public class ApollonWorldElementBehaviour 
-        : ApolloConcreteGameplayBehaviour<ApollonWorldElementBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonWorldElementBridge>
         , UnityEngine.ISerializationCallbackReceiver
     {
 

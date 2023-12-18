@@ -4,7 +4,7 @@ namespace Labsim.apollon.gameplay.entity
 {
    
     public class ApollonRealRobosoftEntityBehaviour
-        : ApolloConcreteGameplayBehaviour<ApollonRealRobosoftEntityBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonRealRobosoftEntityBridge>
     {
 
         public UnityEngine.GameObject m_IMU;

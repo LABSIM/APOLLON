@@ -3,7 +3,7 @@ namespace Labsim.experiment.CAVIAR
 {
 
     public class CAVIARControlBehaviour 
-        : apollon.gameplay.ApolloConcreteGameplayBehaviour<CAVIARControlBridge>
+        : apollon.gameplay.ApollonConcreteGameplayBehaviour<CAVIARControlBridge>
     {
 
         #region properties/members

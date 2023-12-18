@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.command
 {
 
     public class ApollonMotionSystemCommandBehaviour
-        : ApolloConcreteGameplayBehaviour<ApollonMotionSystemCommandBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonMotionSystemCommandBridge>
     {
 
         #region properties/members

@@ -12,13 +12,13 @@ namespace Labsim.apollon.gameplay
         
     }  /* abstract ApollonGameplayBehaviour */
 
-    public abstract class ApolloConcreteGameplayBehaviour<T> 
+    public abstract class ApollonConcreteGameplayBehaviour<T> 
         : ApollonGameplayBehaviour
         where T : ApollonAbstractGameplayBridge
     {
 
         public T ConcreteBridge => this.Bridge as T;
         
-    }  /* abstract generic ApolloConcreteGameplayBehaviour */
+    }  /* abstract generic ApollonConcreteGameplayBehaviour */
 
 } /* } Labsim.apollon.gameplay */

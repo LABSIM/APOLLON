@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonMotionSystemSensorBehaviour
-        : ApolloConcreteGameplayBehaviour<ApollonMotionSystemSensorBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonMotionSystemSensorBridge>
     {
 
         private bool m_bHasInitialized = false;

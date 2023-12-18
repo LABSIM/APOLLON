@@ -4,7 +4,7 @@ namespace Labsim.apollon.gameplay.device.sensor
 {
 
     public class ApollonRadioSondeSensorBehaviour 
-        : ApolloConcreteGameplayBehaviour<ApollonRadioSondeSensorBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonRadioSondeSensorBridge>
     {
         
         [UnityEngine.SerializeField]

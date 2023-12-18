@@ -3,7 +3,7 @@ namespace Labsim.apollon.gameplay.device.command
 {
 
     public class ApollonYaleEntityCommandBehaviour
-        : ApolloConcreteGameplayBehaviour<ApollonYaleEntityCommandBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonYaleEntityCommandBridge>
     {
 
         #region properties/members

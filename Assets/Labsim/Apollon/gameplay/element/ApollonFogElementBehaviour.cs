@@ -4,7 +4,7 @@ namespace Labsim.apollon.gameplay.element
 {
 
     public class ApollonFogElementBehaviour 
-        : ApolloConcreteGameplayBehaviour<ApollonFogElementBridge>
+        : ApollonConcreteGameplayBehaviour<ApollonFogElementBridge>
     {
 
         #region Properties/Members

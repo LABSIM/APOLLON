@@ -9,7 +9,7 @@ namespace Labsim.experiment.CAVIAR
 {
 
     public class CAVIAREntityBehaviour
-        : apollon.gameplay.ApolloConcreteGameplayBehaviour<CAVIAREntityBridge>
+        : apollon.gameplay.ApollonConcreteGameplayBehaviour<CAVIAREntityBridge>
     {
 
         #region properties/members
