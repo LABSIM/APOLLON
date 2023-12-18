@@ -1,16 +1,17 @@
 ﻿
 // avoid namespace pollution
-namespace Labsim.apollon.experiment.profile
+namespace Labsim.experiment.AgencyAndTBW
 {
     
-    public class ApollonAgencyAndTBWExperimentProfile : ApollonAbstractExperimentProfile
+    public class AgencyAndTBWProfile 
+        : apollon.experiment.ApollonAbstractExperimentProfile
     {
         // Ctor
-        public ApollonAgencyAndTBWExperimentProfile()
+        public AgencyAndTBWProfile()
             : base()
         {
             // default profile
-            this.m_profileID = ApollonExperimentManager.ProfileIDType.AgencyAndTBW;
+            this.m_profileID = apollon.experiment.ApollonExperimentManager.ProfileIDType.AgencyAndTBW;
         }
 
         #region internal settings/result
@@ -75,7 +76,7 @@ namespace Labsim.apollon.experiment.profile
         {
           
             // prompt
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.SpeedSelectionGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.SpeedSelectionGUI);
        
         } /* DoPromptUserSpeedSelection() */
 
@@ -87,13 +88,13 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoRespondToUserSpeedSelection() : user_acceleration_pattern ["
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoRespondToUserSpeedSelection() : user_acceleration_pattern ["
                 + this._results.user_acceleration_pattern
                 + "]"
             );
 
             // go inactive
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.SpeedSelectionGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.SpeedSelectionGUI);
 
             // wait a certain amout of time
             System.Diagnostics.Stopwatch chrono = new System.Diagnostics.Stopwatch();
@@ -113,7 +114,7 @@ namespace Labsim.apollon.experiment.profile
         {
 
             // prompt
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.ResponseGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.ResponseGUI);
        
         } /* PromptUserResponse() */
 
@@ -125,13 +126,13 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoRespondToUserResponse() : user_response ["
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoRespondToUserResponse() : user_response ["
                 + this._results.user_response
                 + "]"
             );
 
             // go inactive
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.ResponseGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.ResponseGUI);
 
             // wait a certain amout of time
             System.Diagnostics.Stopwatch chrono = new System.Diagnostics.Stopwatch();
@@ -151,11 +152,11 @@ namespace Labsim.apollon.experiment.profile
         {
 
             // log result
-            experiment.ApollonExperimentManager.Instance.Trial.result["user_acceleration_pattern"] = this._results.user_acceleration_pattern;
-            experiment.ApollonExperimentManager.Instance.Trial.result["user_response"] = this._results.user_response;
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_acceleration_pattern"] = this._results.user_acceleration_pattern;
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_response"] = this._results.user_response;
 
             // Raise currennt end trial
-            ApollonExperimentManager.Instance.Trial.End();
+            apollon.experiment.ApollonExperimentManager.Instance.Trial.End();
 
         } /* DoLogResultToSessionAndEndTrial() */
 
@@ -164,11 +165,11 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseA() : begin"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseA() : begin"
             );
 
             // activate gameplay element & configure camera
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
             UnityEngine.Camera.main.clearFlags = this._cameraFlags;
             UnityEngine.Camera.main.backgroundColor = this._cameraBackgroundColor;
 
@@ -182,23 +183,23 @@ namespace Labsim.apollon.experiment.profile
             //     );
 
             // activate moving gameplay element
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity);
-            gameplay.ApollonGameplayManager.Instance.setActive(gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity);
 
             // Speed up - initial settings
 
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
                 ).Behaviour
-                as gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
+                as apollon.gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
             ).Start(this._settings.speed_initial);
 
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
                 ).Behaviour
-                as gameplay.entity.ApollonRealRobosoftEntityBehaviour
+                as apollon.gameplay.entity.ApollonRealRobosoftEntityBehaviour
             ).Start(this._settings.speed_initial);
 
             // wait a certain amout of time
@@ -212,7 +213,7 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseA() : end"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseA() : end"
             );
 
             // then, phase B
@@ -225,11 +226,11 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseB() : begin"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseB() : begin"
             );
 
             // show green cross
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
 
             // wait a certain amout of time
             System.Diagnostics.Stopwatch chrono_0 = new System.Diagnostics.Stopwatch();
@@ -241,7 +242,7 @@ namespace Labsim.apollon.experiment.profile
             chrono_0.Stop();
 
             // hide green cross
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
 
             // wait a certain amout of time
             System.Diagnostics.Stopwatch chrono_1 = new System.Diagnostics.Stopwatch();
@@ -254,7 +255,7 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.doPhaseB() : end"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.doPhaseB() : end"
             );
 
             // finally, prompt user if active & wait or assign current acceleration pattern & continue directly to phase A
@@ -282,13 +283,13 @@ namespace Labsim.apollon.experiment.profile
         {
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseC() : begin"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseC() : begin"
             );
 
             // calculate the real world SOA
             float RW_SOA = this._settings.phase_timeout_C_SOA + this._settings.upstream_latency_offset;
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseC() : calculated RealWorld SOA : [" 
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseC() : calculated RealWorld SOA : [" 
                 + RW_SOA
                 + "]"
             );
@@ -330,7 +331,7 @@ namespace Labsim.apollon.experiment.profile
 
             // print
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseC() : calculated RealWorld Acceleration : ["
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseC() : calculated RealWorld Acceleration : ["
                 + RW_acc
                 + "]"
             );
@@ -350,17 +351,17 @@ namespace Labsim.apollon.experiment.profile
                 // Accelerate Simulated & Real "together"
 
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
                     ).Behaviour
-                    as gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
+                    as apollon.gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
                 ).Accelerate(this._settings.speed_saturation, RW_acc);
 
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
                     ).Behaviour
-                    as gameplay.entity.ApollonRealRobosoftEntityBehaviour
+                    as apollon.gameplay.entity.ApollonRealRobosoftEntityBehaviour
                 ).Accelerate(this._settings.speed_saturation, RW_acc);
 
             }
@@ -372,10 +373,10 @@ namespace Labsim.apollon.experiment.profile
                 // Accelerate Simulated first
 
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
                     ).Behaviour
-                    as gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
+                    as apollon.gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
                 ).Accelerate(this._settings.speed_saturation, RW_acc);
 
                 // wait a certain amout of time
@@ -390,10 +391,10 @@ namespace Labsim.apollon.experiment.profile
                 // then accelerate robot
 
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
                     ).Behaviour
-                    as gameplay.entity.ApollonRealRobosoftEntityBehaviour
+                    as apollon.gameplay.entity.ApollonRealRobosoftEntityBehaviour
                 ).Accelerate(this._settings.speed_saturation, RW_acc);
 
             }
@@ -404,10 +405,10 @@ namespace Labsim.apollon.experiment.profile
 
                 // first, real robot
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
                     ).Behaviour
-                    as gameplay.entity.ApollonRealRobosoftEntityBehaviour
+                    as apollon.gameplay.entity.ApollonRealRobosoftEntityBehaviour
                 ).Accelerate(this._settings.speed_saturation, RW_acc);
 
                 // wait a certain amout of time
@@ -422,10 +423,10 @@ namespace Labsim.apollon.experiment.profile
                 // Accelerate Simulated then
 
                 (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
+                    apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
                     ).Behaviour
-                    as gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
+                    as apollon.gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
                 ).Accelerate(this._settings.speed_saturation, RW_acc);
 
             } /* if() */
@@ -436,7 +437,7 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseC() : end"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseC() : end"
             );
 
             // then, phase C
@@ -448,7 +449,7 @@ namespace Labsim.apollon.experiment.profile
         {
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseD() : begin"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseD() : begin"
             );
 
 
@@ -466,7 +467,7 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseD() : end"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseD() : end"
             );
 
             // then, phase E
@@ -478,32 +479,32 @@ namespace Labsim.apollon.experiment.profile
         {
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseE() : begin"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseE() : begin"
             );
 
             // Stop entities
 
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity
                 ).Behaviour
-                as gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
+                as apollon.gameplay.entity.ApollonSimulatedRobosoftEntityBehaviour
             ).Stop();
 
             (
-                gameplay.ApollonGameplayManager.Instance.getBridge(
-                    gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
+                apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity
                 ).Behaviour
-                as gameplay.entity.ApollonRealRobosoftEntityBehaviour
+                as apollon.gameplay.entity.ApollonRealRobosoftEntityBehaviour
             ).Stop();
 
             // hide static & blank camer
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
             UnityEngine.Camera.main.clearFlags = this._blankCameraFlags;
             UnityEngine.Camera.main.backgroundColor = this._blankCameraBackgroundColor;
 
             // show red cross
-            frontend.ApollonFrontendManager.Instance.setActive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // wait a certain amout of time
             System.Diagnostics.Stopwatch chrono_0 = new System.Diagnostics.Stopwatch();
@@ -515,11 +516,11 @@ namespace Labsim.apollon.experiment.profile
             chrono_0.Stop();
 
             // hide green cross
-            frontend.ApollonFrontendManager.Instance.setInactive(frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // inactivate moving gameplay element
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity);
-            gameplay.ApollonGameplayManager.Instance.setInactive(gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.SimulatedRobosoftEntity);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.RealRobosoftEntity);
 
             // wait a certain amout of time
             System.Diagnostics.Stopwatch chrono_1 = new System.Diagnostics.Stopwatch();
@@ -532,7 +533,7 @@ namespace Labsim.apollon.experiment.profile
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.DoPhaseE() : end"
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.DoPhaseE() : end"
             );
 
             // then ask response
@@ -547,7 +548,7 @@ namespace Labsim.apollon.experiment.profile
         protected override System.String getCurrentStatusInfo()
         {
 
-            return "[" + ApollonEngine.GetEnumDescription(this.ID) + "] : no active status";
+            return "[" + apollon.ApollonEngine.GetEnumDescription(this.ID) + "] : no active status";
 
         } /* getCurrentStatusInfo() */
 
@@ -558,7 +559,7 @@ namespace Labsim.apollon.experiment.profile
 
         } /* getCurrentCounterStatusInfo() */
 
-        public override void onUpdate(object sender, ApollonEngine.EngineEventArgs arg)
+        public override void onUpdate(object sender, apollon.ApollonEngine.EngineEventArgs arg)
         {
 
             // base call
@@ -566,7 +567,7 @@ namespace Labsim.apollon.experiment.profile
 
         } /* onUpdate() */
 
-        public override void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override void onExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // base call
@@ -574,7 +575,7 @@ namespace Labsim.apollon.experiment.profile
 
         } /* onExperimentSessionBegin() */
 
-        public override void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override void onExperimentSessionEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // base call
@@ -582,35 +583,35 @@ namespace Labsim.apollon.experiment.profile
 
         } /* onExperimentSessionEnd() */
 
-        public override void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override void onExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // local
-            int currentIdx = ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
+            int currentIdx = apollon.experiment.ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
 
             // extract settings
-            this._settings.bIsActive                        = ApollonExperimentManager.Instance.Session.settings.GetBoolList("active_mode")[currentIdx];
-            this._settings.upstream_latency_offset          = ApollonExperimentManager.Instance.Session.settings.GetFloat("upstream_latency_offset");
-            this._settings.acceleration_offset              = ApollonExperimentManager.Instance.Session.settings.GetFloat("acceleration_offset");
-            this._settings.speed_initial                    = ApollonExperimentManager.Instance.Session.settings.GetFloat("speed_initial");
-            this._settings.speed_saturation                 = ApollonExperimentManager.Instance.Session.settings.GetFloat("speed_saturation");
-            this._settings.acceleration_pattern_very_low    = ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_very_low")[currentIdx];
-            this._settings.acceleration_pattern_low         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_low")[currentIdx];
-            this._settings.acceleration_pattern_high        = ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_high")[currentIdx];
-            this._settings.acceleration_pattern_very_high   = ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_very_high")[currentIdx];
-            this._settings.phase_timeout_A_latency          = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_A_latency")[currentIdx];
-            this._settings.phase_timeout_B0_latency         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_B0_latency")[currentIdx];
-            this._settings.phase_timeout_B1_latency         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_B1_latency")[currentIdx];
-            this._settings.phase_timeout_B2_latency         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_B2_latency")[currentIdx];
-            this._settings.phase_timeout_C_SOA              = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_C_SOA")[currentIdx];
-            this._settings.phase_timeout_D_latency          = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_D_latency")[currentIdx];
-            this._settings.phase_timeout_E0_latency         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_E0_latency")[currentIdx];
-            this._settings.phase_timeout_E1_latency         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_E1_latency")[currentIdx];
-            this._settings.phase_timeout_E2_latency         = ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_E2_latency")[currentIdx];
-            this._settings.acceleration_pattern_sequence    = ApollonExperimentManager.Instance.Session.settings.GetStringList("acceleration_pattern_sequence")[currentIdx];
+            this._settings.bIsActive                        = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetBoolList("active_mode")[currentIdx];
+            this._settings.upstream_latency_offset          = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("upstream_latency_offset");
+            this._settings.acceleration_offset              = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("acceleration_offset");
+            this._settings.speed_initial                    = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("speed_initial");
+            this._settings.speed_saturation                 = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloat("speed_saturation");
+            this._settings.acceleration_pattern_very_low    = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_very_low")[currentIdx];
+            this._settings.acceleration_pattern_low         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_low")[currentIdx];
+            this._settings.acceleration_pattern_high        = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_high")[currentIdx];
+            this._settings.acceleration_pattern_very_high   = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("acceleration_pattern_very_high")[currentIdx];
+            this._settings.phase_timeout_A_latency          = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_A_latency")[currentIdx];
+            this._settings.phase_timeout_B0_latency         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_B0_latency")[currentIdx];
+            this._settings.phase_timeout_B1_latency         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_B1_latency")[currentIdx];
+            this._settings.phase_timeout_B2_latency         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_B2_latency")[currentIdx];
+            this._settings.phase_timeout_C_SOA              = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_C_SOA")[currentIdx];
+            this._settings.phase_timeout_D_latency          = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_D_latency")[currentIdx];
+            this._settings.phase_timeout_E0_latency         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_E0_latency")[currentIdx];
+            this._settings.phase_timeout_E1_latency         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_E1_latency")[currentIdx];
+            this._settings.phase_timeout_E2_latency         = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetFloatList("phase_timeout_E2_latency")[currentIdx];
+            this._settings.acceleration_pattern_sequence    = apollon.experiment.ApollonExperimentManager.Instance.Session.settings.GetStringList("acceleration_pattern_sequence")[currentIdx];
 
             // log the
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAgencyAndTBWExperimentProfile.onExperimentTrialBegin() : found current settings trial..."
+                "<color=Blue>Info: </color> AgencyAndTBWProfile.onExperimentTrialBegin() : found current settings trial..."
                 + "\n - bIsActive : "                       + this._settings.bIsActive                 
                 + "\n - upstream_latency_offset : "         + this._settings.upstream_latency_offset.ToString()
                 + "\n - acceleration_offset : "             + this._settings.acceleration_offset
@@ -640,7 +641,7 @@ namespace Labsim.apollon.experiment.profile
 
         } /* onExperimentTrialBegin() */
 
-        public override void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public override void onExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // // stop audio recording & save it
             // UnityEngine.Microphone.End(UnityEngine.Microphone.devices[0]);
@@ -663,6 +664,6 @@ namespace Labsim.apollon.experiment.profile
 
         #endregion
 
-    } /* class ApollonAgencyAndTBWExperimentProfile */
+    } /* class AgencyAndTBWProfile */
 
-} /* } Labsim.apollon.experiment.profile */
+} /* } Labsim.experiment.AgencyAndTBW */
