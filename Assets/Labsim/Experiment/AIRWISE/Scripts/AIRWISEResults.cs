@@ -31,6 +31,18 @@ namespace Labsim.experiment.AIRWISE
             this.CurrentProfile = profile;
         }
 
+        public class TrialResults
+        {
+
+            #region user_*
+
+            public float 
+                user_performance_value;
+
+            #endregion
+
+        } /* class Trial */
+
         public class DefaultPhaseTimingResults
         {
 
@@ -152,6 +164,7 @@ namespace Labsim.experiment.AIRWISE
 
         } /* class PhaseJResults */
 
+        public TrialResults Trial { get; set; } = new(); 
         public PhaseAResults PhaseA { get; set; } = new(); 
         public PhaseBResults PhaseB { get; set; } = new();
         public PhaseCResults PhaseC { get; set; } = new();
@@ -177,6 +190,9 @@ namespace Labsim.experiment.AIRWISE
                 results["catch_try_condition"] = this.CurrentProfile.CurrentSettings.Trial.bIsTryCatch.ToString();
                 results["scenario_name"]       = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.pattern_type);
                 results["scene_name"]          = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.scene_type);
+
+                // current trials results
+                results["user_performance_value"] = this.Trial.user_performance_value.ToString();
 
                 // phase A
                 results["A_timing_on_entry_unity_timestamp"] = this.PhaseA.timing_on_entry_unity_timestamp.ToString();

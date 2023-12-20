@@ -120,6 +120,32 @@ namespace Labsim.experiment.AIRWISE
 
         } /* enum */
 
+        public enum VisualIDType
+        {
+
+            [System.ComponentModel.Description("Undefined")]
+            Undefined = 0,
+
+            [System.ComponentModel.Description("None")]
+            None,
+
+            [System.ComponentModel.Description("StreetA")]
+            StreetA,
+
+            [System.ComponentModel.Description("StreetB")]
+            StreetB,
+
+            [System.ComponentModel.Description("StreetC")]
+            StreetC,
+
+            [System.ComponentModel.Description("StreetD")]
+            StreetD,
+
+            [System.ComponentModel.Description("StreetE")]
+            StreetE,
+
+        } /* enum */
+
         // General trial
         public class TrialSettings
         {
@@ -138,6 +164,12 @@ namespace Labsim.experiment.AIRWISE
             
             [JSONSettingsAttribute("scene_name")]
             public SceneIDType scene_type;
+            
+            [JSONSettingsAttribute("visual_name")]
+            public VisualIDType visual_type;
+
+            [JSONSettingsAttribute("performance_criteria_value")]
+            public float performance_criteria;
 
         } /* TrialSettings */
 
@@ -272,6 +304,10 @@ namespace Labsim.experiment.AIRWISE
                     = settings.GetBool(
                         this.GetJSONSettingsAttributeName<TrialSettings>("bIsActive")
                     );
+                this.Trial.performance_criteria
+                    = settings.GetFloat(
+                        this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria_value")
+                    );
                 
                 // current control
                 switch(
@@ -395,6 +431,76 @@ namespace Labsim.experiment.AIRWISE
 
                 } /* switch() */
 
+                // current visual
+                switch(
+                    settings.GetString(
+                        this.GetJSONSettingsAttributeName<TrialSettings>("visual_name")
+                    )
+                ) {
+                    
+                    // None
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.None),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.None;
+                        break;
+                    }
+
+                    // StreetA
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.StreetA),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.StreetA;
+                        break;
+                    }
+
+                    // StreetB
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.StreetB),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.StreetB;
+                        break;
+                    }
+
+                    // StreetC
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.StreetC),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.StreetC;
+                        break;
+                    }
+
+                    // StreetD
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.StreetD),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.StreetD;
+                        break;
+                    }
+
+                    // StreetE
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.StreetE),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.StreetE;
+                        break;
+                    }
+
+                    // default
+                    default: 
+                    {
+                        this.Trial.visual_type = VisualIDType.Undefined;
+                        break;
+                    }
+
+                } /* switch() */
+
                 // phase A
                 this.PhaseA.duration
                     = settings.GetFloat(
@@ -491,6 +597,10 @@ namespace Labsim.experiment.AIRWISE
                     + " : " 
                     + this.Trial.bIsActive
                 + "\n - " 
+                    + this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria_value") 
+                    + " : " 
+                    + this.Trial.performance_criteria
+                + "\n - " 
                     + this.GetJSONSettingsAttributeName<TrialSettings>("control_name") 
                     + " : " 
                     + apollon.ApollonEngine.GetEnumDescription(this.Trial.control_type)
@@ -498,6 +608,10 @@ namespace Labsim.experiment.AIRWISE
                     + this.GetJSONSettingsAttributeName<TrialSettings>("scene_name") 
                     + " : " 
                     + apollon.ApollonEngine.GetEnumDescription(this.Trial.scene_type)
+                + "\n - " 
+                    + this.GetJSONSettingsAttributeName<TrialSettings>("visual_name") 
+                    + " : " 
+                    + apollon.ApollonEngine.GetEnumDescription(this.Trial.visual_type)
                 + "\n - " 
                     + this.GetJSONSettingsAttributeName<PhaseASettings>("duration") 
                     + " : " 
