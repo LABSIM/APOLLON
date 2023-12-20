@@ -321,6 +321,10 @@ namespace Labsim.experiment.AIRWISE
                     + "[" 
                     + apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.scene_type)
                     + "]"
+                + "\n - user_performance_value"                        
+                    + "[" 
+                    + this.Trial.user_performance_value
+                    + "]"
                 + "\n - A_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseA.timing_on_entry_unity_timestamp.ToString()
