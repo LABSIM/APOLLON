@@ -7,11 +7,13 @@ Shader "Unlit/SingleColor"
         // Color property for material inspector, default to white
         _Color("Main Color", Color) = (1,1,1,1)
     }
-        SubShader
+
+    SubShader
     {
         Pass
         {
             CGPROGRAM
+
             #pragma vertex vert
             #pragma fragment frag
 
@@ -24,15 +26,16 @@ Shader "Unlit/SingleColor"
                 return UnityObjectToClipPos(vertex);
             }
 
-        // color from the material
-        fixed4 _Color;
+            // color from the material
+            fixed4 _Color;
 
-        // pixel shader, no inputs needed
-        fixed4 frag() : SV_Target
-        {
-            return _Color; // just return it
+            // pixel shader, no inputs needed
+            fixed4 frag() : SV_Target
+            {
+                return _Color; // just return it
+            }
+            
+            ENDCG
         }
-        ENDCG
-    }
     }
 }
