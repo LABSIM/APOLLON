@@ -91,8 +91,8 @@ namespace Labsim.apollon.experiment
                     this._experimentState.Add(profile.ID, false);
 
                     // bind event
-                    this.ExperimentProfileActivationRequestedEvent += profile.onExperimentProfileActivationRequested;
-                    this.ExperimentProfileDeactivationRequestedEvent += profile.onExperimentProfileDeactivationRequested;
+                    this.ExperimentProfileActivationRequestedEvent += profile.OnExperimentProfileActivationRequested;
+                    this.ExperimentProfileDeactivationRequestedEvent += profile.OnExperimentProfileDeactivationRequested;
 
                     // log
                     UnityEngine.Debug.Log(
@@ -293,7 +293,10 @@ namespace Labsim.apollon.experiment
             AgencyAndThresholdPerceptionV4,
 
             [System.ComponentModel.Description("CAVIAR")]
-            CAVIAR
+            CAVIAR,
+
+            [System.ComponentModel.Description("AIRWISE")]
+            AIRWISE
 
         } /* enum*/
 
@@ -501,7 +504,6 @@ namespace Labsim.apollon.experiment
                     break;
                 }
 
-
                 // CAVIAR
                 case string param when param.Equals(
                     ApollonEngine.GetEnumDescription(ProfileIDType.CAVIAR), 
@@ -512,6 +514,19 @@ namespace Labsim.apollon.experiment
                         "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [CAVIAR]"
                     );
                     this.setActiveProfile(ProfileIDType.CAVIAR);
+                    break;
+                }
+
+                // AIRWISE
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.AIRWISE), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [AIRWISE]"
+                    );
+                    this.setActiveProfile(ProfileIDType.AIRWISE);
                     break;
                 }
 
@@ -526,7 +541,7 @@ namespace Labsim.apollon.experiment
             } /* switch() */
 
             // call
-            this.Profile.onExperimentSessionBegin(sender, arg);
+            this.Profile.OnExperimentSessionBegin(sender, arg);
             
         } /* onExperimentSessionBegin() */
 

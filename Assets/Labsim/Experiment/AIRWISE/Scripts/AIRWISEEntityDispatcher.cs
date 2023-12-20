@@ -24,6 +24,7 @@ namespace Labsim.experiment.AIRWISE
     public class AIRWISEEntityDispatcher
         : apollon.gameplay.ApollonConcreteGameplayDispatcher<AIRWISEEntityBridge>
     {
+        
         #region event args class
 
         public class AIRWISEEntityEventArgs

@@ -297,7 +297,7 @@ namespace Labsim.experiment.CAVIAR
 
         } /* getCurrentCounterStatusInfo() */
 
-        public async override void onExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public async override void OnExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // log
             UnityEngine.Debug.Log(
@@ -312,7 +312,7 @@ namespace Labsim.experiment.CAVIAR
             apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.All);
 
             // base call
-            base.onExperimentSessionBegin(sender, arg);
+            base.OnExperimentSessionBegin(sender, arg);
 
             // log
             UnityEngine.Debug.Log(
@@ -321,7 +321,7 @@ namespace Labsim.experiment.CAVIAR
 
         } /* onExperimentSessionBegin() */
 
-        public override async void onExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void OnExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -588,7 +588,7 @@ namespace Labsim.experiment.CAVIAR
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.CAVIARControl);
 
             // base call
-            base.onExperimentTrialBegin(sender, arg);
+            base.OnExperimentTrialBegin(sender, arg);
 
             // fade out
             await this.DoFadeOut(this._trial_fade_out_duration, false);
@@ -616,7 +616,7 @@ namespace Labsim.experiment.CAVIAR
             
         } /* onExperimentTrialBegin() */
 
-        public override async void onExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void OnExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -744,7 +744,7 @@ namespace Labsim.experiment.CAVIAR
             apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.All);
            
             // base call
-            base.onExperimentTrialEnd(sender, arg);
+            base.OnExperimentTrialEnd(sender, arg);
 
             // log
             UnityEngine.Debug.Log(

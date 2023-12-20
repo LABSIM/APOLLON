@@ -578,31 +578,31 @@ namespace Labsim.experiment.AgencyAndTBW
 
         } /* getCurrentCounterStatusInfo() */
 
-        public override void onUpdate(object sender, apollon.ApollonEngine.EngineEventArgs arg)
+        public override void OnUpdate(object sender, apollon.ApollonEngine.EngineEventArgs arg)
         {
 
             // base call
-            base.onUpdate(sender, arg);
+            base.OnUpdate(sender, arg);
 
         } /* onUpdate() */
 
-        public override void onExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override void OnExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // base call
-            base.onExperimentSessionBegin(sender, arg);
+            base.OnExperimentSessionBegin(sender, arg);
 
         } /* onExperimentSessionBegin() */
 
-        public override void onExperimentSessionEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override void OnExperimentSessionEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // base call
-            base.onExperimentSessionEnd(sender, arg);
+            base.OnExperimentSessionEnd(sender, arg);
 
         } /* onExperimentSessionEnd() */
 
-        public override void onExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override void OnExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // local
             int currentIdx = apollon.experiment.ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
@@ -653,14 +653,14 @@ namespace Labsim.experiment.AgencyAndTBW
             );
 
             // base call
-            base.onExperimentTrialBegin(sender, arg);
+            base.OnExperimentTrialBegin(sender, arg);
 
             // initial
             this.DoPhaseA();
 
         } /* onExperimentTrialBegin() */
 
-        public override void onExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override void OnExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // // stop audio recording & save it
             // UnityEngine.Microphone.End(UnityEngine.Microphone.devices[0]);
@@ -677,7 +677,7 @@ namespace Labsim.experiment.AgencyAndTBW
             // );
 
             // base call
-            base.onExperimentTrialEnd(sender, arg);
+            base.OnExperimentTrialEnd(sender, arg);
 
         } /* onExperimentTrialEnd() */
 

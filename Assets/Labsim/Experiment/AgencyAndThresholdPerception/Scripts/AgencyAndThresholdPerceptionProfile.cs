@@ -168,15 +168,15 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
 
         } /* getCurrentCounterStatusInfo() */
 
-        public override void onUpdate(object sender, apollon.ApollonEngine.EngineEventArgs arg)
+        public override void OnUpdate(object sender, apollon.ApollonEngine.EngineEventArgs arg)
         {
 
             // base call
-            base.onUpdate(sender, arg);
+            base.OnUpdate(sender, arg);
 
         } /* onUpdate() */
 
-        public async override void onExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public async override void OnExperimentSessionBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -208,7 +208,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             we_behaviour.References["DBTag_ExoFrontend"].SetActive(true);
 
             // base call
-            base.onExperimentSessionBegin(sender, arg);
+            base.OnExperimentSessionBegin(sender, arg);
 
             // log
             UnityEngine.Debug.Log(
@@ -217,7 +217,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
 
         } /* onExperimentSessionBegin() */
 
-        public override async void onExperimentSessionEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void OnExperimentSessionEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -226,7 +226,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             );
 
             // base call
-            base.onExperimentSessionEnd(sender, arg);
+            base.OnExperimentSessionEnd(sender, arg);
 
             // deactivate all motion system command/sensor
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
@@ -247,7 +247,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
 
         } /* onExperimentSessionEnd() */
 
-        public override async void onExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void OnExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
             // log
             UnityEngine.Debug.Log(
@@ -372,7 +372,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionControl);
 
             // base call
-            base.onExperimentTrialBegin(sender, arg);
+            base.OnExperimentTrialBegin(sender, arg);
 
             // fade out
             await this.DoFadeOut(this._trial_fade_out_duration, false);
@@ -394,7 +394,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             
         } /* onExperimentTrialBegin() */
 
-        public override async void onExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
+        public override async void OnExperimentTrialEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // log
@@ -453,7 +453,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             seat_bridge.ConcreteDispatcher.RaiseIdle();
 
             // base call
-            base.onExperimentTrialEnd(sender, arg);
+            base.OnExperimentTrialEnd(sender, arg);
             
             // log
             UnityEngine.Debug.Log(

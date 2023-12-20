@@ -99,7 +99,7 @@ namespace Labsim.apollon.experiment
         #region subscription / unsubscription
 
         // registration
-        public void onExperimentProfileActivationRequested(object sender, ApollonExperimentManager.EngineProfileEventArgs arg)
+        public void OnExperimentProfileActivationRequested(object sender, ApollonExperimentManager.EngineProfileEventArgs arg)
         {
 
             // check
@@ -107,11 +107,11 @@ namespace Labsim.apollon.experiment
             {
 
                 // plug it
-                ApollonEngine.Instance.EngineUpdateEvent += this.onUpdate;
-                ApollonEngine.Instance.EngineExperimentSessionBeginEvent += this.onExperimentSessionBegin;
-                ApollonEngine.Instance.EngineExperimentSessionEndEvent += this.onExperimentSessionEnd;
-                ApollonEngine.Instance.EngineExperimentTrialBeginEvent += this.onExperimentTrialBegin;
-                ApollonEngine.Instance.EngineExperimentTrialEndEvent += this.onExperimentTrialEnd;
+                ApollonEngine.Instance.EngineUpdateEvent += this.OnUpdate;
+                ApollonEngine.Instance.EngineExperimentSessionBeginEvent += this.OnExperimentSessionBegin;
+                ApollonEngine.Instance.EngineExperimentSessionEndEvent += this.OnExperimentSessionEnd;
+                ApollonEngine.Instance.EngineExperimentTrialBeginEvent += this.OnExperimentTrialBegin;
+                ApollonEngine.Instance.EngineExperimentTrialEndEvent += this.OnExperimentTrialEnd;
 
                 // register it
                 ApollonExperimentManager.Instance.Profile = this;
@@ -121,7 +121,7 @@ namespace Labsim.apollon.experiment
         } /* onExperimentTrialBeginEvent() */
 
         // unregistration
-        public void onExperimentProfileDeactivationRequested(object sender, ApollonExperimentManager.EngineProfileEventArgs arg)
+        public void OnExperimentProfileDeactivationRequested(object sender, ApollonExperimentManager.EngineProfileEventArgs arg)
         {
 
             // check
@@ -129,11 +129,11 @@ namespace Labsim.apollon.experiment
             {
 
                 // plug it
-                ApollonEngine.Instance.EngineUpdateEvent -= this.onUpdate;
-                ApollonEngine.Instance.EngineExperimentSessionBeginEvent -= this.onExperimentSessionBegin;
-                ApollonEngine.Instance.EngineExperimentSessionEndEvent -= this.onExperimentSessionEnd;
-                ApollonEngine.Instance.EngineExperimentTrialBeginEvent -= this.onExperimentTrialBegin;
-                ApollonEngine.Instance.EngineExperimentTrialEndEvent -= this.onExperimentTrialEnd;
+                ApollonEngine.Instance.EngineUpdateEvent -= this.OnUpdate;
+                ApollonEngine.Instance.EngineExperimentSessionBeginEvent -= this.OnExperimentSessionBegin;
+                ApollonEngine.Instance.EngineExperimentSessionEndEvent -= this.OnExperimentSessionEnd;
+                ApollonEngine.Instance.EngineExperimentTrialBeginEvent -= this.OnExperimentTrialBegin;
+                ApollonEngine.Instance.EngineExperimentTrialEndEvent -= this.OnExperimentTrialEnd;
 
                 // register it
                 ApollonExperimentManager.Instance.Profile = null;
@@ -381,7 +381,7 @@ namespace Labsim.apollon.experiment
 
         #region abstract method
 
-        public virtual void onUpdate(object sender, ApollonEngine.EngineEventArgs arg)
+        public virtual void OnUpdate(object sender, ApollonEngine.EngineEventArgs arg)
         {
             
             // check request
@@ -476,7 +476,7 @@ namespace Labsim.apollon.experiment
 
         } /* onUpdate() */
 
-        public virtual void onExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public virtual void OnExperimentSessionBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // call config factories
@@ -492,7 +492,7 @@ namespace Labsim.apollon.experiment
 
         } /* onExperimentSessionBegin() */
 
-        public virtual async void onExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public virtual async void OnExperimentSessionEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
             // inactivate all
@@ -513,12 +513,12 @@ namespace Labsim.apollon.experiment
 
         } /* onExperimentSessionEnd() */
 
-        public virtual void onExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public virtual void OnExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
         } /* onExperimentTrialBegin() */
 
-        public virtual void onExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
+        public virtual void OnExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
             
             // check if there is any trial left
