@@ -188,7 +188,7 @@ namespace Labsim.experiment.AgencyAndTBW
             );
 
             // activate gameplay element & configure camera
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement);
             UnityEngine.Camera.main.clearFlags = this._cameraFlags;
             UnityEngine.Camera.main.backgroundColor = this._cameraBackgroundColor;
 
@@ -518,7 +518,7 @@ namespace Labsim.experiment.AgencyAndTBW
             ).Stop();
 
             // hide static & blank camer
-            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement);
             UnityEngine.Camera.main.clearFlags = this._blankCameraFlags;
             UnityEngine.Camera.main.backgroundColor = this._blankCameraBackgroundColor;
 

@@ -464,7 +464,8 @@ namespace Labsim.apollon.gameplay
             this._gameplayState = new System.Collections.Generic.Dictionary<GameplayIDType, bool>
             {
                 { GameplayIDType.None, false },
-                { GameplayIDType.WorldElement, false },
+                { GameplayIDType.StaticElement, false },
+                { GameplayIDType.DynamicEntity, false },
                 { GameplayIDType.FogElement, false },
                 { GameplayIDType.SimulatedRobosoftEntity, false },
                 { GameplayIDType.RealRobosoftEntity, false },
@@ -506,8 +507,11 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("None")]
             None = 0,
 
-            [System.ComponentModel.Description("WorldElement")]
-            WorldElement,
+            [System.ComponentModel.Description("StaticElement")]
+            StaticElement,
+
+            [System.ComponentModel.Description("DynamicEntity")]
+            DynamicEntity,
 
             [System.ComponentModel.Description("FogElement")]
             FogElement,
@@ -697,7 +701,8 @@ namespace Labsim.apollon.gameplay
         {
 
             // default 
-            this.setActive(GameplayIDType.WorldElement);
+            this.setActive(GameplayIDType.StaticElement);
+            this.setInactive(GameplayIDType.DynamicEntity);
 
         } /* onStart() */
 

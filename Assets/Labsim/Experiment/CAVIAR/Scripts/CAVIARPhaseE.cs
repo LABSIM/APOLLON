@@ -100,8 +100,8 @@ namespace Labsim.experiment.CAVIAR
             // inactivate all visual cues through LINQ request
             var we_behaviour
                  = apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
-                ).Behaviour as apollon.gameplay.element.ApollonWorldElementBehaviour;
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
+                ).Behaviour as apollon.gameplay.element.ApollonStaticElementBehaviour;
             foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
             {
                 vc_ref.SetActive(false);

@@ -1419,9 +1419,9 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV4
             // deactivate default DB & activate room setup
             var we_behaviour
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.element.ApollonWorldElementBridge
+                    apollon.gameplay.element.ApollonStaticElementBridge
                 >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
             we_behaviour.References["DBTag_Default"].SetActive(false);
             we_behaviour.References["DBTag_Room"].SetActive(true);
@@ -1498,9 +1498,9 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV4
             // inactivate all visual cues through LINQ request
             var we_behaviour
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.element.ApollonWorldElementBridge
+                    apollon.gameplay.element.ApollonStaticElementBridge
                 >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
             foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
             {
@@ -1568,7 +1568,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV4
             }
            
             // activate world element & contriol system
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement);
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV4Control);
 
             // base call

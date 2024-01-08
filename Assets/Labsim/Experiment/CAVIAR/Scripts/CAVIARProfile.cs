@@ -506,7 +506,7 @@ namespace Labsim.experiment.CAVIAR
             arg.Trial.result["pattern"] = arg.Trial.settings.GetString("current_pattern");
 
             // activate world, CAVIAR entity, Radiosonde sensor, HOTAS Throttle
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement);
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement);
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement);
 
             // activate current database
@@ -524,8 +524,8 @@ namespace Labsim.experiment.CAVIAR
             // get bridge
             var we_behaviour
                  = apollon.gameplay.ApollonGameplayManager.Instance.getBridge(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.WorldElement
-                ).Behaviour as apollon.gameplay.element.ApollonWorldElementBehaviour;
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
+                ).Behaviour as apollon.gameplay.element.ApollonStaticElementBehaviour;
 
             // LINQ         
             foreach (var db_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("DBTag_")).Select(kvp => kvp.Value))

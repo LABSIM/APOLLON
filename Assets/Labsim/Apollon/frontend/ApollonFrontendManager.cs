@@ -462,6 +462,12 @@ namespace Labsim.apollon.frontend
                 { FrontendIDType.IntensitySliderGUI, false },
                 { FrontendIDType.SideSliderGUI, false },
                 { FrontendIDType.ConfidenceSliderGUI, false },
+                { FrontendIDType.MentalDemandSliderGUI, false },
+                { FrontendIDType.PhysicalDemandSliderGUI, false },
+                { FrontendIDType.TemporalDemandSliderGUI, false },
+                { FrontendIDType.OverallPerformanceSliderGUI, false },
+                { FrontendIDType.EffortSliderGUI, false },
+                { FrontendIDType.FrustrationSliderGUI, false },
                 { FrontendIDType.All, false }
             };
 
@@ -546,6 +552,24 @@ namespace Labsim.apollon.frontend
 
             [System.ComponentModel.Description("ConfidenceSliderGUI")]
             ConfidenceSliderGUI,
+
+            [System.ComponentModel.Description("MentalDemandSliderGUI")]
+            MentalDemandSliderGUI,
+
+            [System.ComponentModel.Description("PhysicalDemandSliderGUI")]
+            PhysicalDemandSliderGUI,
+
+            [System.ComponentModel.Description("TemporalDemandSliderGUI")]
+            TemporalDemandSliderGUI,
+
+            [System.ComponentModel.Description("OverallPerformanceSliderGUI")]
+            OverallPerformanceSliderGUI,
+
+            [System.ComponentModel.Description("EffortSliderGUI")]
+            EffortSliderGUI,
+
+            [System.ComponentModel.Description("FrustrationSliderGUI")]
+            FrustrationSliderGUI,
 
             [System.ComponentModel.Description("All")]
             All
