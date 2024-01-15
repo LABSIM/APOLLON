@@ -40,8 +40,9 @@ namespace Labsim.experiment.AIRWISE
         {
            
             // return it
-            return UXF.UXFDataRow()
+            return new UXF.UXFDataRow()
             {
+                ("","")
             };
 
         } /* GetCurrentValues() */
