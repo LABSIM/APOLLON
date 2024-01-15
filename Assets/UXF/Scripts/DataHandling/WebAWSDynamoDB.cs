@@ -22,7 +22,7 @@ namespace UXF
         [Tooltip("Enable collect browser info from the participant, and store them in the session.participantDetails dictionary. (Key-value pairs are: \"screen_width\": int, \"screen_height\": int, \"user_agent\": string)")]
         public bool collectBrowserInfo = true;
 
-        // [SubjectNerd.Utilities.EditScriptable]
+        [SubjectNerd.Utilities.EditScriptable]
         public AWSCredentials credentials;
 
 #if UNITY_WEBGL

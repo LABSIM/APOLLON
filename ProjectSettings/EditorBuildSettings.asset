@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Labsim/Experiment/AgencyAndThresholdPerceptionV3/Scenes/AgencyAndThresholdPerceptionV3.unity
-    guid: e12be71b525e35f449bdb5f0c9e59c59
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/SetupExperimental_Test.unity
+    guid: 61faedc049f4d3c4ab0e8956a9d48e4b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8264bf70eef11fa42bde15fd25bc24c5,
       type: 2}

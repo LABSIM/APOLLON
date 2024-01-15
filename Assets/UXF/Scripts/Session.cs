@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.Specialized;
 using UnityEngine.Events;
-// using SubjectNerd.Utilities;
 
 namespace UXF
 {
@@ -68,7 +67,7 @@ namespace UXF
         /// List of dependent variables you plan to measure in your experiment. Once set here, you can add the observations to your results dictionary on each trial.
         /// </summary>
         [Tooltip("List of dependent variables you plan to measure in your experiment. Once set here, you can add the observations to your results dictionary on each trial.")]
-        // [Reorderable]
+        [SubjectNerd.Utilities.Reorderable]
         public List<string> customHeaders = new List<string>();
 
         /// <summary>
@@ -76,14 +75,14 @@ namespace UXF
         /// </summary>
         /// <returns></returns>
         [Tooltip("List of settings (independent variables) you wish to log to the behavioural data output for each trial.")]
-        // [Reorderable]
+        [SubjectNerd.Utilities.Reorderable]
         public List<string> settingsToLog = new List<string>();
 
         /// <summary>
         /// List of tracked objects. Add a tracker to a GameObject in your scene and set it here to track position and rotation of the object on each Update().
         /// </summary>
         [Tooltip("List of tracked objects. Add a tracker to a GameObject in your scene and set it here to track position and rotation of the object on each Update().")]
-        // [Reorderable]
+        [SubjectNerd.Utilities.Reorderable]
         public List<Tracker> trackedObjects = new List<Tracker>();
 
         /// <summary>
@@ -244,7 +243,7 @@ namespace UXF
         /// <summary>
         /// Reference to the associated DataHandlers which handles saving data to the cloud, etc.
         /// </summary>
-        // [Reorderable]
+        [SubjectNerd.Utilities.Reorderable]
         public DataHandler[] dataHandlers = new DataHandler[]{};
 
         /// <summary>
