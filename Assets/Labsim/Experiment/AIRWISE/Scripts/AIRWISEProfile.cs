@@ -19,6 +19,7 @@
 //
 
 using System.Linq;
+using UnityEngine.UIElements;
 
 // avoid namespace pollution
 namespace Labsim.experiment.AIRWISE
@@ -100,6 +101,93 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : begin"
             );
 
+            // configure VarjoXR plugin
+            Varjo.XR.VarjoEyeTracking.SetGazeOutputFrequency(Varjo.XR.VarjoEyeTracking.GazeOutputFrequency.Frequency200Hz);
+            Varjo.XR.VarjoEyeTracking.SetGazeOutputFilterType(Varjo.XR.VarjoEyeTracking.GazeOutputFilterType.Standard);
+            Varjo.XR.VarjoHeadsetIPD.SetInterPupillaryDistanceParameters(Varjo.XR.VarjoHeadsetIPD.IPDAdjustmentMode.Automatic);
+
+            // force recalibration
+            Varjo.XR.VarjoEyeTracking.RequestGazeCalibration(
+                Varjo.XR.VarjoEyeTracking.GazeCalibrationMode.Fast,
+                Varjo.XR.VarjoEyeTracking.HeadsetAlignmentGuidanceMode.AutoContinueOnAcceptableHeadsetPosition
+            );
+
+            // wait for eye tracking system init
+            do
+            {
+                await apollon.ApollonHighResolutionTime.DoSleep(500.0f);
+            } 
+            while(Varjo.XR.VarjoEyeTracking.IsGazeCalibrating() && !Varjo.XR.VarjoEyeTracking.IsGazeCalibrated());
+
+            // extract calibration results
+            var calibration_results = Varjo.XR.VarjoEyeTracking.GetGazeCalibrationQuality();
+            string left_result, right_result;
+
+            switch(calibration_results.left)
+            {
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Low:
+                {
+                    left_result
+                        = "Low";
+                    break;
+                }
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Medium:
+                {
+                    left_result
+                        = "Medium";
+                    break;
+                }
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.High:
+                {
+                    left_result
+                        = "High";
+                    break;
+                }
+                default:
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Invalid:
+                {
+                    left_result
+                        = "Invalid";
+                    break;
+                }
+            } /* switch() */
+
+            switch(calibration_results.right)
+            {
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Low:
+                {
+                    right_result
+                        = "Low";
+                    break;
+                }
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Medium:
+                {
+                    right_result
+                        = "Medium";
+                    break;
+                }
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.High:
+                {
+                    right_result
+                        = "High";
+                    break;
+                }
+                default:
+                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Invalid:
+                {
+                    right_result
+                        = "Invalid";
+                    break;
+                }
+            } /* switch() */
+            
+            apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_left_eye_quality"] 
+                = left_result;
+            apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_right_eye_quality"] 
+                = right_result;
+            apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["inter_pupillary_distance"] 
+                = Varjo.XR.VarjoHeadsetIPD.GetDistance().ToString();
+
             // activate all motion system command/sensor
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
@@ -111,7 +199,6 @@ namespace Labsim.experiment.AIRWISE
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
             );      
 
-            // Varjo.XR.VarjoEyeTracking.
 
             // log 
             UnityEngine.Debug.Log(

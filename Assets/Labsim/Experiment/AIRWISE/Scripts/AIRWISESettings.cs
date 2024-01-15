@@ -168,7 +168,7 @@ namespace Labsim.experiment.AIRWISE
             [JSONSettingsAttribute("visual_name")]
             public VisualIDType visual_type;
 
-            [JSONSettingsAttribute("performance_criteria_value")]
+            [JSONSettingsAttribute(settings:"performance_criteria_value", unit:"percent")]
             public float performance_criteria;
 
         } /* TrialSettings */
