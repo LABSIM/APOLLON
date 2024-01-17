@@ -23,7 +23,7 @@ using System.Linq;
 // avoid namespace pollution
 namespace Labsim.experiment.AIRWISE
 {
-    public class AIRWISEEyeTracker
+    public sealed class AIRWISEEyeTracker
         : UXF.Tracker
     {
 
