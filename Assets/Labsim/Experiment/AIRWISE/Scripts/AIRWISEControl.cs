@@ -24,9 +24,717 @@ namespace Labsim.experiment.AIRWISE
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""AIRWISEControl"",
-    ""maps"": [],
+    ""maps"": [
+        {
+            ""name"": ""Supervisor"",
+            ""id"": ""1667cdcf-469b-4c2c-a29c-70bac2cb2b71"",
+            ""actions"": [
+                {
+                    ""name"": ""TrackedDeviceOrientation"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c9c0e64b-df1f-4af9-b086-585334abea4f"",
+                    ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TrackedDevicePosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f1ee3665-74de-4bdc-95a4-899374bd3bbb"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""8f7d950a-d7be-4bbc-8930-efb18a0bc3e9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MiddleClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""90ef373a-db50-4b9d-9d2d-3ecb38ef2301"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollWheel"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ffc958ba-bb67-465b-b85b-a0c29323c9e7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2c5db2f5-c04d-4259-b097-70f4303852ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""bb1fc64f-be07-4325-a5e9-8a8ce4ed92da"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b956094-3551-419f-b238-d6a32c877a9e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6ca9756-dea4-44ed-b601-b99884f2dd41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Navigate"",
+                    ""type"": ""Value"",
+                    ""id"": ""ba27bb44-590d-42b6-b4b4-6039360993a8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""df4b4d2e-fbd7-4aca-ab7d-edc88c050855"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e77a26fe-284b-4f91-b8fa-06b480254136"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""b99e696a-3f7a-4004-83c2-fc11232db751"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""e920a9af-9e7f-4e9e-8c49-c940363c8e38"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""11a15494-3654-4142-bcdd-b6a5359d3c5d"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""af1aafb9-636b-4374-a634-c27af7c61d6b"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""fce10f98-790d-47fc-9184-21ca46c615f2"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""473986a0-44aa-40c9-ac3d-2fd281b8424f"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""12cc5f61-df2c-4902-bcc6-5baa4613a642"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2ad2fc7-485a-4c8b-8c4a-1a36bbc83c10"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Joystick"",
+                    ""id"": ""0048525b-1938-4cdf-b159-086820a39bb9"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8b6ec5b7-f972-40a6-82b6-c97d00d35b13"",
+                    ""path"": ""<Joystick>/stick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""13e7db49-c9fe-4aeb-84b3-cc04491b4217"",
+                    ""path"": ""<Joystick>/stick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""f2fcd62f-af15-4844-bd89-bca997f68990"",
+                    ""path"": ""<Joystick>/stick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7161c2de-8f6f-4d7c-b915-5f3204355f50"",
+                    ""path"": ""<Joystick>/stick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""63a83c24-bfd9-4664-a313-d7a7b8659805"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""af272693-5f7a-48f2-b627-003d5ad0ff52"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""90a67181-69b7-4bdf-ac3e-82fb4ac665ee"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""084bbc8d-3f8e-4870-be78-d2e19ea06a26"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""06fd02c3-d39e-4dde-99b6-0d64dd8424f9"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""462ac623-3bf5-483e-b7d4-7ab437bb562a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""2da9cc3d-4dba-4e30-9b79-6b372dd09abc"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7ea7386e-24ab-4bb0-8b0b-73198f5aa309"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7f714688-3e52-4440-9b23-21fb85522164"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""501d7d64-0c75-4385-b5d6-cf9485bac576"",
+                    ""path"": ""*/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ccc9eb14-428c-495d-be2e-19ebffc4de0b"",
+                    ""path"": ""*/{Cancel}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a18346d-db1b-42e6-8ead-204bcb0f8142"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7684089b-8ed1-4165-8bb3-e79eb78e3873"",
+                    ""path"": ""<Pen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c95bb61-86d5-41f5-88ed-3da0522a32bf"",
+                    ""path"": ""<Touchscreen>/touch*/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8942e158-9518-41d3-8d45-e7f2d4f5b08c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60e2019f-08c3-4bbb-aa4b-a19fc9d64505"",
+                    ""path"": ""<Pen>/tip"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dad2adb5-7dbd-4a2e-ac7d-c950501aaf98"",
+                    ""path"": ""<Touchscreen>/touch*/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4891bf3-6c52-4ee1-af7e-566d66e0ddc1"",
+                    ""path"": ""<XRController>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5e49d57-65b7-4e06-9e4b-fb338facefdb"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""ScrollWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4deabd8-b755-4c50-bb78-0df0ec729029"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""MiddleClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48f880ad-434e-4d08-978b-7df1bf91cfd7"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac866e5f-d9e1-4330-9e71-860fd122033c"",
+                    ""path"": ""<XRController>/devicePosition"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""TrackedDevicePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02ab7b2f-d752-4281-a3b9-180067663916"",
+                    ""path"": ""<XRController>/deviceRotation"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Control"",
+                    ""action"": ""TrackedDeviceOrientation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Subject"",
+            ""id"": ""419bd4f1-62aa-4eff-bf6c-fb028c0ff456"",
+            ""actions"": [
+                {
+                    ""name"": ""ResponseTriggered"",
+                    ""type"": ""Button"",
+                    ""id"": ""4623c7e0-faec-4f28-912e-9f01b7ac8467"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JoystickHorizontalValueChanged"",
+                    ""type"": ""Value"",
+                    ""id"": ""002b0241-a6c5-4a37-ad39-9a2673b34733"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""JoystickVerticalValueChanged"",
+                    ""type"": ""Value"",
+                    ""id"": ""9e6f8fe9-db7b-4b38-9e3b-a6c536053640"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ThrottleNegativeCommandTriggered"",
+                    ""type"": ""Value"",
+                    ""id"": ""fd21ef8d-f676-406e-b063-eb6d6e0a0df2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ThrottlePositiveCommandTriggered"",
+                    ""type"": ""Value"",
+                    ""id"": ""08698fd0-f57d-42f4-8744-f3c40bd7adf8"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ThrottleNeutralCommandTriggered"",
+                    ""type"": ""Value"",
+                    ""id"": ""a6d86fd9-ded0-4bc6-b39e-1b00036bdc41"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ThrottleValueChanged"",
+                    ""type"": ""Value"",
+                    ""id"": ""9edee56e-2f5f-4d8c-b852-6f876dcbf48a"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b1a1921b-c71a-438c-b7c8-fac0adbd3ffc"",
+                    ""path"": ""<HID::Thrustmaster Throttle - HOTAS Warthog>/z"",
+                    ""interactions"": """",
+                    ""processors"": ""Invert"",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ThrottleValueChanged"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00ffd15a-5567-4298-9247-2e7f1b10e1a7"",
+                    ""path"": ""<HID::Thrustmaster Throttle - HOTAS Warthog>/z"",
+                    ""interactions"": ""ApollonHoldInRangeWithThreshold(m_duration_ms=250,m_threshold_ratio_percentage=15,m_lower_bound=-0.05,m_upper_bound=0.23)"",
+                    ""processors"": ""AxisDeadzone,Invert"",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ThrottleNeutralCommandTriggered"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dcc74bda-ff26-4c1f-89a7-2fb7d1fd1e2f"",
+                    ""path"": ""<HID::Thrustmaster Throttle - HOTAS Warthog>/z"",
+                    ""interactions"": ""ApollonHoldInRangeWithThreshold(m_duration_ms=50,m_lower_bound=0.75)"",
+                    ""processors"": ""AxisDeadzone,Invert"",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ThrottlePositiveCommandTriggered"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b0730f1-04a4-4900-83ac-45316502c34e"",
+                    ""path"": ""<HID::Thrustmaster Throttle - HOTAS Warthog>/z"",
+                    ""interactions"": ""ApollonHoldInRangeWithThreshold(m_duration_ms=50,m_upper_bound=-0.75)"",
+                    ""processors"": ""AxisDeadzone,Invert"",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ThrottleNegativeCommandTriggered"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""856a9444-4a32-4b15-8163-3ed5b179a837"",
+                    ""path"": ""<HID::Thustmaster Joystick - HOTAS Warthog>/stick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""JoystickHorizontalValueChanged"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""029597f1-74b9-4dd6-9f02-e46c0ac555bb"",
+                    ""path"": ""<HID::Thustmaster Joystick - HOTAS Warthog>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ResponseTriggered"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3962c8fc-7083-4973-8c86-3317d85d06d7"",
+                    ""path"": ""<HID::Thrustmaster Throttle - HOTAS Warthog>/button15"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ResponseTriggered"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""241bfb63-6edd-4f8d-880b-754f966051e4"",
+                    ""path"": ""<HID::Thrustmaster Throttle - HOTAS Warthog>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""ResponseTriggered"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c085217-fa35-4f3e-88ac-627b1d74b212"",
+                    ""path"": ""<HID::Thustmaster Joystick - HOTAS Warthog>/stick/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Cockpit"",
+                    ""action"": ""JoystickVerticalValueChanged"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        }
+    ],
     ""controlSchemes"": []
 }");
+            // Supervisor
+            m_Supervisor = asset.FindActionMap("Supervisor", throwIfNotFound: true);
+            m_Supervisor_TrackedDeviceOrientation = m_Supervisor.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            m_Supervisor_TrackedDevicePosition = m_Supervisor.FindAction("TrackedDevicePosition", throwIfNotFound: true);
+            m_Supervisor_RightClick = m_Supervisor.FindAction("RightClick", throwIfNotFound: true);
+            m_Supervisor_MiddleClick = m_Supervisor.FindAction("MiddleClick", throwIfNotFound: true);
+            m_Supervisor_ScrollWheel = m_Supervisor.FindAction("ScrollWheel", throwIfNotFound: true);
+            m_Supervisor_Click = m_Supervisor.FindAction("Click", throwIfNotFound: true);
+            m_Supervisor_Point = m_Supervisor.FindAction("Point", throwIfNotFound: true);
+            m_Supervisor_Cancel = m_Supervisor.FindAction("Cancel", throwIfNotFound: true);
+            m_Supervisor_Submit = m_Supervisor.FindAction("Submit", throwIfNotFound: true);
+            m_Supervisor_Navigate = m_Supervisor.FindAction("Navigate", throwIfNotFound: true);
+            // Subject
+            m_Subject = asset.FindActionMap("Subject", throwIfNotFound: true);
+            m_Subject_ResponseTriggered = m_Subject.FindAction("ResponseTriggered", throwIfNotFound: true);
+            m_Subject_JoystickHorizontalValueChanged = m_Subject.FindAction("JoystickHorizontalValueChanged", throwIfNotFound: true);
+            m_Subject_JoystickVerticalValueChanged = m_Subject.FindAction("JoystickVerticalValueChanged", throwIfNotFound: true);
+            m_Subject_ThrottleNegativeCommandTriggered = m_Subject.FindAction("ThrottleNegativeCommandTriggered", throwIfNotFound: true);
+            m_Subject_ThrottlePositiveCommandTriggered = m_Subject.FindAction("ThrottlePositiveCommandTriggered", throwIfNotFound: true);
+            m_Subject_ThrottleNeutralCommandTriggered = m_Subject.FindAction("ThrottleNeutralCommandTriggered", throwIfNotFound: true);
+            m_Subject_ThrottleValueChanged = m_Subject.FindAction("ThrottleValueChanged", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -83,6 +791,241 @@ namespace Labsim.experiment.AIRWISE
         public int FindBinding(InputBinding bindingMask, out InputAction action)
         {
             return asset.FindBinding(bindingMask, out action);
+        }
+
+        // Supervisor
+        private readonly InputActionMap m_Supervisor;
+        private List<ISupervisorActions> m_SupervisorActionsCallbackInterfaces = new List<ISupervisorActions>();
+        private readonly InputAction m_Supervisor_TrackedDeviceOrientation;
+        private readonly InputAction m_Supervisor_TrackedDevicePosition;
+        private readonly InputAction m_Supervisor_RightClick;
+        private readonly InputAction m_Supervisor_MiddleClick;
+        private readonly InputAction m_Supervisor_ScrollWheel;
+        private readonly InputAction m_Supervisor_Click;
+        private readonly InputAction m_Supervisor_Point;
+        private readonly InputAction m_Supervisor_Cancel;
+        private readonly InputAction m_Supervisor_Submit;
+        private readonly InputAction m_Supervisor_Navigate;
+        public struct SupervisorActions
+        {
+            private @AIRWISEControl m_Wrapper;
+            public SupervisorActions(@AIRWISEControl wrapper) { m_Wrapper = wrapper; }
+            public InputAction @TrackedDeviceOrientation => m_Wrapper.m_Supervisor_TrackedDeviceOrientation;
+            public InputAction @TrackedDevicePosition => m_Wrapper.m_Supervisor_TrackedDevicePosition;
+            public InputAction @RightClick => m_Wrapper.m_Supervisor_RightClick;
+            public InputAction @MiddleClick => m_Wrapper.m_Supervisor_MiddleClick;
+            public InputAction @ScrollWheel => m_Wrapper.m_Supervisor_ScrollWheel;
+            public InputAction @Click => m_Wrapper.m_Supervisor_Click;
+            public InputAction @Point => m_Wrapper.m_Supervisor_Point;
+            public InputAction @Cancel => m_Wrapper.m_Supervisor_Cancel;
+            public InputAction @Submit => m_Wrapper.m_Supervisor_Submit;
+            public InputAction @Navigate => m_Wrapper.m_Supervisor_Navigate;
+            public InputActionMap Get() { return m_Wrapper.m_Supervisor; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(SupervisorActions set) { return set.Get(); }
+            public void AddCallbacks(ISupervisorActions instance)
+            {
+                if (instance == null || m_Wrapper.m_SupervisorActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_SupervisorActionsCallbackInterfaces.Add(instance);
+                @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
+                @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
+                @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @TrackedDevicePosition.started += instance.OnTrackedDevicePosition;
+                @TrackedDevicePosition.performed += instance.OnTrackedDevicePosition;
+                @TrackedDevicePosition.canceled += instance.OnTrackedDevicePosition;
+                @RightClick.started += instance.OnRightClick;
+                @RightClick.performed += instance.OnRightClick;
+                @RightClick.canceled += instance.OnRightClick;
+                @MiddleClick.started += instance.OnMiddleClick;
+                @MiddleClick.performed += instance.OnMiddleClick;
+                @MiddleClick.canceled += instance.OnMiddleClick;
+                @ScrollWheel.started += instance.OnScrollWheel;
+                @ScrollWheel.performed += instance.OnScrollWheel;
+                @ScrollWheel.canceled += instance.OnScrollWheel;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @Point.started += instance.OnPoint;
+                @Point.performed += instance.OnPoint;
+                @Point.canceled += instance.OnPoint;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+                @Submit.started += instance.OnSubmit;
+                @Submit.performed += instance.OnSubmit;
+                @Submit.canceled += instance.OnSubmit;
+                @Navigate.started += instance.OnNavigate;
+                @Navigate.performed += instance.OnNavigate;
+                @Navigate.canceled += instance.OnNavigate;
+            }
+
+            private void UnregisterCallbacks(ISupervisorActions instance)
+            {
+                @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
+                @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
+                @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
+                @TrackedDevicePosition.started -= instance.OnTrackedDevicePosition;
+                @TrackedDevicePosition.performed -= instance.OnTrackedDevicePosition;
+                @TrackedDevicePosition.canceled -= instance.OnTrackedDevicePosition;
+                @RightClick.started -= instance.OnRightClick;
+                @RightClick.performed -= instance.OnRightClick;
+                @RightClick.canceled -= instance.OnRightClick;
+                @MiddleClick.started -= instance.OnMiddleClick;
+                @MiddleClick.performed -= instance.OnMiddleClick;
+                @MiddleClick.canceled -= instance.OnMiddleClick;
+                @ScrollWheel.started -= instance.OnScrollWheel;
+                @ScrollWheel.performed -= instance.OnScrollWheel;
+                @ScrollWheel.canceled -= instance.OnScrollWheel;
+                @Click.started -= instance.OnClick;
+                @Click.performed -= instance.OnClick;
+                @Click.canceled -= instance.OnClick;
+                @Point.started -= instance.OnPoint;
+                @Point.performed -= instance.OnPoint;
+                @Point.canceled -= instance.OnPoint;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
+                @Submit.started -= instance.OnSubmit;
+                @Submit.performed -= instance.OnSubmit;
+                @Submit.canceled -= instance.OnSubmit;
+                @Navigate.started -= instance.OnNavigate;
+                @Navigate.performed -= instance.OnNavigate;
+                @Navigate.canceled -= instance.OnNavigate;
+            }
+
+            public void RemoveCallbacks(ISupervisorActions instance)
+            {
+                if (m_Wrapper.m_SupervisorActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ISupervisorActions instance)
+            {
+                foreach (var item in m_Wrapper.m_SupervisorActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_SupervisorActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public SupervisorActions @Supervisor => new SupervisorActions(this);
+
+        // Subject
+        private readonly InputActionMap m_Subject;
+        private List<ISubjectActions> m_SubjectActionsCallbackInterfaces = new List<ISubjectActions>();
+        private readonly InputAction m_Subject_ResponseTriggered;
+        private readonly InputAction m_Subject_JoystickHorizontalValueChanged;
+        private readonly InputAction m_Subject_JoystickVerticalValueChanged;
+        private readonly InputAction m_Subject_ThrottleNegativeCommandTriggered;
+        private readonly InputAction m_Subject_ThrottlePositiveCommandTriggered;
+        private readonly InputAction m_Subject_ThrottleNeutralCommandTriggered;
+        private readonly InputAction m_Subject_ThrottleValueChanged;
+        public struct SubjectActions
+        {
+            private @AIRWISEControl m_Wrapper;
+            public SubjectActions(@AIRWISEControl wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ResponseTriggered => m_Wrapper.m_Subject_ResponseTriggered;
+            public InputAction @JoystickHorizontalValueChanged => m_Wrapper.m_Subject_JoystickHorizontalValueChanged;
+            public InputAction @JoystickVerticalValueChanged => m_Wrapper.m_Subject_JoystickVerticalValueChanged;
+            public InputAction @ThrottleNegativeCommandTriggered => m_Wrapper.m_Subject_ThrottleNegativeCommandTriggered;
+            public InputAction @ThrottlePositiveCommandTriggered => m_Wrapper.m_Subject_ThrottlePositiveCommandTriggered;
+            public InputAction @ThrottleNeutralCommandTriggered => m_Wrapper.m_Subject_ThrottleNeutralCommandTriggered;
+            public InputAction @ThrottleValueChanged => m_Wrapper.m_Subject_ThrottleValueChanged;
+            public InputActionMap Get() { return m_Wrapper.m_Subject; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(SubjectActions set) { return set.Get(); }
+            public void AddCallbacks(ISubjectActions instance)
+            {
+                if (instance == null || m_Wrapper.m_SubjectActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_SubjectActionsCallbackInterfaces.Add(instance);
+                @ResponseTriggered.started += instance.OnResponseTriggered;
+                @ResponseTriggered.performed += instance.OnResponseTriggered;
+                @ResponseTriggered.canceled += instance.OnResponseTriggered;
+                @JoystickHorizontalValueChanged.started += instance.OnJoystickHorizontalValueChanged;
+                @JoystickHorizontalValueChanged.performed += instance.OnJoystickHorizontalValueChanged;
+                @JoystickHorizontalValueChanged.canceled += instance.OnJoystickHorizontalValueChanged;
+                @JoystickVerticalValueChanged.started += instance.OnJoystickVerticalValueChanged;
+                @JoystickVerticalValueChanged.performed += instance.OnJoystickVerticalValueChanged;
+                @JoystickVerticalValueChanged.canceled += instance.OnJoystickVerticalValueChanged;
+                @ThrottleNegativeCommandTriggered.started += instance.OnThrottleNegativeCommandTriggered;
+                @ThrottleNegativeCommandTriggered.performed += instance.OnThrottleNegativeCommandTriggered;
+                @ThrottleNegativeCommandTriggered.canceled += instance.OnThrottleNegativeCommandTriggered;
+                @ThrottlePositiveCommandTriggered.started += instance.OnThrottlePositiveCommandTriggered;
+                @ThrottlePositiveCommandTriggered.performed += instance.OnThrottlePositiveCommandTriggered;
+                @ThrottlePositiveCommandTriggered.canceled += instance.OnThrottlePositiveCommandTriggered;
+                @ThrottleNeutralCommandTriggered.started += instance.OnThrottleNeutralCommandTriggered;
+                @ThrottleNeutralCommandTriggered.performed += instance.OnThrottleNeutralCommandTriggered;
+                @ThrottleNeutralCommandTriggered.canceled += instance.OnThrottleNeutralCommandTriggered;
+                @ThrottleValueChanged.started += instance.OnThrottleValueChanged;
+                @ThrottleValueChanged.performed += instance.OnThrottleValueChanged;
+                @ThrottleValueChanged.canceled += instance.OnThrottleValueChanged;
+            }
+
+            private void UnregisterCallbacks(ISubjectActions instance)
+            {
+                @ResponseTriggered.started -= instance.OnResponseTriggered;
+                @ResponseTriggered.performed -= instance.OnResponseTriggered;
+                @ResponseTriggered.canceled -= instance.OnResponseTriggered;
+                @JoystickHorizontalValueChanged.started -= instance.OnJoystickHorizontalValueChanged;
+                @JoystickHorizontalValueChanged.performed -= instance.OnJoystickHorizontalValueChanged;
+                @JoystickHorizontalValueChanged.canceled -= instance.OnJoystickHorizontalValueChanged;
+                @JoystickVerticalValueChanged.started -= instance.OnJoystickVerticalValueChanged;
+                @JoystickVerticalValueChanged.performed -= instance.OnJoystickVerticalValueChanged;
+                @JoystickVerticalValueChanged.canceled -= instance.OnJoystickVerticalValueChanged;
+                @ThrottleNegativeCommandTriggered.started -= instance.OnThrottleNegativeCommandTriggered;
+                @ThrottleNegativeCommandTriggered.performed -= instance.OnThrottleNegativeCommandTriggered;
+                @ThrottleNegativeCommandTriggered.canceled -= instance.OnThrottleNegativeCommandTriggered;
+                @ThrottlePositiveCommandTriggered.started -= instance.OnThrottlePositiveCommandTriggered;
+                @ThrottlePositiveCommandTriggered.performed -= instance.OnThrottlePositiveCommandTriggered;
+                @ThrottlePositiveCommandTriggered.canceled -= instance.OnThrottlePositiveCommandTriggered;
+                @ThrottleNeutralCommandTriggered.started -= instance.OnThrottleNeutralCommandTriggered;
+                @ThrottleNeutralCommandTriggered.performed -= instance.OnThrottleNeutralCommandTriggered;
+                @ThrottleNeutralCommandTriggered.canceled -= instance.OnThrottleNeutralCommandTriggered;
+                @ThrottleValueChanged.started -= instance.OnThrottleValueChanged;
+                @ThrottleValueChanged.performed -= instance.OnThrottleValueChanged;
+                @ThrottleValueChanged.canceled -= instance.OnThrottleValueChanged;
+            }
+
+            public void RemoveCallbacks(ISubjectActions instance)
+            {
+                if (m_Wrapper.m_SubjectActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ISubjectActions instance)
+            {
+                foreach (var item in m_Wrapper.m_SubjectActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_SubjectActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public SubjectActions @Subject => new SubjectActions(this);
+        public interface ISupervisorActions
+        {
+            void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+            void OnTrackedDevicePosition(InputAction.CallbackContext context);
+            void OnRightClick(InputAction.CallbackContext context);
+            void OnMiddleClick(InputAction.CallbackContext context);
+            void OnScrollWheel(InputAction.CallbackContext context);
+            void OnClick(InputAction.CallbackContext context);
+            void OnPoint(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
+            void OnSubmit(InputAction.CallbackContext context);
+            void OnNavigate(InputAction.CallbackContext context);
+        }
+        public interface ISubjectActions
+        {
+            void OnResponseTriggered(InputAction.CallbackContext context);
+            void OnJoystickHorizontalValueChanged(InputAction.CallbackContext context);
+            void OnJoystickVerticalValueChanged(InputAction.CallbackContext context);
+            void OnThrottleNegativeCommandTriggered(InputAction.CallbackContext context);
+            void OnThrottlePositiveCommandTriggered(InputAction.CallbackContext context);
+            void OnThrottleNeutralCommandTriggered(InputAction.CallbackContext context);
+            void OnThrottleValueChanged(InputAction.CallbackContext context);
         }
     }
 }

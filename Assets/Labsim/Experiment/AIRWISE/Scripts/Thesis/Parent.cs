@@ -4,7 +4,7 @@ using UnityEngine;
 public static class Constants
 {
     // General config file path
-    public const string streamingAssetsPath = @"Assets/StreamingAssets/";
+    public const string streamingAssetsPath = @"Assets/StreamingAssets/AIRWISE/";
     public const string ConfigFile = @"ConfigFile.json";
 
     public const string ConfigFilePath = Constants.streamingAssetsPath + Constants.ConfigFile;

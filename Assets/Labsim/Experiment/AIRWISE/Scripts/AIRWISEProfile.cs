@@ -101,15 +101,46 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : begin"
             );
 
+            // preconfigure root path
+            foreach (var dh in apollon.experiment.ApollonExperimentManager.Instance.Session.ActiveDataHandlers)
+            {
+                if (dh is UXF.FileSaver)
+                {
+                    // assign base path
+                    Logger.m_rootPath = (dh as UXF.FileSaver).StoragePath;
+                    
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : configuring Yale's Logging system [Logger.m_rootPath="
+                        + Logger.m_rootPath
+                        + "]"
+                    );
+
+                    break;
+
+                } /* if() */
+
+            } /* foreach() */
+
             // configure VarjoXR plugin
             Varjo.XR.VarjoEyeTracking.SetGazeOutputFrequency(Varjo.XR.VarjoEyeTracking.GazeOutputFrequency.Frequency200Hz);
             Varjo.XR.VarjoEyeTracking.SetGazeOutputFilterType(Varjo.XR.VarjoEyeTracking.GazeOutputFilterType.Standard);
             Varjo.XR.VarjoHeadsetIPD.SetInterPupillaryDistanceParameters(Varjo.XR.VarjoHeadsetIPD.IPDAdjustmentMode.Automatic);
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : configured Varjo parameters to [200Hz, Standard filter, automatic IPD], requesting calibration"
+            );
+
             // force recalibration
             Varjo.XR.VarjoEyeTracking.RequestGazeCalibration(
                 Varjo.XR.VarjoEyeTracking.GazeCalibrationMode.Fast,
                 Varjo.XR.VarjoEyeTracking.HeadsetAlignmentGuidanceMode.AutoContinueOnAcceptableHeadsetPosition
+            );
+ 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : calibration requested"
             );
 
             // wait for eye tracking system init
@@ -118,6 +149,11 @@ namespace Labsim.experiment.AIRWISE
                 await apollon.ApollonHighResolutionTime.DoSleep(500.0f);
             } 
             while(Varjo.XR.VarjoEyeTracking.IsGazeCalibrating() && !Varjo.XR.VarjoEyeTracking.IsGazeCalibrated());
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : calibration done !"
+            );
 
             // extract calibration results
             var calibration_results = Varjo.XR.VarjoEyeTracking.GetGazeCalibrationQuality();
@@ -188,6 +224,18 @@ namespace Labsim.experiment.AIRWISE
             apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["inter_pupillary_distance"] 
                 = Varjo.XR.VarjoHeadsetIPD.GetDistance().ToString();
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : calibration results logged in participant details ["
+                + "gaze_calibration_left_eye_quality:"
+                    + apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_left_eye_quality"]
+                + "/gaze_calibration_right_eye_quality:"
+                    + apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_right_eye_quality"] 
+                + "/inter_pupillary_distance:"
+                    + apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["inter_pupillary_distance"]
+                +"]"
+            );
+
             // activate all motion system command/sensor
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
@@ -195,35 +243,35 @@ namespace Labsim.experiment.AIRWISE
 
             // log 
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : sync wait 5000.0ms for motion system init"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : sync wait 2500.0ms for motion system init"
             );
 
             // wait for motion system init
-            await apollon.ApollonHighResolutionTime.DoSleep(5000.0f);
+            await apollon.ApollonHighResolutionTime.DoSleep(2500.0f);
             
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : will async fade in 1000.0ms"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : will async fade in 2500.0ms"
             );
 
             // fade in
-            this.DoFadeIn(1000.0f);
+            this.DoFadeIn(2500.0f);
 
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : async raise reset to initial position in 5000.0ms"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : async raise reset to initial position in 2500.0ms"
             );
 
             // Raise reset motion event
             apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                apollon.gameplay.device.command.ApollonMotionSystemCommandBridge
+                AIRWISEEntityBridge
             >(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
-            ).ConcreteDispatcher.RaiseReset(5000.0f);     
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+            ).ConcreteDispatcher.RaiseReset(2500.0f);     
 
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : switch scene setup"
             );
 
-            // deactivate default DB & activate room setup
+            // deactivate default DB & activate dynamic blank
             var static_element
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.element.ApollonStaticElementBridge
@@ -232,13 +280,21 @@ namespace Labsim.experiment.AIRWISE
                 ).ConcreteBehaviour;
             static_element.References["DBTag_Default"].SetActive(false);
 
+            var dynamic_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.entity.ApollonDynamicEntityBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
+                ).ConcreteBehaviour;
+            dynamic_entity.References["EntityTag_BlankOverlay"].SetActive(true);
+            
             // log 
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : sync wait 5000.0ms init pause"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : sync wait 2500.0ms init pause"
             );
 
             // wait for motion system init
-            await apollon.ApollonHighResolutionTime.DoSleep(5000.0f);
+            await apollon.ApollonHighResolutionTime.DoSleep(2500.0f);
 
             // base call
             base.OnExperimentSessionBegin(sender, arg);
@@ -261,15 +317,9 @@ namespace Labsim.experiment.AIRWISE
             // base call
             base.OnExperimentSessionEnd(sender, arg);
 
-            // deactivate all motion system command/sensor
+            // deactivate all entity
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
-            );
-            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
-            );
-            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
             );
 
             // log

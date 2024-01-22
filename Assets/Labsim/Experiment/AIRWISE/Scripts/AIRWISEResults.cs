@@ -18,6 +18,7 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections;
 using System.Linq;
 using UnityEditor;
 
@@ -96,20 +97,30 @@ namespace Labsim.experiment.AIRWISE
             public class Checkpoint
             {
 
+                public Checkpoint() 
+                {
+                }
+
                 public enum KindIDType
                 {
 
                     [System.ComponentModel.Description("Undefined")]
                     Undefined = 0,
 
-                    [System.ComponentModel.Description("GateSuccess")]
+                    [System.ComponentModel.Description("Gate_Success")]
                     GateSuccess,
 
-                    [System.ComponentModel.Description("LeftFail")]
+                    [System.ComponentModel.Description("Left_Fail")]
                     LeftFail,
 
-                    [System.ComponentModel.Description("RightFail")]
-                    RightFail
+                    [System.ComponentModel.Description("Right_Fail")]
+                    RightFail,
+
+                    [System.ComponentModel.Description("Arrival")]
+                    Arrival,
+
+                    [System.ComponentModel.Description("Departure")]
+                    Departure
 
                 } /* enum */
 
@@ -121,9 +132,11 @@ namespace Labsim.experiment.AIRWISE
 
                 public long timing_varjo_timestamp = 0;
 
-                public float[] aero_position = new float[3]{ 0.0f, 0.0f, 0.0f };
+                public float[] local_position = new float[3]{ 0.0f, 0.0f, 0.0f };
 
-                public float[] aero_orientation = new float[3]{ 0.0f, 0.0f, 0.0f };
+                public float[] world_position = new float[3]{ 0.0f, 0.0f, 0.0f };
+
+                public float[] aero_position = new float[3]{ 0.0f, 0.0f, 0.0f };
 
             } /* class Checkpoint */
 
@@ -151,11 +164,14 @@ namespace Labsim.experiment.AIRWISE
                         + "\n - C_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp[" 
                             + value.timing_varjo_timestamp.ToString()
                         + "]"
+                        + "\n - C_user_checkpoint_" + index + "_crossing_local_position[" 
+                            + "[" + System.String.Join(";", value.local_position) + "]"
+                        + "]"
+                        + "\n - C_user_checkpoint_" + index + "_crossing_world_position[" 
+                            + "[" + System.String.Join(";", value.world_position) + "]"
+                        + "]"
                         + "\n - C_user_checkpoint_" + index + "_crossing_aero_position[" 
                             + "[" + System.String.Join(";", value.aero_position) + "]"
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_aero_orientation[" 
-                            + "[" + System.String.Join(";", value.aero_orientation) + "]"
                         + "]";
                 
                 } /* foreach() */
@@ -353,9 +369,10 @@ namespace Labsim.experiment.AIRWISE
                     results["C_user_checkpoint_" + index + "_crossing_timing_unity_timestamp"] = value.timing_unity_timestamp.ToString();
                     results["C_user_checkpoint_" + index + "_crossing_timing_host_timestamp"]  = value.timing_host_timestamp;
                     results["C_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp"] = value.timing_varjo_timestamp.ToString();
+                    results["C_user_checkpoint_" + index + "_crossing_local_position"]         = "[" + System.String.Join(";", value.local_position)    + "]";
+                    results["C_user_checkpoint_" + index + "_crossing_world_position"]         = "[" + System.String.Join(";", value.world_position)    + "]";
                     results["C_user_checkpoint_" + index + "_crossing_aero_position"]          = "[" + System.String.Join(";", value.aero_position)    + "]";
-                    results["C_user_checkpoint_" + index + "_crossing_aero_orientation"]       = "[" + System.String.Join(";", value.aero_orientation) + "]";
-                
+                    
                 } /* foreach() */
 
                 // phase D
