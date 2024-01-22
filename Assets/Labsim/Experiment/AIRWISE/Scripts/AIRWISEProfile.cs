@@ -190,15 +190,8 @@ namespace Labsim.experiment.AIRWISE
 
             // activate all motion system command/sensor
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
             );
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
-            );
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.VirtualMotionSystemCommand
-            );      
-
 
             // log 
             UnityEngine.Debug.Log(
@@ -231,15 +224,13 @@ namespace Labsim.experiment.AIRWISE
             );
 
             // deactivate default DB & activate room setup
-            var we_behaviour
+            var static_element
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.element.ApollonStaticElementBridge
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
-            we_behaviour.References["DBTag_Default"].SetActive(false);
-            we_behaviour.References["DBTag_Room"].SetActive(true);
-            we_behaviour.References["DBTag_ExoFrontend"].SetActive(true);
+            static_element.References["DBTag_Default"].SetActive(false);
 
             // log 
             UnityEngine.Debug.Log(

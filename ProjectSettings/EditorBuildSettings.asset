@@ -6,8 +6,41 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Labsim/Experiment/AIRWISE/Scenes/SetupExperimental_Test.unity
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Main.unity
     guid: 61faedc049f4d3c4ab0e8956a9d48e4b
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID1.unity
+    guid: c4c604fa9b402484384540c42d525a78
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID2.unity
+    guid: 817d0cb163ee8a646b7bdbe9979501c3
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID3.unity
+    guid: 5eceb9d77ce61b740925f0ccfcb2b787
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID4.unity
+    guid: f133c457af702b447904071bacb95f0e
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID5.unity
+    guid: ec0377822bbaa5d4f896874e26f825eb
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetA.unity
+    guid: a4da6a88a54108d48b94357d56f31657
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetB.unity
+    guid: 20c963a55778ac64285d2538a9004778
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetC.unity
+    guid: 1a8ef4ba68537974a8be6c69d4bed91a
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetD.unity
+    guid: 2f6f883c35b6c1845a077e3f32c145d5
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetE.unity
+    guid: 45acd5e1a8023a64089895afbc3577ff
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Test_scene.unity
+    guid: 3513c6e3d571d8c4ba0f7e4e77ab7d67
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8264bf70eef11fa42bde15fd25bc24c5,
       type: 2}

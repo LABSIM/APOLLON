@@ -7,6 +7,11 @@ TagManager:
   - Apartment
   - Fire
   - Undefined
+  - AIRWISETag_Gates
+  - AIRWISETag_LeftGates
+  - AIRWISETag_RightGates
+  - AIRWISETag_Departure
+  - AIRWISETag_Arrival
   layers:
   - Default
   - TransparentFX
