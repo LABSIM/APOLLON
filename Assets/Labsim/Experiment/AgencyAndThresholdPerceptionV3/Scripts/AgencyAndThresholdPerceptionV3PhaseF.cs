@@ -49,7 +49,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV3
             this.FSM.CurrentResults.phase_F_results.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // fade in 
-            await this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration, false);
+            await this.FSM.DoLightFadeIn(this.FSM._trial_fade_in_duration, false);
 
             // get bridge
             var motion_system_bridge

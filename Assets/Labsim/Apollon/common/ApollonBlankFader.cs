@@ -19,10 +19,12 @@
 //
 
 // avoid namespace pollution
-namespace Labsim.experiment.AIRWISE
+namespace Labsim.apollon
 {
 
-    public class AIRWISEBlankFaderBehaviour
+    [UnityEngine.SerializeField]
+
+    public class ApollonBlankFader
         : UnityEngine.MonoBehaviour
     {
 
@@ -99,20 +101,21 @@ namespace Labsim.experiment.AIRWISE
                             old.g, 
                             old.b,
                             UnityEngine.Mathf.Clamp(
-                                (1.0f - i / current_request.m_fadeDuration),
+                                (i / current_request.m_fadeDuration),
                                 0.0f,
                                 1.0f
                             )
                         );
 
                 } /* foreach() */
-                
+
+            
                 // yield
                 yield return null;
 
             } /* for() */
 
-            // finally, zeroing alpha
+            // finally, set max alpha
             foreach(var material in this.Materials)
             {
                 
@@ -122,7 +125,7 @@ namespace Labsim.experiment.AIRWISE
                         old.r, 
                         old.g, 
                         old.b,
-                        0.0f
+                        1.0f
                     );
 
             } /* foreach() */
@@ -167,21 +170,20 @@ namespace Labsim.experiment.AIRWISE
                             old.g, 
                             old.b,
                             UnityEngine.Mathf.Clamp(
-                                (i / current_request.m_fadeDuration),
+                                (1.0f - i / current_request.m_fadeDuration),
                                 0.0f,
                                 1.0f
                             )
                         );
 
                 } /* foreach() */
-
-               
+                
                 // yield
                 yield return null;
 
             } /* for() */
 
-            // finally, set max alpha
+            // finally, zeroing alpha
             foreach(var material in this.Materials)
             {
                 
@@ -191,7 +193,7 @@ namespace Labsim.experiment.AIRWISE
                         old.r, 
                         old.g, 
                         old.b,
-                        1.0f
+                        0.0f
                     );
 
             } /* foreach() */
@@ -247,6 +249,6 @@ namespace Labsim.experiment.AIRWISE
 
         } /* RequestFadeOut() */
 
-    } /* public class AIRWISEBlankFaderBehaviour */
+    } /* public class ApollonBlankFader */
 
-} /* } Labsim.experiment.AIRWISE */
+} /* namespace Labsim.apollon */

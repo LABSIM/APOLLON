@@ -305,7 +305,7 @@ namespace Labsim.experiment.CAVIAR
             );
 
             // fade in
-            await this.DoFadeIn(2500.0f, false);
+            await this.DoLightFadeIn(2500.0f, false);
 
             // inactivate all gameplay & frontend
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.All);
@@ -591,7 +591,7 @@ namespace Labsim.experiment.CAVIAR
             base.OnExperimentTrialBegin(sender, arg);
 
             // fade out
-            await this.DoFadeOut(this._trial_fade_out_duration, false);
+            await this.DoLightFadeOut(this._trial_fade_out_duration, false);
 
             // log
             UnityEngine.Debug.Log(
@@ -737,7 +737,7 @@ namespace Labsim.experiment.CAVIAR
                 = this.CurrentResults.phase_F_results.timing_on_exit_host_timestamp;
 
             // fade in
-            await this.DoFadeIn(this._trial_fade_in_duration, false);
+            await this.DoLightFadeIn(this._trial_fade_in_duration, false);
 
             // inactivate gameplay & frontend
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.All);

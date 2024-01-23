@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MotionPlatformImpedance : MonoBehaviour
+public class MotionPlatformImpedance 
+    : MonoBehaviour
 {
+    
     // Input members
     [SerializeField]
     private Rigidbody m_inputRb;

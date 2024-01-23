@@ -1115,7 +1115,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV2
             );
 
             // fade in
-            await this.DoFadeIn(2500.0f, false);
+            await this.DoLightFadeIn(2500.0f, false);
 
             // deactivate default DB & activate room setup
             var we_behaviour
@@ -1258,7 +1258,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV2
             base.OnExperimentTrialBegin(sender, arg);
 
             // fade out
-            await this.DoFadeOut(this._trial_fade_out_duration, false);
+            await this.DoLightFadeOut(this._trial_fade_out_duration, false);
 
             // initialize to position on first trial - wait 5s
             if(apollon.experiment.ApollonExperimentManager.Instance.Session.FirstTrial == apollon.experiment.ApollonExperimentManager.Instance.Trial)

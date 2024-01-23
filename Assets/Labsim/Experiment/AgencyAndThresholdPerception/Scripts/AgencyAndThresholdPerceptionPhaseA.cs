@@ -327,7 +327,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             {
 
                 // run it asynchronously
-                this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+                this.FSM.DoLightFadeIn(this.FSM._trial_fade_in_duration);
 
             } /* if() */
 

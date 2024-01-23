@@ -1399,7 +1399,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV4
             );
 
             // fade in
-            this.DoFadeIn(1000.0f);
+            this.DoLightFadeIn(1000.0f);
 
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AgencyAndThresholdPerceptionV4Profile.onExperimentSessionBegin() : async raise reset to initial position in 5000.0ms"
@@ -1575,7 +1575,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV4
             base.OnExperimentTrialBegin(sender, arg);
 
             // fade out
-            await this.DoFadeOut(this._trial_fade_out_duration, false);
+            await this.DoLightFadeOut(this._trial_fade_out_duration, false);
 
             // initialize to position on first trial - wait 5s
             if(apollon.experiment.ApollonExperimentManager.Instance.Session.FirstTrial == apollon.experiment.ApollonExperimentManager.Instance.Trial)

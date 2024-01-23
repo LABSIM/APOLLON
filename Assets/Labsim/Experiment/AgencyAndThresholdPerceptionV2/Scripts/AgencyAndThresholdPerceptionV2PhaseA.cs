@@ -329,7 +329,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV2
                 {
 
                     // run it asynchronously
-                    this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+                    this.FSM.DoLightFadeIn(this.FSM._trial_fade_in_duration);
 
                 } /* if() */
 
@@ -345,7 +345,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV2
                 {
 
                     // run it asynchronously
-                    this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration);
+                    this.FSM.DoLightFadeIn(this.FSM._trial_fade_in_duration);
 
                 } /* if() */
 

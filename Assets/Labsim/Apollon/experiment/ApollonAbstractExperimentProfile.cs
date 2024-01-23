@@ -190,6 +190,31 @@ namespace Labsim.apollon.experiment
 
         } /* DoWhileLoop() */
 
+        protected async System.Threading.Tasks.Task DoIfBranch(
+            System.Func<bool> predicate, 
+            params System.Func<System.Threading.Tasks.Task>[] if_branch)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.DoIfBranch() : begin"
+            );
+
+            // execute
+            if(predicate()) 
+            {
+                
+                await this.DoForeachLoop(if_branch);
+
+            };
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.DoIfBranch() : end"
+            );
+
+        } /* DoIfBranch() */
+
         protected async System.Threading.Tasks.Task DoForeachLoop(params System.Func<System.Threading.Tasks.Task>[] sub_loop)
         {
 
@@ -325,7 +350,7 @@ namespace Labsim.apollon.experiment
 
         } /* DoSessionConfiguration() */
     
-        public async System.Threading.Tasks.Task DoFadeIn(float duration_in_ms, bool bASync = true)
+        public async System.Threading.Tasks.Task DoLightFadeIn(float duration_in_ms, bool bASync = true)
         {
 
             // set start color
@@ -343,9 +368,9 @@ namespace Labsim.apollon.experiment
 
             } /* if() */
             
-        } /* DoFadeIn() */
+        } /* DoLightFadeIn() */
 
-        public async System.Threading.Tasks.Task DoFadeOut(float duration_in_ms, bool bASync = true)
+        public async System.Threading.Tasks.Task DoLightFadeOut(float duration_in_ms, bool bASync = true)
         {
 
             // set start color
@@ -363,7 +388,47 @@ namespace Labsim.apollon.experiment
 
             } /* if() */
 
-        } /* DoFadeOut() */
+        } /* DoLightFadeOut() */
+
+        public async System.Threading.Tasks.Task DoBlankFadeIn(float duration_in_ms, bool bASync = true)
+        {
+
+            // set start color
+            var blank_component = UnityEngine.Component.FindObjectsOfType<ApollonBlankFader>().ToList().Find( x=>x.name == "[Apollon_Rig]" );
+
+            // set and start fade in
+            blank_component.RequestFadeIn(duration_in_ms);
+
+            // synchronous
+            if (!bASync)
+            {
+
+                // synchronous wait
+                await ApollonHighResolutionTime.DoSleep(duration_in_ms);
+
+            } /* if() */
+            
+        } /* DoBlankFadeIn() */
+
+        public async System.Threading.Tasks.Task DoBlankFadeOut(float duration_in_ms, bool bASync = true)
+        {
+
+            // set start color
+            var blank_component = UnityEngine.Component.FindObjectsOfType<ApollonLightFader>().ToList().Find( x=>x.name == "[Apollon_Rig]" );
+
+            // set and start fade out
+            blank_component.RequestFadeOut(duration_in_ms);
+
+            // synchronous
+            if (!bASync)
+            {
+
+                // synchronous wait
+                await ApollonHighResolutionTime.DoSleep(duration_in_ms);
+
+            } /* if() */
+
+        } /* DoBlankFadeOut() */
 
         // public async System.Threading.Tasks.Task DoSleep(float duration_in_ms)
         // {

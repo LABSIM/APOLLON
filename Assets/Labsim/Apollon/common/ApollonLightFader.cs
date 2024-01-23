@@ -18,202 +18,208 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-public class ApollonLightFader 
-    : UnityEngine.MonoBehaviour
+// avoid namespace pollution
+namespace Labsim.apollon
 {
 
-
-    [UnityEngine.SerializeField]
-    private System.Collections.Generic.List<UnityEngine.Light> Lights 
-        = new System.Collections.Generic.List<UnityEngine.Light>();
-        
-    private enum FadeAction
+    public class ApollonLightFader 
+        : UnityEngine.MonoBehaviour
     {
-        None,
-        FadeIn,
-        FadeOut
-    } 
-    private enum FadeStatus
-    {
-        Pending,
-        Running
-    } 
-
-    private class FadeRequest
-    {
-        public FadeAction m_fadeType = FadeAction.None;
-        public float m_fadeDuration = 0.0f;
-    }
-    private FadeStatus m_fadeStatus = FadeStatus.Pending;
- 
-    private System.Collections.Generic.Queue<FadeRequest> m_requestQueue = new System.Collections.Generic.Queue<FadeRequest>();
 
 
-    private void Update()
-    {
-        // skip if running or if no pending request
-        if(this.m_fadeStatus == FadeStatus.Running || this.m_requestQueue.Count == 0)
-            return;
-
-        if (this.m_requestQueue.Peek().m_fadeType == FadeAction.FadeIn)
+        [UnityEngine.SerializeField]
+        private System.Collections.Generic.List<UnityEngine.Light> Lights 
+            = new System.Collections.Generic.List<UnityEngine.Light>();
+            
+        private enum FadeAction
         {
+            None,
+            FadeIn,
+            FadeOut
+        } 
+        private enum FadeStatus
+        {
+            Pending,
+            Running
+        } 
 
-            this.StartCoroutine(this.FadeIn());
-
+        private class FadeRequest
+        {
+            public FadeAction m_fadeType = FadeAction.None;
+            public float m_fadeDuration = 0.0f;
         }
-        else if (this.m_requestQueue.Peek().m_fadeType == FadeAction.FadeOut)
-        {
-
-            this.StartCoroutine(this.FadeOut());
-
-        } /* if() */
-
-    } /* Update() */
- 
-    // fade from transparent to opaque
-    private System.Collections.IEnumerator FadeIn()
-    {
-        // mark as Running
-        this.m_fadeStatus = FadeStatus.Running;
+        private FadeStatus m_fadeStatus = FadeStatus.Pending;
     
-        // extract last one
-        FadeRequest current_request = null;
-        lock(this.m_requestQueue) { current_request = this.m_requestQueue.Peek(); }
+        private System.Collections.Generic.Queue<FadeRequest> m_requestQueue = new System.Collections.Generic.Queue<FadeRequest>();
 
-        // loop over m_fadeDuration time
-        for (float i = 0.0f; i <= current_request.m_fadeDuration; i += UnityEngine.Time.deltaTime)
+
+        private void Update()
         {
+            // skip if running or if no pending request
+            if(this.m_fadeStatus == FadeStatus.Running || this.m_requestQueue.Count == 0)
+                return;
 
-            // smoothly update intensity
+            if (this.m_requestQueue.Peek().m_fadeType == FadeAction.FadeIn)
+            {
+
+                this.StartCoroutine(this.FadeIn());
+
+            }
+            else if (this.m_requestQueue.Peek().m_fadeType == FadeAction.FadeOut)
+            {
+
+                this.StartCoroutine(this.FadeOut());
+
+            } /* if() */
+
+        } /* Update() */
+    
+        // fade from transparent to opaque
+        private System.Collections.IEnumerator FadeIn()
+        {
+            // mark as Running
+            this.m_fadeStatus = FadeStatus.Running;
+        
+            // extract last one
+            FadeRequest current_request = null;
+            lock(this.m_requestQueue) { current_request = this.m_requestQueue.Peek(); }
+
+            // loop over m_fadeDuration time
+            for (float i = 0.0f; i <= current_request.m_fadeDuration; i += UnityEngine.Time.deltaTime)
+            {
+
+                // smoothly update intensity
+                foreach(var light in this.Lights)
+                {
+                    
+                    light.intensity 
+                        = UnityEngine.Mathf.Clamp(
+                            (1.0f - i / current_request.m_fadeDuration),
+                            0.0f,
+                            1.0f
+                        );
+
+                } /* foreach() */
+                
+                // yield
+                yield return null;
+
+            } /* for() */
+
+            // finally, zeroing intensity
             foreach(var light in this.Lights)
             {
                 
-                light.intensity 
-                    = UnityEngine.Mathf.Clamp(
-                        (1.0f - i / current_request.m_fadeDuration),
-                        0.0f,
-                        1.0f
-                    );
+                light.intensity = 0.0f;
 
             } /* foreach() */
+
+            // flush last one
+            lock(this.m_requestQueue)
+            {
+
+                // flush last one       
+                this.m_requestQueue.Dequeue();
             
-            // yield
-            yield return null;
-
-        } /* for() */
-
-        // finally, zeroing intensity
-        foreach(var light in this.Lights)
-        {
+            }
             
-            light.intensity = 0.0f;
-
-        } /* foreach() */
-
-        // flush last one
-        lock(this.m_requestQueue)
+            // mark as Pending
+            this.m_fadeStatus = FadeStatus.Pending;
+    
+        } /* FadeIn() */
+    
+        // fade from opaque to transparent
+        private System.Collections.IEnumerator FadeOut()
         {
 
-            // flush last one       
-            this.m_requestQueue.Dequeue();
-        
-        }
-        
-        // mark as Pending
-        this.m_fadeStatus = FadeStatus.Pending;
- 
-    } /* FadeIn() */
- 
-    // fade from opaque to transparent
-    private System.Collections.IEnumerator FadeOut()
-    {
+            // mark as Running
+            this.m_fadeStatus = FadeStatus.Running;
 
-        // mark as Running
-        this.m_fadeStatus = FadeStatus.Running;
+            // extract last one
+            FadeRequest current_request = null;
+            lock(this.m_requestQueue) { current_request = this.m_requestQueue.Peek(); }
 
-        // extract last one
-        FadeRequest current_request = null;
-        lock(this.m_requestQueue) { current_request = this.m_requestQueue.Peek(); }
+            // loop over m_fadeDuration time
+            for (float i = 0.0f; i <= current_request.m_fadeDuration; i += UnityEngine.Time.deltaTime)
+            {
 
-        // loop over m_fadeDuration time
-        for (float i = 0.0f; i <= current_request.m_fadeDuration; i += UnityEngine.Time.deltaTime)
-        {
+                // smoothly update intensity
+                foreach(var light in this.Lights)
+                {
+                    
+                    light.intensity 
+                        = UnityEngine.Mathf.Clamp(
+                            (i / current_request.m_fadeDuration),
+                            0.0f,
+                            1.0f
+                        );
 
-            // smoothly update intensity
+                } /* foreach() */
+
+                // yield
+                yield return null;
+
+            } /* for() */
+
+            // finally, set max intensity
             foreach(var light in this.Lights)
             {
                 
-                light.intensity 
-                    = UnityEngine.Mathf.Clamp(
-                        (i / current_request.m_fadeDuration),
-                        0.0f,
-                        1.0f
-                    );
+                light.intensity = 1.0f;
 
             } /* foreach() */
+    
+            lock(this.m_requestQueue)
+            {
 
-            // yield
-            yield return null;
-
-        } /* for() */
-
-        // finally, set max intensity
-        foreach(var light in this.Lights)
-        {
+                // flush last one       
+                this.m_requestQueue.Dequeue();
             
-            light.intensity = 1.0f;
+            }
 
-        } /* foreach() */
- 
-        lock(this.m_requestQueue)
+            // mark as Pending
+            this.m_fadeStatus = FadeStatus.Pending;
+
+        } /* FadeOut() */
+    
+        public void RequestFadeIn(float duration_in_ms)
         {
 
-            // flush last one       
-            this.m_requestQueue.Dequeue();
-        
-        }
+            lock(this.m_requestQueue)
+            {
 
-        // mark as Pending
-        this.m_fadeStatus = FadeStatus.Pending;
+                // add a request to queue
+                this.m_requestQueue.Enqueue( 
+                    new FadeRequest 
+                    { 
+                        m_fadeDuration = duration_in_ms / 1000.0f, 
+                        m_fadeType = FadeAction.FadeIn 
+                    }
+                );
 
-    } /* FadeOut() */
- 
-    public void RequestFadeIn(float duration_in_ms)
-    {
+            } /* lock */
 
-        lock(this.m_requestQueue)
+        } /* RequestFadeIn() */
+
+        public void RequestFadeOut(float duration_in_ms)
         {
 
-            // add a request to queue
-            this.m_requestQueue.Enqueue( 
-                new FadeRequest 
-                { 
-                    m_fadeDuration = duration_in_ms / 1000.0f, 
-                    m_fadeType = FadeAction.FadeIn 
-                }
-            );
+            lock(this.m_requestQueue)
+            {
 
-        } /* lock */
+                // add a request to queue
+                this.m_requestQueue.Enqueue( 
+                    new FadeRequest 
+                    { 
+                        m_fadeDuration = duration_in_ms / 1000.0f, 
+                        m_fadeType = FadeAction.FadeOut 
+                    }
+                );
 
-    } /* RequestFadeIn() */
+            } /* lock*/
 
-    public void RequestFadeOut(float duration_in_ms)
-    {
+        } /* RequestFadeOut() */
 
-        lock(this.m_requestQueue)
-        {
+    } /* class ApollonLightFader */
 
-            // add a request to queue
-            this.m_requestQueue.Enqueue( 
-                new FadeRequest 
-                { 
-                    m_fadeDuration = duration_in_ms / 1000.0f, 
-                    m_fadeType = FadeAction.FadeOut 
-                }
-            );
-
-        } /* lock*/
-
-    } /* RequestFadeOut() */
-
-} /* class ApollonLightFader */
+} /* namespace Labsim.apollon */

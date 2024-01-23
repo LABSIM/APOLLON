@@ -101,13 +101,23 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : begin"
             );
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : will async blank fade in 5000.0ms"
+            );
+
+            // async fade in
+            this.DoBlankFadeIn(5000.0f);
+            this.DoLightFadeIn(5000.0f);
+
             // preconfigure root path
             foreach (var dh in apollon.experiment.ApollonExperimentManager.Instance.Session.ActiveDataHandlers)
             {
                 if (dh is UXF.FileSaver)
                 {
-                    // assign base path
-                    Logger.m_rootPath = (dh as UXF.FileSaver).StoragePath;
+
+                    // assign session path
+                    Logger.m_rootPath = (dh as UXF.FileSaver).GetSessionPath(apollon.experiment.ApollonExperimentManager.Instance.Session);
                     
                     // log
                     UnityEngine.Debug.Log(
@@ -236,7 +246,7 @@ namespace Labsim.experiment.AIRWISE
                 +"]"
             );
 
-            // activate all motion system command/sensor
+            // activate all motion system command/sensor/impedence
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
             );
@@ -248,13 +258,6 @@ namespace Labsim.experiment.AIRWISE
 
             // wait for motion system init
             await apollon.ApollonHighResolutionTime.DoSleep(2500.0f);
-            
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : will async fade in 2500.0ms"
-            );
-
-            // fade in
-            this.DoFadeIn(2500.0f);
 
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : async raise reset to initial position in 2500.0ms"
@@ -271,30 +274,14 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : switch scene setup"
             );
 
-            // deactivate default DB & activate dynamic blank
+            // deactivate default DB & Light
             var static_element
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.element.ApollonStaticElementBridge
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
-            static_element.References["DBTag_Default"].SetActive(false);
-
-            var dynamic_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.entity.ApollonDynamicEntityBridge
-                >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
-                ).ConcreteBehaviour;
-            dynamic_entity.References["EntityTag_BlankOverlay"].SetActive(true);
-            
-            // log 
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : sync wait 2500.0ms init pause"
-            );
-
-            // wait for motion system init
-            await apollon.ApollonHighResolutionTime.DoSleep(2500.0f);
+            static_element.References["DBTag_DefaultSetup"].SetActive(false);
 
             // base call
             base.OnExperimentSessionBegin(sender, arg);
@@ -332,135 +319,123 @@ namespace Labsim.experiment.AIRWISE
 
         public override async void OnExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : begin"
             );
+            
+            // import current trial settings & log on completion
+            if(this.CurrentSettings.ImportUXFSettings(arg.Trial.settings))
+            {
+                this.CurrentSettings.LogUXFSettings();
+            }
 
-            // // send event to motion system backend
-            // (
-            //     backend.ApollonBackendManager.Instance.GetValidHandle(
-            //         backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-            //     ) as backend.handle.ApollonMotionSystemPS6TM550Handle
-            // ).BeginTrial();
-        
-            // local
-            // int currentIdx = apollon.experiment.ApollonExperimentManager.Instance.Session.currentTrialNum - 1;
+            // get a ref
+            var static_element
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.element.ApollonStaticElementBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
+                ).ConcreteBehaviour;
 
-            // // activate the active seat entity
-            // apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity);
+            // current visual
+            if(this.CurrentSettings.Trial.visual_type == AIRWISESettings.VisualIDType.Undefined)
+            {
 
-            // // inactivate all visual cues through LINQ request
-            // var we_behaviour
-            //     = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-            //         apollon.gameplay.element.ApollonStaticElementBridge
-            //     >(
-            //         apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
-            //     ).ConcreteBehaviour;
-            // foreach (var vc_ref in we_behaviour.References.Where(kvp => kvp.Key.Contains("VCTag_")).Select(kvp => kvp.Value))
-            // {
-            //     vc_ref.SetActive(false);
-            // }
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> AIRWISEProfile.onExperimentTrialBegin() : UNDEFINED visual for pattern["
+                    + this.CurrentSettings.Trial.pattern_type
+                    + "]... check configuration files !"
+                );
 
-            // // current scenario
-            // switch (arg.Trial.settings.GetString("scenario_name"))
-            // {
+            } 
+            else if(this.CurrentSettings.Trial.visual_type == AIRWISESettings.VisualIDType.None)
+            {
 
-            //     case "visual-only":
-            //     {
-            //         we_behaviour.References["VCTag_Fan"].SetActive(true);
-            //         this.CurrentSettings.scenario_type = Settings.ScenarioIDType.VisualOnly;
-            //         // transit to corresponding entity state
-            //         (
-            //             apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-            //                 apollon.gameplay.entity.ApollonActiveSeatEntityBridge
-            //             >(
-            //                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
-            //             )
-            //         ).ConcreteDispatcher.RaiseVisualOnly();
-            //         break;
-            //     }
-            //     case "vestibular-only":
-            //     {
-            //         we_behaviour.References["VCTag_Spot"].SetActive(true);
-            //         this.CurrentSettings.scenario_type = Settings.ScenarioIDType.VestibularOnly;
-            //         // transit to corresponding entity state
-            //         (
-            //             apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-            //                 apollon.gameplay.entity.ApollonActiveSeatEntityBridge
-            //             >(
-            //                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
-            //             )
-            //         ).ConcreteDispatcher.RaiseVestibularOnly();
-            //         break;
-            //     }
-            //     case "visuo-vestibular":
-            //     {
-            //         we_behaviour.References["VCTag_Fan"].SetActive(true);
-            //         this.CurrentSettings.scenario_type = Settings.ScenarioIDType.VisuoVestibular;
-            //         // transit to corresponding entity state
-            //         (
-            //             apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-            //                 apollon.gameplay.entity.ApollonActiveSeatEntityBridge
-            //             >(
-            //                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.ActiveSeatEntity
-            //             )
-            //         ).ConcreteDispatcher.RaiseVisuoVestibular();
-            //         break;
-            //     }
-            //     default:
-            //     {
-            //         this.CurrentSettings.scenario_type = Settings.ScenarioIDType.Undefined;
-            //         break;
-            //     }
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : No visual, skipping loading mechanism"
+                );
 
-            // } /* switch() */
+            }
+            else
+            {
 
-            // // import current trial settings & log on completion
-            // if(this.CurrentSettings.ImportUXFSettings(arg.Trial.settings))
-            // {
-            //     this.CurrentSettings.LogUXFSettings();
-            // }
-           
-            // // activate world element & contriol system
-            // apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement);
-            // apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.AgencyAndThresholdPerceptionV4Control);
+                // finally load the required visual
+                static_element
+                    .References[
+                        "DBTag_Visual" 
+                        + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.visual_type)
+                    ]
+                    .SetActive(true);
 
-            // // base call
-            // base.OnExperimentTrialBegin(sender, arg);
+            } /* if() */
 
-            // // fade out
-            // await this.DoFadeOut(this._trial_fade_out_duration, false);
+            // current scene
+            if(this.CurrentSettings.Trial.scene_type == AIRWISESettings.SceneIDType.Undefined)
+            {
 
-            // // initialize to position on first trial - wait 5s
-            // if(apollon.experiment.ApollonExperimentManager.Instance.Session.FirstTrial == apollon.experiment.ApollonExperimentManager.Instance.Trial)
-            // {
-            //     await apollon.ApollonHighResolutionTime.DoSleep(5000.0f);
-            // }
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> AIRWISEProfile.onExperimentTrialBegin() : UNDEFINED scene for pattern["
+                    + this.CurrentSettings.Trial.pattern_type
+                    + "]... check configuration files !"
+                );
 
-            // // log
-            // UnityEngine.Debug.Log(
-            //     "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : trial protocol will start"
-            // );
+            }
+            else
+            {
 
-            // // build protocol
-            // await this.DoRunProtocol(
-            //     async () => {
-            //         await this.DoWhileLoop(
-            //             () => { 
-            //                 return !(this.CurrentResults.phase_A_results.step_is_valid);
-            //             },
-            //             async () => { await this.SetState( new AgencyAndThresholdPerceptionV4Phase0(this) ); },
-            //             async () => { await this.SetState( new AgencyAndThresholdPerceptionV4PhaseA(this) ); }
-            //         );
-            //     },
-            //     async () => { await this.SetState( new AgencyAndThresholdPerceptionV4PhaseB(this) ); },
-            //     async () => { await this.SetState( new AgencyAndThresholdPerceptionV4PhaseC(this) ); },
-            //     async () => { await this.SetState( new AgencyAndThresholdPerceptionV4PhaseD(this) ); },
-            //     async () => { await this.SetState( new AgencyAndThresholdPerceptionV4PhaseE(this) ); },
-            //     async () => { await this.SetState( new AgencyAndThresholdPerceptionV4PhaseF(this) ); },
-            //     async () => { await this.SetState( null ); }
-            // );
+                // finally load the required scene
+                static_element
+                    .References[
+                        "DBTag_Scene" 
+                        + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.scene_type)
+                    ]
+                    .SetActive(true);
+
+            } /* if() */
+
+            // base call
+            base.OnExperimentTrialBegin(sender, arg);
+
+            // async fade out
+            this.DoBlankFadeOut(250.0f);
+            this.DoLightFadeOut(250.0f);
+
+            // activate all subject control
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
+            );
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : trial protocol will start"
+            );
+
+            // build protocol
+            await this.DoRunProtocol(
+                async () => {
+                    await this.DoWhileLoop(
+                        () => { 
+                            return !(this.CurrentResults.Trial.user_performance_value < this.CurrentSettings.Trial.performance_criteria);
+                        },
+                        async () => { await this.SetState( new AIRWISEPhaseA(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseB(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseC(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseD(this) ); }
+                    );
+                },
+                async () => { await this.SetState( new AIRWISEPhaseE(this) ); },
+                async () => { await this.SetState( new AIRWISEPhaseF(this) ); },
+                async () => { await this.SetState( new AIRWISEPhaseG(this) ); },
+                async () => { await this.SetState( new AIRWISEPhaseH(this) ); },
+                async () => { await this.SetState( new AIRWISEPhaseI(this) ); },
+                async () => { await this.SetState( new AIRWISEPhaseJ(this) ); },
+                async () => { await this.SetState( null ); }
+            );
             
             // log
             UnityEngine.Debug.Log(

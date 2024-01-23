@@ -97,7 +97,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerceptionV4
             } /* if() */
 
             // fade in 
-            await this.FSM.DoFadeIn(this.FSM._trial_fade_in_duration, false);
+            await this.FSM.DoLightFadeIn(this.FSM._trial_fade_in_duration, false);
 
             // get bridge
             var motion_system_bridge

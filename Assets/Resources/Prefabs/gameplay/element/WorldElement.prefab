@@ -434,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4332449133540968010}
   m_Layer: 10
-  m_Name: DefaultSetup
+  m_Name: BaseSetup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,9 +508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_entries:
-  - key: DBTag_DefaultSetuo
+  - key: DBTag_BaseSetup
     value: {fileID: 2437301382450316911}
-  - key: DBTag_DefaultSun
+  - key: DBTag_Sun
     value: {fileID: 6485108557671545331}
 --- !u!1 &6156832179161422287
 GameObject:
@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 2024122725092715496}
   - component: {fileID: 5690038827890718758}
   m_Layer: 0
-  m_Name: DefaultSun
+  m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

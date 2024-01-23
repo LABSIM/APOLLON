@@ -482,6 +482,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.AgencyAndThresholdPerceptionV3Control, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionV4Control, false },
                 { GameplayIDType.CAVIARControl, false },
+                { GameplayIDType.AIRWISEControl, false },
                 { GameplayIDType.All, false }
             };
 
@@ -560,6 +561,9 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("CAVIARControl")]
             CAVIARControl,
+
+            [System.ComponentModel.Description("AIRWISEControl")]
+            AIRWISEControl,
 
             [System.ComponentModel.Description("All")]
             All

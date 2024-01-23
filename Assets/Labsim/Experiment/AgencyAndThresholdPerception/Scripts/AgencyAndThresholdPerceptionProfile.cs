@@ -196,7 +196,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             );
 
             // fade in
-            await this.DoFadeIn(2500.0f, false);
+            await this.DoLightFadeIn(2500.0f, false);
 
             // deactivate default DB & activate room setup
             var we_behaviour
@@ -375,7 +375,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             base.OnExperimentTrialBegin(sender, arg);
 
             // fade out
-            await this.DoFadeOut(this._trial_fade_out_duration, false);
+            await this.DoLightFadeOut(this._trial_fade_out_duration, false);
 
             // log
             UnityEngine.Debug.Log(
@@ -420,7 +420,7 @@ namespace Labsim.experiment.AgencyAndThresholdPerception
             apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_perception_C_unity_timestamp"] = this.CurrentResults.user_perception_C_unity_timestamp;
 
             // fade in
-            await this.DoFadeIn(this._trial_fade_in_duration, false);
+            await this.DoLightFadeIn(this._trial_fade_in_duration, false);
 
             // // send event to motion system backend
             // (
