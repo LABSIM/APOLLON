@@ -452,100 +452,93 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialEnd() : begin"
             );
 
-            // // reset internal
-            // this.CurrentResults.phase_A_results.step_is_valid = false;
+            // get a ref
+            var static_element
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.element.ApollonStaticElementBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
+                ).ConcreteBehaviour;
+
+            // async fade in
+            this.DoBlankFadeIn(250.0f);
+            this.DoLightFadeIn(250.0f);
+
+            // inactivate all subject control
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
+            );
+
+            // inactivate all motion system command/sensor/impedence
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+            );
+
+            // current visual
+            if(this.CurrentSettings.Trial.visual_type == AIRWISESettings.VisualIDType.Undefined)
+            {
+
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> AIRWISEProfile.OnExperimentTrialEnd() : UNDEFINED visual for pattern["
+                    + this.CurrentSettings.Trial.pattern_type
+                    + "]... check configuration files !"
+                );
+
+            } 
+            else if(this.CurrentSettings.Trial.visual_type == AIRWISESettings.VisualIDType.None)
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEProfile.OnExperimentTrialEnd() : No visual, skipping unloading mechanism"
+                );
+
+            }
+            else
+            {
+
+                // finally unload the required visual
+                static_element
+                    .References[
+                        "DBTag_Visual" 
+                        + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.visual_type)
+                    ]
+                    .SetActive(false);
+
+            } /* if() */
+
+            // current scene
+            if(this.CurrentSettings.Trial.scene_type == AIRWISESettings.SceneIDType.Undefined)
+            {
+
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> AIRWISEProfile.OnExperimentTrialEnd() : UNDEFINED scene for pattern["
+                    + this.CurrentSettings.Trial.pattern_type
+                    + "]... check configuration files !"
+                );
+
+            }
+            else
+            {
+
+                // finally load the required scene
+                static_element
+                    .References[
+                        "DBTag_Scene" 
+                        + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.scene_type)
+                    ]
+                    .SetActive(false);
+
+            } /* if() */
+
+            // export current trial results & log on completion
+            if(this.CurrentResults.ExportUXFResults(arg.Trial.result))
+            {
+                this.CurrentResults.LogUXFResults();
+            }
             
-            // // write the randomized scenario/pattern/conditions(s) as result for convenience
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["scenario"] = apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.scenario_type);
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["pattern"] = this.CurrentSettings.pattern_type;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["active_condition"] = this.CurrentSettings.bIsActive.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["catch_try_condition"] = this.CurrentSettings.bIsTryCatch.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["current_latency_bucket"] = "[" + System.String.Join(";",this.CurrentLatencyBucket) + "]";
-
-            // // phase 0 - RAZ input to neutral position
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["0_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_0_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["0_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_0_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["0_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_0_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["0_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_0_results.timing_on_exit_host_timestamp;
-
-            // // phase A - user input selection + UI notification / validation
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_A_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_A_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_A_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["A_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_A_results.timing_on_exit_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_command"] 
-            //     = this.CurrentResults.phase_A_results.user_command;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_latency_unity_timestamp"] 
-            //     = this.CurrentResults.phase_A_results.user_latency_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_latency_host_timestamp"] 
-            //     = this.CurrentResults.phase_A_results.user_latency_host_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_measured_latency"] 
-            //     = this.CurrentResults.phase_A_results.user_measured_latency.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_randomized_stim_latency"] 
-            //     = this.CurrentResults.phase_A_results.user_randomized_stim_latency.ToString();
-            
-            // // phase B - primary stim -> SOA -> secondary stim
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_B_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_B_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_B_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["B_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_B_results.timing_on_exit_host_timestamp;
-            
-            // // phase C - UI end notification
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_C_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_C_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_C_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["C_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_C_results.timing_on_exit_host_timestamp;
-                
-            // // phase D - user response
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_D_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_D_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_D_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["D_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_D_results.timing_on_exit_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_response"]
-            //     = this.CurrentResults.phase_D_results.user_response;
-                
-            // // phase E - user confidence in response
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_E_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_E_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_E_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["E_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_E_results.timing_on_exit_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["user_confidence"]
-            //     = this.CurrentResults.phase_E_results.user_confidence;
-
-            // // phase F - back to origin
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_unity_timestamp"]
-            //     = this.CurrentResults.phase_F_results.timing_on_entry_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_unity_timestamp"]
-            //     = this.CurrentResults.phase_F_results.timing_on_exit_unity_timestamp.ToString();
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_entry_host_timestamp"]
-            //     = this.CurrentResults.phase_F_results.timing_on_entry_host_timestamp;
-            // apollon.experiment.ApollonExperimentManager.Instance.Trial.result["F_timing_on_exit_host_timestamp"]
-            //     = this.CurrentResults.phase_F_results.timing_on_exit_host_timestamp;
-
             // base call
             base.OnExperimentTrialEnd(sender, arg);
             
