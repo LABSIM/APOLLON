@@ -19,6 +19,7 @@
 //
 
 using System.Linq;
+using System.Windows.Forms;
 using UnityEngine.UIElements;
 
 // avoid namespace pollution
@@ -306,7 +307,7 @@ namespace Labsim.experiment.AIRWISE
 
             // deactivate all entity
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.All
             );
 
             // log
@@ -331,12 +332,18 @@ namespace Labsim.experiment.AIRWISE
                 this.CurrentSettings.LogUXFSettings();
             }
 
-            // get a ref
+            // get refs 
             var static_element
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.element.ApollonStaticElementBridge
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
+                ).ConcreteBehaviour;
+            var dynamic_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.entity.ApollonDynamicEntityBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour;
 
             // current visual
@@ -398,6 +405,59 @@ namespace Labsim.experiment.AIRWISE
 
             } /* if() */
 
+            // switch on model control config
+            switch(this.CurrentSettings.Trial.control_type)
+            {
+
+                case AIRWISESettings.ControlIDType.Familiarisation:
+                {
+
+                    // TODO config file ? see Yale
+                    break;
+
+                }
+
+                case AIRWISESettings.ControlIDType.PositionControl:
+                {
+
+                    // TODO config file ? see Yale
+                    break;
+
+                }
+
+                case AIRWISESettings.ControlIDType.SpeedControl:
+                {
+
+                    // TODO config file ? see Yale
+                    break;
+
+                }
+
+                case AIRWISESettings.ControlIDType.AccelerationControl:
+                {
+
+                    // TODO config file ? see Yale
+                    break;
+                    
+                }
+
+                case AIRWISESettings.ControlIDType.Undefined:
+                default:
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> AIRWISEProfile.onExperimentTrialBegin() : UNDEFINED control for pattern["
+                        + this.CurrentSettings.Trial.pattern_type
+                        + "]... check configuration files !"
+                    );
+
+                    break;
+
+                }
+
+            } /* switch() */
+
             // base call
             base.OnExperimentTrialBegin(sender, arg);
 
@@ -405,7 +465,7 @@ namespace Labsim.experiment.AIRWISE
             this.DoBlankFadeOut(250.0f);
             this.DoLightFadeOut(250.0f);
 
-            // activate all subject control
+            // activate subject control
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
             );
@@ -460,19 +520,14 @@ namespace Labsim.experiment.AIRWISE
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
 
-            // async fade in
-            this.DoBlankFadeIn(250.0f);
-            this.DoLightFadeIn(250.0f);
-
             // inactivate all subject control
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
             );
 
-            // inactivate all motion system command/sensor/impedence
-            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
-            );
+            // async fade in
+            this.DoBlankFadeIn(250.0f);
+            this.DoLightFadeIn(250.0f);
 
             // current visual
             if(this.CurrentSettings.Trial.visual_type == AIRWISESettings.VisualIDType.Undefined)
