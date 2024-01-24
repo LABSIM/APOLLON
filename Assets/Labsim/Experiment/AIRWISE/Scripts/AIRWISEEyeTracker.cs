@@ -79,9 +79,6 @@ namespace Labsim.experiment.AIRWISE
 
                 return new UXF.UXFDataRow()
                 {
-                    ("host_timestamp",                 apollon.ApollonHighResolutionTime.Now.ToString()),
-                    ("unity_timestamp",                UnityEngine.Time.time.ToString()),
-                    ("varjo_timestamp",                Varjo.XR.VarjoTime.GetVarjoTimestamp().ToString()),
                     ("frame_number",                   cEmptyField),
                     ("capture_time",                   cEmptyField),
                     ("gaze_status",                    cEmptyField),

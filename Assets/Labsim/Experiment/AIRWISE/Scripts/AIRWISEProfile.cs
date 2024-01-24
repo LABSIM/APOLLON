@@ -104,12 +104,12 @@ namespace Labsim.experiment.AIRWISE
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : will async blank fade in 5000.0ms"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : will async blank fade in 2500.0ms"
             );
 
             // async fade in
-            this.DoBlankFadeIn(5000.0f);
-            this.DoLightFadeIn(5000.0f);
+            this.DoBlankFadeIn(2500.0f);
+            this.DoLightFadeIn(2500.0f);
 
             // preconfigure root path
             foreach (var dh in apollon.experiment.ApollonExperimentManager.Instance.Session.ActiveDataHandlers)
@@ -282,7 +282,7 @@ namespace Labsim.experiment.AIRWISE
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
-            static_element.References["DBTag_DefaultSetup"].SetActive(false);
+            static_element.References["DBTag_BaseSetup"].SetActive(false);
 
             // base call
             base.OnExperimentSessionBegin(sender, arg);
