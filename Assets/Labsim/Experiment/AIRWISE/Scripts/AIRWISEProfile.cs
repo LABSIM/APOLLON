@@ -40,7 +40,7 @@ namespace Labsim.experiment.AIRWISE
 
         // properties
         public AIRWISESettings CurrentSettings { get; private set; } = null;
-        public AIRWISEResults CurrentResults { get; set; } = null;
+        public AIRWISEResults CurrentResults { get; private set; } = null;
 
         #region abstract implementation
 
@@ -315,11 +315,19 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionEnd() : end"
             );
 
-
         } /* onExperimentSessionEnd() */
 
         public override async void OnExperimentTrialBegin(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
         {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : begin"
+            );
+
+            // instantiate Settings & Results classes 
+            this.CurrentSettings = new(this);
+            this.CurrentResults  = new(this);
 
             // log
             UnityEngine.Debug.Log(
@@ -404,59 +412,6 @@ namespace Labsim.experiment.AIRWISE
                     .SetActive(true);
 
             } /* if() */
-
-            // switch on model control config
-            switch(this.CurrentSettings.Trial.control_type)
-            {
-
-                case AIRWISESettings.ControlIDType.Familiarisation:
-                {
-
-                    // TODO config file ? see Yale
-                    break;
-
-                }
-
-                case AIRWISESettings.ControlIDType.PositionControl:
-                {
-
-                    // TODO config file ? see Yale
-                    break;
-
-                }
-
-                case AIRWISESettings.ControlIDType.SpeedControl:
-                {
-
-                    // TODO config file ? see Yale
-                    break;
-
-                }
-
-                case AIRWISESettings.ControlIDType.AccelerationControl:
-                {
-
-                    // TODO config file ? see Yale
-                    break;
-                    
-                }
-
-                case AIRWISESettings.ControlIDType.Undefined:
-                default:
-                {
-
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AIRWISEProfile.onExperimentTrialBegin() : UNDEFINED control for pattern["
-                        + this.CurrentSettings.Trial.pattern_type
-                        + "]... check configuration files !"
-                    );
-
-                    break;
-
-                }
-
-            } /* switch() */
 
             // base call
             base.OnExperimentTrialBegin(sender, arg);
@@ -587,6 +542,145 @@ namespace Labsim.experiment.AIRWISE
                     .SetActive(false);
 
             } /* if() */
+
+            // switch on model control config & dump current trial configs files
+            switch(this.CurrentSettings.Trial.control_type)
+            {
+
+                case AIRWISESettings.ControlIDType.Familiarisation:
+                {
+
+                    foreach(
+                        var configFilename in new string[]{
+                            Constants.ConfigFile,
+                            Constants.ForcingFunctionConfigFile,
+                            Constants.MappingConfigFile,
+                            Constants.ControlConfigFile,
+                            Constants.ActuationConfigFile,
+                            Constants.HapticConfigFile,
+                            Constants.ErrorDisplayConfigFile
+                        } 
+                    )
+                    { 
+
+                        // build new paths
+                        string
+                            input       = System.IO.Path.Combine(Constants.streamingAssetsPath, configFilename),
+                            filename    = System.IO.Path.GetFileNameWithoutExtension(input),
+                            fileext     = System.IO.Path.GetExtension(input),
+                            output      = System.IO.Path.Combine(
+                                            Logger.m_rootPath, 
+                                            "configs", 
+                                            string.Concat(
+                                                filename,
+                                                string.Format("_T{1:000}", arg.Trial.number),
+                                                fileext
+                                            )
+                                        );
+
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : PositionControl mode, config:" + configFilename + " found["
+                            + "input:"      + input
+                            + "/filemame: " + filename
+                            + "/fileext: "  + fileext
+                            + "/output: "   + output
+                            + "]"
+                        );
+                        
+                        // // copy config files to correct location
+                        // System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));
+                        // System.IO.File.Copy(input, output); 
+
+                    } /* foreach() */
+                   
+                    break;
+
+                } /* case Familiarisation */
+
+                case AIRWISESettings.ControlIDType.PositionControl:
+                {
+
+                    foreach(
+                        var configFilename in new string[]{
+                            Constants.ConfigFile,
+                            Constants.ForcingFunctionConfigFile,
+                            Constants.MappingConfigFile,
+                            Constants.ControlConfigFile,
+                            Constants.ActuationConfigFile,
+                            Constants.HapticConfigFile,
+                            Constants.ErrorDisplayConfigFile
+                        } 
+                    )
+                    { 
+
+                        // build new paths
+                        string
+                            input       = System.IO.Path.Combine(Constants.streamingAssetsPath, configFilename),
+                            filename    = System.IO.Path.GetFileNameWithoutExtension(input),
+                            fileext     = System.IO.Path.GetExtension(input),
+                            output      = System.IO.Path.Combine(
+                                            Logger.m_rootPath, 
+                                            "configs", 
+                                            string.Concat(
+                                                filename,
+                                                string.Format("_T{1:000}", arg.Trial.number),
+                                                fileext
+                                            )
+                                        );
+
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : PositionControl mode, config:" + configFilename + " found["
+                            + "input:"      + input
+                            + "/filemame: " + filename
+                            + "/fileext: "  + fileext
+                            + "/output: "   + output
+                            + "]"
+                        );
+                        
+                        // // copy config files to correct location
+                        // System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));
+                        // System.IO.File.Copy(input, output); 
+
+                    } /* foreach() */
+                   
+                    break;
+
+                } /* case PositionControl */
+
+                case AIRWISESettings.ControlIDType.SpeedControl:
+                {
+
+                    // TODO config file ? see Yale
+                    break;
+
+                }
+
+                case AIRWISESettings.ControlIDType.AccelerationControl:
+                {
+
+                    // TODO config file ? see Yale
+                    break;
+                    
+                }
+
+                case AIRWISESettings.ControlIDType.Undefined:
+                default:
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> AIRWISEProfile.onExperimentTrialBegin() : UNDEFINED control for pattern["
+                        + this.CurrentSettings.Trial.pattern_type
+                        + "]... check configuration files !"
+                    );
+
+                    break;
+
+                }
+
+            } /* switch() */
 
             // export current trial results & log on completion
             if(this.CurrentResults.ExportUXFResults(arg.Trial.result))

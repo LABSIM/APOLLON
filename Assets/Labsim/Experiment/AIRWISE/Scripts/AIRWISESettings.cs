@@ -306,13 +306,13 @@ namespace Labsim.experiment.AIRWISE
                     );
                 this.Trial.performance_criteria
                     = settings.GetFloat(
-                        this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria_value")
+                        this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria")
                     );
                 
                 // current control
                 switch(
                     settings.GetString(
-                        this.GetJSONSettingsAttributeName<TrialSettings>("control_name")
+                        this.GetJSONSettingsAttributeName<TrialSettings>("control_type")
                     )
                 ) {
                     
@@ -364,7 +364,7 @@ namespace Labsim.experiment.AIRWISE
                 // current scene
                 switch(
                     settings.GetString(
-                        this.GetJSONSettingsAttributeName<TrialSettings>("scene_name")
+                        this.GetJSONSettingsAttributeName<TrialSettings>("scene_type")
                     )
                 ) {
                     
@@ -434,7 +434,7 @@ namespace Labsim.experiment.AIRWISE
                 // current visual
                 switch(
                     settings.GetString(
-                        this.GetJSONSettingsAttributeName<TrialSettings>("visual_name")
+                        this.GetJSONSettingsAttributeName<TrialSettings>("visual_type")
                     )
                 ) {
                     
@@ -597,19 +597,19 @@ namespace Labsim.experiment.AIRWISE
                     + " : " 
                     + this.Trial.bIsActive
                 + "\n - " 
-                    + this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria_value") 
+                    + this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria") 
                     + " : " 
                     + this.Trial.performance_criteria
                 + "\n - " 
-                    + this.GetJSONSettingsAttributeName<TrialSettings>("control_name") 
+                    + this.GetJSONSettingsAttributeName<TrialSettings>("control_type") 
                     + " : " 
                     + apollon.ApollonEngine.GetEnumDescription(this.Trial.control_type)
                 + "\n - " 
-                    + this.GetJSONSettingsAttributeName<TrialSettings>("scene_name") 
+                    + this.GetJSONSettingsAttributeName<TrialSettings>("scene_type") 
                     + " : " 
                     + apollon.ApollonEngine.GetEnumDescription(this.Trial.scene_type)
                 + "\n - " 
-                    + this.GetJSONSettingsAttributeName<TrialSettings>("visual_name") 
+                    + this.GetJSONSettingsAttributeName<TrialSettings>("visual_type") 
                     + " : " 
                     + apollon.ApollonEngine.GetEnumDescription(this.Trial.visual_type)
                 + "\n - " 
