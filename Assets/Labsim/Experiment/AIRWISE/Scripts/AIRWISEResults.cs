@@ -40,8 +40,11 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
+            public long 
+                user_performance_try_count = -1;
+
             public float 
-                user_performance_value;
+                user_performance_value = float.NaN;
 
             #endregion
 
@@ -53,16 +56,16 @@ namespace Labsim.experiment.AIRWISE
             #region timing_*
 
             public long 
-                timing_on_entry_varjo_timestamp,
-                timing_on_exit_varjo_timestamp;
+                timing_on_entry_varjo_timestamp = -1,
+                timing_on_exit_varjo_timestamp  = -1;
 
             public float 
-                timing_on_entry_unity_timestamp,
-                timing_on_exit_unity_timestamp;
+                timing_on_entry_unity_timestamp = float.NaN,
+                timing_on_exit_unity_timestamp  = float.NaN;
 
             public string
-                timing_on_entry_host_timestamp,
-                timing_on_exit_host_timestamp;
+                timing_on_entry_host_timestamp = "",
+                timing_on_exit_host_timestamp  = "";
             
             #endregion
 
@@ -105,7 +108,7 @@ namespace Labsim.experiment.AIRWISE
                 {
 
                     [System.ComponentModel.Description("Undefined")]
-                    Undefined = 0,
+                    Undefined = -1,
 
                     [System.ComponentModel.Description("Gate_Success")]
                     GateSuccess,
@@ -126,17 +129,17 @@ namespace Labsim.experiment.AIRWISE
 
                 public KindIDType kind = KindIDType.Undefined;
 
-                public float timing_unity_timestamp = 0.0f;
+                public float timing_unity_timestamp = float.NaN;
 
                 public string timing_host_timestamp = "";
 
-                public long timing_varjo_timestamp = 0;
+                public long timing_varjo_timestamp = -1;
 
-                public float[] local_position = new float[3]{ 0.0f, 0.0f, 0.0f };
+                public float[] local_position = new float[3]{ float.NaN, float.NaN, float.NaN };
 
-                public float[] world_position = new float[3]{ 0.0f, 0.0f, 0.0f };
+                public float[] world_position = new float[3]{ float.NaN, float.NaN, float.NaN };
 
-                public float[] aero_position = new float[3]{ 0.0f, 0.0f, 0.0f };
+                public float[] aero_position = new float[3]{ float.NaN, float.NaN, float.NaN };
 
             } /* class Checkpoint */
 
@@ -201,13 +204,13 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
-            public float user_response_timing_unity_timestamp = 0.0f;
+            public float user_response_timing_unity_timestamp = float.NaN;
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = 0;
+            public long user_response_timing_varjo_timestamp = -1;
 
-            public float user_response_value = 5.0f;
+            public float user_response_value = float.NaN;
 
             #endregion
 
@@ -220,13 +223,13 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
-            public float user_response_timing_unity_timestamp = 0.0f;
+            public float user_response_timing_unity_timestamp = float.NaN;
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = 0;
+            public long user_response_timing_varjo_timestamp = -1;
 
-            public float user_response_value = 5.0f;
+            public float user_response_value = float.NaN;
 
             #endregion
 
@@ -239,13 +242,13 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
-            public float user_response_timing_unity_timestamp = 0.0f;
+            public float user_response_timing_unity_timestamp = float.NaN;
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = 0;
+            public long user_response_timing_varjo_timestamp = -1;
 
-            public float user_response_value = 5.0f;
+            public float user_response_value = float.NaN;
 
             #endregion
 
@@ -258,13 +261,13 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
-            public float user_response_timing_unity_timestamp = 0.0f;
+            public float user_response_timing_unity_timestamp = float.NaN;
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = 0;
+            public long user_response_timing_varjo_timestamp = -1;
 
-            public float user_response_value = 5.0f;
+            public float user_response_value = float.NaN;
 
             #endregion
 
@@ -277,13 +280,13 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
-            public float user_response_timing_unity_timestamp = 0.0f;
+            public float user_response_timing_unity_timestamp = float.NaN;
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = 0;
+            public long user_response_timing_varjo_timestamp = -1;
 
-            public float user_response_value = 5.0f;
+            public float user_response_value = float.NaN;
 
             #endregion
 
@@ -296,13 +299,13 @@ namespace Labsim.experiment.AIRWISE
 
             #region user_*
 
-            public float user_response_timing_unity_timestamp = 0.0f;
+            public float user_response_timing_unity_timestamp = float.NaN;
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = 0;
+            public long user_response_timing_varjo_timestamp = -1;
 
-            public float user_response_value = 5.0f;
+            public float user_response_value = float.NaN;
 
             #endregion
 
@@ -336,7 +339,8 @@ namespace Labsim.experiment.AIRWISE
                 results["scene_name"]          = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.scene_type);
 
                 // current trials results
-                results["user_performance_value"] = this.Trial.user_performance_value.ToString();
+                results["user_performance_try_count"] = this.Trial.user_performance_try_count.ToString();
+                results["user_performance_value"]     = this.Trial.user_performance_value.ToString();
 
                 // phase A
                 results["A_timing_on_entry_unity_timestamp"] = this.PhaseA.timing_on_entry_unity_timestamp.ToString();
@@ -501,6 +505,10 @@ namespace Labsim.experiment.AIRWISE
                 + "\n - scene_name"                        
                     + "[" 
                     + apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.scene_type)
+                    + "]"
+                + "\n - user_performance_try_count"                        
+                    + "[" 
+                    + this.Trial.user_performance_try_count
                     + "]"
                 + "\n - user_performance_value"                        
                     + "[" 

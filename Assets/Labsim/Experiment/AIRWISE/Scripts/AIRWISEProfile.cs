@@ -425,6 +425,8 @@ namespace Labsim.experiment.AIRWISE
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
             );
 
+            dynamic_entity.References["EntityTag_Vecteur"].SetActive(true);
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : trial protocol will start"
@@ -433,22 +435,39 @@ namespace Labsim.experiment.AIRWISE
             // build protocol
             await this.DoRunProtocol(
                 async () => {
-                    await this.DoWhileLoop(
-                        () => { 
-                            return !(this.CurrentResults.Trial.user_performance_value < this.CurrentSettings.Trial.performance_criteria);
+                        await this.DoWhileLoop(
+                            () => {
+
+                                // increment current retry count & check (top priority)
+                                if(++this.CurrentResults.Trial.user_performance_try_count >= this.CurrentSettings.Trial.performance_max_try)
+                                    return false;
+
+                                // then check performance criteria
+                                return !(this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria);
+                                
+                            },
+                            async () => { await this.SetState( new AIRWISEPhaseA(this) ); },
+                            async () => { await this.SetState( new AIRWISEPhaseB(this) ); },
+                            async () => { await this.SetState( new AIRWISEPhaseC(this) ); },
+                            async () => { await this.SetState( new AIRWISEPhaseD(this) ); }
+                        );
+                    },
+                async() => {
+                    await this.DoIfBranch(
+                         () => {
+
+                            // then check performance criteria
+                            return this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria;
+                            
                         },
-                        async () => { await this.SetState( new AIRWISEPhaseA(this) ); },
-                        async () => { await this.SetState( new AIRWISEPhaseB(this) ); },
-                        async () => { await this.SetState( new AIRWISEPhaseC(this) ); },
-                        async () => { await this.SetState( new AIRWISEPhaseD(this) ); }
+                        async () => { await this.SetState( new AIRWISEPhaseE(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseF(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseG(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseH(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseI(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseJ(this) ); }
                     );
                 },
-                async () => { await this.SetState( new AIRWISEPhaseE(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseF(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseG(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseH(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseI(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseJ(this) ); },
                 async () => { await this.SetState( null ); }
             );
             
@@ -463,7 +482,7 @@ namespace Labsim.experiment.AIRWISE
         {
 
             // log
-            UnityEngine.Debug.Log(
+            UnityEngine.Debug.Log( 
                 "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialEnd() : begin"
             );
 
@@ -474,11 +493,19 @@ namespace Labsim.experiment.AIRWISE
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
+            var dynamic_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.entity.ApollonDynamicEntityBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
+                ).ConcreteBehaviour;
 
             // inactivate all subject control
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
             );
+            
+            dynamic_entity.References["EntityTag_Vecteur"].SetActive(false);
 
             // async fade in
             this.DoBlankFadeIn(250.0f);
@@ -580,7 +607,7 @@ namespace Labsim.experiment.AIRWISE
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : PositionControl mode, config:" + configFilename + " found["
+                            "<color=Blue>Info: </color> AIRWISEProfile.OnExperimentTrialEnd() : PositionControl mode, config:" + configFilename + " found["
                             + "input:"      + input
                             + "/filemame: " + filename
                             + "/fileext: "  + fileext
@@ -631,7 +658,7 @@ namespace Labsim.experiment.AIRWISE
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : PositionControl mode, config:" + configFilename + " found["
+                            "<color=Blue>Info: </color> AIRWISEProfile.OnExperimentTrialEnd() : PositionControl mode, config:" + configFilename + " found["
                             + "input:"      + input
                             + "/filemame: " + filename
                             + "/fileext: "  + fileext
@@ -652,18 +679,104 @@ namespace Labsim.experiment.AIRWISE
                 case AIRWISESettings.ControlIDType.SpeedControl:
                 {
 
-                    // TODO config file ? see Yale
+                    foreach(
+                        var configFilename in new string[]{
+                            Constants.ConfigFile,
+                            Constants.ForcingFunctionConfigFile,
+                            Constants.MappingConfigFile,
+                            Constants.ControlConfigFile,
+                            Constants.ActuationConfigFile,
+                            Constants.HapticConfigFile,
+                            Constants.ErrorDisplayConfigFile
+                        } 
+                    )
+                    { 
+
+                        // build new paths
+                        string
+                            input       = System.IO.Path.Combine(Constants.streamingAssetsPath, configFilename),
+                            filename    = System.IO.Path.GetFileNameWithoutExtension(input),
+                            fileext     = System.IO.Path.GetExtension(input),
+                            output      = System.IO.Path.Combine(
+                                            Logger.m_rootPath, 
+                                            "configs", 
+                                            string.Concat(
+                                                filename,
+                                                string.Format("_T{1:000}", arg.Trial.number),
+                                                fileext
+                                            )
+                                        );
+
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEProfile.OnExperimentTrialEnd() : SpeedControl mode, config:" + configFilename + " found["
+                            + "input:"      + input
+                            + "/filemame: " + filename
+                            + "/fileext: "  + fileext
+                            + "/output: "   + output
+                            + "]"
+                        );
+                        
+                        // // copy config files to correct location
+                        // System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));
+                        // System.IO.File.Copy(input, output); 
+
+                    } /* foreach() */
+                   
                     break;
 
-                }
+                } /* case SpeedControl */
 
                 case AIRWISESettings.ControlIDType.AccelerationControl:
                 {
 
-                    // TODO config file ? see Yale
+                    foreach(
+                        var configFilename in new string[]{
+                            Constants.ConfigFile,
+                            Constants.ForcingFunctionConfigFile,
+                            Constants.MappingConfigFile,
+                            Constants.ControlConfigFile,
+                            Constants.ActuationConfigFile,
+                            Constants.HapticConfigFile,
+                            Constants.ErrorDisplayConfigFile
+                        } 
+                    )
+                    { 
+
+                        // build new paths
+                        string
+                            input       = System.IO.Path.Combine(Constants.streamingAssetsPath, configFilename),
+                            filename    = System.IO.Path.GetFileNameWithoutExtension(input),
+                            fileext     = System.IO.Path.GetExtension(input),
+                            output      = System.IO.Path.Combine(
+                                            Logger.m_rootPath, 
+                                            "configs", 
+                                            string.Concat(
+                                                filename,
+                                                string.Format("_T{1:000}", arg.Trial.number),
+                                                fileext
+                                            )
+                                        );
+
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEProfile.OnExperimentTrialEnd() : AccelerationControl mode, config:" + configFilename + " found["
+                            + "input:"      + input
+                            + "/filemame: " + filename
+                            + "/fileext: "  + fileext
+                            + "/output: "   + output
+                            + "]"
+                        );
+                        
+                        // // copy config files to correct location
+                        // System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));
+                        // System.IO.File.Copy(input, output); 
+
+                    } /* foreach() */
+                   
                     break;
-                    
-                }
+
+                } /* case AccelerationControl */
 
                 case AIRWISESettings.ControlIDType.Undefined:
                 default:
@@ -671,7 +784,7 @@ namespace Labsim.experiment.AIRWISE
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AIRWISEProfile.onExperimentTrialBegin() : UNDEFINED control for pattern["
+                        "<color=Red>Error: </color> AIRWISEProfile.OnExperimentTrialEnd() : UNDEFINED control for pattern["
                         + this.CurrentSettings.Trial.pattern_type
                         + "]... check configuration files !"
                     );

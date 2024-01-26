@@ -18,6 +18,8 @@
             "visual_name": "None",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
+
             "phase_A_duration_ms": 1000.0,
 
             "phase_B_acceleration_duration_ms": 1500.0,
@@ -46,6 +48,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -75,6 +78,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -104,6 +108,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -133,6 +138,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -162,6 +168,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -191,6 +198,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -220,6 +228,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -249,6 +258,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -278,6 +288,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -307,6 +318,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -336,6 +348,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -365,6 +378,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -394,6 +408,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -423,6 +438,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -452,6 +468,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -481,6 +498,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -510,6 +528,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -539,6 +558,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -568,6 +588,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -597,6 +618,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -626,6 +648,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -655,6 +678,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -684,6 +708,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -713,6 +738,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -742,6 +768,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -771,6 +798,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -800,6 +828,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -829,6 +858,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -858,6 +888,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -887,6 +918,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -916,6 +948,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -945,6 +978,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -974,6 +1008,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1003,6 +1038,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1032,6 +1068,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1061,6 +1098,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1090,6 +1128,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1119,6 +1158,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1148,6 +1188,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1177,6 +1218,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1206,6 +1248,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1235,6 +1278,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1264,6 +1308,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1293,6 +1338,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1322,6 +1368,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1351,6 +1398,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1380,6 +1428,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1409,6 +1458,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1438,6 +1488,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1467,6 +1518,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1496,6 +1548,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1525,6 +1578,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1554,6 +1608,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1583,6 +1638,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1612,6 +1668,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1641,6 +1698,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1670,6 +1728,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1699,6 +1758,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1728,6 +1788,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1757,6 +1818,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1786,6 +1848,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1815,6 +1878,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1844,6 +1908,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1873,6 +1938,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1902,6 +1968,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1931,6 +1998,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1960,6 +2028,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -1989,6 +2058,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2018,6 +2088,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2047,6 +2118,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2076,6 +2148,7 @@
             "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2105,6 +2178,7 @@
             "visual_name": "StreetB",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2134,6 +2208,7 @@
             "visual_name": "StreetC",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2163,6 +2238,7 @@
             "visual_name": "StreetD",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 
@@ -2192,6 +2268,7 @@
             "visual_name": "StreetE",
 
             "performance_criteria_value_percent": 80.0,
+            "performance_max_try_count": 5,
             
             "phase_A_duration_ms": 1000.0,
 

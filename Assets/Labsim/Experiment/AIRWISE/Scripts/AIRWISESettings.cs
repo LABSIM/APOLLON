@@ -78,7 +78,7 @@ namespace Labsim.experiment.AIRWISE
         {
 
             [System.ComponentModel.Description("Undefined")]
-            Undefined = 0,
+            Undefined = -1,
 
             [System.ComponentModel.Description("Familiarisation")]
             Familiarisation,
@@ -98,7 +98,7 @@ namespace Labsim.experiment.AIRWISE
         {
 
             [System.ComponentModel.Description("Undefined")]
-            Undefined = 0,
+            Undefined = -1,
 
             [System.ComponentModel.Description("Familiarisation")]
             Familiarisation,
@@ -124,7 +124,7 @@ namespace Labsim.experiment.AIRWISE
         {
 
             [System.ComponentModel.Description("Undefined")]
-            Undefined = 0,
+            Undefined = -1,
 
             [System.ComponentModel.Description("None")]
             None,
@@ -170,6 +170,9 @@ namespace Labsim.experiment.AIRWISE
 
             [JSONSettingsAttribute(settings:"performance_criteria_value", unit:"percent")]
             public float performance_criteria;
+
+            [JSONSettingsAttribute(settings:"performance_max_try_count")]
+            public long performance_max_try;
 
         } /* TrialSettings */
 
@@ -307,6 +310,10 @@ namespace Labsim.experiment.AIRWISE
                 this.Trial.performance_criteria
                     = settings.GetFloat(
                         this.GetJSONSettingsAttributeName<TrialSettings>("performance_criteria")
+                    );
+                this.Trial.performance_max_try
+                    = settings.GetLong(
+                        this.GetJSONSettingsAttributeName<TrialSettings>("performance_max_try")
                     );
                 
                 // current control
