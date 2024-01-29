@@ -212,6 +212,8 @@ namespace Labsim.experiment.AIRWISE
 
             public float user_response_value = float.NaN;
 
+            public long user_elapsed_ms_since_entry = -1;
+
             #endregion
 
         } /* class PhaseEResults */
@@ -231,6 +233,8 @@ namespace Labsim.experiment.AIRWISE
 
             public float user_response_value = float.NaN;
 
+            public long user_elapsed_ms_since_entry = -1;
+
             #endregion
 
         } /* class PhaseFResults */
@@ -249,6 +253,8 @@ namespace Labsim.experiment.AIRWISE
             public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
+            
+            public long user_elapsed_ms_since_entry = -1;
 
             #endregion
 
@@ -268,6 +274,8 @@ namespace Labsim.experiment.AIRWISE
             public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
+            
+            public long user_elapsed_ms_since_entry = -1;
 
             #endregion
 
@@ -287,6 +295,8 @@ namespace Labsim.experiment.AIRWISE
             public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
+            
+            public long user_elapsed_ms_since_entry = -1;
 
             #endregion
 
@@ -306,6 +316,8 @@ namespace Labsim.experiment.AIRWISE
             public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
+            
+            public long user_elapsed_ms_since_entry = -1;
 
             #endregion
 
@@ -398,6 +410,7 @@ namespace Labsim.experiment.AIRWISE
                 results["E_user_response_timing_host_timestamp"]  = this.PhaseE.user_response_timing_host_timestamp;
                 results["E_user_response_timing_varjo_timestamp"] = this.PhaseE.user_response_timing_varjo_timestamp.ToString();
                 results["E_user_response_value"]                  = this.PhaseE.user_response_value.ToString();
+                results["E_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
                 // phase F
                 results["F_timing_on_entry_unity_timestamp"]      = this.PhaseF.timing_on_entry_unity_timestamp.ToString();
@@ -410,6 +423,7 @@ namespace Labsim.experiment.AIRWISE
                 results["F_user_response_timing_host_timestamp"]  = this.PhaseF.user_response_timing_host_timestamp;
                 results["F_user_response_timing_varjo_timestamp"] = this.PhaseF.user_response_timing_varjo_timestamp.ToString();
                 results["F_user_response_value"]                  = this.PhaseF.user_response_value.ToString();
+                results["F_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
                 // phase G
                 results["G_timing_on_entry_unity_timestamp"]      = this.PhaseG.timing_on_entry_unity_timestamp.ToString();
@@ -422,6 +436,7 @@ namespace Labsim.experiment.AIRWISE
                 results["G_user_response_timing_host_timestamp"]  = this.PhaseG.user_response_timing_host_timestamp;
                 results["G_user_response_timing_varjo_timestamp"] = this.PhaseG.user_response_timing_varjo_timestamp.ToString();
                 results["G_user_response_value"]                  = this.PhaseG.user_response_value.ToString();
+                results["G_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
                 // phase H
                 results["H_timing_on_entry_unity_timestamp"]      = this.PhaseH.timing_on_entry_unity_timestamp.ToString();
@@ -434,6 +449,7 @@ namespace Labsim.experiment.AIRWISE
                 results["H_user_response_timing_host_timestamp"]  = this.PhaseH.user_response_timing_host_timestamp;
                 results["H_user_response_timing_varjo_timestamp"] = this.PhaseH.user_response_timing_varjo_timestamp.ToString();
                 results["H_user_response_value"]                  = this.PhaseH.user_response_value.ToString();
+                results["H_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
                 // phase I
                 results["I_timing_on_entry_unity_timestamp"]      = this.PhaseI.timing_on_entry_unity_timestamp.ToString();
@@ -446,6 +462,7 @@ namespace Labsim.experiment.AIRWISE
                 results["I_user_response_timing_host_timestamp"]  = this.PhaseI.user_response_timing_host_timestamp;
                 results["I_user_response_timing_varjo_timestamp"] = this.PhaseI.user_response_timing_varjo_timestamp.ToString();
                 results["I_user_response_value"]                  = this.PhaseI.user_response_value.ToString();
+                results["I_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
                 // phase J
                 results["J_timing_on_entry_unity_timestamp"]      = this.PhaseJ.timing_on_entry_unity_timestamp.ToString();
@@ -458,6 +475,7 @@ namespace Labsim.experiment.AIRWISE
                 results["J_user_response_timing_host_timestamp"]  = this.PhaseJ.user_response_timing_host_timestamp;
                 results["J_user_response_timing_varjo_timestamp"] = this.PhaseJ.user_response_timing_varjo_timestamp.ToString();
                 results["J_user_response_value"]                  = this.PhaseJ.user_response_value.ToString();
+                results["J_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
             } 
             catch(System.Exception ex)
@@ -651,6 +669,10 @@ namespace Labsim.experiment.AIRWISE
                     + "[" 
                     + this.PhaseE.user_response_value.ToString()
                     + "]"
+                + "\n - E_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseE.user_elapsed_ms_since_entry.ToString()
+                    + "]"
                 + "\n - F_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseF.timing_on_entry_unity_timestamp.ToString()
@@ -690,6 +712,10 @@ namespace Labsim.experiment.AIRWISE
                 + "\n - F_user_response_value"  
                     + "[" 
                     + this.PhaseF.user_response_value.ToString()
+                    + "]"
+                + "\n - F_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseF.user_elapsed_ms_since_entry.ToString()
                     + "]"
                 + "\n - G_timing_on_entry_unity_timestamp" 
                     + "[" 
@@ -731,6 +757,10 @@ namespace Labsim.experiment.AIRWISE
                     + "[" 
                     + this.PhaseG.user_response_value.ToString()
                     + "]"
+                + "\n - G_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseG.user_elapsed_ms_since_entry.ToString()
+                    + "]"
                 + "\n - H_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseH.timing_on_entry_unity_timestamp.ToString()
@@ -770,6 +800,10 @@ namespace Labsim.experiment.AIRWISE
                 + "\n - H_user_response_value"  
                     + "[" 
                     + this.PhaseH.user_response_value.ToString()
+                    + "]"
+                + "\n - H_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseH.user_elapsed_ms_since_entry.ToString()
                     + "]"
                 + "\n - I_timing_on_entry_unity_timestamp" 
                     + "[" 
@@ -811,6 +845,10 @@ namespace Labsim.experiment.AIRWISE
                     + "[" 
                     + this.PhaseI.user_response_value.ToString()
                     + "]"
+                + "\n - I_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseI.user_elapsed_ms_since_entry.ToString()
+                    + "]"
                 + "\n - J_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseJ.timing_on_entry_unity_timestamp.ToString()
@@ -850,6 +888,10 @@ namespace Labsim.experiment.AIRWISE
                 + "\n - J_user_response_value"  
                     + "[" 
                     + this.PhaseJ.user_response_value.ToString()
+                    + "]"
+                + "\n - J_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseJ.user_elapsed_ms_since_entry.ToString()
                     + "]"
             );
 
