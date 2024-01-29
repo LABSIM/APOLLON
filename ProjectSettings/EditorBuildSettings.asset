@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_Familiarisation.unity
     guid: 15b744533bee71744b02c595de53ce83
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Test_scene.unity
+    guid: 3513c6e3d571d8c4ba0f7e4e77ab7d67
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8264bf70eef11fa42bde15fd25bc24c5,
       type: 2}

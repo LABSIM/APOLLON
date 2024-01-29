@@ -2297,10 +2297,12 @@
   
       "block_test_FAM": {
   
-        "is_practice_condition": false,
-        "is_sequence_randomized": true,
-  
-        "trial_sequence": [
+        "is_practice_condition": true,
+        "is_draw_bucket_randomized": true,
+
+        "trial_max_retry_per_draw" : 5,
+        
+        "trial_draw_bucket": [
           
           "test_pattern_FAM",
           "test_pattern_FAM",
@@ -2315,9 +2317,11 @@
       "block_test_SC": {
   
         "is_practice_condition": false,
-        "is_sequence_randomized": true,
-  
-        "trial_sequence": [
+        "is_draw_bucket_randomized": true,
+
+        "trial_max_retry_per_draw" : 5,
+        
+        "trial_draw_bucket": [
           
           "test_pattern_SC_ID1_A",
           "test_pattern_SC_ID1_B",
@@ -2356,9 +2360,11 @@
       "block_test_PC": {
   
         "is_practice_condition": false,
-        "is_sequence_randomized": true,
-  
-        "trial_sequence": [
+        "is_draw_bucket_randomized": true,
+
+        "trial_max_retry_per_draw" : 5,
+        
+        "trial_draw_bucket": [
           
           "test_pattern_PC_ID1_A",
           "test_pattern_PC_ID1_B",
@@ -2397,9 +2403,11 @@
       "block_test_AC": {
   
         "is_practice_condition": false,
-        "is_sequence_randomized": true,
-  
-        "trial_sequence": [
+        "is_draw_bucket_randomized": true,
+
+        "trial_max_retry_per_draw" : 5,
+
+        "trial_draft_bucket": [
           
           "test_pattern_AC_ID1_A",
           "test_pattern_AC_ID1_B",

@@ -94,6 +94,10 @@ namespace Labsim.apollon.experiment
             _trial_fade_out_duration = 250.0f;
         internal readonly System.Diagnostics.Stopwatch _trial_chrono = new System.Diagnostics.Stopwatch();
 
+        public bool SubjectHasFailed { get; set; } = false;
+
+        private System.Collections.Generic.List< System.Collections.Generic.Dictionary<UXF.Trial, long> > m_draft_counter = null;
+
         #endregion
 
         #region subscription / unsubscription
@@ -232,6 +236,7 @@ namespace Labsim.apollon.experiment
             );
 
         } /* ForeachLoop() */
+
         public void DoBlockConfiguration(UXF.Block block, System.Collections.Generic.List<string> seq)
         {
 
@@ -248,6 +253,9 @@ namespace Labsim.apollon.experiment
                     "current_pattern",
                     item.pattern
                 );
+
+                // initialize our draft counter mecanism 
+                this.m_draft_counter.Last().Add(block.trials[item.index], 0);
 
                 // iterate over each found keys
                 foreach (string key in current_pattern_settings.Keys)
@@ -270,6 +278,9 @@ namespace Labsim.apollon.experiment
             // retrieve the block sequence, which was loaded from our .json file
             System.Collections.Generic.List<string> seq = session.settings.GetStringList("block_sequence");
 
+            // increment our draft counter mechanism
+            this.m_draft_counter = new(seq.Count);
+
             // iterate over seq
             UXF.Settings pattern_settings = new UXF.Settings(session.settings.GetDict("block_pattern"));
             foreach (var item in seq.Select((pattern, index) => new { index, pattern }))
@@ -279,17 +290,21 @@ namespace Labsim.apollon.experiment
                 UXF.Settings current_pattern_settings = new UXF.Settings(pattern_settings.GetDict(item.pattern));
 
                 // create block
-                UXF.Block block = session.CreateBlock(current_pattern_settings.GetStringList("trial_sequence").Count);
+                UXF.Block block = session.CreateBlock(current_pattern_settings.GetStringList("trial_draft_bucket").Count);
+
+                // update our draft counter mecanism 
+                this.m_draft_counter.Add(new(block.trials.Count));
 
                 // assign settings
                 block.settings.SetValue("current_pattern", item.pattern);
                 block.settings.SetValue("is_practice_condition", current_pattern_settings.GetBool("is_practice_condition"));
+                block.settings.SetValue("trial_max_retry_per_draw", current_pattern_settings.GetLong("trial_max_retry_per_draw"));
 
                 // call child configuration
-                this.DoBlockConfiguration(block, current_pattern_settings.GetStringList("trial_sequence"));
+                this.DoBlockConfiguration(block, current_pattern_settings.GetStringList("trial_draft_bucket"));
 
                 // suffle it !
-                if (current_pattern_settings.GetBool("is_sequence_randomized"))
+                if (current_pattern_settings.GetBool("is_draw_bucket_randomized"))
                 {
                     block.trials.Shuffle();
                 }
@@ -400,7 +415,7 @@ namespace Labsim.apollon.experiment
             blank_component.RequestFadeIn(duration_in_ms);
 
             // synchronous
-            if (!bASync)
+            if(!bASync)
             {
 
                 // synchronous wait
@@ -420,7 +435,7 @@ namespace Labsim.apollon.experiment
             blank_component.RequestFadeOut(duration_in_ms);
 
             // synchronous
-            if (!bASync)
+            if(!bASync)
             {
 
                 // synchronous wait
@@ -430,18 +445,6 @@ namespace Labsim.apollon.experiment
 
         } /* DoBlankFadeOut() */
 
-        // public async System.Threading.Tasks.Task DoSleep(float duration_in_ms)
-        // {
-        
-        //     // wait a certain amout of time
-        //     var chrono = System.Diagnostics.Stopwatch.StartNew();
-        //     while (chrono.ElapsedMilliseconds < duration_in_ms)
-        //     {
-        //         await System.Threading.Tasks.Task.Delay(10);
-        //     }
-
-        // } /* DoSleep() */
-
         #endregion
 
         #region abstract method
@@ -450,7 +453,7 @@ namespace Labsim.apollon.experiment
         {
             
             // check request
-            if (_trial_requested)
+            if(_trial_requested)
             {
 
                 // start chrono
@@ -474,7 +477,7 @@ namespace Labsim.apollon.experiment
             } /* if () */
 
             // check chrono && start a certain amount of time after session begin exept for the first one
-            if ((this._trial_chrono_is_running)
+            if((this._trial_chrono_is_running)
                 && (
                     (this._trial_chrono.ElapsedMilliseconds >= this._trial_sleep_duration)
                     || (this._trial_requested_type == TrialType.First)
@@ -581,11 +584,145 @@ namespace Labsim.apollon.experiment
         public virtual void OnExperimentTrialBegin(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
 
+            // reset fail condition
+            this.SubjectHasFailed = false;
+
         } /* onExperimentTrialBegin() */
 
         public virtual void OnExperimentTrialEnd(object sender, ApollonEngine.EngineExperimentEventArgs arg)
         {
             
+            // check failed condition
+            if(this.SubjectHasFailed)
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : Subject has failed to match performance criteria, check current draft counter"
+                );
+
+                // check current trial_max_retry_per_draw value
+                if( ++(
+                        this.m_draft_counter[
+                            ApollonExperimentManager.Instance.Session.currentBlockNum
+                        ][
+                            ApollonExperimentManager.Instance.Session.CurrentTrial
+                        ]
+                    ) < ApollonExperimentManager.Instance.Session.CurrentBlock.settings.GetLong("trial_max_retry_per_draw")
+                )
+                {
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : re draw !"
+                    );
+
+                    // re draw
+                    var re_draw_trial
+                        = new UXF.Trial(ApollonExperimentManager.Instance.Session.CurrentBlock);
+                    var re_draw_counter 
+                        = this.m_draft_counter
+                            [ApollonExperimentManager.Instance.Session.currentBlockNum]
+                            [ApollonExperimentManager.Instance.Session.CurrentTrial];
+                    var re_draw_pattern_name 
+                        = ApollonExperimentManager.Instance.Session.CurrentTrial.settings.GetString("current_pattern");
+
+                    // extract curtrent pattern dictionary
+                    UXF.Settings re_draw_pattern_settings 
+                        = new(
+                            ApollonExperimentManager.Instance.Session.CurrentTrial.settings.GetDict(
+                                re_draw_pattern_name
+                            )
+                        );
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : trial with pattern["
+                        + re_draw_pattern_name
+                        + "] has been instanciated, re injecting each settings "
+                    );
+
+                    // iterate over each found keys
+                    foreach (string key in re_draw_pattern_settings.Keys)
+                    {
+
+                        // extract specific per trial settings
+                        re_draw_trial.settings.SetValue(
+                            key,
+                            re_draw_pattern_settings.GetObject(key)
+                        );
+
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : trial with pattern["
+                            + re_draw_pattern_name
+                            + "], injected key ["
+                            + key
+                            + "]"
+                        );
+
+                    } /* foreach() */
+
+                    // update our draft counter mecanism by erasing previous ref & place new one
+                    if(!(
+                        this.m_draft_counter[
+                            ApollonExperimentManager.Instance.Session.currentBlockNum
+                        ].Remove(
+                            ApollonExperimentManager.Instance.Session.CurrentTrial
+                        )
+                    )) 
+                    {
+
+                        // fail...
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : failed to remove previous ref from internal counter mecanism... stange"
+                        );
+
+                    }
+                    else
+                    {
+    
+                        // new counter 
+                        this.m_draft_counter[
+                            ApollonExperimentManager.Instance.Session.currentBlockNum
+                        ].Add(
+                            re_draw_trial,
+                            re_draw_counter
+                        );
+
+                        // re insert pattern at random place 
+                        ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Insert(
+                            new System.Random().Next(
+                                ApollonExperimentManager.Instance.Session.CurrentTrial.numberInBlock + 1,
+                                ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Count
+                            ),
+                            re_draw_trial
+                        );
+
+                    } /* if() */
+
+                }
+                else 
+                {
+                    
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : no re draw available, subject is weak ;)"
+                    );
+
+                } /* if() */
+            
+            }
+            else
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> ApollonAbstractExperimentProfile.onExperimentTrialEnd() : subject is strong ! subject has succedeed "
+                );
+            
+            } /* if() */
+
             // check if there is any trial left
             if (ApollonExperimentManager.Instance.Session.CurrentTrial == ApollonExperimentManager.Instance.Session.LastTrial)
             {
