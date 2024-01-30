@@ -147,7 +147,7 @@ namespace Labsim.experiment.AIRWISE
             
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseF.OnEntry() : final [Mental demand] result {"  
+                "<color=Blue>Info: </color> AIRWISEPhaseE.OnEntry() : final [Mental demand] result {"  
                 + "user responded["          + this.FSM.CurrentResults.PhaseE.user_response_value                  + "]"
                 + "/unity render timestamp[" + this.FSM.CurrentResults.PhaseE.user_response_timing_unity_timestamp + "]"
                 + "/host timestamp["         + this.FSM.CurrentResults.PhaseE.user_response_timing_host_timestamp  + "]"
