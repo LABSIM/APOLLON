@@ -56,6 +56,97 @@ namespace Labsim.experiment.AIRWISE
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour;
+            var airwise_quad_controller
+                = dynamic_entity.GetComponentInChildren<QuadController>();
+            var airwise_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                );
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : start moving"
+            );
+
+            // 
+            // airwise_quad_controller.
+
+            // await for end of phase 
+            // DURATION
+
+            // synchronisation mechanism (TCS + lambda event handler)
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+
+            // running
+            var phase_running_task_ct_src = new System.Threading.CancellationTokenSource();
+            System.Threading.CancellationToken phase_running_task_ct = phase_running_task_ct_src.Token;
+            var phase_running_task
+                // wait duration
+                = System.Threading.Tasks.Task.Factory.StartNew(
+                    async () => 
+                    { 
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has "
+                            + this.FSM.CurrentSettings.PhaseD.total_duration
+                            + " ms to cross the stop"
+                        );
+
+                        // wait a certain amout of time between each bound if cancel not requested
+                        if(!phase_running_task_ct.IsCancellationRequested)
+                        {
+                            await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.PhaseD.total_duration);
+                        }
+
+                    },
+                    phase_running_task_ct_src.Token 
+                ).Unwrap().ContinueWith(
+                    antecedent => 
+                    {
+                        if(!phase_running_task_ct.IsCancellationRequested)
+                        {
+
+                            if(!sync_point.Task.IsCompleted) 
+                            {
+                                
+                                UnityEngine.Debug.LogWarning(
+                                    "<color=Orange>Warn: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur hasn't stopped..."
+                                );
+                                
+                                sync_point?.TrySetResult(false);
+
+                            } else {
+                                
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has stopped ! Ignore this message ;)"
+                                );
+                            
+                            } /* if() */
+
+                        } /* if() */
+                    },
+                    phase_running_task_ct_src.Token
+                );
+
+            // wait until any result
+            var result = await sync_point.Task;
+
+            // cancel running task
+            phase_running_task_ct_src.Cancel();
+
+            // log 
+            if(result)
+            {
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has stopped, will check performance criteria"
+                );
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warning: </color> AIRWISEPhaseD.OnEntry() : Timer has reached duration before AIRWISE Vecteur stopped... You should check configuration file..."
+                );
+            }
             
             // log
             UnityEngine.Debug.Log(

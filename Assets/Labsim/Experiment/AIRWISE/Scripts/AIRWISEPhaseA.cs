@@ -57,14 +57,22 @@ namespace Labsim.experiment.AIRWISE
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour;
 
+            var airwise_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                );
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : initializing AIRWISE Motion platform impedence system"
+            );
+
+            // raise init motion event
+            airwise_entity.ConcreteDispatcher.RaiseInit();
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : activating control & AIRWISE Vecteur"
-            );
-
-            // activate subject control
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
             );
 
             dynamic_entity.References["EntityTag_Vecteur"].SetActive(true);

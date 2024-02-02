@@ -49,6 +49,72 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseC.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseC.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+            // refs
+            var checkpoint_manager
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.entity.ApollonDynamicEntityBridge
+                >(apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity)
+                .ConcreteBehaviour
+                .References["EntityTag_Checkpoint"]
+                .GetComponent<AIRWISECheckpointManagerBehaviour>();
+            var airwise_quad_controller
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.entity.ApollonDynamicEntityBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
+                ).ConcreteBehaviour.GetComponentInChildren<QuadController>();
+            var airwise_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                );
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : switching AIRWISE Motion platform impedence system from init->idle to control state"
+            );
+
+            // raise control state motion event
+            airwise_entity.ConcreteDispatcher.RaiseControl();
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : starting slalom task"
+            );
+
+            // airwise_quad_controller.
+
+            // await for end of phase 
+            // END REACHED
+
+            // synchronisation mechanism (TCS + lambda event handler)
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<float>();
+
+            // actions
+            System.Action<float> sync_slalom_ended_local_function = (args) => sync_point?.TrySetResult(args);
+
+            // bind to checkpoint manager events
+            checkpoint_manager.slalomEnded += sync_slalom_ended_local_function;
+
+            // wait until any result
+            var result = await sync_point.Task;
+
+            // unbind from checkpoint manager events
+            checkpoint_manager.slalomEnded -= sync_slalom_ended_local_function;
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : ending slalom task, saving performance results["
+                + result 
+                + "]"
+            );
+
+            // backup
+            (apollon.experiment.ApollonExperimentManager.Instance.Profile as AIRWISEProfile)
+                .CurrentResults
+                .Trial
+                .user_performance_value 
+                = result;
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : end"

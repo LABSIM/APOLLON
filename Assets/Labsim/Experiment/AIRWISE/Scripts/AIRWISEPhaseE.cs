@@ -49,6 +49,16 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseE.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseE.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseE.OnEntry() : first of all, activating response control"
+            );
+
+            // activate subject control
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
+            );
+
             // currrent timestamp
             System.Diagnostics.Stopwatch current_stopwatch = new System.Diagnostics.Stopwatch();
 

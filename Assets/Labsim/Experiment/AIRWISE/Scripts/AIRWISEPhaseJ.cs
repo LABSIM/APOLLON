@@ -156,6 +156,15 @@ namespace Labsim.experiment.AIRWISE
                 + "}"
             );
 
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEPhaseE.OnEntry() : finally, deactivating response control"
+            );
+
+            // activate subject control
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEControl
+            );
 
             // log
             UnityEngine.Debug.Log(

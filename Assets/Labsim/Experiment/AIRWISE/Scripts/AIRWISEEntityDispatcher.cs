@@ -228,19 +228,12 @@ namespace Labsim.experiment.AIRWISE
 
         } /* RaiseIdle() */
 
-        public void RaiseControl(
-            float duration
-        ) {
+        public void RaiseControl() {
 
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"];
-                callback?.Invoke(
-                    this, 
-                    new AIRWISEEntityEventArgs(
-                        duration : duration
-                    )
-                );
+                callback?.Invoke(this, new AIRWISEEntityEventArgs());
             }
 
         } /* RaiseControl() */
