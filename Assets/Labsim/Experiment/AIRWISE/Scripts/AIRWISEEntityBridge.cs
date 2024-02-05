@@ -83,13 +83,7 @@ namespace Labsim.experiment.AIRWISE
                 // subscribe
                 this.ConcreteDispatcher.InitEvent       += this.OnInitRequested;
                 this.ConcreteDispatcher.IdleEvent       += this.OnIdleRequested;
-                this.ConcreteDispatcher.ControlEvent    += this.OnControlRequested;
                 this.ConcreteDispatcher.ResetEvent      += this.OnResetRequested;
-
-                // activate the motion system backend
-                apollon.backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
-                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-                );
 
                 // nullify FSM
                 await this.SetState(null);
@@ -104,15 +98,9 @@ namespace Labsim.experiment.AIRWISE
                 // nullify FSM
                 await this.SetState(null);
 
-                // inactivate the motion system backend
-                apollon.backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
-                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
-                );
-
                 // unsubscribe
                 this.ConcreteDispatcher.InitEvent       -= this.OnInitRequested;
                 this.ConcreteDispatcher.IdleEvent       -= this.OnIdleRequested;
-                this.ConcreteDispatcher.ControlEvent    -= this.OnControlRequested;
                 this.ConcreteDispatcher.ResetEvent      -= this.OnResetRequested;
 
                 // inactivate
@@ -281,83 +269,6 @@ namespace Labsim.experiment.AIRWISE
 
         } /* internal sealed class IdleState */
 
-        internal sealed class ControlState 
-            : apollon.gameplay.ApollonAbstractGameplayState<AIRWISEEntityBridge>
-        {
-
-            public ControlState(AIRWISEEntityBridge fsm)
-                : base(fsm)
-            {
-            }
-
-            public async override System.Threading.Tasks.Task OnEntry()
-            {
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnEntry() : begin"
-                );
-
-                // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.ControlController>();
-                if (!controller)
-                {
-
-                    // log
-                    UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.ControlState.OnEntry() : could not find controller component behaviour..."
-                    );
-
-                    // fail
-                    return;
-
-                }
-
-                // activate 
-                controller.enabled = true;
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnEntry() : end"
-                );
-
-            } /* OnEntry() */
-
-            public override async System.Threading.Tasks.Task OnExit()
-            {
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnExit() : begin"
-                );
-
-                // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.ControlController>();
-                if (!controller)
-                {
-
-                    // log
-                    UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.ControlState.OnExit() : could not find controller component behaviour..."
-                    );
-
-                    // fail
-                    return;
-
-                }
-
-                // inactivate 
-                controller.enabled = false;
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnExit() : end"
-                );
-
-            } /* OnExit() */
-
-        } /* internal sealed class AccelerateState */
-
         internal sealed class ResetState 
             : apollon.gameplay.ApollonAbstractGameplayState<AIRWISEEntityBridge>
         {
@@ -446,6 +357,46 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEEntityBridge.OnInitRequested() : begin"
             );
 
+            // get behaviour
+            var behaviour = this.ConcreteBehaviour;
+
+            // set internal settings
+            behaviour.AngularAccelerationTarget 
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularAccelerationTarget[0],
+                        /* yaw   - y axis */ args.AngularAccelerationTarget[1],
+                        /* roll  - z axis */ args.AngularAccelerationTarget[2]
+                    )
+                );
+            behaviour.AngularVelocitySaturationThreshold
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularVelocitySaturationThreshold[0],
+                        /* yaw   - y axis */ args.AngularVelocitySaturationThreshold[1],
+                        /* roll  - z axis */ args.AngularVelocitySaturationThreshold[2]
+                    )
+                );
+            behaviour.LinearAccelerationTarget 
+                = ( 
+                    new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearAccelerationTarget[0],
+                        /* heave - y axis */ args.LinearAccelerationTarget[1],
+                        /* surge - z axis */ args.LinearAccelerationTarget[2]
+                    )
+                );
+            behaviour.LinearVelocitySaturationThreshold
+                = (
+                    new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearVelocitySaturationThreshold[0],
+                        /* heave - y axis */ args.LinearVelocitySaturationThreshold[1],
+                        /* surge - z axis */ args.LinearVelocitySaturationThreshold[2]
+                    )
+                );
+            behaviour.Duration = args.Duration;
+
             // activate state
             await this.SetState(new InitState(this));
 
@@ -474,79 +425,6 @@ namespace Labsim.experiment.AIRWISE
 
         } /* OnIdleRequested() */
 
-        private async void OnControlRequested(object sender, AIRWISEEntityDispatcher.AIRWISEEntityEventArgs args)
-        {
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnControlRequested() : begin"
-            );
-
-            // get behaviour
-            var behaviour = this.Behaviour as AIRWISEEntityBehaviour;
-
-            // set internal settings
-            // behaviour.AngularAccelerationTarget 
-            //     = (
-            //         UnityEngine.Mathf.Deg2Rad 
-            //         * new UnityEngine.Vector3(
-            //             /* pitch - x axis */ args.AngularAccelerationTarget[0],
-            //             /* yaw   - y axis */ args.AngularAccelerationTarget[1],
-            //             /* roll  - z axis */ args.AngularAccelerationTarget[2]
-            //         )
-            //     );
-            // behaviour.AngularVelocitySaturationThreshold
-            //     = (
-            //         UnityEngine.Mathf.Deg2Rad 
-            //         * new UnityEngine.Vector3(
-            //             /* pitch - x axis */ args.AngularVelocitySaturationThreshold[0],
-            //             /* yaw   - y axis */ args.AngularVelocitySaturationThreshold[1],
-            //             /* roll  - z axis */ args.AngularVelocitySaturationThreshold[2]
-            //         )
-            //     );
-            // behaviour.AngularDisplacementLimiter
-            //     = (
-            //         new UnityEngine.Vector3(
-            //             /* pitch - x axis */ args.AngularDisplacementLimiter[0],
-            //             /* yaw   - y axis */ args.AngularDisplacementLimiter[1],
-            //             /* roll  - z axis */ args.AngularDisplacementLimiter[2]
-            //         )
-            //     );
-            // behaviour.LinearAccelerationTarget 
-            //     = ( 
-            //         new UnityEngine.Vector3(
-            //             /* sway  - x axis */ args.LinearAccelerationTarget[0],
-            //             /* heave - y axis */ args.LinearAccelerationTarget[1],
-            //             /* surge - z axis */ args.LinearAccelerationTarget[2]
-            //         )
-            //     );
-            // behaviour.LinearVelocitySaturationThreshold
-            //     = (
-            //         new UnityEngine.Vector3(
-            //             /* sway  - x axis */ args.LinearVelocitySaturationThreshold[0],
-            //             /* heave - y axis */ args.LinearVelocitySaturationThreshold[1],
-            //             /* surge - z axis */ args.LinearVelocitySaturationThreshold[2]
-            //         )
-            //     );
-            // behaviour.LinearDisplacementLimiter
-            //     = (
-            //         new UnityEngine.Vector3(
-            //             /* sway  - x axis */ args.LinearDisplacementLimiter[0],
-            //             /* heave - y axis */ args.LinearDisplacementLimiter[1],
-            //             /* surge - z axis */ args.LinearDisplacementLimiter[2]
-            //         )
-            //     );
-            // behaviour.Duration = args.Duration;
-
-            // activate state
-            await this.SetState(new ControlState(this));
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnControlRequested() : end"
-            );
-
-        } /* OnControlRequested() */
         private async void OnResetRequested(object sender, AIRWISEEntityDispatcher.AIRWISEEntityEventArgs args)
         {
 
@@ -554,9 +432,46 @@ namespace Labsim.experiment.AIRWISE
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEEntityBridge.OnResetRequested() : begin"
             );
-            
-            // inject duration
-            (this.Behaviour as AIRWISEEntityBehaviour).Duration = args.Duration;
+
+            // get behaviour
+            var behaviour = this.ConcreteBehaviour;
+
+            // set internal settings
+            behaviour.AngularAccelerationTarget 
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularAccelerationTarget[0],
+                        /* yaw   - y axis */ args.AngularAccelerationTarget[1],
+                        /* roll  - z axis */ args.AngularAccelerationTarget[2]
+                    )
+                );
+            behaviour.AngularVelocitySaturationThreshold
+                = (
+                    UnityEngine.Mathf.Deg2Rad 
+                    * new UnityEngine.Vector3(
+                        /* pitch - x axis */ args.AngularVelocitySaturationThreshold[0],
+                        /* yaw   - y axis */ args.AngularVelocitySaturationThreshold[1],
+                        /* roll  - z axis */ args.AngularVelocitySaturationThreshold[2]
+                    )
+                );
+            behaviour.LinearAccelerationTarget 
+                = ( 
+                    new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearAccelerationTarget[0],
+                        /* heave - y axis */ args.LinearAccelerationTarget[1],
+                        /* surge - z axis */ args.LinearAccelerationTarget[2]
+                    )
+                );
+            behaviour.LinearVelocitySaturationThreshold
+                = (
+                    new UnityEngine.Vector3(
+                        /* sway  - x axis */ args.LinearVelocitySaturationThreshold[0],
+                        /* heave - y axis */ args.LinearVelocitySaturationThreshold[1],
+                        /* surge - z axis */ args.LinearVelocitySaturationThreshold[2]
+                    )
+                );
+            behaviour.Duration = args.Duration;
 
             // activate state
             await this.SetState(new ResetState(this));

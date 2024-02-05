@@ -1,0 +1,31 @@
+{
+  "DefaultDesiredZ": -10,
+  "DefaultDesiredPsi": 0,
+  "DefaultDesiredVx": 3,
+  "DefaultDesiredVy": 3,
+  "DefaultDesiredVz": 3,
+  "filterX": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterY": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterZ": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterVx": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterVy": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterPsi": {
+    "mode": 0,
+    "K": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "filterThrust": {
+    "mode": 2,
+    "zeta": 0.5,
+    "omega0": 0.5
+  }
+}

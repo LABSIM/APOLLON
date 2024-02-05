@@ -28,31 +28,37 @@ namespace Labsim.experiment.AIRWISE
         #region event args class
 
         public class AIRWISEEntityEventArgs
-            : apollon.gameplay.ApollonGameplayDispatcher.GameplayEventArgs
+            : apollon.gameplay.device.AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs
         {
 
             // ctor
             public AIRWISEEntityEventArgs()
                 : base()
-            {} 
+            {
+                // nothing
+            }
 
-            public AIRWISEEntityEventArgs(
-                float duration = 0.0f
+             public AIRWISEEntityEventArgs(
+                float[] angular_acceleration_target = null,
+                float[] angular_velocity_saturation_threshold = null,
+                float[] linear_acceleration_target = null,
+                float[] linear_velocity_saturation_threshold = null,
+                float duration = 0.0f,
+                bool inhibit_vestibular_motion = true
             )
-                : base()
+                : base(
+                    angular_acceleration_target,
+                    angular_velocity_saturation_threshold,
+                    null,
+                    linear_acceleration_target,
+                    linear_velocity_saturation_threshold,
+                    null,
+                    duration,
+                    inhibit_vestibular_motion
+                )
             {
-                this.Duration = duration;
+                // nothing
             }
-
-            // ctor
-            public AIRWISEEntityEventArgs(AIRWISEEntityEventArgs rhs)
-                : base(rhs)
-            {
-                this.Duration = rhs.Duration;
-            }
-
-            // property
-            public float Duration { get; protected set; }
 
         } /* AIRWISEEntityEventArgs() */
 
@@ -63,7 +69,6 @@ namespace Labsim.experiment.AIRWISE
         private readonly System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>> 
             _eventInitCommandList           = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
             _eventIdleCommandList           = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
-            _eventControlCommandList        = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
             _eventResetCommandList          = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>();
 
         #endregion
@@ -75,7 +80,6 @@ namespace Labsim.experiment.AIRWISE
             // event table
             this._eventTable.Add("Init",       null);
             this._eventTable.Add("Idle",       null);
-            this._eventTable.Add("Control",    null);
             this._eventTable.Add("Reset",      null);
 
         } /* AIRWISEEntityDispatcher() */
@@ -142,36 +146,6 @@ namespace Labsim.experiment.AIRWISE
 
         } /* IdleEvent */
 
-        public event System.EventHandler<AIRWISEEntityEventArgs> ControlEvent
-        {
-            add
-            {
-                this._eventControlCommandList.Add(value);
-                lock (this._eventTable)
-                {
-                    this._eventTable["Control"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"] + value;
-                }
-            }
-
-            remove
-            {
-                if (!this._eventControlCommandList.Contains(value))
-                {
-                    return;
-                }
-                this._eventControlCommandList.Remove(value);
-                lock (this._eventTable)
-                {
-                    this._eventTable["Control"] = null;
-                    foreach (var eventControl in this._eventControlCommandList)
-                    {
-                        this._eventTable["Control"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"] + eventControl;
-                    }
-                }
-            }
-
-        } /* ControlEvent */
-
         public event System.EventHandler<AIRWISEEntityEventArgs> ResetEvent
         {
             add
@@ -206,13 +180,30 @@ namespace Labsim.experiment.AIRWISE
 
         #region raise events
 
-        public void RaiseInit()
+        public void RaiseInit(
+            float[] angular_acceleration_target,
+            float[] angular_velocity_saturation_threshold,
+            float[] linear_acceleration_target,
+            float[] linear_velocity_saturation_threshold,
+            float duration,
+            bool without_motion
+        )
         {
 
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Init"];
-                callback?.Invoke(this, new AIRWISEEntityEventArgs());
+                callback?.Invoke(
+                    this, 
+                    new AIRWISEEntityEventArgs(
+                        angular_acceleration_target : angular_acceleration_target,
+                        angular_velocity_saturation_threshold : angular_velocity_saturation_threshold,
+                        linear_acceleration_target : linear_acceleration_target,
+                        linear_velocity_saturation_threshold : linear_velocity_saturation_threshold, 
+                        duration : duration,
+                        inhibit_vestibular_motion : without_motion
+                    )
+                );
             }
 
         } /* RaiseInit() */
@@ -228,25 +219,30 @@ namespace Labsim.experiment.AIRWISE
 
         } /* RaiseIdle() */
 
-        public void RaiseControl() {
-
-            lock (this._eventTable)
-            {
-                var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"];
-                callback?.Invoke(this, new AIRWISEEntityEventArgs());
-            }
-
-        } /* RaiseControl() */
-
-        public void RaiseReset(float duration = -1.0f)
+        public void RaiseReset(
+            float[] angular_acceleration_target,
+            float[] angular_velocity_saturation_threshold,
+            float[] linear_acceleration_target,
+            float[] linear_velocity_saturation_threshold,
+            float duration,
+            bool without_motion
+        )
         {
 
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Reset"];
-                callback?.Invoke(this, new AIRWISEEntityEventArgs(
-                    duration : duration
-                ));
+                callback?.Invoke(
+                    this,
+                    new AIRWISEEntityEventArgs(
+                        angular_acceleration_target : angular_acceleration_target,
+                        angular_velocity_saturation_threshold : angular_velocity_saturation_threshold,
+                        linear_acceleration_target : linear_acceleration_target,
+                        linear_velocity_saturation_threshold : linear_velocity_saturation_threshold,
+                        duration : duration,
+                        inhibit_vestibular_motion : without_motion
+                    )
+                );
             }
 
         } /* RaiseReset() */

@@ -57,23 +57,15 @@ namespace Labsim.experiment.AIRWISE
                 .ConcreteBehaviour
                 .References["EntityTag_Checkpoint"]
                 .GetComponent<AIRWISECheckpointManagerBehaviour>();
-            var airwise_quad_controller
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.entity.ApollonDynamicEntityBridge
-                >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
-                ).ConcreteBehaviour.GetComponentInChildren<QuadController>();
+            var airwise_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                );
 
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : start moving"
             );
-
-            // 
-            // airwise_quad_controller.
-
-            // await for end of phase 
-            // DURATION OR GATE REACHED
 
             // synchronisation mechanism (TCS + lambda event handler)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
@@ -85,61 +77,80 @@ namespace Labsim.experiment.AIRWISE
             checkpoint_manager.slalomStarted += sync_slalom_started_local_function;
 
             // running
-            var phase_running_task_ct_src = new System.Threading.CancellationTokenSource();
-            System.Threading.CancellationToken phase_running_task_ct = phase_running_task_ct_src.Token;
-            var phase_running_task
-                // wait duration
-                = System.Threading.Tasks.Task.Factory.StartNew(
-                    async () => 
-                    { 
-                        // log
-                        UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has "
-                            + this.FSM.CurrentSettings.PhaseB.total_duration
-                            + " ms to cross the start"
-                        );
-
-                        // wait a certain amout of time between each bound if cancel not requested
-                        if(!phase_running_task_ct.IsCancellationRequested)
-                        {
-                            await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.PhaseB.total_duration);
-                        }
-
-                    },
-                    phase_running_task_ct_src.Token 
-                ).Unwrap().ContinueWith(
-                    antecedent => 
-                    {
-                        if(!phase_running_task_ct.IsCancellationRequested)
-                        {
-
-                            if(!sync_point.Task.IsCompleted) 
-                            {
-                                
-                                UnityEngine.Debug.LogWarning(
-                                    "<color=Orange>Warn: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur hasn't crossed the start line..."
-                                );
-                                
-                                sync_point?.TrySetResult(false);
-
-                            } else {
-                                
-                                UnityEngine.Debug.Log(
-                                    "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has crossed the start line ! Ignore this message ;)"
-                                );
-                            
-                            } /* if() */
-
-                        } /* if() */
-                    },
-                    phase_running_task_ct_src.Token
+            var parallel_tasks_ct_src = new System.Threading.CancellationTokenSource();
+            System.Threading.CancellationToken parallel_tasks_ct = parallel_tasks_ct_src.Token;
+            var parallel_tasks_factory
+                = new System.Threading.Tasks.TaskFactory(
+                    parallel_tasks_ct,
+                    System.Threading.Tasks.TaskCreationOptions.DenyChildAttach,
+                    System.Threading.Tasks.TaskContinuationOptions.DenyChildAttach,
+                    System.Threading.Tasks.TaskScheduler.Default
                 );
+            var parallel_tasks 
+                = new System.Collections.Generic.List<System.Threading.Tasks.Task>() 
+                {
+                    parallel_tasks_factory.StartNew(
+                        async () => 
+                        { 
+                            // log
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has "
+                                + this.FSM.CurrentSettings.PhaseB.total_duration
+                                + " ms to cross the start"
+                            );
+
+                            // wait a certain amout of time between each bound if cancel not requested
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
+                                await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.PhaseB.total_duration);
+                            }
+
+                        },
+                        parallel_tasks_ct_src.Token 
+                    ).Unwrap().ContinueWith(
+                        antecedent => 
+                        {
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
+
+                                if(!sync_point.Task.IsCompleted) 
+                                {
+                                    
+                                    UnityEngine.Debug.LogWarning(
+                                        "<color=Orange>Warn: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur hasn't crossed the start line..."
+                                    );
+                                    
+                                    sync_point?.TrySetResult(false);
+
+                                } else {
+                                    
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has crossed the start line ! Ignore this message ;)"
+                                    );
+                                
+                                } /* if() */
+
+                            } /* if() */
+                        },
+                        parallel_tasks_ct_src.Token
+                    )
+                };
+
+            // inject acceleration settings 
+            airwise_entity.ConcreteDispatcher.RaiseInit(
+                this.FSM.CurrentSettings.PhaseB.angular_acceleration_target,
+                this.FSM.CurrentSettings.PhaseB.angular_velocity_saturation_threshold,
+                this.FSM.CurrentSettings.PhaseB.linear_acceleration_target,
+                this.FSM.CurrentSettings.PhaseB.linear_velocity_saturation_threshold,
+                this.FSM.CurrentSettings.PhaseB.acceleration_duration,
+                this.FSM.CurrentSettings.Trial.bIsTryCatch
+            );
 
             // wait until any result
             var result = await sync_point.Task;
 
             // cancel running task
-            phase_running_task_ct_src.Cancel();
+            parallel_tasks_ct_src.Cancel();
 
             // unbind from checkpoint manager events
             checkpoint_manager.slalomStarted -= sync_slalom_started_local_function;

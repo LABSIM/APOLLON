@@ -28,21 +28,11 @@ namespace Labsim.experiment.AIRWISE
 
         #region properties/members
 
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject m_CommandReference = null;        
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject m_SensorReference = null;
-
-        [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_initialPosition = new UnityEngine.Vector3();
-        [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_initialRotation = new UnityEngine.Vector3();
-
-        public ref UnityEngine.GameObject CommandReference => ref this.m_CommandReference;
-        public ref UnityEngine.GameObject SensorReference => ref this.m_SensorReference;
-        public ref UnityEngine.Vector3 InitialPosition => ref this.m_initialPosition;
-        public ref UnityEngine.Vector3 InitialRotation => ref this.m_initialRotation;
-
+        public UnityEngine.Vector3 AngularAccelerationTarget { get; set; } = new UnityEngine.Vector3();
+        public UnityEngine.Vector3 AngularVelocitySaturationThreshold { get; set; } = new UnityEngine.Vector3();
+        public UnityEngine.Vector3 LinearAccelerationTarget { get; set; } = new UnityEngine.Vector3();
+        public UnityEngine.Vector3 LinearVelocitySaturationThreshold { get; set; } = new UnityEngine.Vector3();
+        
         public float Duration { get; set; } = 0.0f;
         public System.Diagnostics.Stopwatch Chrono { get; private set; } = new System.Diagnostics.Stopwatch();
 
@@ -56,6 +46,7 @@ namespace Labsim.experiment.AIRWISE
             : UnityEngine.MonoBehaviour
         {
             private AIRWISEEntityBehaviour _parent = null;
+            private QuadController _controller = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -75,7 +66,8 @@ namespace Labsim.experiment.AIRWISE
 
                 // preliminary
                 if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                    || (this._controller = this.GetComponentInParent<QuadController>()) == null
+                    || (this._rigidbody = this._controller.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -93,63 +85,8 @@ namespace Labsim.experiment.AIRWISE
 
                 } /* if() */
 
-                // initialize our rigidbody
-                this._rigidbody.ResetCenterOfMass();
-                this._rigidbody.ResetInertiaTensor();
-                this._rigidbody.transform.SetPositionAndRotation(this._parent.InitialPosition, UnityEngine.Quaternion.Euler(this._parent.InitialRotation));
-                this._rigidbody.constraints = UnityEngine.RigidbodyConstraints.None;
-                this._rigidbody.drag = 0.0f;
-                this._rigidbody.angularDrag = 0.0f;
-                this._rigidbody.useGravity = false;
-                this._rigidbody.isKinematic = false;
-                this._rigidbody.interpolation = UnityEngine.RigidbodyInterpolation.Interpolate;
-                this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
-                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                this._rigidbody.velocity = UnityEngine.Vector3.zero;
-                this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.OnEnable() : rigidbody initialized"
-                );
-
-                // virtual world setup
-                // - user dependant PoV offset : height + depth
-                // - max angular velocity aka. saturation point
-                // - CenterOf -Rotation/Mass offset --> chair settings
-                // - perfect world == no dampening/drag & no gravity 
-                float PoV_height_offset = 0.0f, PoV_depth_offset = 0.0f;
-                //if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_height_offset"].ToString(), out PoV_height_offset)
-                //    || !float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["PoV_depth_offset"].ToString(), out PoV_depth_offset)
-                //) {
-
-                //    // log
-                //    UnityEngine.Debug.LogWarning(
-                //        "<color=Yellow>Warning: </color> AIRWISEEntityBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
-                //        + PoV_height_offset 
-                //        + ","
-                //        + PoV_depth_offset
-                //        + " ]"
-                //    );
-
-                //} /* if() */
-                this._rigidbody.centerOfMass 
-                    = (
-                        UnityEngine.Vector3.up * ( PoV_height_offset / 100.0f )
-                    ) + (
-                        UnityEngine.Vector3.back * (PoV_depth_offset / 100.0f)
-                    );
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.OnEnable() : rigidbody configured with current user settings, going idle state"
-                );
-
-                // change state
-                this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
+                // restart 
+                this._parent.Chrono.Restart();
 
                 // log
                 UnityEngine.Debug.Log(
@@ -157,6 +94,71 @@ namespace Labsim.experiment.AIRWISE
                 );
                 
             } /* OnEnable() */
+
+            private void FixedUpdate()
+            {
+
+                // check if saturation point is reached on each axis
+                if (
+                    (
+                        (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).x)     >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
+                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).y)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
+                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).z)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
+                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).x) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
+                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).y) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
+                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).z) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
+                    )
+                    || this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration
+                )
+                {
+
+                    // change state
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
+
+                }
+                else
+                {
+
+                    // initializing 
+                    UnityEngine.Vector3 
+                        torque_target = UnityEngine.Vector3.zero,
+                        force_target  = UnityEngine.Vector3.zero;
+
+                    // continuous perfect world acceleration
+
+                    if ((this._parent.AngularAccelerationTarget.x != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
+                    ) { torque_target.x = this._parent.AngularAccelerationTarget.x; }
+                    if ((this._parent.AngularAccelerationTarget.y != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
+                    ) { torque_target.y = this._parent.AngularAccelerationTarget.y;  }
+                    if ((this._parent.AngularAccelerationTarget.z != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) < UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
+                    ) { torque_target.z = this._parent.AngularAccelerationTarget.z;  }    
+
+                    if ((this._parent.LinearAccelerationTarget.x != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
+                    ) { force_target.x = this._parent.LinearAccelerationTarget.x; }
+                    if ((this._parent.LinearAccelerationTarget.y != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
+                    ) { force_target.y = this._parent.LinearAccelerationTarget.y; }
+                    if ((this._parent.LinearAccelerationTarget.z != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) < UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
+                    ) { force_target.z = this._parent.LinearAccelerationTarget.z; }
+
+                    // finally
+                    this._rigidbody.AddTorque(
+                        torque_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
+                    this._rigidbody.AddForce(
+                        force_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
+                                    
+                } /* if() */
+
+            } /* FixedUpdate */
             
         } /* internal class InitController */
 
@@ -247,84 +249,13 @@ namespace Labsim.experiment.AIRWISE
             } /* OnDisable() */
             
         } /* class IdleController */
-
-        internal class ControlController
-            : UnityEngine.MonoBehaviour
-        {
-
-            private AIRWISEEntityBehaviour _parent = null;
-            private UnityEngine.Rigidbody _rigidbody = null;
-            private UnityEngine.Vector3 _torque_dampener = UnityEngine.Vector3.zero;
-            private UnityEngine.Vector3 _force_dampener = UnityEngine.Vector3.zero;
-            private readonly float _smooth_time = 0.01f;
-
-            private void Awake()
-            {
-
-                // disable by default
-                this.enabled = false;
-                //this.name = "ApollonAccelerateController";
-
-            } /* Awake() */
-
-            private void OnEnable()
-            {
-                
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.AccelerateController.OnEnable() : begin"
-                );
-
-                // preliminary
-                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
-                    || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
-                )
-                {
-
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
-                    );
-
-                    // disable
-                    this.gameObject.SetActive(false);
-                    this.enabled = false;
-
-                    // return
-                    return;
-
-                } /* if() */
-
-                // start chrono
-                this._parent.Chrono.Restart();
-                
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.AccelerateController.OnEnable() : end"
-                );
-
-            } /* OnEnable()*/
-
-            // private void FixedUpdate()
-            // {
-
-            // } /* FixedUpdate() */
-
-        } /* class ControlController */
-
         internal class ResetController
             : UnityEngine.MonoBehaviour
         {
 
             private AIRWISEEntityBehaviour _parent = null;
+            private QuadController _controller = null;
             private UnityEngine.Rigidbody _rigidbody = null;
-            private UnityEngine.Quaternion _lerp_rotation_from;
-            private UnityEngine.Vector3 _lerp_position_from;
-            private UnityEngine.Vector3 _angular_filter_state;
-            private UnityEngine.Vector3 _linear_filter_state;
-            private float _time_count = 0.0f;
-            private float _total_time = 0.0f;
-            private bool _bEnd = false;
 
             private void Awake()
             {
@@ -345,7 +276,8 @@ namespace Labsim.experiment.AIRWISE
                 
                 // preliminary
                 if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                    || (this._controller = this.GetComponentInParent<QuadController>()) == null
+                    || (this._rigidbody = this._controller.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -362,14 +294,8 @@ namespace Labsim.experiment.AIRWISE
 
                 } /* if() */
 
-                // save initial local rotation, intialize filter state & curent timepoint
-                this._lerp_rotation_from = this._rigidbody.transform.localRotation;
-                this._lerp_position_from = this._rigidbody.transform.position;
-                this._angular_filter_state = this._linear_filter_state = UnityEngine.Vector3.zero;
-                this._time_count = 0.0f;
-                this._total_time = this._parent.Duration / 1000.0f;
-                this._bEnd = false;
-                this._rigidbody.angularDrag = 1.0f;
+                 // restart 
+                this._parent.Chrono.Restart();
 
                 // log
                 UnityEngine.Debug.Log(
@@ -381,136 +307,83 @@ namespace Labsim.experiment.AIRWISE
             private void FixedUpdate()
             {
 
-                // check end cond
-                if(this._bEnd)
+                // check if saturation point is reached
+                if ((this._rigidbody.angularVelocity.x <= 0.0001f)
+                    && (this._rigidbody.angularVelocity.y <= 0.0001f)
+                    && (this._rigidbody.angularVelocity.z <= 0.0001f)
+                    && (this._rigidbody.velocity.x <= 0.0001f)
+                    && (this._rigidbody.velocity.y <= 0.0001f)
+                    && (this._rigidbody.velocity.z <= 0.0001f)
+                )
                 {
 
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ResetController.FixedUpdate() : reset reached, doing re-init procedure"
-                    );
+                    // check current timing
+                    if(this._parent.Chrono.ElapsedMilliseconds < this._parent.Duration)
+                    {
 
-                    // notify Init event
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseInit();
+                        // iding - zero velocity, acceleration & enforce velocity
+                        this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                        this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                        this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                        this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                        this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                        this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
-                    return;
+                    }
+                    else
+                    {
 
-                } /* if() */
-
-                //
-                // Phase forward corrector
-                //
-                // Variables
-                // xcons : consigne en position 
-                // xpos  : position actuelle
-                // accel : accélération commandée au rigidbody
-                // dt    : pas de temps (s)
-                // X     : état interne du correcteur (dimension 1)// Initialisation
-                //
-                // I/O
-                // -> l'erreur en position est l'entrée du correcteur
-                // <- l'accélération commandée est la sortie du correcteur
-                //
-                // Pseudo
-                // if init
-                // {
-                //     X = 0.0;
-                // }
-                // else
-                // { 
-                //     while true
-                //     {
-                //         err     = xcons - xpos;         // équation d'état du correcteur
-                //         dXsurdt = -7.849*X +  1.0*err;
-                //         Y       = -242.6*X + 37.23*err; // calcul de l'état au pas de temps suivant
-                //         Xp      = X + dXsurdt*dt;       // mise a jour de l'état
-                //         X       = Xp;    
-                //         accel   = Y;
-                //     }
-                // }
-
-                // get delta from objectives
-                UnityEngine.Vector3 
-                    angular_delta
-                        = (
-                            /* current orientation*/
-                            UnityEngine.Quaternion.Inverse(
-                                this._rigidbody.transform.localRotation
-                            )
-                            /* objective */
-                            * UnityEngine.Quaternion.Slerp(
-                                this._lerp_rotation_from, 
-                                UnityEngine.Quaternion.Euler(this._parent.InitialRotation),
-                                this._time_count / this._total_time
-                            )
-                        ).eulerAngles,
-                    linear_delta 
-                        = (
-                            /* objective */ 
-                            UnityEngine.Vector3.Lerp(
-                                this._lerp_position_from, 
-                                this._parent.InitialPosition,
-                                this._time_count / this._total_time
-                            )
-                            /* actual position */ 
-                            - this._rigidbody.transform.position
+                        // log
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEEntityBehaviour.Reset.FixedUpdate() : movement stopped, raise iddle event"
                         );
 
-                // apply modulo 2pi
-                if(angular_delta.x > 180.0f) { angular_delta.x -= 360.0f; }
-                if(angular_delta.y > 180.0f) { angular_delta.y -= 360.0f; }
-                if(angular_delta.z > 180.0f) { angular_delta.z -= 360.0f; }
-                
-                // forward state
-                UnityEngine.Vector3 
-                    angular_dXsurdt
-                        = (
-                            -7.849f * this._angular_filter_state +  1.0f * angular_delta
-                        ),
-                    linear_dXsurdt
-                        = (
-                            -7.849f * this._linear_filter_state +  1.0f * linear_delta
-                        ),
-                    angular_forward_state
-                        = (
-                            -242.6f * this._angular_filter_state + 37.23f * angular_delta
-                        ),
-                    linear_forward_state
-                        = (
-                            -242.6f * this._linear_filter_state + 37.23f * linear_delta
-                        );
-                
-                // update internal
-                this._angular_filter_state 
-                    += (
-                        angular_dXsurdt * UnityEngine.Time.fixedDeltaTime
-                    );
-                this._linear_filter_state 
-                    += (
-                        linear_dXsurdt * UnityEngine.Time.fixedDeltaTime
-                    );
+                        // notify idle event
+                        this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();                        
 
-                // apply instructions
-                this._rigidbody.AddTorque(
-                    angular_forward_state,
-                    UnityEngine.ForceMode.Acceleration
-                );
-                this._rigidbody.AddForce(
-                    linear_forward_state,
-                    UnityEngine.ForceMode.Acceleration
-                );
-                
-                // check final condition
-                if((this._time_count / this._total_time) > 1.0f)
+                    } /* if() */
+
+                }
+                else
                 {
 
-                    // rise end sig
-                    this._bEnd = true;
+                    // initializing 
+                    UnityEngine.Vector3 
+                        torque_target = UnityEngine.Vector3.zero,
+                        force_target  = UnityEngine.Vector3.zero;
+
+                    // continuous perfect world deceleration
+                    if ((this._parent.AngularAccelerationTarget.x != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.x) > 0.0001f) 
+                    ) { torque_target.x = this._parent.AngularAccelerationTarget.x; }
+                    if ((this._parent.AngularAccelerationTarget.y != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.y) > 0.0001f) 
+                    ) { torque_target.y =  this._parent.AngularAccelerationTarget.y; }
+                    if ((this._parent.AngularAccelerationTarget.z != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.angularVelocity.z) > 0.0001f) 
+                    ) { torque_target.z = this._parent.AngularAccelerationTarget.z; }
+
+                    if ((this._parent.LinearAccelerationTarget.x != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.x) > 0.0001f) 
+                    ) { force_target.x = this._parent.LinearAccelerationTarget.x; }
+                    if ((this._parent.LinearAccelerationTarget.y != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.y) > 0.0001f) 
+                    ) { force_target.y = this._parent.LinearAccelerationTarget.y; }
+                    if ((this._parent.LinearAccelerationTarget.z != 0.0f) 
+                        && (UnityEngine.Mathf.Abs(this._rigidbody.velocity.z) > 0.0001f)
+                    ) { force_target.z = this._parent.LinearAccelerationTarget.z; }
+
+                    // finally
+                    this._rigidbody.AddTorque(
+                        -1.0f * torque_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
+                    this._rigidbody.AddForce(
+                        -1.0f * force_target, 
+                        UnityEngine.ForceMode.Acceleration
+                    );
 
                 } /* if() */
-
-                // whatever, advance timeline
-                this._time_count += UnityEngine.Time.fixedDeltaTime;
 
             } /* FixedUpdate() */
 
@@ -528,7 +401,6 @@ namespace Labsim.experiment.AIRWISE
             // instantiate state controller components
             var init       = this.gameObject.AddComponent<InitController>();
             var idle       = this.gameObject.AddComponent<IdleController>();
-            var control    = this.gameObject.AddComponent<ControlController>();
             var reset      = this.gameObject.AddComponent<ResetController>();
             
             UnityEngine.Debug.Log("<color=Blue>Info: </color> AIRWISEEntityBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");
@@ -566,13 +438,6 @@ namespace Labsim.experiment.AIRWISE
                 this.Initialize();
 
             } /* if() */
-
-            // skip if no experimental setup is found necessary
-            //if (experiment.ApollonExperimentManager.Instance.Session == null) return;
-
-            // save initial orientation/position
-            // this.InitialPosition = this.Anchor.transform.position;
-            // this.InitialRotation = this.Anchor.transform.rotation;
                         
         } /* OnEnable()*/
 

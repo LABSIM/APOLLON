@@ -1,0 +1,19 @@
+{
+  "DefaultDesiredX": 1,
+  "DefaultDesiredY": 2,
+  "DefaultDesiredZ": 0,
+  "DefaultDesiredOtherAxis": 0,
+  "filterX": {
+    "mode": 1,
+    "tau": 1
+  },
+  "filterY": {
+    "mode": 1,
+    "tau": 1
+  },
+  "filterZ": {
+    "mode": 2,
+    "zeta": 0.5,
+    "omega0": 0.5
+  }
+}

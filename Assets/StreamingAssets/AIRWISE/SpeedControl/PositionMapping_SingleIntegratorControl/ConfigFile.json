@@ -1,0 +1,51 @@
+{
+  "tFinal" : 60,
+  "nbBlocks" : 5,
+  "ForcingFunctionConfig": {
+    "mode": 0,
+    "t_final": 100
+  },
+  "MappingConfig": {
+    "mode": 0
+  },
+  "ControlConfig": {
+    "mode": 4
+  },
+  "ActuationConfig": {
+    "mode": 0
+  },
+  "HapticConfig": {
+    "mode": 1,
+    "axisMode": 1
+  },
+  "LoggerConfig": {
+    "Path": "C:\\Users\\SCHEME\\Desktop\\Test_YL",
+    "NumSep": ";",
+    "PythonPath": "C:\\Users\\yalel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "ScriptName": "plotLog.py",
+    "TextSep": "_",
+    "RunPython": false
+  },
+  "InitialConditions": {
+      "Position0": {
+          "x": 0,
+          "y": 0,
+          "z": -10
+      },
+      "Attitude0": {
+          "x": 0,
+          "y": 0,
+          "z": 30
+      },
+      "Velocity0": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+      },
+      "AngularVelocity0": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+      }
+  }
+}

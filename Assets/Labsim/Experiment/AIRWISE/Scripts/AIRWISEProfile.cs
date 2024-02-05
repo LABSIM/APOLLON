@@ -424,11 +424,62 @@ namespace Labsim.experiment.AIRWISE
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> AIRWISEProfile.onExperimentTrialBegin() : loading scene["
-                    + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.visual_type)
+                    + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.scene_type)
                     + "]"
                 );
 
             } /* if() */
+
+            // switch on model control config & pin to correct streaming assets location
+            switch(this.CurrentSettings.Trial.control_type)
+            {
+
+                case AIRWISESettings.ControlIDType.Familiarisation:
+                case AIRWISESettings.ControlIDType.PositionControl:
+                case AIRWISESettings.ControlIDType.SpeedControl:
+                case AIRWISESettings.ControlIDType.AccelerationControl:
+                {
+                
+                    // assign correct streaming asset path
+                    Constants.streamingAssetsPath 
+                        = System.IO.Path.Combine(
+                            Constants.streamingAssetsPath,
+                            "AIRWISE/" 
+                                + apollon.ApollonEngine.GetEnumDescription(
+                                    this.CurrentSettings.Trial.control_type
+                                )
+                                + "/"
+                        );
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> AIRWISEProfile.OnExperimentTrialBegin() : found "
+                        + apollon.ApollonEngine.GetEnumDescription(this.CurrentSettings.Trial.control_type)
+                        + " mode, config directory set to :" 
+                        + Constants.streamingAssetsPath
+                    );
+                
+                    break;
+
+                } /* case Familiarisation, PositionControl, SpeedControl, AccelerationControl */
+
+                case AIRWISESettings.ControlIDType.Undefined:
+                default:
+                {
+                     // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> AIRWISEProfile.OnExperimentTrialBegin() : UNDEFINED control for pattern["
+                        + this.CurrentSettings.Trial.pattern_type
+                        + "]... check configuration files !"
+                    );
+
+                    break;
+                }
+
+            } /* switch() */
+
+            // synchronous wait
+            await apollon.ApollonHighResolutionTime.DoSleep(2000.0f);
 
             // base call
             base.OnExperimentTrialBegin(sender, arg);
@@ -617,17 +668,14 @@ namespace Labsim.experiment.AIRWISE
                         string
                             input       = System.IO.Path.Combine(
                                             Constants.streamingAssetsPath, 
-                                            apollon.ApollonEngine.GetEnumDescription(
-                                                this.CurrentSettings.Trial.control_type
-                                            ), 
                                             configFilename
                                         ),
                             filename    = System.IO.Path.GetFileNameWithoutExtension(input),
                             fileext     = System.IO.Path.GetExtension(input),
                             output      = System.IO.Path.Combine(
                                             Logger.m_rootPath, 
-                                            "configs", 
                                             string.Concat(
+                                                "configs/",
                                                 filename,
                                                 string.Format("_T{1:000}", arg.Trial.number),
                                                 fileext
