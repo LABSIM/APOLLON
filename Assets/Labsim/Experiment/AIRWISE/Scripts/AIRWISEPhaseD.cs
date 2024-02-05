@@ -58,14 +58,10 @@ namespace Labsim.experiment.AIRWISE
                 ).ConcreteBehaviour;
             var airwise_quad_controller
                 = dynamic_entity.GetComponentInChildren<QuadController>();
-            var airwise_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
-                );
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : start moving"
+                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : stop moving"
             );
 
             // 

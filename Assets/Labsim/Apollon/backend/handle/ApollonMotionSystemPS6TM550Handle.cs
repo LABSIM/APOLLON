@@ -306,23 +306,52 @@ namespace Labsim.apollon.backend.handle
                     UnityEngine.Debug.Log(
                         "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.OnHandleActivationRequested() : initialize motion system API"
                     );
+
+                    // first try old implementation
+                    var command_behaviour
+                        = gameplay.ApollonGameplayManager.Instance.getBridge(
+                            gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                        )?.Behaviour.gameObject;
+                    var sensor_behaviour
+                        = gameplay.ApollonGameplayManager.Instance.getBridge(
+                            gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
+                        )?.Behaviour.gameObject;
+
+                    // check
+                    if(command_behaviour == null)
+                    {
                     
+                        // if null, there should be at least a generic device
+                        command_behaviour 
+                            = (
+                                gameplay.ApollonGameplayManager.Instance.getBridge(
+                                    gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
+                                ) as gameplay.device.AppollonGenericMotionSystemBridge
+                            )
+                            .ConcreteBehaviour.CommandReference;
+                    
+                    } /* if()*/
+                    if(sensor_behaviour == null)
+                    {
+                    
+                        // if null, there should be at least a generic device
+                        sensor_behaviour 
+                            = (
+                                gameplay.ApollonGameplayManager.Instance.getBridge(
+                                    gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
+                                ) as gameplay.device.AppollonGenericMotionSystemBridge
+                            )
+                            .ConcreteBehaviour.SensorReference;
+                    
+                    } /* if()*/
+
                     // ForceSeatMI - BEGIN
-                    this.m_FSMI_UnityAPI = new MotionSystems.ForceSeatMI_Unity();
+
+                    this.m_FSMI_UnityAPI               = new MotionSystems.ForceSeatMI_Unity();
                     this.m_FSMI_CommandExtraParameters = new MotionSystems.ForceSeatMI_Unity.ExtraParameters();
-                    this.m_FSMI_Command 
-                        = new ApollonMotionSystemPS6TM550Command(
-                            gameplay.ApollonGameplayManager.Instance.getBridge(
-                                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
-                            ).Behaviour.gameObject
-                        );
-                    this.m_FSMI_Sensor
-                        = new ApollonMotionSystemPS6TM550Sensor(
-                            gameplay.ApollonGameplayManager.Instance.getBridge(
-                                gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
-                            ).Behaviour.gameObject
-                        );
-                    this.m_FSMI_Updater = new ApollonMotionSystemPS6TM550Updater(this);
+                    this.m_FSMI_Command                = new ApollonMotionSystemPS6TM550Command(command_behaviour);
+                    this.m_FSMI_Sensor                 = new ApollonMotionSystemPS6TM550Sensor(sensor_behaviour);
+                    this.m_FSMI_Updater                = new ApollonMotionSystemPS6TM550Updater(this);
 
                     this.m_FSMI_UnityAPI.SetAppID(""); // If you have dedicated app id, remove ActivateProfile calls from your code
                     this.m_FSMI_UnityAPI.ActivateProfile("APOLLON - " + experiment.ApollonExperimentManager.Instance.getActiveProfile());
@@ -330,6 +359,7 @@ namespace Labsim.apollon.backend.handle
                     this.m_FSMI_UnityAPI.SetPlatformInfoObject(this.m_FSMI_Sensor);
                     this.m_FSMI_UnityAPI.Pause(false);
                     this.m_FSMI_UnityAPI.Begin();
+                    
                     // ForceSeatMI - END
 
                     // mark as init

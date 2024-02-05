@@ -304,7 +304,7 @@ namespace Labsim.apollon.experiment
                 this.DoBlockConfiguration(block, current_pattern_settings.GetStringList("trial_draft_bucket"));
 
                 // suffle it !
-                if (current_pattern_settings.GetBool("is_draw_bucket_randomized"))
+                if (current_pattern_settings.GetBool("is_draft_bucket_randomized"))
                 {
                     block.trials.Shuffle();
                 }

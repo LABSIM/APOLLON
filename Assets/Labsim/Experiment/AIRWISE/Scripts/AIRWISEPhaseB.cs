@@ -63,10 +63,6 @@ namespace Labsim.experiment.AIRWISE
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour.GetComponentInChildren<QuadController>();
-            var airwise_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
-                );
 
             // log
             UnityEngine.Debug.Log(

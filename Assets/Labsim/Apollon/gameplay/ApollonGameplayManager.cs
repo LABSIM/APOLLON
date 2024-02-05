@@ -475,6 +475,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.VirtualMotionSystemCommand, false },
                 { GameplayIDType.MotionSystemCommand, false },
                 { GameplayIDType.MotionSystemSensor, false },
+                { GameplayIDType.GenericMotionSystem, false },
                 { GameplayIDType.HOTASWarthogthrottleSensor, false },
                 { GameplayIDType.RadioSondeSensor, false },
                 { GameplayIDType.AgencyAndThresholdPerceptionControl, false },
@@ -541,6 +542,9 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("MotionSystemSensor")]
             MotionSystemSensor,
         
+            [System.ComponentModel.Description("GenericMotionSystem")]
+            GenericMotionSystem,
+
             [System.ComponentModel.Description("HOTASWarthogthrottleSensor")]
             HOTASWarthogthrottleSensor,
 

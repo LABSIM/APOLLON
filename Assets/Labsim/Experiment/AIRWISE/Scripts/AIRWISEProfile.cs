@@ -27,7 +27,7 @@ namespace Labsim.experiment.AIRWISE
 {
 
     public class AIRWISEProfile 
-        : apollon.experiment.ApollonAbstractExperimentFiniteStateMachine< AIRWISEProfile >
+        : apollon.experiment.ApollonAbstractExperimentFiniteStateMachine<AIRWISEProfile>
     {
 
         // Ctor
@@ -249,7 +249,7 @@ namespace Labsim.experiment.AIRWISE
 
             // activate all motion system command/sensor/impedence
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
             );
 
             // log 
@@ -266,9 +266,9 @@ namespace Labsim.experiment.AIRWISE
 
             // Raise reset motion event
             apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                AIRWISEEntityBridge
+                 apollon.gameplay.device.AppollonGenericMotionSystemBridge
             >(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
             ).ConcreteDispatcher.RaiseReset(2500.0f);     
 
             UnityEngine.Debug.Log(

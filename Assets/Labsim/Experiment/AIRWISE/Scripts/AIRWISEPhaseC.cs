@@ -63,18 +63,20 @@ namespace Labsim.experiment.AIRWISE
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour.GetComponentInChildren<QuadController>();
-            var airwise_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+            var motion_platform
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.device.AppollonGenericMotionSystemBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
                 );
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : switching AIRWISE Motion platform impedence system from init->idle to control state"
+                "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : switching Motion platform impedence system from init->idle to control state"
             );
 
             // raise control state motion event
-            airwise_entity.ConcreteDispatcher.RaiseControl();
+            motion_platform.ConcreteDispatcher.RaiseControl();
 
             // log
             UnityEngine.Debug.Log(
