@@ -77,6 +77,7 @@ public class X4Actuation : AbstractActuation
 
     public override void ComputeActuation()
     {
+        base.ComputeActuation();
         float T = this.m_control.Order[0];
         Vector3 tau = new Vector3(this.m_control.Order[1], this.m_control.Order[2], this.m_control.Order[3]);
         this.TUnfiltered = this.A_inv * new Vector4(T, tau[0], tau[1], tau[2]);

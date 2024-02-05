@@ -1,16 +1,16 @@
 {
   "tFinal" : 120,
   "nbTrials" : 5,
-  "arrivalRadius": 5,
+  "arrivalRadius": 0.5,
   "ForcingFunctionConfig": {
-    "mode": 0,
+    "mode": -1,
     "t_final": 100
   },
   "MappingConfig": {
-    "mode": 5
+    "mode": 4
   },
   "ControlConfig": {
-    "mode": 7
+    "mode": 6
   },
   "ActuationConfig": {
     "mode": 0
@@ -24,7 +24,7 @@
   },
   "LoggerConfig": {
     "FallbackPath": "D:\\Fallback",
-    "Path": "C:\\Users\\SCHEME\\Desktop\\Test_YL",
+    "Path": "C:\\Users\\yalel\\Documents\\3_Manip\\1_Test data\\5_Unity\\Pre-tests\\Test_YL",
     "NumSep": ";",
     "PythonPath": "C:\\Users\\yalel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
     "ScriptName": "plotLog.py",

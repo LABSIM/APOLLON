@@ -63,13 +63,14 @@ public class XYIncrementZOtherAxisMapping : AbstractMapping
         this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "OtherAxisDesired");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.PositionDesiredKey, this.DefaultPositionDesired);
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.OtherAxisDesiredKey, new System.Collections.Generic.List<string> { this.DefaultOtherAxisDesired.ToString() });
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.OtherAxisDesiredKey, this.DefaultOtherAxisDesired);
     }
 
     // Define objectives
     public override void ReadMapping()
     {
         base.ReadMapping();
+        // Define desired position + attitude
         if (BrunnerHandle.Instance.GetReturnBrunner())
         {
             Vector3 positionDesired = new Vector3

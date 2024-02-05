@@ -71,8 +71,8 @@ public class DirectAltitudeDoubleIntegratorPositionDirectYaw : AbstractControl
             }
             else if (this.m_mapping.GetType() == typeof(IncrementXYZOtherAxisMapping))
             {
-                this.PositionDesired = ((IncrementXYZOtherAxisMapping)this.m_mapping).PositionDesired;
-                this.OtherAxisDesired = ((IncrementXYZOtherAxisMapping)this.m_mapping).OtherAxisDesired;
+                this.PositionDesired = ((IncrementXYZOtherAxisMapping)this.m_mapping).DefaultPositionDesired;
+                this.OtherAxisDesired = ((IncrementXYZOtherAxisMapping)this.m_mapping).DefaultOtherAxisDesired;
             }
         }
         Logger.Instance.AddEntry(this.PositionDesiredXLoggerIdx, this.PositionDesired.x);
@@ -85,7 +85,7 @@ public class DirectAltitudeDoubleIntegratorPositionDirectYaw : AbstractControl
     public override void Compute()
     {
         AeroFrame.SetAngles(this.m_rb, new Vector3(.0f, .0f, -this.OtherAxisDesired));
-        AeroFrame.SetPosition(this.m_rb, this.PositionDesired);
+        AeroFrame.SetPosition(this.m_rb, new Vector3(this.PositionDesired.x, this.PositionDesired.y, -50.0f));
         this.Order = new Vector4();
     }
 }

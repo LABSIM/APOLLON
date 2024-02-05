@@ -27,7 +27,6 @@ public class DirectAltitudeSingleIntegratorVelocityDirectYaw : AbstractControl
     private int PositionDesiredXLoggerIdx, PositionDesiredYLoggerIdx, PositionDesiredZLoggerIdx, OtherAxisDesiredLoggerIdx;
 
     public DirectAltitudeSingleIntegratorVelocityDirectYaw(DirectAltitudeSingleIntegratorVelocityDirectYawConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) { 
-        // rb.isKinematic = true;
         this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
         this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
         this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
@@ -40,17 +39,15 @@ public class DirectAltitudeSingleIntegratorVelocityDirectYaw : AbstractControl
     {
         if (this.m_mapping.ConnectedToBrunner)
         {
-            
-            // if (this.m_mapping.GetType() == typeof(AltitudeTranslationalVelocityMapping))
-            // {
-            //     this.PositionDesired = ((AltitudeTranslationalVelocityMapping)this.m_mapping).PositionDesired;
-            //     this.OtherAxisDesired = ((AltitudeTranslationalVelocityMapping)this.m_mapping).OtherAxisDesired;
-            // }
-            // else if (this.m_mapping.GetType() == typeof(PositionMapping))
             if (this.m_mapping.GetType() == typeof(PositionMapping))
             {
                 this.PositionDesired = ((PositionMapping)this.m_mapping).PositionDesired;
                 this.OtherAxisDesired = ((PositionMapping)this.m_mapping).OtherAxisDesired;
+            }
+            else if (this.m_mapping.GetType() == typeof(AltitudeTranslationalVelocityMapping))
+            {
+                this.PositionDesired = ((AltitudeTranslationalVelocityMapping)this.m_mapping).VelocityDesired;
+                this.OtherAxisDesired = ((AltitudeTranslationalVelocityMapping)this.m_mapping).YawDesired;
             }
             else if (this.m_mapping.GetType() == typeof(XYIncrementZOtherAxisMapping))
             {
@@ -64,6 +61,11 @@ public class DirectAltitudeSingleIntegratorVelocityDirectYaw : AbstractControl
             {
                 this.PositionDesired = ((PositionMapping)this.m_mapping).DefaultPositionDesired;
                 this.OtherAxisDesired = ((PositionMapping)this.m_mapping).DefaultOtherAxisDesired;
+            }
+            else if (this.m_mapping.GetType() == typeof(AltitudeTranslationalVelocityMapping))
+            {
+                this.PositionDesired = ((AltitudeTranslationalVelocityMapping)this.m_mapping).DefaultVelocityDesired;
+                this.OtherAxisDesired = ((AltitudeTranslationalVelocityMapping)this.m_mapping).DefaultYawDesired;
             }
             else if (this.m_mapping.GetType() == typeof(XYIncrementZOtherAxisMapping))
             {

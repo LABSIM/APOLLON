@@ -83,13 +83,58 @@ public abstract class AbstractActuation
     protected const float tMin = -100000;
     protected const float tMax = 100000;
 
+    // Measured position, attitude, velocity and angular velocity
+    protected int MeasuredXLoggerIdx, MeasuredYLoggerIdx, MeasuredZLoggerIdx,
+        MeasuredPhiLoggerIdx, MeasuredThetaLoggerIdx, MeasuredPsiLoggerIdx,
+        MeasuredXDotLoggerIdx, MeasuredYDotLoggerIdx, MeasuredZDotLoggerIdx,
+        MeasuredPhiDotLoggerIdx, MeasuredThetaDotLoggerIdx, MeasuredPsiDotLoggerIdx;
+
     public AbstractActuation(AbstractActuationConfig abstractActuationConfig, FilterFactory filterFactory, Rigidbody rb, AbstractControl control)
     {
         this.m_rb = rb;
         this.m_control = control;
         this.AbstractActuationConfig = abstractActuationConfig;
+
+        this.MeasuredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredX");
+        this.MeasuredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredY");
+        this.MeasuredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredZ");
+
+        this.MeasuredPhiLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPhi");
+        this.MeasuredThetaLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredTheta");
+        this.MeasuredPsiLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPsi");
+
+        this.MeasuredXDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredXDot");
+        this.MeasuredYDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredYDot");
+        this.MeasuredZDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredZDot");
+
+        this.MeasuredPhiDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPhiDot");
+        this.MeasuredThetaDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredThetaDot");
+        this.MeasuredPsiDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPsiDot");
+
     }
-    public abstract void ComputeActuation();
+    public virtual void ComputeActuation()
+    {
+        Vector3 position = AeroFrame.GetPosition(this.m_rb);
+        Vector3 attitude = AeroFrame.GetAngles(this.m_rb);
+        Vector3 velocity = AeroFrame.GetAbsoluteVelocity(this.m_rb);
+        Vector3 angularVelocity = AeroFrame.GetAngularVelocity(this.m_rb);
+
+        Logger.Instance.AddEntry(this.MeasuredXLoggerIdx, position.x);
+        Logger.Instance.AddEntry(this.MeasuredYLoggerIdx, position.y);
+        Logger.Instance.AddEntry(this.MeasuredZLoggerIdx, position.z);
+
+        Logger.Instance.AddEntry(this.MeasuredPhiLoggerIdx, attitude.x);
+        Logger.Instance.AddEntry(this.MeasuredThetaLoggerIdx, attitude.y);
+        Logger.Instance.AddEntry(this.MeasuredPsiLoggerIdx, attitude.z);
+
+        Logger.Instance.AddEntry(this.MeasuredXDotLoggerIdx, velocity.x);
+        Logger.Instance.AddEntry(this.MeasuredYDotLoggerIdx, velocity.y);
+        Logger.Instance.AddEntry(this.MeasuredZDotLoggerIdx, velocity.z);
+
+        Logger.Instance.AddEntry(this.MeasuredPhiDotLoggerIdx, angularVelocity.x);
+        Logger.Instance.AddEntry(this.MeasuredThetaDotLoggerIdx, angularVelocity.y);
+        Logger.Instance.AddEntry(this.MeasuredPsiDotLoggerIdx, angularVelocity.z);
+    }
     public abstract void FilterActuation();
     public abstract void HandlePropellers();
 

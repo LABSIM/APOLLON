@@ -43,7 +43,8 @@ public class ForcingFunctionFactory
                 break;
             case AbstractForcingFunction.ForcingFunctionModes.undefined:
             default:
-                //TODO : bail out early + Log
+                m_creator = new NoForcingFunctionCreator();
+                m_abstractConfig = Utilities.Read<NoForcingFunctionConfig>(forcingFunctionConfigFile);
                 break;
         }
         return m_creator.Create(m_abstractConfig, config.t_final);

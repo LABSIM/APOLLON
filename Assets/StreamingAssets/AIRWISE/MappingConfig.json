@@ -14,5 +14,17 @@
   "filterZ": {
     "mode": 0,
     "K": 1
+  },
+  "filterVx": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterVy": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterVz": {
+    "mode": 0,
+    "K": 1
   }
 }

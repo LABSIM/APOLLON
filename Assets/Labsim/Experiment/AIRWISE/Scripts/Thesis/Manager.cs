@@ -59,7 +59,6 @@ public class Manager
             () =>
             {
                 var manager = new Manager();
-                manager.Init();
                 return manager;
             }
         );
@@ -72,8 +71,6 @@ public class Manager
         this.Dispose();
     }
 
-    private void Init() { this.Instantiate(); }
-
     public void Dispose()
     {
         // Flush remaining logger buffer
@@ -84,8 +81,7 @@ public class Manager
     }
 
     #endregion 
-
-    private void Instantiate() { }
+    
 
     public void Instantiate(QuadController mb, TimeSpan elapsed, DateTime timestamp, Rigidbody rb, Rotor[] rotors)
     {
@@ -118,12 +114,11 @@ public class Manager
         this.ActuationFactory = new ActuationFactory();
         this.HapticFactory = new HapticFactory();
         this.ErrorDisplayFactory = new ErrorDisplayFactory();
-
-        this.Build(timestamp, rb, rotors);
     }
 
     private void Build(DateTime timestamp, Rigidbody rb, Rotor[] rotors) 
     {
+
         // Define Logger currTrial static member from Manager value
         if (this.m_currTrial >= 0) {
             Logger.currTrial = this.m_currTrial;
@@ -131,7 +126,7 @@ public class Manager
 
         // Initiate logger
         Logger.Instance.Configure(this.LoggerConfig, timestamp, this.m_currElapsed, rb);
-
+        
         // Define initial conditions
         this.InitialConditions = this.Config.InitialConditions;
 
@@ -154,6 +149,7 @@ public class Manager
         this.ErrorDisplay = this.ErrorDisplayFactory.Build(this.ErrorDisplayConfig, this.ForcingFunction, rb);
 
         // Log instantiated configuration
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.DtKey, Time.fixedDeltaTime);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ForcingFunctionKey, this.ForcingFunction.GetType());
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.MappingKey, this.Mapping.GetType());
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ControlKey, this.Control.GetType());

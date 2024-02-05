@@ -81,9 +81,9 @@ public class AltitudeTranslationalVelocityMapping : AbstractMapping
         this.VelocityDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredZ");
         this.YawDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "YawDesired");
 
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AltitudeDesiredKey, new System.Collections.Generic.List<string> { this.DefaultAltitudeDesired.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.VelocityDesiredKey, new System.Collections.Generic.List<string> { this.DefaultVelocityDesired.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.YawDesiredKey, new System.Collections.Generic.List<string> { this.DefaultYawDesired.ToString() });
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AltitudeDesiredKey, this.DefaultAltitudeDesired);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.VelocityDesiredKey, this.DefaultVelocityDesired);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.YawDesiredKey, this.DefaultYawDesired);
     }
 
     // Define objectives

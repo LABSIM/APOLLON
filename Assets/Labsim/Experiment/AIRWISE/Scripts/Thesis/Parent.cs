@@ -4,7 +4,7 @@ using UnityEngine;
 public static class Constants
 {
     // General config file path
-    public const string streamingAssetsPath = @"Assets/StreamingAssets/AIRWISE/";
+    public const string streamingAssetsPath = @"Assets/StreamingAssets/";
     public const string ConfigFile = @"ConfigFile.json";
 
     public const string ConfigFilePath = Constants.streamingAssetsPath + Constants.ConfigFile;
@@ -111,7 +111,7 @@ public static class Constants
 public static class Parameters
 {
     public const float DistMax = 1000.0f;
-    public const float VMax = 10.0f;
+    public const float VMax = 100.0f;
 
     public const float JoystickToPosition = 0.2f;
 }

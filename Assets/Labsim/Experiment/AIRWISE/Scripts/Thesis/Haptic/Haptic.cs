@@ -95,9 +95,6 @@ public abstract class AbstractHaptic
     protected int mode;
     protected int axisMode;
 
-    // Manager-related members
-    protected Manager Manager;
-
     // Default trim position
     public float TrimX, TrimY;
 
@@ -120,7 +117,6 @@ public abstract class AbstractHaptic
     {
         this.m_rb = rb;
         this.AbstractHapticConfig = abstractHapticConfig;
-        this.Manager = manager;
         
         this.TrimX = abstractHapticConfig.trimX0;
         this.TrimY = abstractHapticConfig.trimY0;
@@ -207,8 +203,8 @@ public abstract class AbstractHaptic
     // Set default trim position
     private void SetInitialTrimPosition(){
         BrunnerHandle.Instance.WriteTrimPositionXY(this.TrimX, this.TrimY);
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.TrimX0Key, new System.Collections.Generic.List<string> { this.TrimX.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.TrimY0Key, new System.Collections.Generic.List<string> { this.TrimY.ToString() });
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.TrimX0Key, this.TrimX);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.TrimY0Key, this.TrimY);
     }
 
     // Set default force profile

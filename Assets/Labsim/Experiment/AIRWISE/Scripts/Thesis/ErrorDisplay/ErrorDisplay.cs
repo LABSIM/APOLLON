@@ -17,17 +17,15 @@ public class ErrorDisplayFactory
 
         switch ((AbstractErrorDisplay.ErrorDisplayModes)config.mode)
         {
-            case AbstractErrorDisplay.ErrorDisplayModes.noErrorDisplay:
-                m_creator = new NoErrorDisplayCreator();
-                m_abstractConfig = Utilities.Read<NoErrorDisplayConfig>(ErrorDisplayConfigFile);
-                break;
             case AbstractErrorDisplay.ErrorDisplayModes.opticalFlowGrid:
                 m_creator = new OpticalFlowGridErrorDisplayCreator();
                 m_abstractConfig = Utilities.Read<OpticalFlowGridErrorDisplayConfig>(ErrorDisplayConfigFile);
                 break;
+            case AbstractErrorDisplay.ErrorDisplayModes.noErrorDisplay:
             case AbstractErrorDisplay.ErrorDisplayModes.undefined:
             default:
-                //TODO : bail out early + Log
+                m_creator = new NoErrorDisplayCreator();
+                m_abstractConfig = Utilities.Read<NoErrorDisplayConfig>(ErrorDisplayConfigFile);
                 break;
         }
         return m_creator.Create(m_abstractConfig, rb, forcingFunction);

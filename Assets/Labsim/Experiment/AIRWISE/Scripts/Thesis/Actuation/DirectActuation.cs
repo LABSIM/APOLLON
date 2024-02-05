@@ -54,6 +54,7 @@ public class DirectActuation : AbstractActuation
 
     public override void ComputeActuation()
     {
+        base.ComputeActuation();
         this.TUnfiltered = this.m_control.Order[0];
         this.TorqueUnfiltered = new Vector3(this.m_control.Order[1], this.m_control.Order[2], this.m_control.Order[3]);
     }

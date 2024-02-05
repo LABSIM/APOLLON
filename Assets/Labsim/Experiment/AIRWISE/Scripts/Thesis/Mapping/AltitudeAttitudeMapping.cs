@@ -64,8 +64,8 @@ public class AltitudeAttitudeMapping : AbstractMapping
         this.AttitudeDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredY");
         this.AttitudeDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredZ");
 
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AltitudeDesiredKey, new System.Collections.Generic.List<string> { this.DefaultAltitudeDesired.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AttitudeDesiredKey, new System.Collections.Generic.List<string> { this.DefaultAttitudeDesired.ToString() });
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AltitudeDesiredKey, this.DefaultAltitudeDesired);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AttitudeDesiredKey, this.DefaultAttitudeDesired);
     }
 
     // Define objectives

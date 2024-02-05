@@ -50,13 +50,14 @@ public class Logger
     private bool m_runPython, m_copyVarjoVideo;
     private TimeSpan m_elapsed;
 
+    private bool m_isInitialized = false;
+
     #region singleton pattern
     private static readonly System.Lazy<Logger> _lazyLogger
         = new System.Lazy<Logger>(
             () =>
             {
                 var logger = new Logger();
-                logger.Init();
                 return logger;
             }
         );
@@ -69,17 +70,24 @@ public class Logger
         this.Dispose();
     }
 
-    private void Init() { }
     private void Init(LoggerConfig config, DateTime timestamp, TimeSpan elapsed, Rigidbody rb)
     {
+        // Bail out early with error is already initialized
+        if (this.m_isInitialized) {
+            UnityEngine.Debug.LogError(
+                "<color=red>Error: </color> " + this.GetType() + " should not be initiated when entering initialization method."
+            );
+            return;
+        }
+
         this.m_rb = rb;
 
         this.loggerConfigured = false;
         this.m_numSep = config.NumSep;
         this.m_pythonPath = config.PythonPath;
         this.m_textSep = config.TextSep;
-        this.m_tableExtension = config.TableExtension;
-        this.m_structureExtension = config.StructureExtension;
+        this.m_tableExtension = (!string.IsNullOrEmpty(config.TableExtension)) ? config.TableExtension : csvExt;
+        this.m_structureExtension = (!string.IsNullOrEmpty(config.StructureExtension)) ? config.StructureExtension : jsonExt;
         this.m_timestamp = timestamp;
         this.CreateTopLevelPath(config.Path);
         this.m_fallbackPath = config.FallbackPath;
@@ -99,6 +107,8 @@ public class Logger
         this.m_buffer = new List<string>();
         this.m_elapsed = elapsed;
         this.m_buffer.Add(String.Format("{0:00000}.{1:000}", this.m_elapsed.Seconds, this.m_elapsed.Milliseconds));
+
+        this.m_isInitialized = true;
     }
 
     public void Dispose()
@@ -286,6 +296,11 @@ public class Logger
         }
     }
 
+    public void AddTrialConfigEntry(string entryType, string key, float val)
+    {
+        AddTrialConfigEntry(entryType, key, new System.Collections.Generic.List<string> { val.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture) });
+    }
+
     public void AddTrialConfigEntry(string entryType, string key, List<float> val)
     {
         AddTrialConfigEntry(entryType, key, val.Select(d => d.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture)).ToList());
@@ -309,7 +324,7 @@ public class Logger
             }
             else
             {
-                UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".AddEntry(): Cannot find " + entryType + " key in top-level buffer.");
+                UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".AddEntry(): Cannot find " + entryType + " key in top-level buffer.");
             }
         }
     }
@@ -332,7 +347,7 @@ public class Logger
             }
             else
             {
-                UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".AddEntry(): Cannot find " + entryType + " key in top-level buffer.");
+                UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".AddEntry(): Cannot find " + entryType + " key in top-level buffer.");
             }
         }
     }
@@ -376,7 +391,7 @@ public class Logger
             }
             else
             {
-                UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".AddEntry(): Cannot find " + entryType + " key in trial-level buffer.");
+                UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".AddEntry(): Cannot find " + entryType + " key in trial-level buffer.");
             }
         }
     }
@@ -407,9 +422,9 @@ public class Logger
                 } catch (ObjectDisposedException e) {
                     FileStream tempWriter = (FileStream) this.m_writer.BaseStream;
                     if (tempWriter != null) {
-                        UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush buffer in '" + tempWriter.Name + "', file is already closed -- '" + e + "'.");
+                        UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush buffer in '" + tempWriter.Name + "', file is already closed -- '" + e + "'.");
                     } else {
-                        UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush buffer, file is already closed -- '" + e + "'.");
+                        UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush buffer, file is already closed -- '" + e + "'.");
                     }
                 }
             }
@@ -433,13 +448,13 @@ public class Logger
     {
         if (Manager.Instance.DuringTrial()) {
             try {
-                        this.m_writer.WriteLine(string.Join(this.m_numSep, this.m_topLevelBuffer));
+                this.m_writer.WriteLine(string.Join(this.m_numSep, this.m_topLevelBuffer));
             } catch (ObjectDisposedException e) {
                 FileStream tempWriter = (FileStream) this.m_writer.BaseStream;
                 if (tempWriter != null) {
-                    UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush top-level buffer in '" + tempWriter.Name + "', file is already closed -- '" + e + "'.");
+                    UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush top-level buffer in '" + tempWriter.Name + "', file is already closed -- '" + e + "'.");
                 } else {
-                    UnityEngine.Debug.LogError("<color=Red>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush top-level buffer, file is already closed -- '" + e + "'.");
+                    UnityEngine.Debug.LogWarning("<color=orange>Warning: </color> " + this.GetType() + ".FlushBuffer(): Cannot flush top-level buffer, file is already closed -- '" + e + "'.");
                 }
             }
             this.ResetTopLevelBuffer();
@@ -537,7 +552,8 @@ public class Logger
             Path.GetFileNameWithoutExtension(filename) + this.GenerateSuffixFromTrial() + Path.GetExtension(filename));
     }
     
-    public static class Utilities {
+    public static class Utilities
+    {
         public const string ConfigurationKey = "Configuration";
         public const string ForcingFunctionKey = "ForcingFunction";
         public const string DAKey = "dA";

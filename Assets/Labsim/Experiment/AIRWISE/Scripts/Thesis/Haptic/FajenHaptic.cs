@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 class FajenHapticCreator : HapticCreator
@@ -57,10 +56,10 @@ public class FajenHaptic : AbstractHaptic
         this.PositionYToSendLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionYToSend");
 
         //TODO: nettoyer pour ajouter les conditions propres à la loi haptique par Fajen
-        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.SecurityFactorKey, new System.Collections.Generic.List<string> { this.SecurityFactor.ToString() });
-        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.ReactionTimeKey, new System.Collections.Generic.List<string> { this.ReactionTime.ToString() });
-        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kXKey, new System.Collections.Generic.List<string> { this.kX.ToString() });
-        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kYKey, new System.Collections.Generic.List<string> { this.kY.ToString() });
+        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.SecurityFactorKey, this.SecurityFactor);
+        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.ReactionTimeKey, this.ReactionTime);
+        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kXKey, this.kX);
+        //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kYKey, this.kY);
     }
 
     public void Initialize(float t0, float tf, Vector4 X0)

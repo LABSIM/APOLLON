@@ -52,12 +52,12 @@ public class ControlFactory
                 break;
             case AbstractControl.ControlModes.directAltitudeDoubleIntegratorPositionDirectYaw:
                 m_creator = new DirectAltitudeDoubleIntegratorPositionDirectYawCreator();
-                if (mapping.GetType() != typeof(IncrementXYZOtherAxisMapping)) Debug.LogError("<color=Red>Error: </color> ControlFactory.Build(): Cannot read altitude + position inputs from " + mapping.GetType() + " type mapping.");
+                if (mapping.GetType() != typeof(PositionMapping) && mapping.GetType() != typeof(IncrementXYZOtherAxisMapping)) Debug.LogError("<color=Red>Error: </color> ControlFactory.Build(): Cannot read altitude + position inputs from " + mapping.GetType() + " type mapping.");
                 m_abstractConfig = Utilities.Read<DirectAltitudeDoubleIntegratorPositionDirectYawConfig>(controlConfigFile);
                 break;
             case AbstractControl.ControlModes.directPitchDoubleIntegratorPositionDirectYaw:
                 m_creator = new DirectPitchDoubleIntegratorPositionDirectYawCreator();
-                if (mapping.GetType() != typeof(IncrementXYZOtherAxisMapping)) Debug.LogError("<color=Red>Error: </color> ControlFactory.Build(): Cannot read attitude + position inputs from " + mapping.GetType() + " type mapping.");
+                if (mapping.GetType() != typeof(PositionMapping) && mapping.GetType() != typeof(IncrementXYZOtherAxisMapping)) Debug.LogError("<color=Red>Error: </color> ControlFactory.Build(): Cannot read attitude + position inputs from " + mapping.GetType() + " type mapping.");
                 m_abstractConfig = Utilities.Read<DirectPitchDoubleIntegratorPositionDirectYawConfig>(controlConfigFile);
                 break;
             case AbstractControl.ControlModes.undefined:

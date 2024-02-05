@@ -44,8 +44,8 @@ public class CoulombHaptic : AbstractHaptic
         this.kX = config.kX;
         this.kY = config.kY;
         this.sent = false;
-        this.Distances = new float[this.Manager.QuadController.NbRaycast];
-        this.SecuredDistances = new float[this.Manager.QuadController.NbRaycast];
+        this.Distances = new float[Manager.Instance.QuadController.NbRaycast];
+        this.SecuredDistances = new float[Manager.Instance.QuadController.NbRaycast];
         
         this.DistanceDangerLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "DistanceDanger");
         this.DistanceWarningLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "DistanceWarning");
@@ -58,45 +58,45 @@ public class CoulombHaptic : AbstractHaptic
         this.SecuredDistance2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "SecuredDistance2");
         this.SecuredDistance3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "SecuredDistance3");
 
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.SecurityFactorKey, new System.Collections.Generic.List<string> { this.SecurityFactor.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.ReactionTimeKey, new System.Collections.Generic.List<string> { this.ReactionTime.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kXKey, new System.Collections.Generic.List<string> { this.kX.ToString() });
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kYKey, new System.Collections.Generic.List<string> { this.kY.ToString() });
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.SecurityFactorKey, this.SecurityFactor);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.ReactionTimeKey, this.ReactionTime);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kXKey, this.kX);
+        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kYKey, this.kY);
     }
 
     // Apply to current RigidBody provided force and torque expressed in aero frame using Euler-Cardan ZYX angles
     public override void FetchCriterion(float tElapsed)
     {
         base.FetchCriterion(tElapsed);
-        for (int i = 0; i < this.Manager.QuadController.NbRaycast; i++)
+        for (int i = 0; i < Manager.Instance.QuadController.NbRaycast; i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(this.Manager.QuadController.transform.position, Utilities.ToUnityFromAeroFrame(this.Manager.QuadController.RayDirections[i]), out hit))
+            if (Physics.Raycast(Manager.Instance.QuadController.transform.position, Utilities.ToUnityFromAeroFrame(Manager.Instance.QuadController.RayDirections[i]), out hit))
             {
-                // float DistanceDanger = Mathf.Max(Mathf.Abs(this.ReactionTime * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Utilities.ToUnityFromAeroFrame(this.Manager.QuadController.RayDirections[i]))), this.DistanceDanger);
+                // float DistanceDanger = Mathf.Max(Mathf.Abs(this.ReactionTime * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Utilities.ToUnityFromAeroFrame(Manager.Instance.QuadController.RayDirections[i]))), this.DistanceDanger);
                 // float DistanceWarning = Mathf.Max(this.SecurityFactor * DistanceDanger, this.DistanceWarning);
-                // float DistanceDanger = this.DistanceDanger + Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[i]) * this.ReactionTime;
-                // float DistanceWarning = this.DistanceWarning + Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[i]) * this.ReactionTime;
+                // float DistanceDanger = this.DistanceDanger + Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[i]) * this.ReactionTime;
+                // float DistanceWarning = this.DistanceWarning + Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[i]) * this.ReactionTime;
                 Logger.Instance.AddEntry(this.DistanceDangerLoggerIdx, DistanceDanger);
                 Logger.Instance.AddEntry(this.DistanceWarningLoggerIdx, DistanceWarning);
 
                 if (hit.distance < DistanceDanger)
                 {
-                    Debug.DrawRay(this.Manager.QuadController.transform.position, this.Manager.QuadController.transform.TransformDirection(Utilities.ToUnityFromAeroFrame(this.Manager.QuadController.RayDirections[i])) * hit.distance, Color.red);
+                    Debug.DrawRay(Manager.Instance.QuadController.transform.position, Manager.Instance.QuadController.transform.TransformDirection(Utilities.ToUnityFromAeroFrame(Manager.Instance.QuadController.RayDirections[i])) * hit.distance, Color.red);
                     this.Distances[i] = hit.distance;
                     this.SecuredDistances[i] = this.SecurityFactor * this.Distances[i];
-                    // this.SecuredDistances[i] =  this.SecurityFactor * (this.Distances[i] - Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[i]) * this.ReactionTime);
+                    // this.SecuredDistances[i] =  this.SecurityFactor * (this.Distances[i] - Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[i]) * this.ReactionTime);
                 }
                 else if (hit.distance < DistanceWarning)
                 {
-                    Debug.DrawRay(this.Manager.QuadController.transform.position, this.Manager.QuadController.transform.TransformDirection(Utilities.ToUnityFromAeroFrame(this.Manager.QuadController.RayDirections[i])) * hit.distance, Color.yellow);
+                    Debug.DrawRay(Manager.Instance.QuadController.transform.position, Manager.Instance.QuadController.transform.TransformDirection(Utilities.ToUnityFromAeroFrame(Manager.Instance.QuadController.RayDirections[i])) * hit.distance, Color.yellow);
                     this.Distances[i] = hit.distance;
                     this.SecuredDistances[i] = this.Distances[i];
-                    // this.SecuredDistances[i] = (this.Distances[i] - Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[i]) * this.ReactionTime);
+                    // this.SecuredDistances[i] = (this.Distances[i] - Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[i]) * this.ReactionTime);
                 }
                 else 
                 { 
-                    Debug.DrawRay(this.Manager.QuadController.transform.position, this.Manager.QuadController.transform.TransformDirection(Utilities.ToUnityFromAeroFrame(this.Manager.QuadController.RayDirections[i])) * hit.distance, Color.green);
+                    Debug.DrawRay(Manager.Instance.QuadController.transform.position, Manager.Instance.QuadController.transform.TransformDirection(Utilities.ToUnityFromAeroFrame(Manager.Instance.QuadController.RayDirections[i])) * hit.distance, Color.green);
                     this.Distances[i] = Mathf.Infinity;
                     this.SecuredDistances[i] = this.Distances[i];
                 }
@@ -122,11 +122,11 @@ public class CoulombHaptic : AbstractHaptic
         this.ForceXToSend = -this.kX * 1 / (this.Distances[0] * this.Distances[0]) + this.kX * 1 / (this.Distances[2] * this.Distances[2]);
         this.ForceYToSend = -this.kY * 1 / (this.Distances[1] * this.Distances[1]) + this.kY * 1 / (this.Distances[0] * this.Distances[0]);
 
-        // float gainXPos = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[0]);
-        // float gainXNeg = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[2]);
+        // float gainXPos = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[0]);
+        // float gainXNeg = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[2]);
         // this.ForceXToSend = -gainXPos * 1 / (this.SecuredDistances[0] * this.SecuredDistances[0]) + gainXNeg * 1 / (this.SecuredDistances[2] * this.SecuredDistances[2]);
-        // float gainYPos = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[1]);
-        // float gainYNeg = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), this.Manager.QuadController.RayDirections[3]);
+        // float gainYPos = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[1]);
+        // float gainYNeg = this.kX * Utilities.ScalarProduct(AeroFrame.GetAbsoluteVelocity(this.m_rb), Manager.Instance.QuadController.RayDirections[3]);
         // this.ForceYToSend = -gainYPos * 1 / (this.SecuredDistances[1] * this.SecuredDistances[1]) + gainYNeg * 1 / (this.SecuredDistances[3] * this.SecuredDistances[3]);
         // this.ForceXToSend = -gainXPos * 1 / (this.SecuredDistances[0] ) + gainXNeg * 1 / (this.SecuredDistances[2]);
         // this.ForceYToSend = -gainYPos * 1 / (this.SecuredDistances[1] ) + gainYNeg * 1 / (this.SecuredDistances[3]);
