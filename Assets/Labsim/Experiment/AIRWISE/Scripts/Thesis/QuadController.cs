@@ -41,7 +41,7 @@ public class QuadController : MonoBehaviour
 
 
     private void FixedUpdate()
-    {
+    {        
         UnityEditor.EditorApplication.pauseStateChanged += RestartChronoAfterPause;
         // Stop chrono to current time if Manager returned simulation stop condition
         if (Manager.Instance.Compute(this._chrono.Elapsed)) {
@@ -176,7 +176,26 @@ public class QuadController : MonoBehaviour
     private void Instantiate() 
     {
         // Instantiate mechanical control elements
-        this.m_rb = this.GetComponent<Rigidbody>();
+
+        // find all loaded tags gate
+        foreach(var obj in UnityEngine.GameObject.FindGameObjectsWithTag("AIRWISETag_Arrival"))
+        {
+            
+            // Only center
+            if(obj.name != "Center")
+            {
+                continue;
+            }
+
+            // extract Arrival Rb
+            this.m_arrivalRb = obj.GetComponent<Rigidbody>();
+
+            // resume flow
+            break;
+
+        }/* foreach() */
+
+        this.m_rb = this.gameObject.GetComponent<Rigidbody>();
         this.HitPts = new Vector3[_nbRaycast] { new Vector3(), new Vector3(), new Vector3(), new Vector3() };
         this._distances = new float[_nbRaycast] { Parameters.DistMax, Parameters.DistMax, Parameters.DistMax, Parameters.DistMax };
         this.Rotors = this.transform.parent.GetComponentsInChildren<Rotor>();

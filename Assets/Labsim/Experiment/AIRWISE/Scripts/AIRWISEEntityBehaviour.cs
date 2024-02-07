@@ -40,7 +40,7 @@ namespace Labsim.experiment.AIRWISE
 
         #endregion
 
-        #region controllers implemantion
+        #region controllers implemention
 
         internal class InitController
             : UnityEngine.MonoBehaviour
@@ -65,9 +65,9 @@ namespace Labsim.experiment.AIRWISE
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
-                    || (this._controller = this.GetComponentInParent<QuadController>()) == null
-                    || (this._rigidbody = this._controller.GetComponent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent        = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
+                    || (this._controller = this._parent.GetComponentInChildren<QuadController>()) == null
+                    || (this._rigidbody  = this._controller.Rb) == null
                 )
                 {
 
@@ -94,23 +94,36 @@ namespace Labsim.experiment.AIRWISE
                 );
                 
             } /* OnEnable() */
-
+            
             private void FixedUpdate()
             {
-
+                
                 // check if saturation point is reached on each axis
-                if (
-                    (
-                        (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).x)     >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
-                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).y)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
-                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).z)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
-                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).x) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
-                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).y) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
-                        && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).z) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
-                    )
-                    || this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration
+                if( (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).x)     >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
+                    && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).y)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
+                    && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).z)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.z))
+                    && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).x) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.x))
+                    && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).y) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.y))
+                    && (UnityEngine.Mathf.Abs(UnityFrame.GetAbsoluteVelocity(this._rigidbody).z) >= UnityEngine.Mathf.Abs(this._parent.LinearVelocitySaturationThreshold.z))
                 )
                 {
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.FixedUpdate() : saturation reached on all axis, raising Idle state"
+                    );
+
+                    // change state
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
+
+                }
+                else if(this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
+                {
+                    
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.FixedUpdate() : elapsed time has reached duration, raising Idle state"
+                    );
 
                     // change state
                     this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
@@ -167,6 +180,7 @@ namespace Labsim.experiment.AIRWISE
         {
 
             private AIRWISEEntityBehaviour _parent = null;
+            private QuadController _controller = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -187,8 +201,9 @@ namespace Labsim.experiment.AIRWISE
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null   
+                    || (this._controller = this._parent.GetComponentInChildren<QuadController>()) == null                 
+                    || (this._rigidbody  = this._controller.Rb) == null
                 )
                 {
 
@@ -249,6 +264,7 @@ namespace Labsim.experiment.AIRWISE
             } /* OnDisable() */
             
         } /* class IdleController */
+        
         internal class ResetController
             : UnityEngine.MonoBehaviour
         {
@@ -264,7 +280,7 @@ namespace Labsim.experiment.AIRWISE
                 this.enabled = false;
                 //this.name = "ApollonResetController";
 
-            } /* Awake() */
+            } /* Awake()  */
 
             private void OnEnable()
             {
@@ -275,9 +291,9 @@ namespace Labsim.experiment.AIRWISE
                 );
                 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
-                    || (this._controller = this.GetComponentInParent<QuadController>()) == null
-                    || (this._rigidbody = this._controller.GetComponent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent        = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null
+                    || (this._controller = this._parent.GetComponentInChildren<QuadController>()) == null
+                    || (this._rigidbody  = this._controller.Rb) == null
                 )
                 {
 
@@ -317,31 +333,41 @@ namespace Labsim.experiment.AIRWISE
                 )
                 {
 
-                    // check current timing
-                    if(this._parent.Chrono.ElapsedMilliseconds < this._parent.Duration)
-                    {
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ResetController.FixedUpdate() : saturation point reached, zeroing all forces & torques then raise idle event"
+                    );
+                    
+                    // iding - zero velocity, acceleration & enforce velocity
+                    this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                    this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                    this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                    this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                    this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                    this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
-                        // iding - zero velocity, acceleration & enforce velocity
-                        this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-                        this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-                        this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                        this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-                        this._rigidbody.velocity = UnityEngine.Vector3.zero;
-                        this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
+                    // notify idle event
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();                        
 
-                    }
-                    else
-                    {
+                }
+                else if(this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
+                {
+                    
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ResetController.FixedUpdate() : elapsed time has reached duration, raising Idle state"
+                    );
 
-                        // log
-                        UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> AIRWISEEntityBehaviour.Reset.FixedUpdate() : movement stopped, raise iddle event"
-                        );
+                    // iding - zero velocity, acceleration & enforce velocity
+                    this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                    this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                    this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                    this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                    this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                    this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
-                        // notify idle event
-                        this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();                        
-
-                    } /* if() */
+                    // change state
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
 
                 }
                 else

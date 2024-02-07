@@ -59,8 +59,8 @@ namespace Labsim.experiment.AIRWISE
 
         #region System action
         
-        public event System.Action<float> slalomEnded;
-        public event System.Action slalomStarted;
+        public event System.EventHandler<float> slalomEnded;
+        public event System.EventHandler slalomStarted;
 
         #endregion
         
@@ -148,12 +148,12 @@ namespace Labsim.experiment.AIRWISE
                 }
                 case AIRWISEResults.PhaseCResults.Checkpoint.KindIDType.Arrival:
                 {
-                    this.slalomEnded.Invoke(this.CurrentPerformance); 
+                    this.slalomEnded?.Invoke(this, this.CurrentPerformance); 
                     break;
                 }
                 case AIRWISEResults.PhaseCResults.Checkpoint.KindIDType.Departure:
                 {
-                    this.slalomStarted.Invoke(); 
+                    this.slalomStarted?.Invoke(this, null); 
                     break;
                 }
             }

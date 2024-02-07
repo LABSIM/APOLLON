@@ -50,12 +50,6 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseA.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // refs
-            var dynamic_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.entity.ApollonDynamicEntityBridge
-                >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
-                ).ConcreteBehaviour;
             var motion_platform
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.device.AppollonGenericMotionSystemBridge
@@ -73,11 +67,13 @@ namespace Labsim.experiment.AIRWISE
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : activating control & AIRWISE Vecteur"
+                "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : activating AIRWISE Entity & Yale's controller"
             );
 
-            dynamic_entity.References["EntityTag_Vecteur"].SetActive(true);
-
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+            );
+            
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : end"

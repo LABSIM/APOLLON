@@ -276,9 +276,8 @@ GameObject:
   - component: {fileID: 78328973}
   - component: {fileID: 78328976}
   - component: {fileID: 78328975}
-  - component: {fileID: 78328974}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,27 +298,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 54724781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &78328974
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78328972}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &78328975
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -381,9 +359,8 @@ GameObject:
   - component: {fileID: 114238660}
   - component: {fileID: 114238663}
   - component: {fileID: 114238662}
-  - component: {fileID: 114238661}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,27 +381,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1323186191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &114238661
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114238659}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &114238662
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -629,6 +585,7 @@ GameObject:
   - component: {fileID: 139900344}
   - component: {fileID: 139900343}
   - component: {fileID: 139900342}
+  - component: {fileID: 139900345}
   m_Layer: 0
   m_Name: Center
   m_TagString: AIRWISETag_Arrival
@@ -723,6 +680,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139900340}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &139900345
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139900340}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &182466051
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,9 +930,8 @@ GameObject:
   - component: {fileID: 359171513}
   - component: {fileID: 359171516}
   - component: {fileID: 359171515}
-  - component: {fileID: 359171514}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,27 +952,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 117312401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &359171514
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359171512}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &359171515
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1157,9 +1119,8 @@ GameObject:
   - component: {fileID: 463432424}
   - component: {fileID: 463432427}
   - component: {fileID: 463432426}
-  - component: {fileID: 463432425}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1180,27 +1141,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2083066916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &463432425
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463432423}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &463432426
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1262,9 +1202,8 @@ GameObject:
   - component: {fileID: 466790042}
   - component: {fileID: 466790045}
   - component: {fileID: 466790044}
-  - component: {fileID: 466790043}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,27 +1224,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 54724781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &466790043
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466790041}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &466790044
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1511,9 +1429,8 @@ GameObject:
   - component: {fileID: 598425561}
   - component: {fileID: 598425564}
   - component: {fileID: 598425563}
-  - component: {fileID: 598425562}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1534,27 +1451,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1197490895}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &598425562
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598425560}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &598425563
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1616,9 +1512,8 @@ GameObject:
   - component: {fileID: 657349044}
   - component: {fileID: 657349047}
   - component: {fileID: 657349046}
-  - component: {fileID: 657349045}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1639,27 +1534,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 925290055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &657349045
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657349043}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &657349046
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1827,9 +1701,8 @@ GameObject:
   - component: {fileID: 678446465}
   - component: {fileID: 678446468}
   - component: {fileID: 678446467}
-  - component: {fileID: 678446466}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1850,27 +1723,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1197490895}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &678446466
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678446464}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &678446467
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2428,9 +2280,8 @@ GameObject:
   - component: {fileID: 1237065331}
   - component: {fileID: 1237065334}
   - component: {fileID: 1237065333}
-  - component: {fileID: 1237065332}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2451,27 +2302,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 117312401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1237065332
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1237065330}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1237065333
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2675,9 +2505,8 @@ GameObject:
   - component: {fileID: 1366814230}
   - component: {fileID: 1366814233}
   - component: {fileID: 1366814232}
-  - component: {fileID: 1366814231}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2698,27 +2527,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1323186191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1366814231
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366814229}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1366814232
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2886,9 +2694,8 @@ GameObject:
   - component: {fileID: 1501941200}
   - component: {fileID: 1501941203}
   - component: {fileID: 1501941202}
-  - component: {fileID: 1501941201}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2909,27 +2716,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2100675337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1501941201
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1501941199}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1501941202
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2991,9 +2777,8 @@ GameObject:
   - component: {fileID: 1535433251}
   - component: {fileID: 1535433254}
   - component: {fileID: 1535433253}
-  - component: {fileID: 1535433252}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3014,27 +2799,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 925290055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1535433252
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535433250}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1535433253
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3520,9 +3284,8 @@ GameObject:
   - component: {fileID: 1768696716}
   - component: {fileID: 1768696719}
   - component: {fileID: 1768696718}
-  - component: {fileID: 1768696717}
   m_Layer: 0
-  m_Name: DepartureL
+  m_Name: VisuLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3543,27 +3306,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2083066916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1768696717
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768696715}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1768696718
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3837,9 +3579,8 @@ GameObject:
   - component: {fileID: 1988137662}
   - component: {fileID: 1988137665}
   - component: {fileID: 1988137664}
-  - component: {fileID: 1988137663}
   m_Layer: 0
-  m_Name: DepartureR
+  m_Name: VisuRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3860,27 +3601,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2100675337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1988137663
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988137661}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1988137664
 MeshRenderer:
   m_ObjectHideFlags: 0

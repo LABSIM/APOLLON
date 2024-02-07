@@ -49,13 +49,7 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseD.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseD.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
-            // refs            
-            var dynamic_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.entity.ApollonDynamicEntityBridge
-                >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
-                ).ConcreteBehaviour;
+            // refs
             var airwise_entity
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
@@ -164,7 +158,9 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : deactivating AIRWISE Vecteur"
             );
 
-            dynamic_entity.References["EntityTag_Vecteur"].SetActive(false);
+            apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+            );
 
             // log
             UnityEngine.Debug.Log(

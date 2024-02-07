@@ -88,17 +88,52 @@ namespace Labsim.experiment.AIRWISE
             // await for end of phase 
             // END REACHED
 
-            // synchronisation mechanism (TCS + lambda event handler)
-            var sync_point = new System.Threading.Tasks.TaskCompletionSource<float>();
+            // float result = 0.0f;
 
-            // actions
-            System.Action<float> sync_slalom_ended_local_function = (args) => sync_point?.TrySetResult(args);
+            // synchronisation mechanism (TCS + lambda event handler)
+            var sync_motion_point = new System.Threading.Tasks.TaskCompletionSource<float>();
+
+            // lambdas
+            System.EventHandler<float> sync_slalom_ended_local_function 
+                = (sender, args) 
+                    => sync_motion_point?.TrySetResult(args);
 
             // bind to checkpoint manager events
             checkpoint_manager.slalomEnded += sync_slalom_ended_local_function;
 
-            // wait until any result
-            var result = await sync_point.Task;
+            // // running
+            // var parallel_tasks_ct_src = new System.Threading.CancellationTokenSource();
+            // System.Threading.CancellationToken parallel_tasks_ct = parallel_tasks_ct_src.Token;
+            // var parallel_tasks_factory
+            //     = new System.Threading.Tasks.TaskFactory(
+            //         parallel_tasks_ct,
+            //         System.Threading.Tasks.TaskCreationOptions.DenyChildAttach,
+            //         System.Threading.Tasks.TaskContinuationOptions.DenyChildAttach,
+            //         System.Threading.Tasks.TaskScheduler.Default
+            //     );
+            // var parallel_tasks 
+            //     = new System.Collections.Generic.List<System.Threading.Tasks.Task>() 
+            //     {
+            //         parallel_tasks_factory.StartNew(
+            //             async () => 
+            //             { 
+
+            //                 // log
+            //                 UnityEngine.Debug.Log(
+            //                     "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : waiting for motion stop state"
+            //                 );
+
+            //                 // wait idling state to hit barrier
+            //                 result = await sync_motion_point.Task;
+
+            //             }
+            //         ).Unwrap()
+            //     };
+
+            // // wait for sync point + end of phase timer
+            // await System.Threading.Tasks.Task.WhenAll(parallel_tasks);  
+
+            var result = await sync_motion_point.Task;
 
             // unbind from checkpoint manager events
             checkpoint_manager.slalomEnded -= sync_slalom_ended_local_function;

@@ -4,10 +4,10 @@ using UnityEngine;
 public static class Constants
 {
     // General config file path
-    public const string streamingAssetsPath = @"Assets/StreamingAssets/";
+    public static string streamingAssetsPath = @"Assets/StreamingAssets/";
     public const string ConfigFile = @"ConfigFile.json";
 
-    public const string ConfigFilePath = Constants.streamingAssetsPath + Constants.ConfigFile;
+    public static string ConfigFilePath => Constants.streamingAssetsPath + Constants.ConfigFile;
     public const string ForcingFunctionConfigFile = @"ForcingFunctionConfig.json";
     public const string MappingConfigFile = @"MappingConfig.json";
     public const string ControlConfigFile = @"ControlConfig.json";

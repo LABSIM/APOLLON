@@ -67,11 +67,14 @@ namespace Labsim.experiment.AIRWISE
                 "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : start moving"
             );
 
-            // synchronisation mechanism (TCS + lambda event handler)
-            var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            // // synchronisation mechanism (TCS + lambda event handler)
+            // var sync_end_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            var sync_motion_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
 
-            // actions
-            System.Action sync_slalom_started_local_function = () => sync_point?.TrySetResult(true);
+            // lambdas
+            System.EventHandler sync_slalom_started_local_function 
+                = (sender, args) 
+                    => sync_motion_point?.TrySetResult(true);
 
             // bind to checkpoint manager events
             checkpoint_manager.slalomStarted += sync_slalom_started_local_function;
@@ -113,21 +116,21 @@ namespace Labsim.experiment.AIRWISE
                             if(!parallel_tasks_ct.IsCancellationRequested)
                             {
 
-                                if(!sync_point.Task.IsCompleted) 
+                                if(!sync_motion_point.Task.IsCompleted) 
                                 {
                                     
                                     UnityEngine.Debug.LogWarning(
                                         "<color=Orange>Warn: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur hasn't crossed the start line..."
                                     );
                                     
-                                    sync_point?.TrySetResult(false);
+                                    sync_motion_point?.TrySetResult(false);
 
                                 } else {
                                     
                                     UnityEngine.Debug.Log(
                                         "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has crossed the start line ! Ignore this message ;)"
                                     );
-                                
+
                                 } /* if() */
 
                             } /* if() */
@@ -146,28 +149,49 @@ namespace Labsim.experiment.AIRWISE
                 this.FSM.CurrentSettings.Trial.bIsTryCatch
             );
 
+            // // append to running task
+            // parallel_tasks.Add(
+            //     parallel_tasks_factory.StartNew(
+            //         async () => 
+            //         { 
+
+            //             // log
+            //             UnityEngine.Debug.Log(
+            //                 "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : waiting for motion idle state"
+            //             );
+
+            //             // wait idling state to hit barrier
+            //             await sync_motion_point.Task;
+
+            //         }
+            //     ).Unwrap()
+            // );
+
+            // // wait for sync point + end of phase timer
+            // await System.Threading.Tasks.Task.WhenAll(parallel_tasks);      
+
             // wait until any result
-            var result = await sync_point.Task;
+            var result = await sync_motion_point.Task;
 
-            // cancel running task
-            parallel_tasks_ct_src.Cancel();
+            // // // cancel running task
+            // // parallel_tasks_ct_src.Cancel();
 
-            // unbind from checkpoint manager events
-            checkpoint_manager.slalomStarted -= sync_slalom_started_local_function;
+            // // unbind from checkpoint manager events
+            // checkpoint_manager.slalomStarted -= sync_slalom_started_local_function;
 
-            // log 
-            if(result)
-            {
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur cross the start line, PhaseC will begin"
-                );
-            }
-            else
-            {
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> AIRWISEPhaseB.OnEntry() : Timer has reached duration before AIRWISE Vecteur crossed the start line... You should check configuration file..."
-                );
-            }
+            // // log 
+            // if(result)
+            // {
+            //     UnityEngine.Debug.Log(
+            //         "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur cross the start line, PhaseC will begin"
+            //     );
+            // }
+            // else
+            // {
+            //     UnityEngine.Debug.LogWarning(
+            //         "<color=Orange>Warning: </color> AIRWISEPhaseB.OnEntry() : Timer has reached duration before AIRWISE Vecteur crossed the start line... You should check configuration file..."
+            //     );
+            // }
 
             // log
             UnityEngine.Debug.Log(

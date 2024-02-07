@@ -78,9 +78,9 @@ namespace Labsim.experiment.AIRWISE
         {
 
             // event table
-            this._eventTable.Add("Init",       null);
-            this._eventTable.Add("Idle",       null);
-            this._eventTable.Add("Reset",      null);
+            this._eventTable.Add("Init",  null);
+            this._eventTable.Add("Idle",  null);
+            this._eventTable.Add("Reset", null);
 
         } /* AIRWISEEntityDispatcher() */
 

@@ -43,6 +43,12 @@ namespace Labsim.experiment.AIRWISE
         private void OnTriggerEnter(UnityEngine.Collider other)
         {
             
+            // skip unnecessary stuff by checking if collidee has QuadController component
+            if(!other.gameObject.GetComponent<QuadController>())
+            {
+                return;   
+            }
+
             // extract impact point
             UnityEngine.Vector3
                 world_pos = other.ClosestPoint(this.transform.position),

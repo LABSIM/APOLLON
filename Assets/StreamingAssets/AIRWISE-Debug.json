@@ -15,7 +15,7 @@
 
             "control_name": "Familiarisation", 
             "scene_name": "Familiarisation", 
-            "visual_name": "None",
+            "visual_name": "StreetA",
 
             "performance_criteria_value_percent": 80.0,
             "performance_max_try_count": 5,
@@ -26,14 +26,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -56,14 +56,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -86,14 +86,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -116,14 +116,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -146,14 +146,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -176,14 +176,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -206,14 +206,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -236,14 +236,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -266,14 +266,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -296,14 +296,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -326,14 +326,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -356,14 +356,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -386,14 +386,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -416,14 +416,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -446,14 +446,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -476,14 +476,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -506,14 +506,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -536,14 +536,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -566,14 +566,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -596,14 +596,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -626,14 +626,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -656,14 +656,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -686,14 +686,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -716,14 +716,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -746,14 +746,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -776,14 +776,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -806,14 +806,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -836,14 +836,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -866,14 +866,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -896,14 +896,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -926,14 +926,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -956,14 +956,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -986,14 +986,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1016,14 +1016,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1046,14 +1046,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1076,14 +1076,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1106,14 +1106,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1136,14 +1136,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1166,14 +1166,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1196,14 +1196,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1226,14 +1226,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1256,14 +1256,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1286,14 +1286,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1316,14 +1316,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1346,14 +1346,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1376,14 +1376,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1406,14 +1406,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1436,14 +1436,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1466,14 +1466,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1496,14 +1496,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1526,14 +1526,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1556,14 +1556,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1586,14 +1586,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1616,14 +1616,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1646,14 +1646,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1676,14 +1676,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1706,14 +1706,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1736,14 +1736,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1766,14 +1766,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1796,14 +1796,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1826,14 +1826,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1856,14 +1856,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1886,14 +1886,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1916,14 +1916,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1946,14 +1946,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -1976,14 +1976,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2006,14 +2006,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2036,14 +2036,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2066,14 +2066,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2096,14 +2096,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2126,14 +2126,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2156,14 +2156,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2186,14 +2186,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2216,14 +2216,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2246,14 +2246,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         },
@@ -2276,14 +2276,14 @@
             "phase_B_total_duration_ms": 3500.0,
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 1.0 ],
 
             "phase_D_decceleration_duration_ms": 1500.0,
             "phase_D_total_duration_ms": 3500.0,
             "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
-            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 0.25 ],
             "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
 
         }
