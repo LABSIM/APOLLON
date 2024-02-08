@@ -173,6 +173,9 @@ namespace Labsim.experiment.AIRWISE
             // wait until any result
             var result = await sync_motion_point.Task;
 
+            // stop acceleration settings 
+            airwise_entity.ConcreteDispatcher.RaiseIdle();
+
             // // // cancel running task
             // // parallel_tasks_ct_src.Cancel();
 

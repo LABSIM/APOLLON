@@ -97,7 +97,7 @@ namespace Labsim.experiment.AIRWISE
             
             private void FixedUpdate()
             {
-                
+
                 // check if saturation point is reached on each axis
                 if( (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).x)     >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.x))
                     && (UnityEngine.Mathf.Abs(UnityFrame.GetAngularVelocity(this._rigidbody).y)  >= UnityEngine.Mathf.Abs(this._parent.AngularVelocitySaturationThreshold.y))
@@ -165,7 +165,7 @@ namespace Labsim.experiment.AIRWISE
                         UnityEngine.ForceMode.Acceleration
                     );
                     this._rigidbody.AddForce(
-                        force_target, 
+                        force_target + -1.0f * UnityFrame.GetGravity(this._rigidbody), 
                         UnityEngine.ForceMode.Acceleration
                     );
                                     
@@ -405,7 +405,7 @@ namespace Labsim.experiment.AIRWISE
                         UnityEngine.ForceMode.Acceleration
                     );
                     this._rigidbody.AddForce(
-                        -1.0f * force_target, 
+                        -1.0f * force_target + -1.0f * UnityFrame.GetGravity(this._rigidbody), 
                         UnityEngine.ForceMode.Acceleration
                     );
 

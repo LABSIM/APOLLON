@@ -429,7 +429,7 @@ namespace Labsim.apollon.experiment
         {
 
             // set start color
-            var blank_component = UnityEngine.Component.FindObjectsOfType<ApollonLightFader>().ToList().Find( x=>x.name == "[Apollon_Rig]" );
+            var blank_component = UnityEngine.Component.FindObjectsOfType<ApollonBlankFader>().ToList().Find( x=>x.name == "[Apollon_Rig]" );
 
             // set and start fade out
             blank_component.RequestFadeOut(duration_in_ms);
