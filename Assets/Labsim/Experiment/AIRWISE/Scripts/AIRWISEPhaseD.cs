@@ -49,11 +49,18 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseD.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseD.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+
             // refs
             var airwise_entity
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
                 );
+
+            // setup UI frontend instructions
+            this.FSM.CurrentInstruction = "Arret";
+
+            // show red cross
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
 
             // log
             UnityEngine.Debug.Log(
@@ -62,6 +69,9 @@ namespace Labsim.experiment.AIRWISE
 
             // synchronisation mechanism (TCS + lambda event handler)
             var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+
+            // result
+            bool result = false;
 
             // running
             var parallel_tasks_ct_src = new System.Threading.CancellationTokenSource();
@@ -76,6 +86,8 @@ namespace Labsim.experiment.AIRWISE
             var parallel_tasks 
                 = new System.Collections.Generic.List<System.Threading.Tasks.Task>() 
                 {
+
+                    // end of phase
                     parallel_tasks_factory.StartNew(
                         async () => 
                         { 
@@ -120,24 +132,130 @@ namespace Labsim.experiment.AIRWISE
                             } /* if() */
                         },
                         parallel_tasks_ct_src.Token
-                    )
-                };
-            
-            // inject decceleration settings 
-            airwise_entity.ConcreteDispatcher.RaiseReset(
-                this.FSM.CurrentSettings.PhaseD.angular_decceleration_target,
-                this.FSM.CurrentSettings.PhaseD.angular_velocity_saturation_threshold,
-                this.FSM.CurrentSettings.PhaseD.linear_decceleration_target,
-                this.FSM.CurrentSettings.PhaseD.linear_velocity_saturation_threshold,
-                this.FSM.CurrentSettings.PhaseD.decceleration_duration,
-                this.FSM.CurrentSettings.Trial.bIsTryCatch
-            );
+                    ),
 
-            // wait until any result
-            var result = await sync_point.Task;
+                    // stop motion
+                    parallel_tasks_factory.StartNew(
+                        async () => 
+                        { 
+
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : raise final decceleration motion"
+                            );
+
+                            // inject decceleration settings 
+                            apollon.ApollonEngine.Schedule(() => { 
+                                airwise_entity.ConcreteDispatcher.RaiseReset(
+                                    this.FSM.CurrentSettings.PhaseD.angular_decceleration_target,
+                                    this.FSM.CurrentSettings.PhaseD.angular_velocity_saturation_threshold,
+                                    this.FSM.CurrentSettings.PhaseD.linear_decceleration_target,
+                                    this.FSM.CurrentSettings.PhaseD.linear_velocity_saturation_threshold,
+                                    this.FSM.CurrentSettings.PhaseD.decceleration_duration,
+                                    this.FSM.CurrentSettings.Trial.bIsTryCatch
+                                );
+                            });
+
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : waiting for motion idle state"
+                            );
+
+                        },
+                        parallel_tasks_ct_src.Token 
+                    ).Unwrap().ContinueWith(
+                        async(antecedent) => 
+                        {
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
+
+                                if(!sync_point.Task.IsCompleted) 
+                                {
+                                    
+                                    // log
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : wait for even start lane is crossed or end of phase"
+                                    );
+
+                                    // wait until any result
+                                    result = await sync_point.Task;
+
+                                } else {
+                                    
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has crossed the start line or end of phase already reached !"
+                                    );
+
+                                } /* if() */
+
+                                // log
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : motion idle state reached"
+                                );
+
+                                // stop acceleration settings 
+                                airwise_entity.ConcreteDispatcher.RaiseHold();
+
+                            } /* if() */
+                        },
+                        parallel_tasks_ct_src.Token
+                    ),
+
+                    // hide green frame 
+                    parallel_tasks_factory.StartNew(
+                        async () => 
+                        { 
+                            
+                            // log
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : will wait " 
+                                + this.FSM.CurrentSettings.PhaseD.decceleration_duration
+                                + "ms before showing red frame"
+                            );
+                            
+                            // wait a certain amout of time between each bound if cancel not requested
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {    
+                                await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.PhaseD.decceleration_duration);
+                            }
+
+                        },
+                        parallel_tasks_ct_src.Token 
+                    ).Unwrap().ContinueWith(
+                        antecedent => 
+                        {
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
+
+                                if(!sync_point.Task.IsCompleted) 
+                                {
+                                    
+                                    // log
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : show red frame"
+                                    );
+                                    
+                                    //show red frame at decceleration duration
+                                    apollon.ApollonEngine.Schedule(
+                                        () => apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI)
+                                    );
+
+                                }
+
+                            } /* if() */
+                        },
+                        parallel_tasks_ct_src.Token
+                    ),
+
+                }; /* parrallel tasks*/
+            
+            // wait for sync point + end of phase timer
+            await System.Threading.Tasks.Task.WhenAll(parallel_tasks);    
 
             // cancel running task
             parallel_tasks_ct_src.Cancel();
+            
+            // finally, hide both red frame & cross
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI);
 
             // log 
             if(result)

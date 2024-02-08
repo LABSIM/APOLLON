@@ -110,11 +110,11 @@ namespace Labsim.experiment.AIRWISE
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.FixedUpdate() : saturation reached on all axis, raising Idle state"
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.FixedUpdate() : saturation reached on all axis, raising Hold state"
                     );
 
                     // change state
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseHold();
 
                 }
                 else if(this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
@@ -122,11 +122,11 @@ namespace Labsim.experiment.AIRWISE
                     
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.FixedUpdate() : elapsed time has reached duration, raising Idle state"
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.InitController.FixedUpdate() : elapsed time has reached duration, raising Hold state"
                     );
 
                     // change state
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseHold();
 
                 }
                 else
@@ -175,7 +175,7 @@ namespace Labsim.experiment.AIRWISE
             
         } /* internal class InitController */
 
-        internal class IdleController
+        internal class HoldController
             : UnityEngine.MonoBehaviour
         {
 
@@ -188,7 +188,7 @@ namespace Labsim.experiment.AIRWISE
 
                 // disable by default & set name
                 this.enabled = false;
-                //this.name = "ApollonIdleController";
+                //this.name = "ApollonHoldController";
 
             } /* Awake() */
             
@@ -197,7 +197,7 @@ namespace Labsim.experiment.AIRWISE
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.IdleController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.HoldController.OnEnable() : begin"
                 );
 
                 // preliminary
@@ -209,7 +209,7 @@ namespace Labsim.experiment.AIRWISE
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.HoldController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -225,7 +225,7 @@ namespace Labsim.experiment.AIRWISE
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.IdleController.OnEnable() : end"
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.HoldController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -235,7 +235,7 @@ namespace Labsim.experiment.AIRWISE
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.IdleController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.HoldController.OnDisable() : begin"
                 );
 
                 // preliminary
@@ -244,7 +244,7 @@ namespace Labsim.experiment.AIRWISE
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.HoldController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -258,12 +258,113 @@ namespace Labsim.experiment.AIRWISE
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.IdleController.OnDisable() : end"
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.HoldController.OnDisable() : end"
+                );
+
+            } /* OnDisable() */
+
+            private void FixedUpdate()
+            {
+
+                // only counter gravity
+                this._rigidbody.AddForce(
+                    -1.0f * UnityFrame.GetGravity(this._rigidbody), 
+                    UnityEngine.ForceMode.Acceleration
+                );
+                    
+            } /* FixedUpdate */
+            
+        } /* class HoldController */
+
+        internal class ControlController
+            : UnityEngine.MonoBehaviour
+        {
+
+            private AIRWISEEntityBehaviour _parent = null;
+            private QuadController _controller = null;
+            private UnityEngine.Rigidbody _rigidbody = null;
+
+            private void Awake()
+            {
+
+                // disable by default & set name
+                this.enabled = false;
+                //this.name = "ApollonControlController";
+
+            } /* Awake() */
+            
+            private void OnEnable()
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ControlController.OnEnable() : begin"
+                );
+
+                // preliminary
+                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null   
+                    || (this._controller = this._parent.GetComponentInChildren<QuadController>()) == null                 
+                    || (this._rigidbody  = this._controller.Rb) == null
+                )
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.ControlController.OnEnable() : failed to get parent reference ! Self disabling..."
+                    );
+
+                    // disable
+                    this.gameObject.SetActive(false);
+                    this.enabled = false;
+
+                    // return
+                    return;
+
+                } /* if() */
+
+                // TODO
+                
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ControlController.OnEnable() : end"
+                );
+
+            } /* OnEnable()*/
+            
+            private void OnDisable()
+            {
+                
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ControlController.OnDisable() : begin"
+                );
+
+                // preliminary
+                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.ControlController.OnEnable() : failed to get parent reference ! Self disabling..."
+                    );
+
+                    // disable
+                    this.gameObject.SetActive(false);
+                    this.enabled = false;
+
+                    // return
+                    return;
+
+                } /* if() */
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ControlController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
             
-        } /* class IdleController */
+        } /* class ControlController */
         
         internal class ResetController
             : UnityEngine.MonoBehaviour
@@ -346,8 +447,8 @@ namespace Labsim.experiment.AIRWISE
                     this._rigidbody.velocity = UnityEngine.Vector3.zero;
                     this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
-                    // notify idle event
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();                        
+                    // notify Control event
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseControl();                        
 
                 }
                 else if(this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
@@ -355,7 +456,7 @@ namespace Labsim.experiment.AIRWISE
                     
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ResetController.FixedUpdate() : elapsed time has reached duration, raising Idle state"
+                        "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ResetController.FixedUpdate() : elapsed time has reached duration, raising Control state"
                     );
 
                     // iding - zero velocity, acceleration & enforce velocity
@@ -367,7 +468,7 @@ namespace Labsim.experiment.AIRWISE
                     this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
                     // change state
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseIdle();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseControl();
 
                 }
                 else
@@ -426,7 +527,8 @@ namespace Labsim.experiment.AIRWISE
             
             // instantiate state controller components
             var init       = this.gameObject.AddComponent<InitController>();
-            var idle       = this.gameObject.AddComponent<IdleController>();
+            var hold       = this.gameObject.AddComponent<HoldController>();
+            var control    = this.gameObject.AddComponent<ControlController>();
             var reset      = this.gameObject.AddComponent<ResetController>();
             
             UnityEngine.Debug.Log("<color=Blue>Info: </color> AIRWISEEntityBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");

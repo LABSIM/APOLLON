@@ -49,6 +49,9 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseA.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseA.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
+            // currrent timestamp
+            System.Diagnostics.Stopwatch current_stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             // refs
             var motion_platform
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
@@ -57,6 +60,13 @@ namespace Labsim.experiment.AIRWISE
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
                 );
 
+            // setup UI frontend instructions
+            this.FSM.CurrentInstruction = "Initialisation";
+
+            // show grey cross & frame
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : initializing AIRWISE Motion platform impedence system"
@@ -64,16 +74,37 @@ namespace Labsim.experiment.AIRWISE
 
             // raise init motion event
             motion_platform.ConcreteDispatcher.RaiseInit();
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : activating AIRWISE Entity & Yale's controller"
-            );
-
-            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
-            );
             
+            // get elapsed 
+            var remaining = this.FSM.CurrentSettings.PhaseA.duration - current_stopwatch.ElapsedMilliseconds;
+            if(remaining > 0.0f)
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : waiting [" 
+                    + remaining 
+                    + "ms] for end of phase"
+                );
+
+            }
+            else
+            {
+                
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> AIRWISEPhaseA.OnEntry() : strange... no remaing time to wait..."
+                );
+
+            } /* if() */
+
+            // wait end of phase 
+            await apollon.ApollonHighResolutionTime.DoSleep(remaining);
+
+            // hide grey cross & frame
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreyCrossGUI);
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseA.OnEntry() : end"

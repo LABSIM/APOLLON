@@ -20,6 +20,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEditor.Search;
 
 // avoid namespace pollution
 namespace Labsim.experiment.AIRWISE
@@ -61,23 +62,32 @@ namespace Labsim.experiment.AIRWISE
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
                 );
+                
+            // setup UI frontend instructions
+            this.FSM.CurrentInstruction = "Mise en mouvement";
+
+            // show green cross & frame
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
 
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : start moving"
             );
 
-            // // synchronisation mechanism (TCS + lambda event handler)
-            // var sync_end_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
-            var sync_motion_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
+            // synchronisation mechanism (TCS + lambda event handler)
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<bool>();
 
             // lambdas
             System.EventHandler sync_slalom_started_local_function 
                 = (sender, args) 
-                    => sync_motion_point?.TrySetResult(true);
+                    => sync_point?.TrySetResult(true);
 
             // bind to checkpoint manager events
             checkpoint_manager.slalomStarted += sync_slalom_started_local_function;
+
+            // result
+            bool result = false;
 
             // running
             var parallel_tasks_ct_src = new System.Threading.CancellationTokenSource();
@@ -89,9 +99,12 @@ namespace Labsim.experiment.AIRWISE
                     System.Threading.Tasks.TaskContinuationOptions.DenyChildAttach,
                     System.Threading.Tasks.TaskScheduler.Default
                 );
+
             var parallel_tasks 
                 = new System.Collections.Generic.List<System.Threading.Tasks.Task>() 
                 {
+
+                    // end of phase timer 
                     parallel_tasks_factory.StartNew(
                         async () => 
                         { 
@@ -116,14 +129,14 @@ namespace Labsim.experiment.AIRWISE
                             if(!parallel_tasks_ct.IsCancellationRequested)
                             {
 
-                                if(!sync_motion_point.Task.IsCompleted) 
+                                if(!sync_point.Task.IsCompleted) 
                                 {
                                     
                                     UnityEngine.Debug.LogWarning(
                                         "<color=Orange>Warn: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur hasn't crossed the start line..."
                                     );
                                     
-                                    sync_motion_point?.TrySetResult(false);
+                                    sync_point?.TrySetResult(false);
 
                                 } else {
                                     
@@ -136,65 +149,154 @@ namespace Labsim.experiment.AIRWISE
                             } /* if() */
                         },
                         parallel_tasks_ct_src.Token
-                    )
-                };
+                    ),
 
-            // inject acceleration settings 
-            airwise_entity.ConcreteDispatcher.RaiseInit(
-                this.FSM.CurrentSettings.PhaseB.angular_acceleration_target,
-                this.FSM.CurrentSettings.PhaseB.angular_velocity_saturation_threshold,
-                this.FSM.CurrentSettings.PhaseB.linear_acceleration_target,
-                this.FSM.CurrentSettings.PhaseB.linear_velocity_saturation_threshold,
-                this.FSM.CurrentSettings.PhaseB.acceleration_duration,
-                this.FSM.CurrentSettings.Trial.bIsTryCatch
-            );
+                    // init motion
+                    parallel_tasks_factory.StartNew(
+                        async () => 
+                        { 
 
-            // // append to running task
-            // parallel_tasks.Add(
-            //     parallel_tasks_factory.StartNew(
-            //         async () => 
-            //         { 
+                            // log
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : activating AIRWISE Entity & Yale's controller"
+                            );
+                            
+                            // initializing
+                            apollon.ApollonEngine.Schedule(() => {
+                                apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                                );
+                            });
 
-            //             // log
-            //             UnityEngine.Debug.Log(
-            //                 "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : waiting for motion idle state"
-            //             );
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : raise initial accel motion"
+                            );
 
-            //             // wait idling state to hit barrier
-            //             await sync_motion_point.Task;
+                            // inject acceleration settings 
+                            apollon.ApollonEngine.Schedule(() => {
+                                airwise_entity.ConcreteDispatcher.RaiseInit(
+                                    this.FSM.CurrentSettings.PhaseB.angular_acceleration_target,
+                                    this.FSM.CurrentSettings.PhaseB.angular_velocity_saturation_threshold,
+                                    this.FSM.CurrentSettings.PhaseB.linear_acceleration_target,
+                                    this.FSM.CurrentSettings.PhaseB.linear_velocity_saturation_threshold,
+                                    this.FSM.CurrentSettings.PhaseB.acceleration_duration,
+                                    this.FSM.CurrentSettings.Trial.bIsTryCatch
+                                );
+                            });
 
-            //         }
-            //     ).Unwrap()
-            // );
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : waiting for motion idle state"
+                            );
 
-            // // wait for sync point + end of phase timer
-            // await System.Threading.Tasks.Task.WhenAll(parallel_tasks);      
+                        },
+                        parallel_tasks_ct_src.Token 
+                    ).Unwrap().ContinueWith(
+                        async(antecedent) => 
+                        {
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
 
-            // wait until any result
-            var result = await sync_motion_point.Task;
+                                if(!sync_point.Task.IsCompleted) 
+                                {
+                                    
+                                    // log
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : wait for even start lane is crossed or end of phase"
+                                    );
 
-            // stop acceleration settings 
-            airwise_entity.ConcreteDispatcher.RaiseIdle();
+                                    // wait until any result
+                                    result = await sync_point.Task;
 
-            // // // cancel running task
-            // // parallel_tasks_ct_src.Cancel();
+                                } else {
+                                    
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has crossed the start line or end of phase already reached !"
+                                    );
 
-            // // unbind from checkpoint manager events
-            // checkpoint_manager.slalomStarted -= sync_slalom_started_local_function;
+                                } /* if() */
 
-            // // log 
-            // if(result)
-            // {
-            //     UnityEngine.Debug.Log(
-            //         "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur cross the start line, PhaseC will begin"
-            //     );
-            // }
-            // else
-            // {
-            //     UnityEngine.Debug.LogWarning(
-            //         "<color=Orange>Warning: </color> AIRWISEPhaseB.OnEntry() : Timer has reached duration before AIRWISE Vecteur crossed the start line... You should check configuration file..."
-            //     );
-            // }
+                                // log
+                                UnityEngine.Debug.Log(
+                                    "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : motion hold state reached"
+                                );
+
+                                // stop acceleration settings 
+                                airwise_entity.ConcreteDispatcher.RaiseHold();
+
+                                // cancel if line is crossed                    
+                                if(result)
+                                {
+                                    parallel_tasks_ct_src.Cancel();
+                                }
+
+                            } /* if() */
+                        },
+                        parallel_tasks_ct_src.Token
+                    ),
+
+                    // hide green frame 
+                    parallel_tasks_factory.StartNew(
+                        async () => 
+                        { 
+                            
+                            // log
+                            UnityEngine.Debug.Log(
+                                "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : will wait " 
+                                + this.FSM.CurrentSettings.PhaseB.acceleration_duration
+                                + "ms before hiding green frame"
+                            );
+                            
+                            // wait a certain amout of time between each bound if cancel not requested
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
+                                await apollon.ApollonHighResolutionTime.DoSleep(this.FSM.CurrentSettings.PhaseB.acceleration_duration);
+                            }
+
+                        },
+                        parallel_tasks_ct_src.Token 
+                    ).Unwrap().ContinueWith(
+                        antecedent => 
+                        {
+                            if(!parallel_tasks_ct.IsCancellationRequested)
+                            {
+
+                                if(!sync_point.Task.IsCompleted) 
+                                {
+                                    
+                                    // log
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : hide green frame"
+                                    );
+                                    
+                                    // hide green frame at scceleration duration
+                                    apollon.ApollonEngine.Schedule(
+                                        () => apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI)
+                                    );
+
+                                } else {
+                                    
+                                    UnityEngine.Debug.Log(
+                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has crossed the start line ! green frame is already deactivated"
+                                    );
+
+                                } /* if() */
+
+                            } /* if() */
+                        },
+                        parallel_tasks_ct_src.Token
+                    ),
+
+                }; /* parrallel tasks */
+            
+            // wait for sync point + end of phase timer
+            await System.Threading.Tasks.Task.WhenAll(parallel_tasks);    
+
+            // cancel running task
+            parallel_tasks_ct_src.Cancel();
+
+            // finally, hide all green
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
 
             // log
             UnityEngine.Debug.Log(

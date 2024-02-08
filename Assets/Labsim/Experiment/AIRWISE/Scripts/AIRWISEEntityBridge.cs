@@ -81,9 +81,10 @@ namespace Labsim.experiment.AIRWISE
                 this.Behaviour.gameObject.SetActive(true);
                 
                 // subscribe
-                this.ConcreteDispatcher.InitEvent       += this.OnInitRequested;
-                this.ConcreteDispatcher.IdleEvent       += this.OnIdleRequested;
-                this.ConcreteDispatcher.ResetEvent      += this.OnResetRequested;
+                this.ConcreteDispatcher.InitEvent  += this.OnInitRequested;
+                this.ConcreteDispatcher.HoldEvent  += this.OnHoldRequested;
+                this.ConcreteDispatcher.ControlEvent  += this.OnControlRequested;
+                this.ConcreteDispatcher.ResetEvent += this.OnResetRequested;
 
                 // nullify FSM
                 await this.SetState(null);
@@ -99,9 +100,10 @@ namespace Labsim.experiment.AIRWISE
                 await this.SetState(null);
 
                 // unsubscribe
-                this.ConcreteDispatcher.InitEvent       -= this.OnInitRequested;
-                this.ConcreteDispatcher.IdleEvent       -= this.OnIdleRequested;
-                this.ConcreteDispatcher.ResetEvent      -= this.OnResetRequested;
+                this.ConcreteDispatcher.InitEvent  -= this.OnInitRequested;
+                this.ConcreteDispatcher.HoldEvent  -= this.OnHoldRequested;
+                this.ConcreteDispatcher.ControlEvent  -= this.OnControlRequested;
+                this.ConcreteDispatcher.ResetEvent -= this.OnResetRequested;
 
                 // inactivate
                 this.Behaviour.gameObject.SetActive(false);
@@ -192,11 +194,11 @@ namespace Labsim.experiment.AIRWISE
 
         } /* internal sealed class InitState */
 
-        internal sealed class IdleState 
+        internal sealed class HoldState 
             : apollon.gameplay.ApollonAbstractGameplayState<AIRWISEEntityBridge>
         {
 
-            public IdleState(AIRWISEEntityBridge fsm)
+            public HoldState(AIRWISEEntityBridge fsm)
                 : base(fsm)
             {
             }
@@ -206,17 +208,17 @@ namespace Labsim.experiment.AIRWISE
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.IdleState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.HoldState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.IdleState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.HoldState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -229,7 +231,7 @@ namespace Labsim.experiment.AIRWISE
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.IdleState.OnEntry() : end"
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.HoldState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -239,17 +241,17 @@ namespace Labsim.experiment.AIRWISE
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.IdleState.OnExit() : begin"
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.HoldState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.IdleState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.HoldState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -262,12 +264,89 @@ namespace Labsim.experiment.AIRWISE
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEEntityBridge.IdleState.OnExit() : end"
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.HoldState.OnExit() : end"
                 );
 
             } /* OnExit() */
 
-        } /* internal sealed class IdleState */
+        } /* internal sealed class HoldState */
+
+        internal sealed class ControlState 
+            : apollon.gameplay.ApollonAbstractGameplayState<AIRWISEEntityBridge>
+        {
+
+            public ControlState(AIRWISEEntityBridge fsm)
+                : base(fsm)
+            {
+            }
+
+            public async override System.Threading.Tasks.Task OnEntry()
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnEntry() : begin"
+                );
+
+                // find component behaviour
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.ControlController>();
+                if (!controller)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogWarning(
+                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.ControlState.OnEntry() : could not find controller component behaviour..."
+                    );
+
+                    // fail
+                    return;
+
+                } /* if() */
+
+                // activate 
+                controller.enabled = true;
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnEntry() : end"
+                );
+
+            } /* OnEntry() */
+
+            public override async System.Threading.Tasks.Task OnExit()
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnExit() : begin"
+                );
+
+                // find component behaviour
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<AIRWISEEntityBehaviour.ControlController>();
+                if (!controller)
+                {
+
+                    // log
+                    UnityEngine.Debug.LogWarning(
+                        "<color=Orange>Warning: </color> AIRWISEEntityBridge.ControlState.OnExit() : could not find controller component behaviour..."
+                    );
+
+                    // fail
+                    return;
+
+                } /* if() */
+
+                // inactivate 
+                controller.enabled = false;
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEEntityBridge.ControlState.OnExit() : end"
+                );
+
+            } /* OnExit() */
+
+        } /* internal sealed class ControlState */
 
         internal sealed class ResetState 
             : apollon.gameplay.ApollonAbstractGameplayState<AIRWISEEntityBridge>
@@ -407,23 +486,41 @@ namespace Labsim.experiment.AIRWISE
 
         } /* OnInitRequested() */
 
-        private async void OnIdleRequested(object sender, AIRWISEEntityDispatcher.AIRWISEEntityEventArgs args)
+        private async void OnHoldRequested(object sender, AIRWISEEntityDispatcher.AIRWISEEntityEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnIdleRequested() : begin"
+                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnHoldRequested() : begin"
             );
 
             // activate state
-            await this.SetState(new IdleState(this));
+            await this.SetState(new HoldState(this));
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnIdleRequested() : end"
+                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnHoldRequested() : end"
             );
 
-        } /* OnIdleRequested() */
+        } /* OnHoldRequested() */
+
+        private async void OnControlRequested(object sender, AIRWISEEntityDispatcher.AIRWISEEntityEventArgs args)
+        {
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnControlRequested() : begin"
+            );
+
+            // activate state
+            await this.SetState(new ControlState(this));
+
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> AIRWISEEntityBridge.OnControlRequested() : end"
+            );
+
+        } /* OnControlRequested() */
 
         private async void OnResetRequested(object sender, AIRWISEEntityDispatcher.AIRWISEEntityEventArgs args)
         {

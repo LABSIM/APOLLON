@@ -57,12 +57,12 @@ namespace Labsim.experiment.AIRWISE
                 .ConcreteBehaviour
                 .References["EntityTag_Checkpoint"]
                 .GetComponent<AIRWISECheckpointManagerBehaviour>();
+            var airwise_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                );
             var airwise_quad_controller
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                    apollon.gameplay.entity.ApollonDynamicEntityBridge
-                >(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
-                ).ConcreteBehaviour.GetComponentInChildren<QuadController>();
+                = airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>();
             var motion_platform
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.device.AppollonGenericMotionSystemBridge
@@ -84,7 +84,8 @@ namespace Labsim.experiment.AIRWISE
             );
 
             // airwise_quad_controller.
-
+            airwise_entity.ConcreteDispatcher.RaiseControl();
+            
             // await for end of phase 
             // END REACHED
 
@@ -101,38 +102,7 @@ namespace Labsim.experiment.AIRWISE
             // bind to checkpoint manager events
             checkpoint_manager.slalomEnded += sync_slalom_ended_local_function;
 
-            // // running
-            // var parallel_tasks_ct_src = new System.Threading.CancellationTokenSource();
-            // System.Threading.CancellationToken parallel_tasks_ct = parallel_tasks_ct_src.Token;
-            // var parallel_tasks_factory
-            //     = new System.Threading.Tasks.TaskFactory(
-            //         parallel_tasks_ct,
-            //         System.Threading.Tasks.TaskCreationOptions.DenyChildAttach,
-            //         System.Threading.Tasks.TaskContinuationOptions.DenyChildAttach,
-            //         System.Threading.Tasks.TaskScheduler.Default
-            //     );
-            // var parallel_tasks 
-            //     = new System.Collections.Generic.List<System.Threading.Tasks.Task>() 
-            //     {
-            //         parallel_tasks_factory.StartNew(
-            //             async () => 
-            //             { 
-
-            //                 // log
-            //                 UnityEngine.Debug.Log(
-            //                     "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : waiting for motion stop state"
-            //                 );
-
-            //                 // wait idling state to hit barrier
-            //                 result = await sync_motion_point.Task;
-
-            //             }
-            //         ).Unwrap()
-            //     };
-
-            // // wait for sync point + end of phase timer
-            // await System.Threading.Tasks.Task.WhenAll(parallel_tasks);  
-
+            // wait end of slalom
             var result = await sync_motion_point.Task;
 
             // unbind from checkpoint manager events

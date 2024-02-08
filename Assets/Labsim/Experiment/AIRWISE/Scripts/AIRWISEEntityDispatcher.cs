@@ -68,7 +68,8 @@ namespace Labsim.experiment.AIRWISE
 
         private readonly System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>> 
             _eventInitCommandList           = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
-            _eventIdleCommandList           = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
+            _eventHoldCommandList           = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
+            _eventControlCommandList           = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>(),
             _eventResetCommandList          = new System.Collections.Generic.List<System.EventHandler<AIRWISEEntityEventArgs>>();
 
         #endregion
@@ -79,7 +80,8 @@ namespace Labsim.experiment.AIRWISE
 
             // event table
             this._eventTable.Add("Init",  null);
-            this._eventTable.Add("Idle",  null);
+            this._eventTable.Add("Hold",  null);
+            this._eventTable.Add("Control",  null);
             this._eventTable.Add("Reset", null);
 
         } /* AIRWISEEntityDispatcher() */
@@ -116,35 +118,65 @@ namespace Labsim.experiment.AIRWISE
 
         } /* InitEvent */
 
-        public event System.EventHandler<AIRWISEEntityEventArgs> IdleEvent
+        public event System.EventHandler<AIRWISEEntityEventArgs> HoldEvent
         {
             add
             {
-                this._eventIdleCommandList.Add(value);
+                this._eventHoldCommandList.Add(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Idle"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Idle"] + value;
+                    this._eventTable["Hold"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Hold"] + value;
                 }
             }
 
             remove
             {
-                if (!this._eventIdleCommandList.Contains(value))
+                if (!this._eventHoldCommandList.Contains(value))
                 {
                     return;
                 }
-                this._eventIdleCommandList.Remove(value);
+                this._eventHoldCommandList.Remove(value);
                 lock (this._eventTable)
                 {
-                    this._eventTable["Idle"] = null;
-                    foreach (var eventIdle in this._eventIdleCommandList)
+                    this._eventTable["Hold"] = null;
+                    foreach (var eventHold in this._eventHoldCommandList)
                     {
-                        this._eventTable["Idle"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Idle"] + eventIdle;
+                        this._eventTable["Hold"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Hold"] + eventHold;
                     }
                 }
             }
 
-        } /* IdleEvent */
+        } /* HoldEvent */
+
+        public event System.EventHandler<AIRWISEEntityEventArgs> ControlEvent
+        {
+            add
+            {
+                this._eventControlCommandList.Add(value);
+                lock (this._eventTable)
+                {
+                    this._eventTable["Control"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"] + value;
+                }
+            }
+
+            remove
+            {
+                if (!this._eventControlCommandList.Contains(value))
+                {
+                    return;
+                }
+                this._eventControlCommandList.Remove(value);
+                lock (this._eventTable)
+                {
+                    this._eventTable["Control"] = null;
+                    foreach (var eventControl in this._eventControlCommandList)
+                    {
+                        this._eventTable["Control"] = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"] + eventControl;
+                    }
+                }
+            }
+
+        } /* ControlEvent */
 
         public event System.EventHandler<AIRWISEEntityEventArgs> ResetEvent
         {
@@ -208,16 +240,27 @@ namespace Labsim.experiment.AIRWISE
 
         } /* RaiseInit() */
 
-        public void RaiseIdle()
+        public void RaiseHold()
         {
 
             lock (this._eventTable)
             {
-                var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Idle"];
+                var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Hold"];
                 callback?.Invoke(this, new AIRWISEEntityEventArgs());
             }
 
-        } /* RaiseIdle() */
+        } /* RaiseHold() */
+
+        public void RaiseControl()
+        {
+
+            lock (this._eventTable)
+            {
+                var callback = (System.EventHandler<AIRWISEEntityEventArgs>)this._eventTable["Control"];
+                callback?.Invoke(this, new AIRWISEEntityEventArgs());
+            }
+
+        } /* RaiseControl() */
 
         public void RaiseReset(
             float[] angular_acceleration_target,
