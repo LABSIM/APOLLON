@@ -85,6 +85,7 @@ namespace Labsim.experiment.AIRWISE
 
             // airwise_quad_controller.
             airwise_entity.ConcreteDispatcher.RaiseControl();
+            airwise_quad_controller.Inhibit = false;
             
             // await for end of phase 
             // END REACHED

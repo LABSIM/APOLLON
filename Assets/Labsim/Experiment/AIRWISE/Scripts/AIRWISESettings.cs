@@ -80,8 +80,14 @@ namespace Labsim.experiment.AIRWISE
             [System.ComponentModel.Description("Undefined")]
             Undefined = -1,
 
-            [System.ComponentModel.Description("Familiarisation")]
-            Familiarisation,
+            [System.ComponentModel.Description("Familiarisation1")]
+            Familiarisation1,
+
+            [System.ComponentModel.Description("Familiarisation2")]
+            Familiarisation2,
+
+            [System.ComponentModel.Description("Familiarisation3")]
+            Familiarisation3,
 
             [System.ComponentModel.Description("PositionControl")]
             PositionControl,
@@ -323,12 +329,30 @@ namespace Labsim.experiment.AIRWISE
                     )
                 ) {
                     
-                    // familiarisation
+                    // familiarisation 1
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation1),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.Familiarisation;
+                        this.Trial.control_type = ControlIDType.Familiarisation1;
+                        break;
+                    }
+                    
+                    // familiarisation 2
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation2),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.Familiarisation2;
+                        break;
+                    }
+                    
+                    // familiarisation 3
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation3),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.Familiarisation3;
                         break;
                     }
 

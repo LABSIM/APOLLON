@@ -221,7 +221,7 @@ public class BrunnerHandle : System.IDisposable
     {
         // static settings
         public static readonly string
-            _dllPath = @"C:\Users\yalel\Documents\dev\TheseYaleLee\Model\Unity\Assets\Plugins\Brunner\",
+            _dllPath = UnityEngine.Application.streamingAssetsPath + @"\AIRWISE\Plugins\Brunner\",
             //_dllBoostPath = @"C:\DevEnv\Boost-1.61.0\lib\",
             _dllSystemPath = @"C:\Windows\System32\",
             _dllName = "BrunnerAPI.dll",

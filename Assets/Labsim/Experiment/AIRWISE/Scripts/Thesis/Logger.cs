@@ -166,7 +166,7 @@ public class Logger
             {
                 Directory.CreateDirectory(m_rootPath);
             }
-            catch (IOException e)
+            catch
             {
                 UnityEngine.Debug.LogError(
                     "<color=red>Error: </color> " + this.GetType() + ".CreateTopLevelPath(): Could not create directory at '"
@@ -202,7 +202,7 @@ public class Logger
             // Create directory when needed
             try {
                 Directory.CreateDirectory(this.m_path);
-            } catch (IOException e) {
+            } catch {
                 UnityEngine.Debug.LogError(
                     "<color=red>Error: </color> " + this.GetType() + ".CreateLogPath(): Could not create directory at '"
                     + this.m_path
@@ -254,13 +254,13 @@ public class Logger
         this.FlushBuffer();
     }
 
-    public void LogInitialConditions(InitialConditions initialConditions)
-    {
-        this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.PositionKey, initialConditions.Position0);
-        this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.AttitudeKey, initialConditions.Attitude0);
-        this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.VelocityKey, initialConditions.Velocity0);
-        this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.AngularVelocityKey, initialConditions.AngularVelocity0);
-    }
+    // public void LogInitialConditions(InitialConditions initialConditions)
+    // {
+    //     this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.PositionKey, initialConditions.Position0);
+    //     this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.AttitudeKey, initialConditions.Attitude0);
+    //     this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.VelocityKey, initialConditions.Velocity0);
+    //     this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.AngularVelocityKey, initialConditions.AngularVelocity0);
+    // }
 
     public void SaveElapsed(TimeSpan elapsed) {
         this.m_elapsed = elapsed;
@@ -437,7 +437,7 @@ public class Logger
         if (Manager.Instance.DuringTrial()) {
             try {
                 File.WriteAllText(this.m_trialConfigPath, this.TrialConfigBufferToJSONString(this.m_trialConfigBuffer));
-            } catch (UnauthorizedAccessException e) {
+            } catch {
                 UnityEngine.Debug.LogError("<color=red>Error: </color> " + "Could not write in '" + this.m_path + "'. Writing in '" + this.m_fallbackPath + "'.");
                 File.WriteAllText(this.m_fallbackPath, this.TrialConfigBufferToJSONString(this.m_trialConfigBuffer));
             }
@@ -534,7 +534,7 @@ public class Logger
                         File.Copy(filePath, this.GenerateNewVarjoVideoFilePath(filePath), true);
                     }
                 }
-            } catch (DirectoryNotFoundException e)
+            } catch
             {
                 UnityEngine.Debug.LogError(
                     "<color=red>Error: </color> " + this.GetType() + ".CopyVarjoVideo(): Could not find Varjo path '"

@@ -160,9 +160,10 @@ namespace Labsim.experiment.AIRWISE
                             UnityEngine.Debug.Log(
                                 "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : activating AIRWISE Entity & Yale's controller"
                             );
-                            
+
                             // initializing
                             apollon.ApollonEngine.Schedule(() => {
+                                airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Inhibit = true;
                                 apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
                                 );

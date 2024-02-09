@@ -1,6 +1,6 @@
 {
-  "tFinal" : 120,
-  "nbTrials" : 5,
+  "tFinal" : 600,
+  "nbTrials" : 1,
   "arrivalRadius": 0.5,
   "ForcingFunctionConfig": {
     "mode": -1,
@@ -10,7 +10,7 @@
     "mode": 4
   },
   "ControlConfig": {
-    "mode": 6
+    "mode": 4
   },
   "ActuationConfig": {
     "mode": 0
@@ -24,7 +24,7 @@
   },
   "LoggerConfig": {
     "FallbackPath": "D:\\Fallback",
-    "Path": "C:\\Users\\yalel\\Documents\\3_Manip\\1_Test data\\5_Unity\\Pre-tests\\Test_YL",
+    "Path": "C:\\Users\\SCHEME\\Desktop\\AIRWISE\\Test_YL",
     "NumSep": ";",
     "PythonPath": "C:\\Users\\yalel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
     "ScriptName": "plotLog.py",
@@ -41,7 +41,7 @@
       "Position0": {
           "x": 0,
           "y": 0,
-          "z": -50
+          "z": 0
       },
       "Attitude0": {
           "x": 0,

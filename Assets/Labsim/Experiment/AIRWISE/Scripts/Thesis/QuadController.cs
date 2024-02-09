@@ -28,6 +28,9 @@ public class QuadController : MonoBehaviour
         get { return m_arrivalRb; }
     }
 
+    private bool m_bInhibit = false;
+    public bool Inhibit { get { return this.m_bInhibit; } set{ this.m_bInhibit = value; } }
+
     // Unity workflow-based methods
 
     private void Awake()
@@ -41,7 +44,13 @@ public class QuadController : MonoBehaviour
 
 
     private void FixedUpdate()
-    {        
+    {
+
+        if(this.Inhibit)
+        {
+            return;
+        }
+
         UnityEditor.EditorApplication.pauseStateChanged += RestartChronoAfterPause;
         // Stop chrono to current time if Manager returned simulation stop condition
         if (Manager.Instance.Compute(this._chrono.Elapsed)) {
@@ -49,6 +58,7 @@ public class QuadController : MonoBehaviour
         }
         Logger.Instance.FlushBuffer();
         Logger.Instance.FlushTrialConfigBuffer();
+
     }
 
     private void RestartChronoAfterPause(UnityEditor.PauseState state){

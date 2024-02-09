@@ -10,8 +10,8 @@ public class Manager
     // Logger-related members
     private LoggerConfig LoggerConfig  { get; set; }
 
-    // InitialConditions-related member
-    private InitialConditions InitialConditions { get; set; }
+    // // InitialConditions-related member
+    // private InitialConditions InitialConditions { get; set; }
 
     // Forcing function-related member
     private ForcingFunctionConfig ForcingFunctionConfig  { get; set; }
@@ -128,7 +128,7 @@ public class Manager
         Logger.Instance.Configure(this.LoggerConfig, timestamp, this.m_currElapsed, rb);
         
         // Define initial conditions
-        this.InitialConditions = this.Config.InitialConditions;
+        // this.InitialConditions = this.Config.InitialConditions;
 
         // Initiate forcing function
         this.ForcingFunction = this.ForcingFunctionFactory.Build(this.ForcingFunctionConfig);
@@ -181,7 +181,7 @@ public class Manager
     // Define initial conditions
     private void SetInitialConditions(Rigidbody rb)
     {
-        this.InitialConditions.SetInitialConditions(rb);
+        // this.InitialConditions.SetInitialConditions(rb);
         this.Haptic.SetHapticInitialConditions();
         Logger.Instance.SetHeaders();
     }
@@ -189,7 +189,7 @@ public class Manager
     // Define reset conditions
     private void SetResetConditions(Rigidbody rb)
     {
-        this.InitialConditions.SetResetConditions(rb);
+        // this.InitialConditions.SetResetConditions(rb);
         this.Haptic.SetHapticInitialConditions();
     }
 
@@ -277,36 +277,36 @@ public class Config
     public HapticConfig HapticConfig = new HapticConfig();
     public ErrorDisplayConfig ErrorDisplayConfig = new ErrorDisplayConfig();
     public LoggerConfig LoggerConfig = new LoggerConfig();
-    public InitialConditions InitialConditions = new InitialConditions();
+    // public InitialConditions InitialConditions = new InitialConditions();
 }
 
-[Serializable]
-public class InitialConditions
-{
-    public Vector3 Position0 = new Vector3();
-    public Vector3 Attitude0 = new Vector3();
-    public Vector3 Velocity0 = new Vector3();
-    public Vector3 AngularVelocity0 = new Vector3();
+// [Serializable]
+// public class InitialConditions
+// {
+//     public Vector3 Position0 = new Vector3();
+//     public Vector3 Attitude0 = new Vector3();
+//     public Vector3 Velocity0 = new Vector3();
+//     public Vector3 AngularVelocity0 = new Vector3();
 
-    public System.Collections.Generic.List<string> loggers = new System.Collections.Generic.List<string>();
-    public InitialConditions() { }
+//     public System.Collections.Generic.List<string> loggers = new System.Collections.Generic.List<string>();
+//     public InitialConditions() { }
 
-    public void SetInitialConditions(Rigidbody rb) {
-        AeroFrame.SetPosition(rb, this.Position0);
-        AeroFrame.SetAngles(rb, this.Attitude0);
-        AeroFrame.SetAbsoluteVelocity(rb, this.Velocity0);
-        AeroFrame.SetAngularVelocity(rb, this.AngularVelocity0);
-        AeroFrame.ApplyRelativeForce(rb, new Vector3());
-        AeroFrame.ApplyRelativeTorque(rb, new Vector3());
-    }
+//     public void SetInitialConditions(Rigidbody rb) {
+//         AeroFrame.SetPosition(rb, this.Position0);
+//         AeroFrame.SetAngles(rb, this.Attitude0);
+//         AeroFrame.SetAbsoluteVelocity(rb, this.Velocity0);
+//         AeroFrame.SetAngularVelocity(rb, this.AngularVelocity0);
+//         AeroFrame.ApplyRelativeForce(rb, new Vector3());
+//         AeroFrame.ApplyRelativeTorque(rb, new Vector3());
+//     }
 
-    public void SetResetConditions(Rigidbody rb) {
-        AeroFrame.SetPosition(rb, this.Position0);
-        AeroFrame.SetAngles(rb, this.Attitude0);
-        AeroFrame.SetAbsoluteVelocity(rb, this.Velocity0);
-        AeroFrame.SetAngularVelocity(rb, this.AngularVelocity0);
-        rb.constraints = UnityEngine.RigidbodyConstraints.None;
-        AeroFrame.ApplyRelativeForce(rb, new Vector3());
-        AeroFrame.ApplyRelativeTorque(rb, new Vector3());
-    }
-}
+//     public void SetResetConditions(Rigidbody rb) {
+//         AeroFrame.SetPosition(rb, this.Position0);
+//         AeroFrame.SetAngles(rb, this.Attitude0);
+//         AeroFrame.SetAbsoluteVelocity(rb, this.Velocity0);
+//         AeroFrame.SetAngularVelocity(rb, this.AngularVelocity0);
+//         rb.constraints = UnityEngine.RigidbodyConstraints.None;
+//         AeroFrame.ApplyRelativeForce(rb, new Vector3());
+//         AeroFrame.ApplyRelativeTorque(rb, new Vector3());
+//     }
+// }

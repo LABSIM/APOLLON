@@ -434,7 +434,9 @@ namespace Labsim.experiment.AIRWISE
             switch(this.CurrentSettings.Trial.control_type)
             {
 
-                case AIRWISESettings.ControlIDType.Familiarisation:
+                case AIRWISESettings.ControlIDType.Familiarisation1:
+                case AIRWISESettings.ControlIDType.Familiarisation2:
+                case AIRWISESettings.ControlIDType.Familiarisation3:
                 case AIRWISESettings.ControlIDType.PositionControl:
                 case AIRWISESettings.ControlIDType.SpeedControl:
                 case AIRWISESettings.ControlIDType.AccelerationControl:
@@ -645,7 +647,9 @@ namespace Labsim.experiment.AIRWISE
             switch(this.CurrentSettings.Trial.control_type)
             {
 
-                case AIRWISESettings.ControlIDType.Familiarisation:
+                case AIRWISESettings.ControlIDType.Familiarisation1:
+                case AIRWISESettings.ControlIDType.Familiarisation2:
+                case AIRWISESettings.ControlIDType.Familiarisation3:
                 case AIRWISESettings.ControlIDType.PositionControl:
                 case AIRWISESettings.ControlIDType.SpeedControl:
                 case AIRWISESettings.ControlIDType.AccelerationControl:

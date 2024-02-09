@@ -1,0 +1,10 @@
+{
+  "filterThrust": {
+    "mode": 0,
+    "K": 1
+  },
+  "filterTorque": {
+    "mode": 0,
+    "K": 1
+  }
+}
