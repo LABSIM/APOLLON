@@ -91,7 +91,7 @@ public class Logger
         this.m_timestamp = timestamp;
         this.CreateTopLevelPath(config.Path);
         this.m_fallbackPath = config.FallbackPath;
-        this.CreateLogPath();
+        this.Instantiate();
         this.m_scriptPath = this.m_path + config.ScriptName;
         this.m_varjoVideoPath = config.VarjoVideoPath;
         this.m_runPython = config.RunPython;
@@ -109,6 +109,22 @@ public class Logger
         this.m_buffer.Add(String.Format("{0:00000}.{1:000}", this.m_elapsed.Seconds, this.m_elapsed.Milliseconds));
 
         this.m_isInitialized = true;
+    }
+
+    public void Instantiate()
+    {
+        // Start by creating log path based on current member values 
+        this.CreateLogPath();
+
+        // Instantiate log writer when needed
+        if (this.m_writer != null) {
+            FileStream tempWriter = (FileStream) this.m_writer.BaseStream;
+            if (tempWriter == null || tempWriter.Name != this.m_trackersPath) {
+                this.m_writer = this.TryOpeningStream(this.m_trackersPath);
+            }
+        } else {
+            this.m_writer = this.TryOpeningStream(this.m_trackersPath);
+        }
     }
 
     public void Dispose()
@@ -192,33 +208,21 @@ public class Logger
 
     public void CreateLogPath()
     {
-        if (Manager.Instance.DuringTrial()) {
-            // Build path
-            this.m_path = Path.Combine(m_rootPath, "trackers");
-            this.m_trackersFilename = GenerateTableFilenameFromTrial("MyLogger");
-            this.m_trackersPath = Path.Combine(this.m_path, this.m_trackersFilename);
-            this.m_trialConfigPath = Path.Combine(m_path, GenerateStructureFilenameFromTrial("TrialConfig"));
+        // Build path
+        this.m_path = Path.Combine(m_rootPath, "trackers");
+        this.m_trackersFilename = GenerateTableFilenameFromTrial("MyLogger");
+        this.m_trackersPath = Path.Combine(this.m_path, this.m_trackersFilename);
+        this.m_trialConfigPath = Path.Combine(m_path, GenerateStructureFilenameFromTrial("TrialConfig"));
 
-            // Create directory when needed
-            try {
-                Directory.CreateDirectory(this.m_path);
-            } catch {
-                UnityEngine.Debug.LogError(
-                    "<color=red>Error: </color> " + this.GetType() + ".CreateLogPath(): Could not create directory at '"
-                    + this.m_path
-                    + "."
-                );
-            }
-
-            // Instantiate log writer when needed
-            if (this.m_writer != null) {
-                FileStream tempWriter = (FileStream) this.m_writer.BaseStream;
-                if (tempWriter == null || tempWriter.Name != this.m_trackersPath) {
-                    this.m_writer = this.TryOpeningStream(this.m_trackersPath);
-                }
-            } else {
-                this.m_writer = this.TryOpeningStream(this.m_trackersPath);
-            }
+        // Create directory when needed
+        try {
+            Directory.CreateDirectory(this.m_path);
+        } catch {
+            UnityEngine.Debug.LogError(
+                "<color=red>Error: </color> " + this.GetType() + ".CreateLogPath(): Could not create directory at '"
+                + this.m_path
+                + "."
+            );
         }
     }
 

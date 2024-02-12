@@ -549,12 +549,12 @@ namespace Labsim.apollon
             }
         }
         
-        internal void RaiseEngineExperimentSessionEndEvent()
+        internal void RaiseEngineExperimentSessionEndEvent(UXF.Session experimentSession)
         {
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<EngineExperimentEventArgs>)this._eventTable["EngineExperimentSessionEnd"];
-                callback?.Invoke(this, new EngineExperimentEventArgs());
+                callback?.Invoke(this, new EngineExperimentEventArgs(session: experimentSession));
             }
         }
 
@@ -567,12 +567,12 @@ namespace Labsim.apollon
             }
         }
 
-        internal void RaiseEngineExperimentTrialEndEvent()
+        internal void RaiseEngineExperimentTrialEndEvent(UXF.Trial experimentTrial)
         {
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<EngineExperimentEventArgs>)this._eventTable["EngineExperimentTrialEnd"];
-                callback?.Invoke(this, new EngineExperimentEventArgs());
+                callback?.Invoke(this, new EngineExperimentEventArgs(trial: experimentTrial));
             }
         }
 
@@ -729,9 +729,9 @@ namespace Labsim.apollon
             this.RaiseEngineExperimentSessionBeginEvent(experimentSession);
         }
 
-        public void ExperimentSessionEnd()
+        public void ExperimentSessionEnd(UXF.Session experimentSession)
         {
-            this.RaiseEngineExperimentSessionEndEvent();
+            this.RaiseEngineExperimentSessionEndEvent(experimentSession);
         }
 
         public void ExperimentTrialBegin(UXF.Trial experimentTrial)
@@ -739,9 +739,9 @@ namespace Labsim.apollon
             this.RaiseEngineExperimentTrialBeginEvent(experimentTrial);
         }
 
-        public void ExperimentTrialEnd()
+        public void ExperimentTrialEnd(UXF.Trial experimentTrial)
         {
-            this.RaiseEngineExperimentTrialEndEvent();
+            this.RaiseEngineExperimentTrialEndEvent(experimentTrial);
         }
 
         #endregion

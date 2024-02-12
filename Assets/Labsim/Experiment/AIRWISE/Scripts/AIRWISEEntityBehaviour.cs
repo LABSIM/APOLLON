@@ -38,6 +38,12 @@ namespace Labsim.experiment.AIRWISE
 
         private bool m_bHasInitialized = false;
 
+        [UnityEngine.SerializeField]
+        private UnityEngine.Vector3 m_initPos = new(0.0f,0.0f,0.0f);
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.Vector3 m_initRot = new(0.0f,0.0f,0.0f);
+
         #endregion
 
         #region controllers implemention
@@ -448,7 +454,7 @@ namespace Labsim.experiment.AIRWISE
                     this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
                     // notify Control event
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseControl();                        
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseHold();                        
 
                 }
                 else if(this._parent.Chrono.ElapsedMilliseconds >= this._parent.Duration)
@@ -468,7 +474,7 @@ namespace Labsim.experiment.AIRWISE
                     this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
                     // change state
-                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseControl();
+                    this._parent.ConcreteBridge.ConcreteDispatcher.RaiseHold();
 
                 }
                 else
@@ -571,13 +577,32 @@ namespace Labsim.experiment.AIRWISE
 
         void OnDisable()
         {
-            
+
             // skip it hasn't been initialized 
             if (!this.m_bHasInitialized)
             {
                 return;
             }
-
+ 
+            // reset our rigidbody
+            var Rb = this.gameObject.GetComponentInChildren<QuadController>().Rb;
+            Rb.ResetCenterOfMass();
+            Rb.ResetInertiaTensor();
+            Rb.transform.SetPositionAndRotation(this.m_initPos, UnityEngine.Quaternion.Euler(this.m_initRot));
+            Rb.constraints = UnityEngine.RigidbodyConstraints.None;
+            Rb.drag = 0.0f;
+            Rb.angularDrag = 0.0f;
+            Rb.useGravity = false;
+            Rb.isKinematic = false;
+            Rb.interpolation = UnityEngine.RigidbodyInterpolation.Interpolate;
+            Rb.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
+            Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+            Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+            Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+            Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+            Rb.velocity = UnityEngine.Vector3.zero;
+            Rb.angularVelocity = UnityEngine.Vector3.zero;
+                
         } /* OnDisable() */
 
         #endregion

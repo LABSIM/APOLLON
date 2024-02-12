@@ -91,9 +91,9 @@ namespace Labsim.apollon
         }
 
         // Call whenever an experimentation session is stopped
-        public void ExperimentSessionEnd()
+        public void ExperimentSessionEnd(UXF.Session experimentSession)
         {
-            ApollonEngine.Instance.ExperimentSessionEnd();
+            ApollonEngine.Instance.ExperimentSessionEnd(experimentSession);
         }
 
         // Call whenever a new trial session is launched
@@ -103,9 +103,9 @@ namespace Labsim.apollon
         }
 
         // Call whenever an experimentation trial is stopped
-        public void ExperimentTrialEnd()
+        public void ExperimentTrialEnd(UXF.Trial experimentTrial)
         {
-            ApollonEngine.Instance.ExperimentTrialEnd();
+            ApollonEngine.Instance.ExperimentTrialEnd(experimentTrial);
         }
 
         // Call whenever a new scene is loaded

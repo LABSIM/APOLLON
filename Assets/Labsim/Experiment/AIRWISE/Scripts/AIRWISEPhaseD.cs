@@ -186,13 +186,13 @@ namespace Labsim.experiment.AIRWISE
 
                                 } /* if() */
 
-                                // log
-                                UnityEngine.Debug.Log(
-                                    "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : motion idle state reached"
-                                );
+                                // // log
+                                // UnityEngine.Debug.Log(
+                                //     "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : motion idle state reached"
+                                // );
 
-                                // stop acceleration settings 
-                                airwise_entity.ConcreteDispatcher.RaiseHold();
+                                // // stop acceleration settings 
+                                // airwise_entity.ConcreteDispatcher.RaiseHold();
 
                             } /* if() */
                         },

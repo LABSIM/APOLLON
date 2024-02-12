@@ -63,17 +63,18 @@ namespace Labsim.experiment.AIRWISE
         protected override System.String getCurrentCounterStatusInfo()
         {
 
-            return (
-                (this.CurrentSettings.Trial.bIsActive) 
-                ? ( 
-                    (
-                        (UXF.Session.instance.blocks.Count > 1) 
-                            ? (UXF.Session.instance.CurrentBlock.number + "/" + UXF.Session.instance.blocks.Count + " | ")
-                            : ""
-                    )
-                )
-                : ""
-            );
+            return "";
+            // return (
+            //     (this.CurrentSettings.Trial.bIsActive) 
+            //     ? ( 
+            //         (
+            //             (UXF.Session.instance.blocks.Count > 1) 
+            //                 ? (UXF.Session.instance.CurrentBlock.number + "/" + UXF.Session.instance.blocks.Count + " | ")
+            //                 : ""
+            //         )
+            //     )
+            //     : ""
+            // );
 
         } /* getCurrentCounterStatusInfo() */
 
@@ -144,10 +145,32 @@ namespace Labsim.experiment.AIRWISE
             );
 
             // force recalibration
-            Varjo.XR.VarjoEyeTracking.RequestGazeCalibration(
-                Varjo.XR.VarjoEyeTracking.GazeCalibrationMode.Fast,
-                Varjo.XR.VarjoEyeTracking.HeadsetAlignmentGuidanceMode.AutoContinueOnAcceptableHeadsetPosition
-            );
+            
+            if(!Varjo.XR.VarjoEyeTracking.CancelGazeCalibration())
+            {
+
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> AIRWISEProfile.onExperimentSessionBegin() : failed to cancel gaze calibration..."
+                );
+
+            } /* if() */
+
+            await apollon.ApollonHighResolutionTime.DoSleep(1000.0f);
+
+            if( !Varjo.XR.VarjoEyeTracking.RequestGazeCalibration(
+                    Varjo.XR.VarjoEyeTracking.GazeCalibrationMode.Fast,
+                    Varjo.XR.VarjoEyeTracking.HeadsetAlignmentGuidanceMode.AutoContinueOnAcceptableHeadsetPosition
+                )
+            )
+            {
+
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> AIRWISEProfile.onExperimentSessionBegin() : failed to request gaze calibration..."
+                );
+
+            }
  
             // log
             UnityEngine.Debug.Log(
@@ -157,7 +180,11 @@ namespace Labsim.experiment.AIRWISE
             // wait for eye tracking system init
             do
             {
-                await apollon.ApollonHighResolutionTime.DoSleep(500.0f);
+                await apollon.ApollonHighResolutionTime.DoSleep(2000.0f);
+
+                bool 
+                    calibrating = Varjo.XR.VarjoEyeTracking.IsGazeCalibrating(), 
+                    calibrated  = Varjo.XR.VarjoEyeTracking.IsGazeCalibrated();
             } 
             while(Varjo.XR.VarjoEyeTracking.IsGazeCalibrating() && !Varjo.XR.VarjoEyeTracking.IsGazeCalibrated());
 
@@ -233,7 +260,7 @@ namespace Labsim.experiment.AIRWISE
             apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_right_eye_quality"] 
                 = right_result;
             apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["inter_pupillary_distance"] 
-                = Varjo.XR.VarjoHeadsetIPD.GetDistance().ToString();
+                = Varjo.XR.VarjoEyeTracking.GetIPDEstimate().ToString();
 
             // log
             UnityEngine.Debug.Log(
@@ -437,6 +464,7 @@ namespace Labsim.experiment.AIRWISE
                 case AIRWISESettings.ControlIDType.Familiarisation1:
                 case AIRWISESettings.ControlIDType.Familiarisation2:
                 case AIRWISESettings.ControlIDType.Familiarisation3:
+                case AIRWISESettings.ControlIDType.Familiarisation4:
                 case AIRWISESettings.ControlIDType.PositionControl:
                 case AIRWISESettings.ControlIDType.SpeedControl:
                 case AIRWISESettings.ControlIDType.AccelerationControl:
@@ -650,6 +678,7 @@ namespace Labsim.experiment.AIRWISE
                 case AIRWISESettings.ControlIDType.Familiarisation1:
                 case AIRWISESettings.ControlIDType.Familiarisation2:
                 case AIRWISESettings.ControlIDType.Familiarisation3:
+                case AIRWISESettings.ControlIDType.Familiarisation4:
                 case AIRWISESettings.ControlIDType.PositionControl:
                 case AIRWISESettings.ControlIDType.SpeedControl:
                 case AIRWISESettings.ControlIDType.AccelerationControl:
@@ -677,11 +706,11 @@ namespace Labsim.experiment.AIRWISE
                             filename    = System.IO.Path.GetFileNameWithoutExtension(input),
                             fileext     = System.IO.Path.GetExtension(input),
                             output      = System.IO.Path.Combine(
-                                            Logger.m_rootPath, 
+                                            System.IO.Path.GetFullPath(Logger.m_rootPath), 
                                             string.Concat(
                                                 "configs/",
                                                 filename,
-                                                string.Format("_T{1:000}", arg.Trial.number),
+                                                string.Format("_T{0:000}", arg.Trial.number),
                                                 fileext
                                             )
                                         );

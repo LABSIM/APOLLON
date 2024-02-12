@@ -114,6 +114,8 @@ public class Manager
         this.ActuationFactory = new ActuationFactory();
         this.HapticFactory = new HapticFactory();
         this.ErrorDisplayFactory = new ErrorDisplayFactory();
+
+        Logger.Instance.Instantiate();
     }
 
     private void Build(DateTime timestamp, Rigidbody rb, Rotor[] rotors) 
@@ -170,6 +172,7 @@ public class Manager
                 "<color=blue>Info: </color> " + this.GetType() + ".Initialize(): Entering block " + (this.m_currTrial + 1).ToString("#") + "."
             );
         }
+        Logger.Instance.Instantiate();
     }
 
     public void Reset(Rigidbody rb, DateTime timestamp)
@@ -199,15 +202,15 @@ public class Manager
         this.m_currElapsed = elapsed;
         this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
         
-        // Pause simulation if criterion reached
-        if (this.PauseTrialOnButtonCondition())
-        {
-            Debug.Log(
-                "<color=blue>Info: </color> " + this.GetType() + ".Compute(): Pausing run on Button 1 click."
-            );
-            Debug.Break();
-            return true; 
-        }
+        // // Pause simulation if criterion reached
+        // if (this.PauseTrialOnButtonCondition())
+        // {
+        //     Debug.Log(
+        //         "<color=blue>Info: </color> " + this.GetType() + ".Compute(): Pausing run on Button 1 click."
+        //     );
+        //     Debug.Break();
+        //     return true; 
+        // }
 
         // Bail out early when iteration criterion reached
         if (this.EndTrialOnIterationCountCondition() || this.EndTrialOnFinalTimeCondition() || this.EndTrialOnTaskEndCondition()) { 

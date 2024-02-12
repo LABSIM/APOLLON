@@ -139,9 +139,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1
   preloadedAssets:
-  - {fileID: 11400000, guid: 32b3aa7be16b14341a43c764dde0208f, type: 2}
   - {fileID: 11400000, guid: 767cc3d37514507459e09700f256efbc, type: 2}
-  - {fileID: -6949574758022284427, guid: 0064b7b639a97c6408b981e84c2a5fbe, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -357,7 +355,7 @@ PlayerSettings:
     m_Automatic: 1
   - m_BuildTarget: WindowsStandaloneSupport
     m_APIs: 120000000200000015000000
-    m_Automatic: 0
+    m_Automatic: 1
   m_BuildTargetVRSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 0

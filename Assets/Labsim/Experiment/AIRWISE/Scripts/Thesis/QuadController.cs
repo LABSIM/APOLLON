@@ -39,7 +39,6 @@ public class QuadController : MonoBehaviour
     }
     private void Start() { 
         Logger.Instance.FlushTopLevelBuffer();
-
     }
 
 
@@ -51,7 +50,7 @@ public class QuadController : MonoBehaviour
             return;
         }
 
-        UnityEditor.EditorApplication.pauseStateChanged += RestartChronoAfterPause;
+        // UnityEditor.EditorApplication.pauseStateChanged += RestartChronoAfterPause;
         // Stop chrono to current time if Manager returned simulation stop condition
         if (Manager.Instance.Compute(this._chrono.Elapsed)) {
             this._chrono.Stop();
@@ -61,11 +60,11 @@ public class QuadController : MonoBehaviour
 
     }
 
-    private void RestartChronoAfterPause(UnityEditor.PauseState state){
-        if (state == UnityEditor.PauseState.Unpaused) {
-            this._chrono.Restart();
-        }
-    }
+    // private void RestartChronoAfterPause(UnityEditor.PauseState state){
+    //     if (state == UnityEditor.PauseState.Unpaused) {
+    //         this._chrono.Restart();
+    //     }
+    // }
 
     // TODO: FlushBuffer in LateUpdate to avoid flooding writing routine
     private void LateUpdate() { }

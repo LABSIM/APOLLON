@@ -89,6 +89,9 @@ namespace Labsim.experiment.AIRWISE
             [System.ComponentModel.Description("Familiarisation3")]
             Familiarisation3,
 
+            [System.ComponentModel.Description("Familiarisation4")]
+            Familiarisation4,
+
             [System.ComponentModel.Description("PositionControl")]
             PositionControl,
 
@@ -353,6 +356,15 @@ namespace Labsim.experiment.AIRWISE
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
                         this.Trial.control_type = ControlIDType.Familiarisation3;
+                        break;
+                    }
+                    
+                    // familiarisation 4
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation4),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.Familiarisation4;
                         break;
                     }
 

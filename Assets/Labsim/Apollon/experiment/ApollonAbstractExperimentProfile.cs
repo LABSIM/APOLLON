@@ -604,7 +604,7 @@ namespace Labsim.apollon.experiment
                 // check current trial_max_retry_per_draw value
                 if( ++(
                         this.m_draft_counter[
-                            ApollonExperimentManager.Instance.Session.currentBlockNum
+                            ApollonExperimentManager.Instance.Session.currentBlockNum - 1
                         ][
                             ApollonExperimentManager.Instance.Session.CurrentTrial
                         ]
@@ -622,17 +622,15 @@ namespace Labsim.apollon.experiment
                         = new UXF.Trial(ApollonExperimentManager.Instance.Session.CurrentBlock);
                     var re_draw_counter 
                         = this.m_draft_counter
-                            [ApollonExperimentManager.Instance.Session.currentBlockNum]
+                            [ApollonExperimentManager.Instance.Session.currentBlockNum - 1]
                             [ApollonExperimentManager.Instance.Session.CurrentTrial];
                     var re_draw_pattern_name 
                         = ApollonExperimentManager.Instance.Session.CurrentTrial.settings.GetString("current_pattern");
 
-                    // extract curtrent pattern dictionary
+                    // extract current pattern dictionary
                     UXF.Settings re_draw_pattern_settings 
                         = new(
-                            ApollonExperimentManager.Instance.Session.CurrentTrial.settings.GetDict(
-                                re_draw_pattern_name
-                            )
+                            ApollonExperimentManager.Instance.Session.CurrentTrial.settings.baseDict
                         );
 
                     // log
@@ -666,7 +664,7 @@ namespace Labsim.apollon.experiment
                     // update our draft counter mecanism by erasing previous ref & place new one
                     if(!(
                         this.m_draft_counter[
-                            ApollonExperimentManager.Instance.Session.currentBlockNum
+                            ApollonExperimentManager.Instance.Session.currentBlockNum - 1
                         ].Remove(
                             ApollonExperimentManager.Instance.Session.CurrentTrial
                         )
@@ -684,7 +682,7 @@ namespace Labsim.apollon.experiment
     
                         // new counter 
                         this.m_draft_counter[
-                            ApollonExperimentManager.Instance.Session.currentBlockNum
+                            ApollonExperimentManager.Instance.Session.currentBlockNum - 1
                         ].Add(
                             re_draw_trial,
                             re_draw_counter
@@ -693,7 +691,7 @@ namespace Labsim.apollon.experiment
                         // re insert pattern at random place 
                         ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Insert(
                             new System.Random().Next(
-                                ApollonExperimentManager.Instance.Session.CurrentTrial.numberInBlock + 1,
+                                ApollonExperimentManager.Instance.Session.CurrentTrial.numberInBlock,
                                 ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Count
                             ),
                             re_draw_trial

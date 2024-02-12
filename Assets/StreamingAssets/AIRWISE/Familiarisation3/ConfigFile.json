@@ -7,10 +7,10 @@
     "t_final": 100
   },
   "MappingConfig": {
-    "mode": 4
+    "mode": 3
   },
   "ControlConfig": {
-    "mode": 7
+    "mode": 6
   },
   "ActuationConfig": {
     "mode": 0

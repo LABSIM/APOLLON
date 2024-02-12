@@ -153,6 +153,12 @@ namespace Labsim.experiment.AIRWISE
 
                 foreach(var (value, index) in this.user_checkpoints_crossing.Select((value, index) => (value, index)))
                 {
+
+                    // debug
+                    if(value == null)
+                    {
+                        continue;
+                    }
                 
                     stream 
                         += "\n - C_user_checkpoint_" + index + "_crossing_kind[" 
@@ -342,12 +348,12 @@ namespace Labsim.experiment.AIRWISE
             try
             {
 
-
                 // write the general trial settings as result for convenience
                 results["pattern"]             = this.CurrentProfile.CurrentSettings.Trial.pattern_type;
                 results["active_condition"]    = this.CurrentProfile.CurrentSettings.Trial.bIsActive.ToString();
                 results["catch_try_condition"] = this.CurrentProfile.CurrentSettings.Trial.bIsTryCatch.ToString();
-                results["scenario_name"]       = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.pattern_type);
+                results["control_name"]        = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.control_type);
+                results["visual_name"]         = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.visual_type);
                 results["scene_name"]          = apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.scene_type);
 
                 // current trials results
@@ -381,6 +387,12 @@ namespace Labsim.experiment.AIRWISE
                 foreach(var (value, index) in this.PhaseC.user_checkpoints_crossing.Select((value, index) => (value, index)))
                 {
                 
+                    // debug
+                    if(value == null)
+                    {
+                        continue;
+                    }
+
                     results["C_user_checkpoint_" + index + "_crossing_kind"]                   = apollon.ApollonEngine.GetEnumDescription(value.kind);
                     results["C_user_checkpoint_" + index + "_crossing_timing_unity_timestamp"] = value.timing_unity_timestamp.ToString();
                     results["C_user_checkpoint_" + index + "_crossing_timing_host_timestamp"]  = value.timing_host_timestamp;
@@ -516,9 +528,13 @@ namespace Labsim.experiment.AIRWISE
                     + "[" 
                     + this.CurrentProfile.CurrentSettings.Trial.bIsTryCatch.ToString()
                     + "]"
-                + "\n - scenario_name"                     
+                + "\n - control_name"                     
                     + "[" 
-                    + apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.pattern_type)
+                    + apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.control_type)
+                    + "]"
+                + "\n - visual_name"                     
+                    + "[" 
+                    + apollon.ApollonEngine.GetEnumDescription(this.CurrentProfile.CurrentSettings.Trial.visual_type)
                     + "]"
                 + "\n - scene_name"                        
                     + "[" 

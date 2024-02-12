@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -6092,6 +6092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d5e8e9a17e49f4b9aa7bd805119202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_initPos: {x: 0, y: 1, z: 0}
+  m_initRot: {x: 0, y: 0, z: 0}
 --- !u!1 &673252555
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,12 +8108,12 @@ PrefabInstance:
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onTrialEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onSessionEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -8127,7 +8129,7 @@ PrefabInstance:
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -8189,9 +8191,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
+      propertyPath: onTrialEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Labsim.apollon.ApollonEngineComponent, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: onSessionEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Labsim.apollon.ApollonEngineComponent, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: onTrialBegin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Labsim.apollon.ApollonEngineComponent, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Labsim.apollon.ApollonEngineComponent, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: onTrialEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
       propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 936140431}
+      objectReference: {fileID: 0}
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onTrialEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -8210,7 +8237,7 @@ PrefabInstance:
     - target: {fileID: 114916036141644208, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: onSessionBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UXF.Session, Assembly-CSharp
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 155599473525190594, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -8230,7 +8257,7 @@ PrefabInstance:
     - target: {fileID: 203569540471596912, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 460500839039881788, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -8320,6 +8347,11 @@ PrefabInstance:
     - target: {fileID: 642657072536429828, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 653059108743847710, guid: 0a3b6392f04558844bd340e68ced1ff9,
+        type: 3}
+      propertyPath: startupMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 653059108743847710, guid: 0a3b6392f04558844bd340e68ced1ff9,
@@ -8460,7 +8492,7 @@ PrefabInstance:
     - target: {fileID: 653059108743847710, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: participantDataPoints.Array.data[6].internalName
-      value: gaze_calibration_rightt_eye_quality
+      value: gaze_calibration_right_eye_quality
       objectReference: {fileID: 0}
     - target: {fileID: 653059108743847710, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -9315,8 +9347,8 @@ PrefabInstance:
     - target: {fileID: 5489284586117691312, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_Text
-      value: Please tick if you agree for your data to be collected and used for
-        research purposes.<color=red>*</color>
+      value: Please tick if you understand the instructions and agree for your data
+        to be collected and used for research purposes.<color=red>*</color>
       objectReference: {fileID: 0}
     - target: {fileID: 5664062349193308020, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -9511,7 +9543,7 @@ PrefabInstance:
     - target: {fileID: 6482629383985664186, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.43125
       objectReference: {fileID: 0}
     - target: {fileID: 6482629383985664186, guid: 0a3b6392f04558844bd340e68ced1ff9,
         type: 3}
@@ -18906,7 +18938,7 @@ PrefabInstance:
     - target: {fileID: 2122958926013895497, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
       propertyPath: antialiasingMode
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2396646484106929529, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
@@ -19046,7 +19078,7 @@ PrefabInstance:
     - target: {fileID: 7046300139819953046, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
       propertyPath: m_RequestedTrackingMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7818353175518880069, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
@@ -19055,8 +19087,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8907449423574689401, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
-      propertyPath: m_Depth
-      value: -1
+      propertyPath: far clip plane
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 8907449423574689401, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}

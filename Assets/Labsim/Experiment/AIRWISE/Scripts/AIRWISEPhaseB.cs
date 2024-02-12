@@ -20,7 +20,6 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEditor.Search;
 
 // avoid namespace pollution
 namespace Labsim.experiment.AIRWISE
@@ -191,49 +190,7 @@ namespace Labsim.experiment.AIRWISE
 
                         },
                         parallel_tasks_ct_src.Token 
-                    ).Unwrap().ContinueWith(
-                        async(antecedent) => 
-                        {
-                            if(!parallel_tasks_ct.IsCancellationRequested)
-                            {
-
-                                if(!sync_point.Task.IsCompleted) 
-                                {
-                                    
-                                    // log
-                                    UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : wait for even start lane is crossed or end of phase"
-                                    );
-
-                                    // wait until any result
-                                    result = await sync_point.Task;
-
-                                } else {
-                                    
-                                    UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : AIRWISE Vecteur has crossed the start line or end of phase already reached !"
-                                    );
-
-                                } /* if() */
-
-                                // log
-                                UnityEngine.Debug.Log(
-                                    "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : motion hold state reached"
-                                );
-
-                                // stop acceleration settings 
-                                airwise_entity.ConcreteDispatcher.RaiseHold();
-
-                                // cancel if line is crossed                    
-                                if(result)
-                                {
-                                    parallel_tasks_ct_src.Cancel();
-                                }
-
-                            } /* if() */
-                        },
-                        parallel_tasks_ct_src.Token
-                    ),
+                    ).Unwrap(),
 
                     // hide green frame 
                     parallel_tasks_factory.StartNew(
@@ -269,7 +226,7 @@ namespace Labsim.experiment.AIRWISE
                                         "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : hide green frame"
                                     );
                                     
-                                    // hide green frame at scceleration duration
+                                    // hide green frame at acceleration duration
                                     apollon.ApollonEngine.Schedule(
                                         () => apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI)
                                     );
