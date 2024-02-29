@@ -80,26 +80,41 @@ namespace Labsim.experiment.AIRWISE
             [System.ComponentModel.Description("Undefined")]
             Undefined = -1,
 
-            [System.ComponentModel.Description("Familiarisation1")]
-            Familiarisation1,
+            [System.ComponentModel.Description("TrainingIdealPositionControl")]
+            TrainingIdealPositionControl,
 
-            [System.ComponentModel.Description("Familiarisation2")]
-            Familiarisation2,
+            [System.ComponentModel.Description("TrainingIdealVelocityControl")]
+            TrainingIdealVelocityControl,
 
-            [System.ComponentModel.Description("Familiarisation3")]
-            Familiarisation3,
+            [System.ComponentModel.Description("TrainingIdealAccelerationControl")]
+            TrainingIdealAccelerationControl,
 
-            [System.ComponentModel.Description("Familiarisation4")]
-            Familiarisation4,
+            [System.ComponentModel.Description("TrainingRealisticPositionControl")]
+            TrainingRealisticPositionControl,
 
-            [System.ComponentModel.Description("PositionControl")]
-            PositionControl,
+            [System.ComponentModel.Description("TrainingRealisticVelocityControl")]
+            TrainingRealisticVelocityControl,
 
-            [System.ComponentModel.Description("SpeedControl")]
-            SpeedControl,
+            [System.ComponentModel.Description("TrainingRealisticAccelerationControl")]
+            TrainingRealisticAccelerationControl,
 
-            [System.ComponentModel.Description("AccelerationControl")]
-            AccelerationControl
+            [System.ComponentModel.Description("IdealPositionControl")]
+            IdealPositionControl,
+
+            [System.ComponentModel.Description("IdealVelocityControl")]
+            IdealVelocityControl,
+
+            [System.ComponentModel.Description("IdealAccelerationControl")]
+            IdealAccelerationControl,
+
+            [System.ComponentModel.Description("RealisticPositionControl")]
+            RealisticPositionControl,
+
+            [System.ComponentModel.Description("RealisticVelocityControl")]
+            RealisticVelocityControl,
+
+            [System.ComponentModel.Description("RealisticAccelerationControl")]
+            RealisticAccelerationControl
 
         } /* enum */
         
@@ -332,66 +347,111 @@ namespace Labsim.experiment.AIRWISE
                     )
                 ) {
                     
-                    // familiarisation 1
+                    // familiarisation ideal position control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation1),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.TrainingIdealPositionControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.Familiarisation1;
+                        this.Trial.control_type = ControlIDType.TrainingIdealPositionControl;
                         break;
                     }
                     
-                    // familiarisation 2
+                    // familiarisation ideal velocity control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation2),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.TrainingIdealVelocityControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.Familiarisation2;
+                        this.Trial.control_type = ControlIDType.TrainingIdealVelocityControl;
                         break;
                     }
                     
-                    // familiarisation 3
+                    // familiarisation ideal acceleration control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation3),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.TrainingIdealAccelerationControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.Familiarisation3;
+                        this.Trial.control_type = ControlIDType.TrainingIdealAccelerationControl;
                         break;
                     }
                     
-                    // familiarisation 4
+                    // familiarisation realistic position control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.Familiarisation4),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.TrainingRealisticPositionControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.Familiarisation4;
+                        this.Trial.control_type = ControlIDType.TrainingRealisticPositionControl;
+                        break;
+                    }
+                    
+                    // familiarisation realistic velocity control
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.TrainingRealisticVelocityControl),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.TrainingRealisticVelocityControl;
+                        break;
+                    }
+                    
+                    // familiarisation realistic acceleration control
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.TrainingRealisticAccelerationControl),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.TrainingRealisticAccelerationControl;
                         break;
                     }
 
-                    // position control
+                    // ideal position control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.PositionControl),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.IdealPositionControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.PositionControl;
+                        this.Trial.control_type = ControlIDType.IdealPositionControl;
                         break;
                     }
 
-                    // position control
+                    // ideal velocity control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.SpeedControl),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.IdealVelocityControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.SpeedControl;
+                        this.Trial.control_type = ControlIDType.IdealVelocityControl;
                         break;
                     }
 
-                    // acceleration control
+                    // ideal acceleration control
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.AccelerationControl),
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.IdealAccelerationControl),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.control_type = ControlIDType.AccelerationControl;
+                        this.Trial.control_type = ControlIDType.IdealAccelerationControl;
+                        break;
+                    }
+
+                    // realistic position control
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.RealisticPositionControl),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.RealisticPositionControl;
+                        break;
+                    }
+
+                    // realistic velocity control
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.RealisticVelocityControl),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.RealisticVelocityControl;
+                        break;
+                    }
+
+                    // realistic acceleration control
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(ControlIDType.RealisticAccelerationControl),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.control_type = ControlIDType.RealisticAccelerationControl;
                         break;
                     }
 

@@ -46,10 +46,10 @@ public class DirectActuation : AbstractActuation
         this.T = 0.0f;
         this.Torque = new Vector3();
         
-        this.TDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TDesired");
-        this.TorqueDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TorqueDesiredX");
-        this.TorqueDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TorqueDesiredY");
-        this.TorqueDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TorqueDesiredZ");
+        this.TDesiredLoggerIdx = Logger.Instance.GetEntry("TDesired");
+        this.TorqueDesiredXLoggerIdx = Logger.Instance.GetEntry("TorqueDesiredX");
+        this.TorqueDesiredYLoggerIdx = Logger.Instance.GetEntry("TorqueDesiredY");
+        this.TorqueDesiredZLoggerIdx = Logger.Instance.GetEntry("TorqueDesiredZ");
     }
 
     public override void ComputeActuation()

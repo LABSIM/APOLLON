@@ -47,16 +47,16 @@ public class CoulombHaptic : AbstractHaptic
         this.Distances = new float[Manager.Instance.QuadController.NbRaycast];
         this.SecuredDistances = new float[Manager.Instance.QuadController.NbRaycast];
         
-        this.DistanceDangerLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "DistanceDanger");
-        this.DistanceWarningLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "DistanceWarning");
-        this.Distance0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "Distance0");
-        this.Distance1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "Distance1");
-        this.Distance2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "Distance2");
-        this.Distance3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "Distance3");
-        this.SecuredDistance0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "SecuredDistance0");
-        this.SecuredDistance1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "SecuredDistance1");
-        this.SecuredDistance2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "SecuredDistance2");
-        this.SecuredDistance3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "SecuredDistance3");
+        this.DistanceDangerLoggerIdx = Logger.Instance.GetEntry("DistanceDanger");
+        this.DistanceWarningLoggerIdx = Logger.Instance.GetEntry("DistanceWarning");
+        this.Distance0LoggerIdx = Logger.Instance.GetEntry("Distance0");
+        this.Distance1LoggerIdx = Logger.Instance.GetEntry("Distance1");
+        this.Distance2LoggerIdx = Logger.Instance.GetEntry("Distance2");
+        this.Distance3LoggerIdx = Logger.Instance.GetEntry("Distance3");
+        this.SecuredDistance0LoggerIdx = Logger.Instance.GetEntry("SecuredDistance0");
+        this.SecuredDistance1LoggerIdx = Logger.Instance.GetEntry("SecuredDistance1");
+        this.SecuredDistance2LoggerIdx = Logger.Instance.GetEntry("SecuredDistance2");
+        this.SecuredDistance3LoggerIdx = Logger.Instance.GetEntry("SecuredDistance3");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.SecurityFactorKey, this.SecurityFactor);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.ReactionTimeKey, this.ReactionTime);

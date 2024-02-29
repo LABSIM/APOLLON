@@ -57,10 +57,10 @@ public class XYIncrementZOtherAxisMapping : AbstractMapping
         this.FilterY = filterFactory.Build(XYIncrementZOtherAxisMappingConfig.filterY, rb);
         this.FilterZ = filterFactory.Build(XYIncrementZOtherAxisMappingConfig.filterZ, rb);
         
-        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
-        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
-        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
-        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "OtherAxisDesired");
+        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredX");
+        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredY");
+        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredZ");
+        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry("OtherAxisDesiredMeasured");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.PositionDesiredKey, this.DefaultPositionDesired);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.OtherAxisDesiredKey, this.DefaultOtherAxisDesired);
@@ -75,12 +75,12 @@ public class XYIncrementZOtherAxisMapping : AbstractMapping
         {
             Vector3 positionDesired = new Vector3
             {
-                x = BrunnerHandle.Instance.GetX(),
-                y = BrunnerHandle.Instance.GetY()
+                x = Parameters.JoystickToPositionX * BrunnerHandle.Instance.GetX(),
+                y = Parameters.JoystickToPositionY * BrunnerHandle.Instance.GetY()
             };
-            positionDesired.z = this.PositionDesired.z -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
+            positionDesired.z = -Parameters.JoystickToPositionZ * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
             this.PositionDesired = positionDesired;
-            this.OtherAxisDesired += -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
+            this.OtherAxisDesired += -Parameters.JoystickToPositionOtherAxis * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
             Logger.Instance.AddEntry(this.PositionDesiredXLoggerIdx, this.PositionDesired.x);
             Logger.Instance.AddEntry(this.PositionDesiredYLoggerIdx, this.PositionDesired.y);
             Logger.Instance.AddEntry(this.PositionDesiredZLoggerIdx, this.PositionDesired.z);

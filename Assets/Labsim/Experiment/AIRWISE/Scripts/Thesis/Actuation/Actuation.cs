@@ -95,21 +95,21 @@ public abstract class AbstractActuation
         this.m_control = control;
         this.AbstractActuationConfig = abstractActuationConfig;
 
-        this.MeasuredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredX");
-        this.MeasuredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredY");
-        this.MeasuredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredZ");
+        this.MeasuredXLoggerIdx = Logger.Instance.GetEntry("MeasuredX");
+        this.MeasuredYLoggerIdx = Logger.Instance.GetEntry("MeasuredY");
+        this.MeasuredZLoggerIdx = Logger.Instance.GetEntry("MeasuredZ");
 
-        this.MeasuredPhiLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPhi");
-        this.MeasuredThetaLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredTheta");
-        this.MeasuredPsiLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPsi");
+        this.MeasuredPhiLoggerIdx = Logger.Instance.GetEntry("MeasuredPhi");
+        this.MeasuredThetaLoggerIdx = Logger.Instance.GetEntry("MeasuredTheta");
+        this.MeasuredPsiLoggerIdx = Logger.Instance.GetEntry("MeasuredPsi");
 
-        this.MeasuredXDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredXDot");
-        this.MeasuredYDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredYDot");
-        this.MeasuredZDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredZDot");
+        this.MeasuredXDotLoggerIdx = Logger.Instance.GetEntry("MeasuredXDot");
+        this.MeasuredYDotLoggerIdx = Logger.Instance.GetEntry("MeasuredYDot");
+        this.MeasuredZDotLoggerIdx = Logger.Instance.GetEntry("MeasuredZDot");
 
-        this.MeasuredPhiDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPhiDot");
-        this.MeasuredThetaDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredThetaDot");
-        this.MeasuredPsiDotLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredPsiDot");
+        this.MeasuredPhiDotLoggerIdx = Logger.Instance.GetEntry("MeasuredPhiDot");
+        this.MeasuredThetaDotLoggerIdx = Logger.Instance.GetEntry("MeasuredThetaDot");
+        this.MeasuredPsiDotLoggerIdx = Logger.Instance.GetEntry("MeasuredPsiDot");
 
     }
     public virtual void ComputeActuation()

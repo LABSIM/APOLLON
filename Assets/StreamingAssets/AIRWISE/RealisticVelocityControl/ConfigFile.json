@@ -1,0 +1,62 @@
+{
+  "tFinal" : 600,
+  "nbTrials" : 100,
+  "arrivalRadius": 0.5,
+  "ForcingFunctionConfig": {
+    "mode": -1,
+    "t_final": 100
+  },
+  "MappingConfig": {
+    "mode": 4
+  },
+  "ControlConfig": {
+    "mode": 4
+  },
+  "ActuationConfig": {
+    "mode": 0
+  },
+  "HapticConfig": {
+    "mode": -1,
+    "axisMode": 1
+  },
+  "ErrorDisplayConfig": {
+    "mode": 0
+  },
+  "LoggerConfig": {
+    "FallbackPath": "D:\\Fallback",
+    "Path": "C:\\Users\\SCHEME\\Desktop\\AIRWISE\\Test_YL",
+    "NumSep": ";",
+    "PythonPath": "C:\\Users\\yalel\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "ScriptName": "plotLog.py",
+    "TextSep": "_",
+    "TableExtension": ".csv",
+    "StructureExtension": ".json",
+    "RunPython": false,
+    "CopyVarjoVideo": true,
+    "VarjoVideoPath": "C:\\Users\\SCHEME\\Videos\\Varjo",
+    "VarjoVideoFilenameSep": "-",
+    "VarjoVideoFilenameSep2": "_"
+  },
+  "InitialConditions": {
+      "Position0": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+      },
+      "Attitude0": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+      },
+      "Velocity0": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+      },
+      "AngularVelocity0": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+      }
+  }
+}

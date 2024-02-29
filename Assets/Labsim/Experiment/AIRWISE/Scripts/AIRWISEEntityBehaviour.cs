@@ -345,23 +345,23 @@ namespace Labsim.experiment.AIRWISE
                     "<color=Blue>Info: </color> AIRWISEEntityBehaviour.ControlController.OnDisable() : begin"
                 );
 
-                // preliminary
-                if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null)
-                {
+                // // preliminary
+                // if ((this._parent = this.GetComponentInParent<AIRWISEEntityBehaviour>()) == null)
+                // {
 
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AIRWISEEntityBehaviour.ControlController.OnEnable() : failed to get parent reference ! Self disabling..."
-                    );
+                //     // log
+                //     UnityEngine.Debug.LogError(
+                //         "<color=Red>Error: </color> AIRWISEEntityBehaviour.ControlController.OnEnable() : failed to get parent reference ! Self disabling..."
+                //     );
 
-                    // disable
-                    this.gameObject.SetActive(false);
-                    this.enabled = false;
+                //     // disable
+                //     this.gameObject.SetActive(false);
+                //     this.enabled = false;
 
-                    // return
-                    return;
+                //     // return
+                //     return;
 
-                } /* if() */
+                // } /* if() */
 
                 // log
                 UnityEngine.Debug.Log(
@@ -586,22 +586,22 @@ namespace Labsim.experiment.AIRWISE
  
             // reset our rigidbody
             var Rb = this.gameObject.GetComponentInChildren<QuadController>().Rb;
-            Rb.ResetCenterOfMass();
-            Rb.ResetInertiaTensor();
+            // Rb.ResetCenterOfMass();
+            // Rb.ResetInertiaTensor();
             Rb.transform.SetPositionAndRotation(this.m_initPos, UnityEngine.Quaternion.Euler(this.m_initRot));
-            Rb.constraints = UnityEngine.RigidbodyConstraints.None;
-            Rb.drag = 0.0f;
-            Rb.angularDrag = 0.0f;
-            Rb.useGravity = false;
-            Rb.isKinematic = false;
-            Rb.interpolation = UnityEngine.RigidbodyInterpolation.Interpolate;
-            Rb.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
-            Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-            Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-            Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-            Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-            Rb.velocity = UnityEngine.Vector3.zero;
-            Rb.angularVelocity = UnityEngine.Vector3.zero;
+            // Rb.constraints = UnityEngine.RigidbodyConstraints.None;
+            // Rb.drag = 0.0f;
+            // Rb.angularDrag = 0.0f;
+            // Rb.useGravity = false;
+            // Rb.isKinematic = false;
+            // Rb.interpolation = UnityEngine.RigidbodyInterpolation.Interpolate;
+            // Rb.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
+            // Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+            // Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+            // Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+            // Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+            // Rb.velocity = UnityEngine.Vector3.zero;
+            // Rb.angularVelocity = UnityEngine.Vector3.zero;
                 
         } /* OnDisable() */
 

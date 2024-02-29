@@ -98,7 +98,7 @@ namespace Labsim.experiment.AIRWISE
                     apollon.frontend.ApollonFrontendManager.Instance.getBridge(
                         apollon.frontend.ApollonFrontendManager.FrontendIDType.MentalDemandSliderGUI
                     ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value 
-                        = args.JoystickHorizontal * 10.0f;
+                        = (args.JoystickHorizontal * 5.0f) + 5.0f;
                     
                 }; /* user interaction lambda */
 

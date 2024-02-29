@@ -46,9 +46,9 @@ public class OpticalFlowGridErrorDisplay : AbstractErrorDisplay
         m_materialPositiveDefault = GameObject.Find("Positive").GetComponent<Renderer>().materials[0];
         m_materialPositiveError = GameObject.Find("Positive").GetComponent<Renderer>().materials[1];
 
-        this.CurrValLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "CurrVal");
-        this.RefValLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "RefVal");
-        this.ErrorLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "Error");
+        this.CurrValLoggerIdx = Logger.Instance.GetEntry("CurrVal");
+        this.RefValLoggerIdx = Logger.Instance.GetEntry("RefVal");
+        this.ErrorLoggerIdx = Logger.Instance.GetEntry("Error");
     }
 
     public override void ComputeError()

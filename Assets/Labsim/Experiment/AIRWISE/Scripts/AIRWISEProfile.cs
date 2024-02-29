@@ -461,19 +461,24 @@ namespace Labsim.experiment.AIRWISE
             switch(this.CurrentSettings.Trial.control_type)
             {
 
-                case AIRWISESettings.ControlIDType.Familiarisation1:
-                case AIRWISESettings.ControlIDType.Familiarisation2:
-                case AIRWISESettings.ControlIDType.Familiarisation3:
-                case AIRWISESettings.ControlIDType.Familiarisation4:
-                case AIRWISESettings.ControlIDType.PositionControl:
-                case AIRWISESettings.ControlIDType.SpeedControl:
-                case AIRWISESettings.ControlIDType.AccelerationControl:
+                case AIRWISESettings.ControlIDType.TrainingIdealPositionControl:
+                case AIRWISESettings.ControlIDType.TrainingIdealVelocityControl:
+                case AIRWISESettings.ControlIDType.TrainingIdealAccelerationControl:
+                case AIRWISESettings.ControlIDType.TrainingRealisticPositionControl:
+                case AIRWISESettings.ControlIDType.TrainingRealisticVelocityControl:
+                case AIRWISESettings.ControlIDType.TrainingRealisticAccelerationControl:
+                case AIRWISESettings.ControlIDType.IdealPositionControl:
+                case AIRWISESettings.ControlIDType.IdealVelocityControl:
+                case AIRWISESettings.ControlIDType.IdealAccelerationControl:
+                case AIRWISESettings.ControlIDType.RealisticPositionControl:
+                case AIRWISESettings.ControlIDType.RealisticVelocityControl:
+                case AIRWISESettings.ControlIDType.RealisticAccelerationControl:
                 {
                 
                     // assign correct streaming asset path
                     Constants.streamingAssetsPath 
                         = System.IO.Path.Combine(
-                            Constants.streamingAssetsPath,
+                            Constants.defaultStreamingAssetsPath,
                             "AIRWISE/" 
                                 + apollon.ApollonEngine.GetEnumDescription(
                                     this.CurrentSettings.Trial.control_type
@@ -491,7 +496,10 @@ namespace Labsim.experiment.AIRWISE
                 
                     break;
 
-                } /* case Familiarisation, PositionControl, SpeedControl, AccelerationControl */
+                } /* case TrainingIdealPositionControl, TrainingIdealVelocityControl, TrainingIdealAccelerationControl, 
+                    TrainingRealisticPositionControl, TrainingRealisticVelocityControl, TrainingRealisticAccelerationControl, 
+                    IdealPositionControl, IdealVelocityControl, IdealAccelerationControl, 
+                    RealisticPositionControl, RealisticVelocityControl, RealisticAccelerationControl */
 
                 case AIRWISESettings.ControlIDType.Undefined:
                 default:
@@ -557,8 +565,9 @@ namespace Labsim.experiment.AIRWISE
                          () => {
 
                             // then check performance criteria
-                            return this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria;
-                            
+                            // return this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria;
+                            return true;
+
                         },
                         async () => { await this.SetState( new AIRWISEPhaseE(this) ); },
                         async () => { await this.SetState( new AIRWISEPhaseF(this) ); },
@@ -675,13 +684,18 @@ namespace Labsim.experiment.AIRWISE
             switch(this.CurrentSettings.Trial.control_type)
             {
 
-                case AIRWISESettings.ControlIDType.Familiarisation1:
-                case AIRWISESettings.ControlIDType.Familiarisation2:
-                case AIRWISESettings.ControlIDType.Familiarisation3:
-                case AIRWISESettings.ControlIDType.Familiarisation4:
-                case AIRWISESettings.ControlIDType.PositionControl:
-                case AIRWISESettings.ControlIDType.SpeedControl:
-                case AIRWISESettings.ControlIDType.AccelerationControl:
+                case AIRWISESettings.ControlIDType.TrainingIdealPositionControl:
+                case AIRWISESettings.ControlIDType.TrainingIdealVelocityControl:
+                case AIRWISESettings.ControlIDType.TrainingIdealAccelerationControl:
+                case AIRWISESettings.ControlIDType.TrainingRealisticPositionControl:
+                case AIRWISESettings.ControlIDType.TrainingRealisticVelocityControl:
+                case AIRWISESettings.ControlIDType.TrainingRealisticAccelerationControl:
+                case AIRWISESettings.ControlIDType.IdealPositionControl:
+                case AIRWISESettings.ControlIDType.IdealVelocityControl:
+                case AIRWISESettings.ControlIDType.IdealAccelerationControl:
+                case AIRWISESettings.ControlIDType.RealisticPositionControl:
+                case AIRWISESettings.ControlIDType.RealisticVelocityControl:
+                case AIRWISESettings.ControlIDType.RealisticAccelerationControl:
                 {
 
                     foreach(
@@ -735,7 +749,10 @@ namespace Labsim.experiment.AIRWISE
                    
                     break;
 
-                } /* case Familiarisation, PositionControl, SpeedControl, AccelerationControl */
+                } /* case TrainingIdealPositionControl, TrainingIdealVelocityControl, TrainingIdealAccelerationControl, 
+                    TrainingRealisticPositionControl, TrainingRealisticVelocityControl, TrainingRealisticAccelerationControl, 
+                    IdealPositionControl, IdealVelocityControl, IdealAccelerationControl, 
+                    RealisticPositionControl, RealisticVelocityControl, RealisticAccelerationControl */
 
                 case AIRWISESettings.ControlIDType.Undefined:
                 default:
@@ -759,6 +776,10 @@ namespace Labsim.experiment.AIRWISE
             {
                 this.CurrentResults.LogUXFResults();
             }
+
+            // dispose AIRWISE mng
+            Manager.Instance.Dispose();
+            Logger.Instance.Dispose();
             
             // re draft ? 
             this.SubjectHasFailed = this.CurrentResults.Trial.user_performance_value < this.CurrentSettings.Trial.performance_criteria;

@@ -59,10 +59,10 @@ public class AltitudeAttitudeMapping : AbstractMapping
         this.FilterTheta = filterFactory.Build(AltitudeAttitudeMappingConfig.filterTheta, rb);
         this.FilterPsi = filterFactory.Build(AltitudeAttitudeMappingConfig.filterPsi, rb);
 
-        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AltitudeDesired");
-        this.AttitudeDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredX");
-        this.AttitudeDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredY");
-        this.AttitudeDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredZ");
+        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry("AltitudeDesiredMeasured");
+        this.AttitudeDesiredXLoggerIdx = Logger.Instance.GetEntry("AttitudeDesiredMeasuredX");
+        this.AttitudeDesiredYLoggerIdx = Logger.Instance.GetEntry("AttitudeDesiredMeasuredY");
+        this.AttitudeDesiredZLoggerIdx = Logger.Instance.GetEntry("AttitudeDesiredMeasuredZ");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AltitudeDesiredKey, this.DefaultAltitudeDesired);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AttitudeDesiredKey, this.DefaultAttitudeDesired);
@@ -80,7 +80,7 @@ public class AltitudeAttitudeMapping : AbstractMapping
             attitudeDesired.y = BrunnerHandle.Instance.GetDDM();
             this.AttitudeDesired = attitudeDesired;
 
-            float altitudeDesired = this.AltitudeDesired + -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
+            float altitudeDesired = this.AltitudeDesired + -Parameters.JoystickToPositionAltitude * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
             this.AltitudeDesired = altitudeDesired;
             if (!this.ConnectedToBrunner)
             {

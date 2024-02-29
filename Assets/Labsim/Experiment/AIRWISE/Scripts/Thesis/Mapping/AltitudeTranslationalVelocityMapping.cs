@@ -75,11 +75,11 @@ public class AltitudeTranslationalVelocityMapping : AbstractMapping
         this.DefaultVelocityDesired = this.VelocityDesiredUnfiltered;
         this.DefaultYawDesired = this.YawDesiredUnfiltered;
 
-        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AltitudeDesired");
-        this.VelocityDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredX");
-        this.VelocityDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredY");
-        this.VelocityDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredZ");
-        this.YawDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "YawDesired");
+        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry("AltitudeDesiredMeasured");
+        this.VelocityDesiredXLoggerIdx = Logger.Instance.GetEntry("VelocityDesiredMeasuredX");
+        this.VelocityDesiredYLoggerIdx = Logger.Instance.GetEntry("VelocityDesiredMeasuredY");
+        this.VelocityDesiredZLoggerIdx = Logger.Instance.GetEntry("VelocityDesiredMeasuredZ");
+        this.YawDesiredLoggerIdx = Logger.Instance.GetEntry("YawDesiredMeasured");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.AltitudeDesiredKey, this.DefaultAltitudeDesired);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.VelocityDesiredKey, this.DefaultVelocityDesired);
@@ -101,10 +101,10 @@ public class AltitudeTranslationalVelocityMapping : AbstractMapping
             {
                 velocityBodyDesired.y = (BrunnerHandle.Instance.GetY() - Constants.epsilon) / 100.0f * Parameters.VMax;
             }
-            this.AltitudeDesiredUnfiltered += -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
+            this.AltitudeDesiredUnfiltered += -Parameters.JoystickToPositionAltitude * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
             Matrix4x4 R = AeroFrame.GetRotationMatrix(this.m_rb);
             this.VelocityDesiredUnfiltered = R * velocityBodyDesired;
-            this.YawDesiredUnfiltered += Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
+            this.YawDesiredUnfiltered += Parameters.JoystickToPositionYaw * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
 
             if (!this.ConnectedToBrunner)
             {

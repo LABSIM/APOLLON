@@ -412,7 +412,7 @@ namespace UXF
                 }
                 throw new KeyNotFoundException(
                     string.Format(
-                        "The key \"{0}\" was not found in the settings heirarchy. "
+                        "The key \"{0}\" was not found in the settings hierarchy. "
                          + "Use UXF Session Debugger (UXF menu at top of unity editor) "
                          + "to check your settings are being applied correctly.",
                          key

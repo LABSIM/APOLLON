@@ -68,10 +68,10 @@ public class X4Actuation : AbstractActuation
         this.filter2 = filterFactory.Build(config.filterThrust, rb);
         this.filter3 = filterFactory.Build(config.filterThrust, rb);
 
-        this.T0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "T0");
-        this.T1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "T1");
-        this.T2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "T2");
-        this.T3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "T3");
+        this.T0LoggerIdx = Logger.Instance.GetEntry("T0");
+        this.T1LoggerIdx = Logger.Instance.GetEntry("T1");
+        this.T2LoggerIdx = Logger.Instance.GetEntry("T2");
+        this.T3LoggerIdx = Logger.Instance.GetEntry("T3");
     }
 
     public override void ComputeActuation()

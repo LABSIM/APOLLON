@@ -115,7 +115,7 @@ public class BrunnerHandle : System.IDisposable
     }
     private void InternalDispose()
     {
-        if (BrunnerHandle.libLoaded & Application.isEditor)
+        if (BrunnerHandle.libLoaded && Application.isEditor)
         {
             return;
         }

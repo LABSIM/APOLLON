@@ -52,8 +52,8 @@ public class FajenHaptic : AbstractHaptic
 
         this.Initialize(manager.GetElapsedTime(), manager.GetElapsedTime() + config.tSolver, X0);
 
-        this.PositionXToSendLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionXToSend");
-        this.PositionYToSendLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionYToSend");
+        this.PositionXToSendLoggerIdx = Logger.Instance.GetEntry("PositionXToSend");
+        this.PositionYToSendLoggerIdx = Logger.Instance.GetEntry("PositionYToSend");
 
         //TODO: nettoyer pour ajouter les conditions propres à la loi haptique par Fajen
         //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.SecurityFactorKey, this.SecurityFactor);

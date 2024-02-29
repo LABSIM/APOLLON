@@ -28,11 +28,12 @@ public class DirectAltitudeDoubleIntegratorPositionDirectYaw : AbstractControl
 
     public DirectAltitudeDoubleIntegratorPositionDirectYaw(DirectAltitudeDoubleIntegratorPositionDirectYawConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig)
     {
-        rb.isKinematic = true;
-        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
-        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
-        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
-        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "OtherAxisDesired");
+        rb.useGravity = false;
+        rb.isKinematic = false;
+        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry("PositionDesiredX");
+        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry("PositionDesiredY");
+        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry("PositionDesiredZ");
+        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry("OtherAxisDesired");
     }
     public DirectAltitudeDoubleIntegratorPositionDirectYawConfig DirectAltitudeDoubleIntegratorPositionDirectYawConfig => this.AbstractControlConfig as DirectAltitudeDoubleIntegratorPositionDirectYawConfig;
 
@@ -84,8 +85,12 @@ public class DirectAltitudeDoubleIntegratorPositionDirectYaw : AbstractControl
     // Compute control based on fetched mapping values
     public override void Compute()
     {
+        // Vector3 positionRelative = new Vector3(this.PositionDesired.x, this.PositionDesired.y, 0.0f);
+        // AeroFrame.SetPosition(this.m_rb, AeroFrame.GetRotationMatrix(this.m_rb) * positionRelative);
+        // Vector3 altitudeRelative = new Vector3(0.0f, 0.0f, this.PositionDesired.z);
+        // AeroFrame.IncrementPosition(this.m_rb, AeroFrame.GetRotationMatrix(this.m_rb) * altitudeRelative);
+        AeroFrame.SetPosition(this.m_rb,this.PositionDesired);
         AeroFrame.SetAngles(this.m_rb, new Vector3(.0f, .0f, -this.OtherAxisDesired));
-        AeroFrame.SetPosition(this.m_rb, new Vector3(this.PositionDesired.x, this.PositionDesired.y, -50.0f));
         this.Order = new Vector4();
     }
 }

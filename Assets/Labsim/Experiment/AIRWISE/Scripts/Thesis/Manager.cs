@@ -73,58 +73,54 @@ public class Manager
 
     public void Dispose()
     {
-        // Flush remaining logger buffer
-        Logger.Instance.FlushBuffer();
-        Logger.Instance.FlushTrialConfigBuffer();
-        Logger.Instance.FlushTopLevelBuffer();
-        Logger.Instance.Dispose();
+        this.SetDisposeConditions();
     }
 
     #endregion 
     
 
-    public void Instantiate(QuadController mb, TimeSpan elapsed, DateTime timestamp, Rigidbody rb, Rotor[] rotors)
+    public void Instantiate(QuadController mb, TimeSpan elapsed)
     {
+        UnityEngine.Debug.Log(Constants.ConfigFilePath);
         // Initiate Controller variable
         this.QuadController = mb;
+        UnityEngine.Debug.Log("Manager.Instantiate()" + Manager.Instance.QuadController.Rb);
 
-        // Initiate config variable
-        this.Config = Utilities.Read<Config>(Constants.ConfigFilePath);
         this.m_currElapsed = elapsed;
         this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
-        this.m_tFinal = this.Config.tFinal;
-        this.m_nbTrials = this.Config.nbTrials;
-        this.m_arrivalRadius = this.Config.arrivalRadius;
         // First Initialization upon QuadController Awake
-        this.m_currTrial = -1;
+        this.m_currTrial = 0;
+    }
 
-        this.LoggerConfig = this.Config.LoggerConfig;
-        this.ForcingFunctionConfig = this.Config.ForcingFunctionConfig;
-        this.MappingConfig = this.Config.MappingConfig;
-        this.ControlConfig = this.Config.ControlConfig;
-        this.ActuationConfig = this.Config.ActuationConfig;
-        this.HapticConfig = this.Config.HapticConfig;
-        this.ErrorDisplayConfig = this.Config.ErrorDisplayConfig;
+    public void Initialize(Rigidbody rb, TimeSpan elapsed, DateTime timestamp, Rotor[] rotors)
+    {
+        UnityEngine.Debug.Log("Manager.Initialize()" + rb);
+        // Initialize inner members
+        this.m_currElapsed = elapsed;
+        this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
+        this.m_currTrial += 1;
+        UnityEngine.Debug.Log("manager.Initialize()" + Manager.Instance.GetCurrTrial());
 
-        // Initiate factories
-        this.ForcingFunctionFactory = new ForcingFunctionFactory();
-        this.MappingFactory = new MappingFactory();
-        this.FilterFactory = new FilterFactory();
-        this.ControlFactory = new ControlFactory();
-        this.ActuationFactory = new ActuationFactory();
-        this.HapticFactory = new HapticFactory();
-        this.ErrorDisplayFactory = new ErrorDisplayFactory();
+        // Build manager
+        this.Build(timestamp, rb, rotors);
 
-        Logger.Instance.Instantiate();
+        // Set initial conditions
+        this.SetInitialConditions();
+            Debug.Log(
+                "<color=blue>Info: </color> " + this.GetType() + ".Initialize(): Entering block " + this.m_currTrial.ToString("#") + "."
+            );
+        if (this.DuringTrial()) {
+        }
+
+        // Initialize logger
+        Logger.Instance.Initialize();
     }
 
     private void Build(DateTime timestamp, Rigidbody rb, Rotor[] rotors) 
     {
+        UnityEngine.Debug.Log("Manager.Build()" + rb);
 
-        // Define Logger currTrial static member from Manager value
-        if (this.m_currTrial >= 0) {
-            Logger.currTrial = this.m_currTrial;
-        }
+        this.BuildConfig();
 
         // Initiate logger
         Logger.Instance.Configure(this.LoggerConfig, timestamp, this.m_currElapsed, rb);
@@ -150,39 +146,58 @@ public class Manager
         // Define error display
         this.ErrorDisplay = this.ErrorDisplayFactory.Build(this.ErrorDisplayConfig, this.ForcingFunction, rb);
 
-        // Log instantiated configuration
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.DtKey, Time.fixedDeltaTime);
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ForcingFunctionKey, this.ForcingFunction.GetType());
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.MappingKey, this.Mapping.GetType());
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ControlKey, this.Control.GetType());
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ActuationKey, this.Actuation.GetType());
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.HapticKey, this.Haptic.GetType());
-        Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ErrorDisplayKey, this.ErrorDisplay.GetType());
+        // Log built configuration
+        Logger.Instance.BuildConfig(
+            this.ForcingFunction.GetType(),
+            this.Mapping.GetType(),
+            this.Control.GetType(),
+            this.Actuation.GetType(),
+            this.Haptic.GetType(),
+            this.ErrorDisplay.GetType()
+        );
     }
 
-    public void Initialize(Rigidbody rb, TimeSpan elapsed, DateTime timestamp, Rotor[] rotors)
-    {
-        this.m_currElapsed = elapsed;
-        this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
-        this.m_currTrial += 1;
-        this.Build(timestamp, rb, rotors);
-        this.SetInitialConditions(rb);
-        if (this.DuringTrial()) {
-            Debug.Log(
-                "<color=blue>Info: </color> " + this.GetType() + ".Initialize(): Entering block " + (this.m_currTrial + 1).ToString("#") + "."
-            );
-        }
-        Logger.Instance.Instantiate();
+    public void BuildConfig()
+    {        
+        // Initiate config variable
+        this.Config = Utilities.Read<Config>(Constants.ConfigFilePath);
+        
+        this.m_tFinal = this.Config.tFinal;
+        this.m_nbTrials = this.Config.nbTrials;
+        this.m_arrivalRadius = this.Config.arrivalRadius;
+
+        this.LoggerConfig = this.Config.LoggerConfig;
+        this.ForcingFunctionConfig = this.Config.ForcingFunctionConfig;
+        this.MappingConfig = this.Config.MappingConfig;
+        this.ControlConfig = this.Config.ControlConfig;
+        this.ActuationConfig = this.Config.ActuationConfig;
+        this.HapticConfig = this.Config.HapticConfig;
+        this.ErrorDisplayConfig = this.Config.ErrorDisplayConfig;
+
+        // Initiate factories
+        this.ForcingFunctionFactory = new ForcingFunctionFactory();
+        this.MappingFactory = new MappingFactory();
+        this.FilterFactory = new FilterFactory();
+        this.ControlFactory = new ControlFactory();
+        this.ActuationFactory = new ActuationFactory();
+        this.HapticFactory = new HapticFactory();
+        this.ErrorDisplayFactory = new ErrorDisplayFactory();
     }
 
-    public void Reset(Rigidbody rb, DateTime timestamp)
+    public void Reset()
     {
+        UnityEngine.Debug.Log("Manager.Reset()");
+        // Reset logger
         Logger.Instance.Reset();
-        this.SetResetConditions(rb);
+
+        // Reset conditions
+        this.SetResetConditions();
+
+        // Leave manager inner members left for GC to clean
     }
 
     // Define initial conditions
-    private void SetInitialConditions(Rigidbody rb)
+    private void SetInitialConditions()
     {
         // this.InitialConditions.SetInitialConditions(rb);
         this.Haptic.SetHapticInitialConditions();
@@ -190,10 +205,18 @@ public class Manager
     }
 
     // Define reset conditions
-    private void SetResetConditions(Rigidbody rb)
+    private void SetResetConditions()
     {
         // this.InitialConditions.SetResetConditions(rb);
+        // N.B.: Haptic reset conditions = initial conditions as session loops over trials
         this.Haptic.SetHapticInitialConditions();
+        Logger.Instance.Flush();
+    }
+
+    // Define dispose conditions
+    private void SetDisposeConditions()
+    {
+        this.Haptic.SetHapticDisposeConditions();
     }
 
     // Compute routine: return false to stop, true to continue
@@ -257,13 +280,13 @@ public class Manager
     public bool EndTrialOnFinalTimeCondition() { return this.m_tElapsed - Time.fixedDeltaTime >= this.m_tFinal; }
     public bool EndTrialOnButtonCondition() { BrunnerHandle.Instance.ExecuteOneStep(); return BrunnerHandle.Instance.GetButton2(); }
     public bool EndTrialOnTaskEndCondition() { return this.GetDistanceToArrival() <= this.m_arrivalRadius; }
-    public float GetDistanceToArrival() { return Utilities.Distance(AeroFrame.ProjectOnHorizontalplane(AeroFrame.GetPosition(this.QuadController.ArrivalRb)), AeroFrame.ProjectOnHorizontalplane(AeroFrame.GetPosition(this.QuadController.Rb))); }
-    public float GetCurrTrial() { return this.m_currTrial; }
-    public void SetCurrTrial(int currTrial) { this.m_currTrial = currTrial; }
+    public float GetDistanceToArrival() { return float.PositiveInfinity; /*Utilities.Distance(AeroFrame.ProjectOnHorizontalplane(AeroFrame.GetPosition(this.QuadController.ArrivalRb)), AeroFrame.ProjectOnHorizontalplane(AeroFrame.GetPosition(this.QuadController.Rb)))*/; }
+    public int GetCurrTrial() { return this.m_currTrial; }
+    // public void SetCurrTrial(int currTrial) { this.m_currTrial = currTrial; }
     public float GetElapsedTime() { return this.m_tElapsed; }
     public float GetCorrectedElapsedTime() { return this.m_tElapsed - Time.fixedDeltaTime; }
     public void SetElapsedTime(float tElapsed) { this.m_tElapsed = tElapsed; }
-    public bool DuringTrial() { return (this.m_currTrial >= 0 && this.m_currTrial < this.m_nbTrials); }
+    public bool DuringTrial() { return (this.m_currTrial >= 0 /*&& this.m_currTrial < this.m_nbTrials*/); }
 }
 
 

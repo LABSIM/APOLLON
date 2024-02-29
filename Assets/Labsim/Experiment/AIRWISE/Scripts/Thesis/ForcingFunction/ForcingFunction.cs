@@ -114,7 +114,7 @@ public abstract class AbstractForcingFunction
     {
         this.AbstractForcingFunctionConfig = abstractForcingFunctionConfig;
         this.t_final = t_final;
-        this.ValLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "Val");
+        this.ValLoggerIdx = Logger.Instance.GetEntry("Val");
     }
 
     // Declare abstract methods to be implemented in child classes

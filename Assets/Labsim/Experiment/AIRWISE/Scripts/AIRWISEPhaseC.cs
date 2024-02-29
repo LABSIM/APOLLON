@@ -109,6 +109,10 @@ namespace Labsim.experiment.AIRWISE
             // unbind from checkpoint manager events
             checkpoint_manager.slalomEnded -= sync_slalom_ended_local_function;
 
+            // inhibit
+            airwise_entity.ConcreteDispatcher.RaiseHold();
+            airwise_quad_controller.Inhibit = true;
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : ending slalom task, saving performance results["

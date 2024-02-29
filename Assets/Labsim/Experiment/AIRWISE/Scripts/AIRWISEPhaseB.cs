@@ -247,7 +247,8 @@ namespace Labsim.experiment.AIRWISE
                 }; /* parrallel tasks */
             
             // wait for sync point + end of phase timer
-            await System.Threading.Tasks.Task.WhenAll(parallel_tasks);    
+            result = await sync_point.Task;
+            // await System.Threading.Tasks.Task.WhenAll(parallel_tasks);    
 
             // cancel running task
             parallel_tasks_ct_src.Cancel();

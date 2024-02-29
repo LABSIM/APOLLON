@@ -684,6 +684,28 @@
                     "action": "JoystickVerticalValueChanged",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ede0a400-84ce-405f-8683-a429116f149b",
+                    "path": "<HID::Thrustmaster Throttle - HOTAS Warthog>/z",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "JoystickHorizontalValueChanged",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a9fb337-bc45-4f48-aa1a-f8cd8006fd1e",
+                    "path": "<HID::Thrustmaster Throttle - HOTAS Warthog>/z",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "JoystickVerticalValueChanged",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

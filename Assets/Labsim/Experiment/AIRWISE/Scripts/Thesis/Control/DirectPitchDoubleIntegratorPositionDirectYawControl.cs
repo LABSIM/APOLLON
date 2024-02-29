@@ -28,11 +28,12 @@ public class DirectPitchDoubleIntegratorPositionDirectYaw : AbstractControl
 
     public DirectPitchDoubleIntegratorPositionDirectYaw(DirectPitchDoubleIntegratorPositionDirectYawConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig)
     {
-        rb.isKinematic = true;
-        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
-        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
-        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
-        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "OtherAxisDesired");
+        rb.useGravity = false;
+        rb.isKinematic = false;
+        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry("PositionDesiredX");
+        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry("PositionDesiredY");
+        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry("PositionDesiredZ");
+        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry("OtherAxisDesired");
     }
     public DirectPitchDoubleIntegratorPositionDirectYawConfig DirectPitchDoubleIntegratorPositionDirectYawConfig => this.AbstractControlConfig as DirectPitchDoubleIntegratorPositionDirectYawConfig;
 

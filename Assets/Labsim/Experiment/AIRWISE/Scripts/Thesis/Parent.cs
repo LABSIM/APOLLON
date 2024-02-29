@@ -4,6 +4,7 @@ using UnityEngine;
 public static class Constants
 {
     // General config file path
+    public static string defaultStreamingAssetsPath = @"Assets/StreamingAssets/";
     public static string streamingAssetsPath = @"Assets/StreamingAssets/";
     public const string ConfigFile = @"ConfigFile.json";
 
@@ -111,9 +112,15 @@ public static class Constants
 public static class Parameters
 {
     public const float DistMax = 1000.0f;
-    public const float VMax = 100.0f;
+    public const float PosIncrMax = 5.0f;
+    public const float VMax = 130.0f / 3.6f;
 
-    public const float JoystickToPosition = 0.2f;
+    public const float JoystickToPositionX = 1 / 2.0f;
+    public const float JoystickToPositionY = 1 / 2.0f;
+    public const float JoystickToPositionZ = 0.05f;
+    public const float JoystickToPositionAltitude = 0.05f;
+    public const float JoystickToPositionOtherAxis = 0.5f;
+    public const float JoystickToPositionYaw = 0.5f;
 }
 
 // Define Utilities static methods

@@ -34,12 +34,14 @@ public class AltitudeAttitudeYawControl : AbstractControl
     private int AltitudeDesiredLoggerIdx, 
         AttitudeDesiredXLoggerIdx, AttitudeDesiredYLoggerIdx, AttitudeDesiredZLoggerIdx;
 
-    public AltitudeAttitudeYawControl(AltitudeAttitudeYawControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) { 
-
-        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AltitudeDesired");
-        this.AttitudeDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredX");
-        this.AttitudeDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredY");
-        this.AttitudeDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AttitudeDesiredZ");
+    public AltitudeAttitudeYawControl(AltitudeAttitudeYawControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) 
+    { 
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry("AltitudeDesired");
+        this.AttitudeDesiredXLoggerIdx = Logger.Instance.GetEntry("AttitudeDesiredX");
+        this.AttitudeDesiredYLoggerIdx = Logger.Instance.GetEntry("AttitudeDesiredY");
+        this.AttitudeDesiredZLoggerIdx = Logger.Instance.GetEntry("AttitudeDesiredZ");
     }
     public AltitudeAttitudeYawControlConfig AltitudeAttitudeYawControlConfig => this.AbstractControlConfig as AltitudeAttitudeYawControlConfig;
 

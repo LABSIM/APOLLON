@@ -28,11 +28,14 @@ public class OpenLoopControl : AbstractControl
     // Logger members
     private int PositionDesiredXLoggerIdx, PositionDesiredYLoggerIdx, PositionDesiredZLoggerIdx, YawDesiredLoggerIdx;
 
-    public OpenLoopControl(OpenLoopControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) { 
-        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
-        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
-        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
-        this.YawDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "YawDesired");
+    public OpenLoopControl(OpenLoopControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) 
+    { 
+        rb.useGravity = false;
+        rb.isKinematic = false;
+        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry("PositionDesiredX");
+        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry("PositionDesiredY");
+        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry("PositionDesiredZ");
+        this.YawDesiredLoggerIdx = Logger.Instance.GetEntry("YawDesired");
     }
     public OpenLoopControlConfig OpenLoopControlConfig => this.AbstractControlConfig as OpenLoopControlConfig;
 

@@ -150,64 +150,64 @@ public abstract class AbstractHaptic
         this.profileX = this.profileLongi;
         this.profileY = this.profileLat;
 
-        this.MeasuredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredX");
-        this.MeasuredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredY");
+        this.MeasuredXLoggerIdx = Logger.Instance.GetEntry("MeasuredXS");
+        this.MeasuredYLoggerIdx = Logger.Instance.GetEntry("MeasuredYS");
 
-        this.MeasuredForceXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredForceX");
-        this.MeasuredForceYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "MeasuredForceY");
+        this.MeasuredForceXLoggerIdx = Logger.Instance.GetEntry("MeasuredForceX");
+        this.MeasuredForceYLoggerIdx = Logger.Instance.GetEntry("MeasuredForceY");
 
-        this.ForceXToSendLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceXToSendLoggerIdx");
-        this.ForceYToSendLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceYToSendLoggerIdx");
+        this.ForceXToSendLoggerIdx = Logger.Instance.GetEntry("ForceXToSendLoggerIdx");
+        this.ForceYToSendLoggerIdx = Logger.Instance.GetEntry("ForceYToSendLoggerIdx");
 
-        this.ForceProfileLat0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat0");
-        this.ForceProfileLat1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat1");
-        this.ForceProfileLat2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat2");
-        this.ForceProfileLat3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat3");
-        this.ForceProfileLat4LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat4");
-        this.ForceProfileLat5LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat5");
-        this.ForceProfileLat6LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat6");
-        this.ForceProfileLat7LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat7");
-        this.ForceProfileLat8LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLat8");
+        this.ForceProfileLat0LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat0");
+        this.ForceProfileLat1LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat1");
+        this.ForceProfileLat2LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat2");
+        this.ForceProfileLat3LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat3");
+        this.ForceProfileLat4LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat4");
+        this.ForceProfileLat5LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat5");
+        this.ForceProfileLat6LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat6");
+        this.ForceProfileLat7LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat7");
+        this.ForceProfileLat8LoggerIdx = Logger.Instance.GetEntry("ForceProfileLat8");
 
-        this.ForceProfileLongi0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi0");
-        this.ForceProfileLongi1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi1");
-        this.ForceProfileLongi2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi2");
-        this.ForceProfileLongi3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi3");
-        this.ForceProfileLongi4LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi4");
-        this.ForceProfileLongi5LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi5");
-        this.ForceProfileLongi6LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi6");
-        this.ForceProfileLongi7LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi7");
-        this.ForceProfileLongi8LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileLongi8");
+        this.ForceProfileLongi0LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi0");
+        this.ForceProfileLongi1LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi1");
+        this.ForceProfileLongi2LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi2");
+        this.ForceProfileLongi3LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi3");
+        this.ForceProfileLongi4LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi4");
+        this.ForceProfileLongi5LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi5");
+        this.ForceProfileLongi6LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi6");
+        this.ForceProfileLongi7LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi7");
+        this.ForceProfileLongi8LoggerIdx = Logger.Instance.GetEntry("ForceProfileLongi8");
         
-        this.ForceProfileX0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX0");
-        this.ForceProfileX1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX1");
-        this.ForceProfileX2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX2");
-        this.ForceProfileX3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX3");
-        this.ForceProfileX4LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX4");
-        this.ForceProfileX5LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX5");
-        this.ForceProfileX6LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX6");
-        this.ForceProfileX7LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX7");
-        this.ForceProfileX8LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileX8");
+        this.ForceProfileX0LoggerIdx = Logger.Instance.GetEntry("ForceProfileX0");
+        this.ForceProfileX1LoggerIdx = Logger.Instance.GetEntry("ForceProfileX1");
+        this.ForceProfileX2LoggerIdx = Logger.Instance.GetEntry("ForceProfileX2");
+        this.ForceProfileX3LoggerIdx = Logger.Instance.GetEntry("ForceProfileX3");
+        this.ForceProfileX4LoggerIdx = Logger.Instance.GetEntry("ForceProfileX4");
+        this.ForceProfileX5LoggerIdx = Logger.Instance.GetEntry("ForceProfileX5");
+        this.ForceProfileX6LoggerIdx = Logger.Instance.GetEntry("ForceProfileX6");
+        this.ForceProfileX7LoggerIdx = Logger.Instance.GetEntry("ForceProfileX7");
+        this.ForceProfileX8LoggerIdx = Logger.Instance.GetEntry("ForceProfileX8");
         
-        this.ForceProfileY0LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY0");
-        this.ForceProfileY1LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY1");
-        this.ForceProfileY2LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY2");
-        this.ForceProfileY3LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY3");
-        this.ForceProfileY4LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY4");
-        this.ForceProfileY5LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY5");
-        this.ForceProfileY6LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY6");
-        this.ForceProfileY7LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY7");
-        this.ForceProfileY8LoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceProfileY8");
+        this.ForceProfileY0LoggerIdx = Logger.Instance.GetEntry("ForceProfileY0");
+        this.ForceProfileY1LoggerIdx = Logger.Instance.GetEntry("ForceProfileY1");
+        this.ForceProfileY2LoggerIdx = Logger.Instance.GetEntry("ForceProfileY2");
+        this.ForceProfileY3LoggerIdx = Logger.Instance.GetEntry("ForceProfileY3");
+        this.ForceProfileY4LoggerIdx = Logger.Instance.GetEntry("ForceProfileY4");
+        this.ForceProfileY5LoggerIdx = Logger.Instance.GetEntry("ForceProfileY5");
+        this.ForceProfileY6LoggerIdx = Logger.Instance.GetEntry("ForceProfileY6");
+        this.ForceProfileY7LoggerIdx = Logger.Instance.GetEntry("ForceProfileY7");
+        this.ForceProfileY8LoggerIdx = Logger.Instance.GetEntry("ForceProfileY8");
     }
 
-    // Set default trim position
+    // Set initial trim position
     private void SetInitialTrimPosition(){
         BrunnerHandle.Instance.WriteTrimPositionXY(this.TrimX, this.TrimY);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.TrimX0Key, this.TrimX);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.TrimY0Key, this.TrimY);
     }
 
-    // Set default force profile
+    // Set initial force profile
     private void SetInitialForceProfile(){
         BrunnerHandle.Instance.WriteForceProfile(
             this.profileLat[0], 
@@ -252,6 +252,42 @@ public abstract class AbstractHaptic
     public void SetHapticInitialConditions(){
         this.SetInitialTrimPosition();
         this.SetInitialForceProfile();
+    }
+
+    // Set reset trim position
+    private void SetResetTrimPosition(){
+        BrunnerHandle.Instance.WriteTrimPositionXY(0.0f, 0.0f);
+    }
+
+    // Set reset force profile
+    private void SetResetForceProfile(){
+        BrunnerHandle.Instance.WriteForceProfile(
+            20, 200, 400, 600, 800, 1000, 1200, 1400, 1600,
+            20, 200, 400, 600, 800, 1000, 1200, 1400, 1600);
+    }
+
+    // Set haptic reset conditions
+    public void SetHapticResetConditions(){
+        this.SetResetTrimPosition();
+        this.SetResetForceProfile();
+    }
+
+    // Set dispose trim position
+    private void SetDisposeTrimPosition(){
+        BrunnerHandle.Instance.WriteTrimPositionXY(0.0f, 0.0f);
+    }
+
+    // Set reset dispose profile
+    private void SetDisposeForceProfile(){
+        BrunnerHandle.Instance.WriteForceProfile(
+            20, 200, 400, 600, 800, 1000, 1200, 1400, 1600,
+            20, 200, 400, 600, 800, 1000, 1200, 1400, 1600);
+    }
+
+    // Set haptic dispose conditions
+    public void SetHapticDisposeConditions(){
+        this.SetDisposeTrimPosition();
+        this.SetDisposeForceProfile();
     }
 
     // Declare abstract methods to be implemented in child classes

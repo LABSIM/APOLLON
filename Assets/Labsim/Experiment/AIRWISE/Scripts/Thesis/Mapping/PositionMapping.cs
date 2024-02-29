@@ -49,7 +49,11 @@ public class PositionMapping : AbstractMapping
     public PositionMapping(AbstractMappingConfig abstractMappingConfig, FilterFactory filterFactory, Rigidbody rb) : base(rb)
     {
         this.AbstractMappingConfig = abstractMappingConfig;
-        this.PositionDesired = new Vector3(PositionMappingConfig.DefaultDesiredX, PositionMappingConfig.DefaultDesiredY, PositionMappingConfig.DefaultDesiredZ);
+        if (BrunnerHandle.Instance.GetReturnBrunner()) {
+            this.PositionDesired = AeroFrame.GetPosition(rb);
+        } else {
+            this.PositionDesired = new Vector3(PositionMappingConfig.DefaultDesiredX, PositionMappingConfig.DefaultDesiredY, PositionMappingConfig.DefaultDesiredZ);
+        }
         this.OtherAxisDesired = PositionMappingConfig.DefaultDesiredOtherAxis;
         this.DefaultPositionDesired = this.PositionDesired;
         this.DefaultOtherAxisDesired = this.OtherAxisDesired;
@@ -57,10 +61,10 @@ public class PositionMapping : AbstractMapping
         this.FilterY = filterFactory.Build(PositionMappingConfig.filterY, rb);
         this.FilterZ = filterFactory.Build(PositionMappingConfig.filterZ, rb);
         
-        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
-        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
-        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
-        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "OtherAxisDesired");
+        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredX");
+        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredY");
+        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredZ");
+        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry("OtherAxisDesiredMeasured");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.PositionDesiredKey, this.DefaultPositionDesired);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.OtherAxisDesiredKey, this.DefaultOtherAxisDesired);
@@ -73,14 +77,18 @@ public class PositionMapping : AbstractMapping
         // Define desired position + attitude
         if (BrunnerHandle.Instance.GetReturnBrunner())
         {
-            Vector3 positionDesired = new Vector3
+            Vector3 positionDesired = new Vector3();
+            if (Math.Abs(BrunnerHandle.Instance.GetX()) > Constants.epsilon)
             {
-                x = BrunnerHandle.Instance.GetX(),
-                y = BrunnerHandle.Instance.GetY()
-            };
-            positionDesired.z = -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
+                positionDesired.x = (BrunnerHandle.Instance.GetX() - Constants.epsilon) / 100.0f * Parameters.PosIncrMax;
+            }
+            if (Math.Abs(BrunnerHandle.Instance.GetY()) > Constants.epsilon)
+            {
+                positionDesired.y = (BrunnerHandle.Instance.GetY() - Constants.epsilon) / 100.0f * Parameters.PosIncrMax;
+            }
+            positionDesired.z = -Parameters.JoystickToPositionZ * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
             this.PositionDesired = positionDesired;
-            this.OtherAxisDesired += -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
+            this.OtherAxisDesired += -Parameters.JoystickToPositionOtherAxis * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
             Logger.Instance.AddEntry(this.PositionDesiredXLoggerIdx, this.PositionDesired.x);
             Logger.Instance.AddEntry(this.PositionDesiredYLoggerIdx, this.PositionDesired.y);
             Logger.Instance.AddEntry(this.PositionDesiredZLoggerIdx, this.PositionDesired.z);

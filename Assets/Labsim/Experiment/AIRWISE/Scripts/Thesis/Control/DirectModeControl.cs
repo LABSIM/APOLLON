@@ -29,11 +29,14 @@ public class DirectModeControl : AbstractControl
     private int ForceDesiredLoggerIdx, 
         TorqueDesiredXLoggerIdx, TorqueDesiredYLoggerIdx, TorqueDesiredZLoggerIdx;
 
-    public DirectModeControl(DirectModeControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config) { 
-        this.ForceDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "ForceDesired");
-        this.TorqueDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TorqueDesiredX");
-        this.TorqueDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TorqueDesiredY");
-        this.TorqueDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "TorqueDesiredZ");
+    public DirectModeControl(DirectModeControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config) 
+    { 
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        this.ForceDesiredLoggerIdx = Logger.Instance.GetEntry("ForceDesired");
+        this.TorqueDesiredXLoggerIdx = Logger.Instance.GetEntry("TorqueDesiredX");
+        this.TorqueDesiredYLoggerIdx = Logger.Instance.GetEntry("TorqueDesiredY");
+        this.TorqueDesiredZLoggerIdx = Logger.Instance.GetEntry("TorqueDesiredZ");
     }
     public DirectModeControlConfig DirectModeControlConfig => this.AbstractControlConfig as DirectModeControlConfig;
 

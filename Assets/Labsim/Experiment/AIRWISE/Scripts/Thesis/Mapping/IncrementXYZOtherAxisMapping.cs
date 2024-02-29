@@ -49,7 +49,12 @@ public class IncrementXYZOtherAxisMapping : AbstractMapping
     public IncrementXYZOtherAxisMapping(AbstractMappingConfig abstractMappingConfig, FilterFactory filterFactory, Rigidbody rb) : base(rb)
     {
         this.AbstractMappingConfig = abstractMappingConfig;
-        this.PositionDesired = new Vector3(IncrementXYZOtherAxisMappingConfig.DefaultDesiredX, IncrementXYZOtherAxisMappingConfig.DefaultDesiredY, IncrementXYZOtherAxisMappingConfig.DefaultDesiredZ);
+        if (BrunnerHandle.Instance.GetReturnBrunner()) {
+            this.PositionDesired = AeroFrame.GetPosition(rb);
+            UnityEngine.Debug.Log("IncrementXYZOtherAxisMapping: PositionDesired from aeroframe position"+ this.PositionDesired);
+        } else {
+            this.PositionDesired = new Vector3(IncrementXYZOtherAxisMappingConfig.DefaultDesiredX, IncrementXYZOtherAxisMappingConfig.DefaultDesiredY, IncrementXYZOtherAxisMappingConfig.DefaultDesiredZ);
+        }
         this.OtherAxisDesired = IncrementXYZOtherAxisMappingConfig.DefaultDesiredOtherAxis;
         this.DefaultPositionDesired = this.PositionDesired;
         this.DefaultOtherAxisDesired = this.OtherAxisDesired;
@@ -57,10 +62,10 @@ public class IncrementXYZOtherAxisMapping : AbstractMapping
         this.FilterY = filterFactory.Build(IncrementXYZOtherAxisMappingConfig.filterY, rb);
         this.FilterZ = filterFactory.Build(IncrementXYZOtherAxisMappingConfig.filterZ, rb);
         
-        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredX");
-        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredY");
-        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "PositionDesiredZ");
-        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "OtherAxisDesired");
+        this.PositionDesiredXLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredX");
+        this.PositionDesiredYLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredY");
+        this.PositionDesiredZLoggerIdx = Logger.Instance.GetEntry("PositionDesiredMeasuredZ");
+        this.OtherAxisDesiredLoggerIdx = Logger.Instance.GetEntry("OtherAxisDesiredMeasured");
 
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.PositionDesiredKey, this.DefaultPositionDesired);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.DefaultValuesKey, Logger.Utilities.OtherAxisDesiredKey, new System.Collections.Generic.List<string> { this.DefaultOtherAxisDesired.ToString() });
@@ -77,9 +82,9 @@ public class IncrementXYZOtherAxisMapping : AbstractMapping
                 x = this.PositionDesired.x + BrunnerHandle.Instance.GetX() / 100.0f,
                 y = this.PositionDesired.y + BrunnerHandle.Instance.GetY() / 100.0f
             };
-            positionDesired.z = this.PositionDesired.z -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
+            positionDesired.z = this.PositionDesired.z -Parameters.JoystickToPositionZ * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
             this.PositionDesired = positionDesired;
-            this.OtherAxisDesired += -Parameters.JoystickToPosition * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
+            this.OtherAxisDesired += -Parameters.JoystickToPositionOtherAxis * (Convert.ToSingle(BrunnerHandle.Instance.GetHatRight()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatLeft()));
             Logger.Instance.AddEntry(this.PositionDesiredXLoggerIdx, this.PositionDesired.x);
             Logger.Instance.AddEntry(this.PositionDesiredYLoggerIdx, this.PositionDesired.y);
             Logger.Instance.AddEntry(this.PositionDesiredZLoggerIdx, this.PositionDesired.z);

@@ -35,12 +35,11 @@ public class QuadController : MonoBehaviour
 
     private void Awake()
     {
+        UnityEngine.Debug.Log("QuadController.Awake()");
         this.Instantiate();
     }
     private void Start() { 
-        Logger.Instance.FlushTopLevelBuffer();
-    }
-
+        UnityEngine.Debug.Log("QuadController.Start()");}
 
     private void FixedUpdate()
     {
@@ -60,12 +59,6 @@ public class QuadController : MonoBehaviour
 
     }
 
-    // private void RestartChronoAfterPause(UnityEditor.PauseState state){
-    //     if (state == UnityEditor.PauseState.Unpaused) {
-    //         this._chrono.Restart();
-    //     }
-    // }
-
     // TODO: FlushBuffer in LateUpdate to avoid flooding writing routine
     private void LateUpdate() { }
 
@@ -78,12 +71,14 @@ public class QuadController : MonoBehaviour
 
     private void OnEnable()
     {
+        UnityEngine.Debug.Log("QuadController.OnEnable()" + this.m_rb);
         // Initialize simulation state
         this.Initialize();
     }
 
     private void OnDisable()
     {
+        UnityEngine.Debug.Log("QuadController.OnDisable()");
         // Reset simulation state (in preparation for new block)
         this.Reset();
     }
@@ -153,6 +148,50 @@ public class QuadController : MonoBehaviour
             } 
             catch (InvalidCastException) { }
         }
+        //MODIF_QUENTIN_19/02
+         else if (Manager.Instance.Mapping.GetType() == typeof(IncrementXYZOtherAxisMapping)
+            && ((Manager.Instance.Control.GetType() == typeof(DirectAltitudeDoubleIntegratorPositionDirectYaw))))
+            { try {
+                    GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired position increment: " + ((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.y);
+                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current position: " + AeroFrame.GetRelativeVelocity(this.m_rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.m_rb)[1]);
+
+                    GUI.Label(new Rect(0, 5 * d + 2 * dSpace, dWidth, d), "Desired heading: " + -((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).OtherAxisDesired);
+                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+
+                    
+                    GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude rate increment: " + ((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.z);
+                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                    
+                    
+                    GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
+            } 
+            catch (InvalidCastException) { }
+        }
+        
+        else if(Manager.Instance.Mapping.GetType() == typeof(PositionMapping) 
+        && ((Manager.Instance.Control.GetType() == typeof(PositionYawControl))))
+        {
+            try{
+                    GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired translational velocity: " + ((PositionMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((PositionMapping)Manager.Instance.Mapping).PositionDesired.y);
+                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.m_rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.m_rb)[1]);
+
+                    GUI.Label(new Rect(0, 5 * d + 2 * dSpace, dWidth, d), "Desired heading: " + -((PositionMapping)Manager.Instance.Mapping).OtherAxisDesired);
+                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+
+                    
+                    GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude rate increment: " + -((PositionMapping)Manager.Instance.Mapping).PositionDesired.z);
+                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                    
+                    
+                    GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
+
+            }
+            catch (InvalidCastException) { }
+        }
+
+
+//FIN MODIF
+
         else if (Manager.Instance.Mapping.GetType() == typeof(AltitudeTranslationalVelocityMapping))
         {
             try {
@@ -176,16 +215,37 @@ public class QuadController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        BrunnerHandle.Instance.Dispose();
-        Logger.Instance.Dispose();
+        // BrunnerHandle.Instance.Dispose();
+        // Logger.Instance.Dispose();
     }
 
     // Home-made methods
 
     private void Instantiate() 
     {
+        UnityEngine.Debug.Log("QuadController.Instantiate()");
         // Instantiate mechanical control elements
 
+        this.m_rb = this.gameObject.GetComponent<Rigidbody>();
+        this.HitPts = new Vector3[_nbRaycast] { new Vector3(), new Vector3(), new Vector3(), new Vector3() };
+        this._distances = new float[_nbRaycast] { Parameters.DistMax, Parameters.DistMax, Parameters.DistMax, Parameters.DistMax };
+        this.Rotors = this.transform.parent.GetComponentsInChildren<Rotor>();
+
+        // Reset chrono
+        this._chrono.Reset();
+        this._chrono.Restart();
+        
+        // Build manager
+        Manager.Instance.Instantiate(this, this._chrono.Elapsed);
+    }
+
+    private void Initialize() 
+    {
+        UnityEngine.Debug.Log("QuadController.Initialize()" + this.m_rb);
+        // Reset chrono
+        this._chrono.Reset();
+        this._chrono.Restart();
+        
         // find all loaded tags gate
         foreach(var obj in UnityEngine.GameObject.FindGameObjectsWithTag("AIRWISETag_Arrival"))
         {
@@ -204,36 +264,18 @@ public class QuadController : MonoBehaviour
 
         }/* foreach() */
 
-        this.m_rb = this.gameObject.GetComponent<Rigidbody>();
-        this.HitPts = new Vector3[_nbRaycast] { new Vector3(), new Vector3(), new Vector3(), new Vector3() };
-        this._distances = new float[_nbRaycast] { Parameters.DistMax, Parameters.DistMax, Parameters.DistMax, Parameters.DistMax };
-        this.Rotors = this.transform.parent.GetComponentsInChildren<Rotor>();
-
-        // Reset chrono
-        this._chrono.Reset();
-        this._chrono.Restart();
-        
-        // Re-build manager
-        Manager.Instance.Instantiate(this, this._chrono.Elapsed, this._timestamp, this.m_rb, this.Rotors);
-    }
-
-    private void Initialize() 
-    {
-        // Reset chrono
-        this._chrono.Reset();
-        this._chrono.Restart();
-
-        // Initialize manager
+        // Initialize manager (hence, logger)
         Manager.Instance.Initialize(this.m_rb, this._chrono.Elapsed, this._timestamp, this.Rotors);
     }
 
     private void Reset()
     {
+        UnityEngine.Debug.Log("QuadController.Reset()");
         // Reset chrono
         this._chrono.Reset();
         this._chrono.Restart();
 
-        // Reset initial conditions
-        Manager.Instance.Reset(this.m_rb, this._timestamp);
+        // Reset manager (hence, logger)
+        Manager.Instance.Reset();
     }
 }

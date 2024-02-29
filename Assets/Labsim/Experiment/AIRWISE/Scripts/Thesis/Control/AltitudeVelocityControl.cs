@@ -41,12 +41,15 @@ public class AltitudeTranslationalVelocityControl : AbstractControl
         VelocityDesiredXLoggerIdx, VelocityDesiredYLoggerIdx, VelocityDesiredZLoggerIdx, 
         YawDesiredLoggerIdx;
 
-    public AltitudeTranslationalVelocityControl(AltitudeTranslationalVelocityControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) { 
-        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "AltitudeDesired");
-        this.VelocityDesiredXLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredX");
-        this.VelocityDesiredYLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredY");
-        this.VelocityDesiredZLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "VelocityDesiredZ");
-        this.YawDesiredLoggerIdx = Logger.Instance.GetEntry(this.GetType() + Logger.Instance.GetTextSep() + "YawDesired");
+    public AltitudeTranslationalVelocityControl(AltitudeTranslationalVelocityControlConfig config, Rigidbody rb, AbstractMapping mapping) : base(rb, mapping, config as AbstractControlConfig) 
+    { 
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        this.AltitudeDesiredLoggerIdx = Logger.Instance.GetEntry("AltitudeDesired");
+        this.VelocityDesiredXLoggerIdx = Logger.Instance.GetEntry("VelocityDesiredX");
+        this.VelocityDesiredYLoggerIdx = Logger.Instance.GetEntry("VelocityDesiredY");
+        this.VelocityDesiredZLoggerIdx = Logger.Instance.GetEntry("VelocityDesiredZ");
+        this.YawDesiredLoggerIdx = Logger.Instance.GetEntry("YawDesired");
     }
     public AltitudeTranslationalVelocityControlConfig AltitudeTranslationalVelocityControlConfig => this.AbstractControlConfig as AltitudeTranslationalVelocityControlConfig;
 
