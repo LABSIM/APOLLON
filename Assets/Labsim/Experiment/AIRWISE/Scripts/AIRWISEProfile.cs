@@ -63,18 +63,16 @@ namespace Labsim.experiment.AIRWISE
         protected override System.String getCurrentCounterStatusInfo()
         {
 
-            return "";
-            // return (
-            //     (this.CurrentSettings.Trial.bIsActive) 
-            //     ? ( 
-            //         (
-            //             (UXF.Session.instance.blocks.Count > 1) 
-            //                 ? (UXF.Session.instance.CurrentBlock.number + "/" + UXF.Session.instance.blocks.Count + " | ")
-            //                 : ""
-            //         )
-            //     )
-            //     : ""
-            // );
+            return (
+                UXF.Session.instance.CurrentBlock.number 
+                + "/" 
+                + UXF.Session.instance.blocks.Count 
+                + " | "
+                + (
+                    (UXF.Session.instance.CurrentTrial.number - 1) * 100.0f / UXF.Session.instance.Trials.Count()
+                ).ToString("N1") 
+                + " %"
+            );
 
         } /* getCurrentCounterStatusInfo() */
 
@@ -134,18 +132,36 @@ namespace Labsim.experiment.AIRWISE
 
             } /* foreach() */
 
-            // configure VarjoXR plugin
-            Varjo.XR.VarjoEyeTracking.SetGazeOutputFrequency(Varjo.XR.VarjoEyeTracking.GazeOutputFrequency.Frequency200Hz);
-            Varjo.XR.VarjoEyeTracking.SetGazeOutputFilterType(Varjo.XR.VarjoEyeTracking.GazeOutputFilterType.Standard);
-            Varjo.XR.VarjoHeadsetIPD.SetInterPupillaryDistanceParameters(Varjo.XR.VarjoHeadsetIPD.IPDAdjustmentMode.Automatic);
+            // configure VarjoXR eye tracking
+            // fixed 200Hz / Raw data == no filtering / auto IPD 
+            if(!Varjo.XR.VarjoEyeTracking.SetGazeOutputFrequency(Varjo.XR.VarjoEyeTracking.GazeOutputFrequency.Frequency200Hz))
+            {
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> AIRWISEProfile.onExperimentSessionBegin() : failed to set GazeOutputFrequency parameter..."
+                );
+            }
+            if(!Varjo.XR.VarjoEyeTracking.SetGazeOutputFilterType(Varjo.XR.VarjoEyeTracking.GazeOutputFilterType.None))
+            {
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> AIRWISEProfile.onExperimentSessionBegin() : failed to set GazeOutputFilterType parameter..."
+                );
+            }
+            if(!Varjo.XR.VarjoHeadsetIPD.SetInterPupillaryDistanceParameters(Varjo.XR.VarjoHeadsetIPD.IPDAdjustmentMode.Automatic))
+            {
+                // log
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> AIRWISEProfile.onExperimentSessionBegin() : failed to set InterPupillaryDistanceParameters parameter..."
+                );
+            }
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : configured Varjo parameters to [200Hz, Standard filter, automatic IPD], requesting calibration"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : configured Varjo parameters to [200Hz, No filter, automatic IPD], requesting calibration"
             );
 
             // force recalibration
-            
             if(!Varjo.XR.VarjoEyeTracking.CancelGazeCalibration())
             {
 
@@ -174,7 +190,7 @@ namespace Labsim.experiment.AIRWISE
  
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : calibration requested"
+                "<color=Blue>Info: </color> AIRWISEProfile.onExperimentSessionBegin() : Fast (5 dots) calibration requested"
             );
 
             // wait for eye tracking system init

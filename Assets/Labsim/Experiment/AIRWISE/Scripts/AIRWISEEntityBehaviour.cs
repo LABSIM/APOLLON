@@ -38,12 +38,6 @@ namespace Labsim.experiment.AIRWISE
 
         private bool m_bHasInitialized = false;
 
-        [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_initPos = new(0.0f,0.0f,0.0f);
-
-        [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_initRot = new(0.0f,0.0f,0.0f);
-
         #endregion
 
         #region controllers implemention
@@ -583,25 +577,24 @@ namespace Labsim.experiment.AIRWISE
             {
                 return;
             }
- 
-            // reset our rigidbody
-            var Rb = this.gameObject.GetComponentInChildren<QuadController>().Rb;
-            // Rb.ResetCenterOfMass();
-            // Rb.ResetInertiaTensor();
-            Rb.transform.SetPositionAndRotation(this.m_initPos, UnityEngine.Quaternion.Euler(this.m_initRot));
-            // Rb.constraints = UnityEngine.RigidbodyConstraints.None;
-            // Rb.drag = 0.0f;
-            // Rb.angularDrag = 0.0f;
-            // Rb.useGravity = false;
-            // Rb.isKinematic = false;
-            // Rb.interpolation = UnityEngine.RigidbodyInterpolation.Interpolate;
-            // Rb.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Discrete;
-            // Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-            // Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
-            // Rb.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-            // Rb.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
-            // Rb.velocity = UnityEngine.Vector3.zero;
-            // Rb.angularVelocity = UnityEngine.Vector3.zero;
+
+            // otherwise, get corresponding QuadController
+            QuadController controller = null;
+            if ((controller = this.gameObject.GetComponentInChildren<QuadController>()) == null)
+            {
+
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> AIRWISEEntityBehaviour.OnDisable() : failed to get QuadController reference ! Could not call ResetRigidBody()..."
+                );
+
+                // skip
+                return;
+
+            } /* if() */
+            
+            // reset
+            controller.ResetRigidBody();
                 
         } /* OnDisable() */
 

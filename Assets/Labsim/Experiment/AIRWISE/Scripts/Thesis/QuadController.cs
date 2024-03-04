@@ -7,10 +7,24 @@ public class QuadController : MonoBehaviour
     private DateTime _timestamp = DateTime.Now;
 
     // Mechanical members
-    private Rigidbody m_rb;
-    public Rigidbody Rb {
-        get { return m_rb; }
-    }
+    private Rigidbody m_rb 
+        = new();
+    public Rigidbody Rb 
+        => this.m_rb;
+
+
+    [UnityEngine.SerializeField]
+    private UnityEngine.Vector3 m_initPos 
+        = new(0.0f,0.0f,0.0f);
+    public UnityEngine.Vector3 InitPos 
+        => this.m_initPos;
+
+    [UnityEngine.SerializeField]
+    private UnityEngine.Vector3 m_initRot 
+        = new(0.0f,0.0f,0.0f);
+    public UnityEngine.Vector3 InitRot 
+        => this.m_initRot;
+    
     private Rotor[] Rotors { get; set; }
     private Vector3[] HitPts { get; set; }
 
@@ -23,10 +37,8 @@ public class QuadController : MonoBehaviour
     public int NbRaycast => _nbRaycast;
 
     [SerializeField]
-    private Rigidbody m_arrivalRb;
-    public Rigidbody ArrivalRb {
-        get { return m_arrivalRb; }
-    }
+    private Rigidbody m_arrivalRb = null;
+    public Rigidbody ArrivalRb => this.m_arrivalRb;
 
     private bool m_bInhibit = false;
     public bool Inhibit { get { return this.m_bInhibit; } set{ this.m_bInhibit = value; } }
@@ -35,11 +47,9 @@ public class QuadController : MonoBehaviour
 
     private void Awake()
     {
-        UnityEngine.Debug.Log("QuadController.Awake()");
         this.Instantiate();
     }
-    private void Start() { 
-        UnityEngine.Debug.Log("QuadController.Start()");}
+    private void Start() { }
 
     private void FixedUpdate()
     {
@@ -71,14 +81,12 @@ public class QuadController : MonoBehaviour
 
     private void OnEnable()
     {
-        UnityEngine.Debug.Log("QuadController.OnEnable()" + this.m_rb);
         // Initialize simulation state
         this.Initialize();
     }
 
     private void OnDisable()
     {
-        UnityEngine.Debug.Log("QuadController.OnDisable()");
         // Reset simulation state (in preparation for new block)
         this.Reset();
     }
@@ -222,8 +230,7 @@ public class QuadController : MonoBehaviour
     // Home-made methods
 
     private void Instantiate() 
-    {
-        UnityEngine.Debug.Log("QuadController.Instantiate()");
+    {        UnityEngine.Debug.Log("QuadController.Instantiate()");
         // Instantiate mechanical control elements
 
         this.m_rb = this.gameObject.GetComponent<Rigidbody>();
@@ -241,7 +248,6 @@ public class QuadController : MonoBehaviour
 
     private void Initialize() 
     {
-        UnityEngine.Debug.Log("QuadController.Initialize()" + this.m_rb);
         // Reset chrono
         this._chrono.Reset();
         this._chrono.Restart();
@@ -265,17 +271,32 @@ public class QuadController : MonoBehaviour
         }/* foreach() */
 
         // Initialize manager (hence, logger)
-        Manager.Instance.Initialize(this.m_rb, this._chrono.Elapsed, this._timestamp, this.Rotors);
+        Manager.Instance.Initialize(this.Rb, this._chrono.Elapsed, this._timestamp, this.Rotors);
     }
 
     private void Reset()
     {
-        UnityEngine.Debug.Log("QuadController.Reset()");
         // Reset chrono
         this._chrono.Reset();
         this._chrono.Restart();
 
         // Reset manager (hence, logger)
         Manager.Instance.Reset();
+    }
+
+    public void ResetRigidBody() 
+    {
+        // Reset RigidBody
+        AeroFrame.SetPosition(this.Rb, this.InitPos);
+        UnityEngine.Debug.Log("QuadController.Reset " + this.InitPos);
+        AeroFrame.SetAngles(this.Rb, this.InitRot);
+        AeroFrame.SetAbsoluteVelocity(this.Rb, Vector3.zero);
+        AeroFrame.SetAngularVelocity(this.Rb, Vector3.zero);
+        AeroFrame.ApplyRelativeForce(this.Rb, Vector3.zero);
+        AeroFrame.ApplyRelativeTorque(this.Rb, Vector3.zero);
+
+        foreach (var rotor in this.Rotors) {
+            rotor.ResetRigidBody();
+        }
     }
 }

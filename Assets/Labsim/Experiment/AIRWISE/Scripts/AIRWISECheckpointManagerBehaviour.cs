@@ -77,9 +77,6 @@ namespace Labsim.experiment.AIRWISE
         private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
         {
 
-            // cleanup first
-            this.Slalom.Clear();
-
             // instantiate all components on marked objects
             foreach(var (key, value) in c_tags_dict)
             {
@@ -122,8 +119,11 @@ namespace Labsim.experiment.AIRWISE
    
             } /* foreach() */
 
-            // cleanup 
+            // cleanup
             this.Slalom.Clear();
+            this.m_currentCount 
+                = this.m_currentSuccess 
+                = 0;
 
         } /* OnSceneUnloaded*() */
 

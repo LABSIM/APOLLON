@@ -94,12 +94,10 @@ public class Manager
 
     public void Initialize(Rigidbody rb, TimeSpan elapsed, DateTime timestamp, Rotor[] rotors)
     {
-        UnityEngine.Debug.Log("Manager.Initialize()" + rb);
         // Initialize inner members
         this.m_currElapsed = elapsed;
         this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
         this.m_currTrial += 1;
-        UnityEngine.Debug.Log("manager.Initialize()" + Manager.Instance.GetCurrTrial());
 
         // Build manager
         this.Build(timestamp, rb, rotors);
@@ -118,8 +116,6 @@ public class Manager
 
     private void Build(DateTime timestamp, Rigidbody rb, Rotor[] rotors) 
     {
-        UnityEngine.Debug.Log("Manager.Build()" + rb);
-
         this.BuildConfig();
 
         // Initiate logger
@@ -187,6 +183,7 @@ public class Manager
     public void Reset()
     {
         UnityEngine.Debug.Log("Manager.Reset()");
+        
         // Reset logger
         Logger.Instance.Reset();
 

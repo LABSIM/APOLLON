@@ -99,7 +99,7 @@ public class X4Actuation : AbstractActuation
     {
         for (int i = 0; i < 4; i++)
         {
-            AeroFrame.ApplyRelativeForce(this.m_rotors[i].m_rb, new Vector3(0.0f, 0.0f, this.T[i]));
+            AeroFrame.ApplyRelativeForce(this.m_rotors[i].Rb, new Vector3(0.0f, 0.0f, this.T[i]));
         }
     }
 }
