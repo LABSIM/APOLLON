@@ -1,0 +1,66 @@
+{
+  
+    "APOLLON_profile": "AIRWISE",
+  
+    "trial_final_fade_in_duration_ms": 100.0,
+    "trial_initial_fade_out_duration_ms": 100.0,
+    "trial_inter_sleep_duration_ms": 700.0,
+  
+    "trial_pattern": {
+
+        "test_pattern_TrainingIdealVelocityControl": {
+  
+            "is_catch_try_condition": false,
+            "is_active_condition": true,
+
+            "control_name": "TrainingIdealVelocityControl",
+            "scene_name": "Familiarisation",
+            "visual_name": "StreetA",
+
+            "performance_criteria_value_percent": 50.0,
+            "performance_max_try_count": 10,
+
+            "phase_A_duration_ms": 2500.0,
+
+            "phase_B_acceleration_duration_ms": 5000.0,
+            "phase_B_total_duration_ms": 50000.0,
+            "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 1.50 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
+
+            "phase_D_decceleration_duration_ms": 1500.0,
+            "phase_D_total_duration_ms": 3500.0,
+            "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 2.5 ],
+            "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
+
+        }
+  
+    },
+  
+    "block_pattern": {
+  
+      "block_test_Training": {
+  
+        "is_practice_condition": true,
+        "is_draft_bucket_randomized": false,
+
+        "trial_max_retry_per_draw" : 5,
+        
+        "trial_draft_bucket": [
+
+            "test_pattern_TrainingIdealVelocityControl"
+
+        ]
+  
+      }
+  
+    },
+  
+    "block_sequence": [
+        "block_test_Training"
+    ]
+  
+}

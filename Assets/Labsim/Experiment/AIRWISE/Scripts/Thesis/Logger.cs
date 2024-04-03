@@ -226,7 +226,7 @@ public class Logger
     private string GenerateSuffixFromTrial() 
     {
         return this.GetTextSep() + "T" + Manager.Instance.GetCurrTrial().ToString("D3")
-            + this.GetTextSep() + "R" + (Manager.Instance.GetCurrRun() + 1).ToString("D3");
+            + this.GetTextSep() + "R" + (Manager.Instance.GetCurrRun()).ToString("D3");
     }
 
     private string GenerateTableFilenameFromTrial(string filename)

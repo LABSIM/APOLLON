@@ -162,10 +162,14 @@ namespace Labsim.experiment.AIRWISE
 
                             // initializing
                             apollon.ApollonEngine.Schedule(() => {
-                                airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Inhibit = true;
+
+                                airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Inhibit 
+                                    = !this.FSM.CurrentSettings.Trial.bIsActive;
+                                
                                 apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
                                 );
+                                
                             });
 
                             UnityEngine.Debug.Log(
@@ -174,14 +178,27 @@ namespace Labsim.experiment.AIRWISE
 
                             // inject acceleration settings 
                             apollon.ApollonEngine.Schedule(() => {
-                                airwise_entity.ConcreteDispatcher.RaiseInit(
-                                    this.FSM.CurrentSettings.PhaseB.angular_acceleration_target,
-                                    this.FSM.CurrentSettings.PhaseB.angular_velocity_saturation_threshold,
-                                    this.FSM.CurrentSettings.PhaseB.linear_acceleration_target,
-                                    this.FSM.CurrentSettings.PhaseB.linear_velocity_saturation_threshold,
-                                    this.FSM.CurrentSettings.PhaseB.acceleration_duration,
-                                    this.FSM.CurrentSettings.Trial.bIsTryCatch
-                                );
+                                            
+                                if(this.FSM.CurrentSettings.Trial.bIsActive)
+                                {
+
+                                    airwise_entity.ConcreteDispatcher.RaiseControl();
+
+                                }
+                                else
+                                {
+
+                                    airwise_entity.ConcreteDispatcher.RaiseInit(
+                                        this.FSM.CurrentSettings.PhaseB.angular_acceleration_target,
+                                        this.FSM.CurrentSettings.PhaseB.angular_velocity_saturation_threshold,
+                                        this.FSM.CurrentSettings.PhaseB.linear_acceleration_target,
+                                        this.FSM.CurrentSettings.PhaseB.linear_velocity_saturation_threshold,
+                                        this.FSM.CurrentSettings.PhaseB.acceleration_duration,
+                                        this.FSM.CurrentSettings.Trial.bIsTryCatch
+                                    );
+                                
+                                } /* if() */
+
                             });
 
                             UnityEngine.Debug.Log(

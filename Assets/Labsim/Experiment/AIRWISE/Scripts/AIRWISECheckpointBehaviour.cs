@@ -34,7 +34,7 @@ namespace Labsim.experiment.AIRWISE
 
         #region System action
         
-        public event System.Action<AIRWISEResults.PhaseCResults.Checkpoint> checkpointReached;
+        public event System.Action<string, AIRWISEResults.PhaseCResults.Checkpoint> checkpointReached;
 
         #endregion
 
@@ -56,7 +56,8 @@ namespace Labsim.experiment.AIRWISE
                 aero_pos  = Utilities.ToUnityFromAeroFrame(world_pos);
 
             // invoke with current settings
-            checkpointReached.Invoke( 
+            checkpointReached.Invoke(
+                this.gameObject.transform.parent.name,
                 new() 
                 {
                     kind                   = this.CheckpointType,

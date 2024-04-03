@@ -165,7 +165,7 @@ namespace Labsim.experiment.AIRWISE
                         UnityEngine.ForceMode.Acceleration
                     );
                     this._rigidbody.AddForce(
-                        force_target + -1.0f * UnityFrame.GetGravity(this._rigidbody), 
+                        force_target + -1.0f * UnityFrame.GetGravity(this._rigidbody),
                         UnityEngine.ForceMode.Acceleration
                     );
                                     
@@ -268,7 +268,7 @@ namespace Labsim.experiment.AIRWISE
 
                 // only counter gravity
                 this._rigidbody.AddForce(
-                    -1.0f * UnityFrame.GetGravity(this._rigidbody), 
+                    -1.0f * UnityFrame.GetGravity(this._rigidbody),
                     UnityEngine.ForceMode.Acceleration
                 );
                     

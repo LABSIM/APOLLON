@@ -82,15 +82,20 @@ namespace Labsim.experiment.AIRWISE
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> AIRWISEPhaseC.OnEntry() : starting slalom task"
             );
-
-            // airwise_quad_controller.
-            airwise_entity.ConcreteDispatcher.RaiseControl();
-            airwise_quad_controller.Inhibit = false;
+            
+            if(!this.FSM.CurrentSettings.Trial.bIsActive)
+            {
+            
+                // airwise_quad_controller.
+                airwise_entity.ConcreteDispatcher.RaiseControl();
+                airwise_quad_controller.Inhibit = false;
+            
+            } /* if() */
             
             // await for end of phase 
             // END REACHED
 
-            // float result = 0.0f;
+            float result = -1.0f;
 
             // synchronisation mechanism (TCS + lambda event handler)
             var sync_motion_point = new System.Threading.Tasks.TaskCompletionSource<float>();
@@ -104,7 +109,7 @@ namespace Labsim.experiment.AIRWISE
             checkpoint_manager.slalomEnded += sync_slalom_ended_local_function;
 
             // wait end of slalom
-            var result = await sync_motion_point.Task;
+            result = await sync_motion_point.Task;
 
             // unbind from checkpoint manager events
             checkpoint_manager.slalomEnded -= sync_slalom_ended_local_function;

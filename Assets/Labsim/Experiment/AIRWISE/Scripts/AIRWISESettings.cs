@@ -140,7 +140,10 @@ namespace Labsim.experiment.AIRWISE
             ID4,
 
             [System.ComponentModel.Description("ID5")]
-            ID5
+            ID5,
+
+            [System.ComponentModel.Description("ID6")]
+            ID6
 
         } /* enum */
 
@@ -525,6 +528,15 @@ namespace Labsim.experiment.AIRWISE
                         break;
                     }
 
+                    // ID6
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID6),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID6;
+                        break;
+                    }
+
                     // default
                     default: 
                     {
@@ -681,7 +693,7 @@ namespace Labsim.experiment.AIRWISE
             // success
             return true;
 
-        } /* ImportUXFSettings */
+        } /* ImportUXFSettings() */
         
         public void LogUXFSettings()
         {

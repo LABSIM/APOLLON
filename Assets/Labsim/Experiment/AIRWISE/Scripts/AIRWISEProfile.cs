@@ -20,6 +20,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine.UIElements;
 
 // avoid namespace pollution
@@ -64,12 +65,17 @@ namespace Labsim.experiment.AIRWISE
         {
 
             return (
-                UXF.Session.instance.CurrentBlock.number 
+                apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.number 
                 + "/" 
-                + UXF.Session.instance.blocks.Count 
+                + apollon.experiment.ApollonExperimentManager.Instance.Session.blocks.Count 
                 + " | "
                 + (
-                    (UXF.Session.instance.CurrentTrial.number - 1) * 100.0f / UXF.Session.instance.Trials.Count()
+                    (float)
+                    (
+                        apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentTrial.number - 1
+                    ) 
+                    * 100.0f 
+                    / apollon.experiment.ApollonExperimentManager.Instance.Session.Trials.Count()
                 ).ToString("N1") 
                 + " %"
             );
@@ -554,35 +560,30 @@ namespace Labsim.experiment.AIRWISE
 
             // build protocol
             await this.DoRunProtocol(
-                // async () => {
-                //     await this.DoWhileLoop(
-                //         () => {
-
-                //             // increment current retry count & check (top priority)
-                //             if(++this.CurrentResults.Trial.user_performance_try_count >= this.CurrentSettings.Trial.performance_max_try)
-                //                 return false;
-
-                //             // then check performance criteria
-                //             return !(this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria);
-                            
-                //         },
-                //         async () => { await this.SetState( new AIRWISEPhaseA(this) ); },
-                //         async () => { await this.SetState( new AIRWISEPhaseB(this) ); },
-                //         async () => { await this.SetState( new AIRWISEPhaseC(this) ); },
-                //         async () => { await this.SetState( new AIRWISEPhaseD(this) ); }
-                //     );
-                // },
-                async () => { await this.SetState( new AIRWISEPhaseA(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseB(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseC(this) ); },
-                async () => { await this.SetState( new AIRWISEPhaseD(this) ); },
                 async () => {
-                    await this.DoIfBranch(
-                         () => {
+                    await this.DoWhileLoop(
+                        () => {
+
+                            // increment current retry count & check (top priority)
+                            if(++this.CurrentResults.Trial.user_performance_try_count >= this.CurrentSettings.Trial.performance_max_try)
+                                return false;
 
                             // then check performance criteria
-                            // return this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria;
-                            return true;
+                            return !(this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria);
+                            
+                        },
+                        async () => { await this.SetState( new AIRWISEPhaseA(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseB(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseC(this) ); },
+                        async () => { await this.SetState( new AIRWISEPhaseD(this) ); }
+                    );
+                },
+                async () => {
+                    await this.DoIfBranch(
+                        () => {
+
+                            // then check performance criteria
+                            return this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria;
 
                         },
                         async () => { await this.SetState( new AIRWISEPhaseE(this) ); },
@@ -795,10 +796,10 @@ namespace Labsim.experiment.AIRWISE
 
             // dispose AIRWISE mng
             Manager.Instance.Dispose();
-            Logger.Instance.Dispose();
             
             // re draft ? 
             this.SubjectHasFailed = this.CurrentResults.Trial.user_performance_value < this.CurrentSettings.Trial.performance_criteria;
+            // if (this.SubjectHasFailed) { ++this.CurrentResults.Trial.user_performance_try_count; }
 
             // base call
             base.OnExperimentTrialEnd(sender, arg);

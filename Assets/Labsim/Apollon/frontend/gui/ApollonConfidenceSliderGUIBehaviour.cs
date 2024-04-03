@@ -45,13 +45,13 @@ namespace Labsim.apollon.frontend.gui
         private void OnEnable() 
         {
 
-            if(instructionUI != null)
-            {
+            // if(instructionUI != null)
+            // {
 
-                instructionUI.text  = experiment.ApollonExperimentManager.Instance.Profile.InstructionStatus;
-                instructionUI.color = /* black */ UnityEngine.Color.black;
+            //     instructionUI.text  = experiment.ApollonExperimentManager.Instance.Profile.InstructionStatus;
+            //     instructionUI.color = /* black */ UnityEngine.Color.black;
 
-            } /*if() */
+            // } /*if() */
 
         } /* OnEnable() */
 

@@ -93,12 +93,12 @@ namespace Labsim.experiment.AIRWISE
             > user_interaction_local_function 
                 = (sender, args) => {  
                         
-                    // update UI cursor from normalized command value then to confidence range [0;10]
+                    // update UI cursor from normalized command value then to confidence range [0;100]
                     //
                     apollon.frontend.ApollonFrontendManager.Instance.getBridge(
                         apollon.frontend.ApollonFrontendManager.FrontendIDType.MentalDemandSliderGUI
                     ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value 
-                        = (args.JoystickHorizontal * 5.0f) + 5.0f;
+                        = (args.JoystickHorizontal * 50.0f) + 50.0f;
                     
                 }; /* user interaction lambda */
 
@@ -108,7 +108,7 @@ namespace Labsim.experiment.AIRWISE
             // reset cursor value to default position
             apollon.frontend.ApollonFrontendManager.Instance.getBridge(
                 apollon.frontend.ApollonFrontendManager.FrontendIDType.MentalDemandSliderGUI
-            ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value = 5.0f;
+            ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value = 50.0f;
 
             // show confidence slider                            
             apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.MentalDemandSliderGUI);

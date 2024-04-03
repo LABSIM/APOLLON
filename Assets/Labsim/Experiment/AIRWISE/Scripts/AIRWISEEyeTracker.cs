@@ -58,6 +58,11 @@ namespace Labsim.experiment.AIRWISE
                 "left_eye_openness"
             };
 
+        private string PetiteVerrue(UnityEngine.Vector3 vec)
+        {
+            return "[" + System.String.Join(";", new System.Collections.Generic.List<float>{ vec.x, vec.y, vec.z }) + "]";
+        }
+
         protected override UXF.UXFDataRow GetCurrentValues()
         {
             
@@ -122,21 +127,21 @@ namespace Labsim.experiment.AIRWISE
                         ("frame_number",                   this.m_dataSinceLastUpdate[idx].frameNumber.ToString()),
                         ("capture_time",                   this.m_dataSinceLastUpdate[idx].captureTime.ToString()),
                         ("gaze_status",                    this.m_dataSinceLastUpdate[idx].status),
-                        ("gaze_forward",                   bGazeValid ? cEmptyField : this.m_dataSinceLastUpdate[idx].gaze.forward.ToString("F3")),
-                        ("gaze_origin",                    bGazeValid ? cEmptyField : this.m_dataSinceLastUpdate[idx].gaze.origin.ToString("F3")),
+                        ("gaze_forward",                   bGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate[idx].gaze.forward)),
+                        ("gaze_origin",                    bGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate[idx].gaze.origin)),
                         ("focus_distance",                 this.m_dataSinceLastUpdate[idx].focusDistance.ToString()),
                         ("focus_stability",                this.m_dataSinceLastUpdate[idx].focusStability.ToString()),
                         ("inter_pupillary_distance",       this.m_eyeMeasurementsSinceLastUpdate[idx].interPupillaryDistanceInMM.ToString()),
                         ("right_eye_gaze_status",          this.m_dataSinceLastUpdate[idx].rightStatus),
-                        ("right_eye_gaze_forward",         bRightGazeValid ? cEmptyField : this.m_dataSinceLastUpdate[idx].right.forward.ToString("F3")),
-                        ("right_eye_gaze_origin",          bRightGazeValid ? cEmptyField : this.m_dataSinceLastUpdate[idx].right.origin.ToString("F3")),
+                        ("right_eye_gaze_forward",         bRightGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate[idx].right.forward)),
+                        ("right_eye_gaze_origin",          bRightGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate[idx].right.origin)),
                         ("right_pupillris_diameter_ratio", bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].rightPupilIrisDiameterRatio.ToString("F3")),
                         ("right_pupil_diameter",           bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].rightPupilDiameterInMM.ToString("F3")),
                         ("right_iris_diameter",            bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].rightIrisDiameterInMM.ToString("F3")),
                         ("right_eye_openness",             bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].rightEyeOpenness.ToString("F3")),
-                        ("left_eye_gaze_status",           this.m_dataSinceLastUpdate[idx].left),
-                        ("left_eye_gaze_forward",          bLeftGazeValid ? cEmptyField : this.m_dataSinceLastUpdate[idx].left.forward.ToString("F3")),
-                        ("left_eye_gaze_origin",           bLeftGazeValid ? cEmptyField : this.m_dataSinceLastUpdate[idx].left.origin.ToString("F3")),
+                        ("left_eye_gaze_status",           this.m_dataSinceLastUpdate[idx].leftStatus),
+                        ("left_eye_gaze_forward",          bLeftGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate[idx].left.forward)),
+                        ("left_eye_gaze_origin",           bLeftGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate[idx].left.origin)),
                         ("left_pupillris_diameter_ratio",  bLeftGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].leftPupilIrisDiameterRatio.ToString("F3")),
                         ("left_pupil_diameter",            bLeftGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].leftPupilDiameterInMM.ToString("F3")),
                         ("left_iris_diameter",             bLeftGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate[idx].leftIrisDiameterInMM.ToString("F3")),
@@ -157,21 +162,21 @@ namespace Labsim.experiment.AIRWISE
                     ("frame_number",                   this.m_dataSinceLastUpdate.Last().frameNumber.ToString()),
                     ("capture_time",                   this.m_dataSinceLastUpdate.Last().captureTime.ToString()),
                     ("gaze_status",                    this.m_dataSinceLastUpdate.Last().status),
-                    ("gaze_forward",                   bGazeValid ? cEmptyField : this.m_dataSinceLastUpdate.Last().gaze.forward.ToString("F3")),
-                    ("gaze_origin",                    bGazeValid ? cEmptyField : this.m_dataSinceLastUpdate.Last().gaze.origin.ToString("F3")),
+                    ("gaze_forward",                   bGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate.Last().gaze.forward)),
+                    ("gaze_origin",                    bGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate.Last().gaze.origin)),
                     ("focus_distance",                 this.m_dataSinceLastUpdate.Last().focusDistance.ToString()),
                     ("focus_stability",                this.m_dataSinceLastUpdate.Last().focusStability.ToString()),
                     ("inter_pupillary_distance",       this.m_eyeMeasurementsSinceLastUpdate.Last().interPupillaryDistanceInMM.ToString()),
                     ("right_eye_gaze_status",          this.m_dataSinceLastUpdate.Last().rightStatus),
-                    ("right_eye_gaze_forward",         bRightGazeValid ? cEmptyField : this.m_dataSinceLastUpdate.Last().right.forward.ToString("F3")),
-                    ("right_eye_gaze_origin",          bRightGazeValid ? cEmptyField : this.m_dataSinceLastUpdate.Last().right.origin.ToString("F3")),
+                    ("right_eye_gaze_forward",         bRightGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate.Last().right.forward)),
+                    ("right_eye_gaze_origin",          bRightGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate.Last().right.origin)),
                     ("right_pupillris_diameter_ratio", bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().rightPupilIrisDiameterRatio.ToString("F3")),
                     ("right_pupil_diameter",           bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().rightPupilDiameterInMM.ToString("F3")),
                     ("right_iris_diameter",            bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().rightIrisDiameterInMM.ToString("F3")),
                     ("right_eye_openness",             bRightGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().rightEyeOpenness.ToString("F3")),
-                    ("left_eye_gaze_status",           this.m_dataSinceLastUpdate.Last().left),
-                    ("left_eye_gaze_forward",          bLeftGazeValid ? cEmptyField : this.m_dataSinceLastUpdate.Last().left.forward.ToString("F3")),
-                    ("left_eye_gaze_origin",           bLeftGazeValid ? cEmptyField : this.m_dataSinceLastUpdate.Last().left.origin.ToString("F3")),
+                    ("left_eye_gaze_status",           this.m_dataSinceLastUpdate.Last().leftStatus),
+                    ("left_eye_gaze_forward",          bLeftGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate.Last().left.forward)),
+                    ("left_eye_gaze_origin",           bLeftGazeValid ? cEmptyField : this.PetiteVerrue(this.m_dataSinceLastUpdate.Last().left.origin)),
                     ("left_pupillris_diameter_ratio",  bLeftGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().leftPupilIrisDiameterRatio.ToString("F3")),
                     ("left_pupil_diameter",            bLeftGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().leftPupilDiameterInMM.ToString("F3")),
                     ("left_iris_diameter",             bLeftGazeValid ? cEmptyField : this.m_eyeMeasurementsSinceLastUpdate.Last().leftIrisDiameterInMM.ToString("F3")),

@@ -1,0 +1,190 @@
+{
+  
+    "APOLLON_profile": "AIRWISE",
+  
+    "trial_final_fade_in_duration_ms": 100.0,
+    "trial_initial_fade_out_duration_ms": 100.0,
+    "trial_inter_sleep_duration_ms": 700.0,
+  
+    "trial_pattern": {
+
+        "test_pattern_IdealVelocity_ID1_A": {
+  
+            "is_catch_try_condition": false,
+            "is_active_condition": true,
+
+            "control_name": "IdealVelocityControl",
+            "scene_name": "ID1",
+            "visual_name": "StreetA",
+
+            "performance_criteria_value_percent": 100.0,
+            "performance_max_try_count": 2,
+            
+            "phase_A_duration_ms": 2500.0,
+
+            "phase_B_acceleration_duration_ms": 5000.0,
+            "phase_B_total_duration_ms": 35000.0,
+            "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 1.50 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
+
+            "phase_D_decceleration_duration_ms": 1500.0,
+            "phase_D_total_duration_ms": 3500.0,
+            "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 2.5 ],
+            "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
+
+        },
+
+        "test_pattern_IdealVelocity_ID2_A": {
+  
+            "is_catch_try_condition": false,
+            "is_active_condition": true,
+
+            "control_name": "IdealVelocityControl",
+            "scene_name": "ID2",
+            "visual_name": "StreetA",
+
+            "performance_criteria_value_percent": 100.0,
+            "performance_max_try_count": 2,
+            
+            "phase_A_duration_ms": 2500.0,
+
+            "phase_B_acceleration_duration_ms": 5000.0,
+            "phase_B_total_duration_ms": 35000.0,
+            "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 1.50 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
+
+            "phase_D_decceleration_duration_ms": 1500.0,
+            "phase_D_total_duration_ms": 3500.0,
+            "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 2.5 ],
+            "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
+
+        },
+
+        "test_pattern_IdealVelocity_ID3_A": {
+  
+            "is_catch_try_condition": false,
+            "is_active_condition": true,
+
+            "control_name": "IdealVelocityControl",
+            "scene_name": "ID3",
+            "visual_name": "StreetA",
+
+            "performance_criteria_value_percent": 100.0,
+            "performance_max_try_count": 2,
+            
+            "phase_A_duration_ms": 2500.0,
+
+            "phase_B_acceleration_duration_ms": 5000.0,
+            "phase_B_total_duration_ms": 35000.0,
+            "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 1.50 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
+
+            "phase_D_decceleration_duration_ms": 1500.0,
+            "phase_D_total_duration_ms": 3500.0,
+            "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 2.5 ],
+            "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
+
+        },
+
+        "test_pattern_IdealVelocity_ID4_A": {
+  
+            "is_catch_try_condition": false,
+            "is_active_condition": true,
+
+            "control_name": "IdealVelocityControl",
+            "scene_name": "ID4",
+            "visual_name": "StreetA",
+
+            "performance_criteria_value_percent": 100.0,
+            "performance_max_try_count": 2,
+            
+            "phase_A_duration_ms": 2500.0,
+
+            "phase_B_acceleration_duration_ms": 5000.0,
+            "phase_B_total_duration_ms": 35000.0,
+            "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 1.50 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
+
+            "phase_D_decceleration_duration_ms": 1500.0,
+            "phase_D_total_duration_ms": 3500.0,
+            "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 2.5 ],
+            "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
+
+        },
+
+        "test_pattern_IdealVelocity_ID5_A": {
+  
+            "is_catch_try_condition": false,
+            "is_active_condition": true,
+
+            "control_name": "IdealVelocityControl",
+            "scene_name": "ID5",
+            "visual_name": "StreetA",
+
+            "performance_criteria_value_percent": 100.0,
+            "performance_max_try_count": 2,
+            
+            "phase_A_duration_ms": 2500.0,
+
+            "phase_B_acceleration_duration_ms": 5000.0,
+            "phase_B_total_duration_ms": 35000.0,
+            "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 1.50 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
+
+            "phase_D_decceleration_duration_ms": 1500.0,
+            "phase_D_total_duration_ms": 3500.0,
+            "phase_D_angular_decceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
+            "phase_D_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
+            "phase_D_linear_decceleration_target_m_per_s2": [ 0.0, 0.0, 2.5 ],
+            "phase_D_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 0.0 ]
+
+        }
+  
+    },
+  
+    "block_pattern": {
+      
+      "block_test_IdealVelocityControl": {
+  
+        "is_practice_condition": false,
+        "is_draft_bucket_randomized": true,
+
+        "trial_max_retry_per_draw" : 3,
+        
+        "trial_draft_bucket": [
+           
+            "test_pattern_IdealVelocity_ID1_A",
+            "test_pattern_IdealVelocity_ID2_A",
+            "test_pattern_IdealVelocity_ID3_A",
+            "test_pattern_IdealVelocity_ID4_A",
+            "test_pattern_IdealVelocity_ID5_A"
+
+        ]
+  
+      }
+  
+    },
+  
+    "block_sequence": [
+        "block_test_IdealVelocityControl"
+    ]
+  
+  }

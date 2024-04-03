@@ -41,7 +41,7 @@ namespace Labsim.experiment.AIRWISE
             #region user_*
 
             public long 
-                user_performance_try_count = -1;
+                user_performance_try_count = 0;
 
             public float 
                 user_performance_value = float.NaN;
@@ -143,7 +143,16 @@ namespace Labsim.experiment.AIRWISE
 
             } /* class Checkpoint */
 
-            public Checkpoint[] user_checkpoints_crossing = new Checkpoint[23];
+            /* each retry/run in current trial */
+            public System.Collections.Generic.List<
+                /* Gates dict entries for current run */ 
+                System.Collections.Generic.Dictionary<
+                    /* Parent gate name */
+                    string, 
+                    /* Crossed checkpoint information, may be multiple if we cross at the intersection of 2 plane collider*/
+                    System.Collections.Generic.Queue<Checkpoint>
+                >
+            > user_checkpoints_crossing = new();
 
             // override ToString() standard output
             public override string ToString()
@@ -151,38 +160,54 @@ namespace Labsim.experiment.AIRWISE
 
                 string stream = new("");
 
-                foreach(var (value, index) in this.user_checkpoints_crossing.Select((value, index) => (value, index)))
+                // for each run in trial
+                foreach(
+                    var (run_value, run_index) 
+                    in  this.user_checkpoints_crossing
+                            .Select((value, index) => (value, index))
+                )
                 {
-
-                    // debug
-                    if(value == null)
+                    // only print the first element crossed  
+                    foreach(
+                        var (value, index) 
+                        in  run_value.Values
+                                .Select(x => x.Peek())
+                                .ToList()
+                                .Select((value, index) => (value, index))
+                    )
                     {
-                        continue;
-                    }
-                
-                    stream 
-                        += "\n - C_user_checkpoint_" + index + "_crossing_kind[" 
-                            + apollon.ApollonEngine.GetEnumDescription(value.kind)
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_timing_unity_timestamp[" 
-                            + value.timing_unity_timestamp.ToString()
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_timing_host_timestamp[" 
-                            + value.timing_host_timestamp
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp[" 
-                            + value.timing_varjo_timestamp.ToString()
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_local_position[" 
-                            + "[" + System.String.Join(";", value.local_position) + "]"
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_world_position[" 
-                            + "[" + System.String.Join(";", value.world_position) + "]"
-                        + "]"
-                        + "\n - C_user_checkpoint_" + index + "_crossing_aero_position[" 
-                            + "[" + System.String.Join(";", value.aero_position) + "]"
-                        + "]";
-                
+
+                        // debug ?
+                        if(value == null)
+                        {
+                            continue;
+                        }
+                    
+                        stream 
+                            += "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_kind[" 
+                                + apollon.ApollonEngine.GetEnumDescription(value.kind)
+                            + "]"
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_unity_timestamp[" 
+                                + value.timing_unity_timestamp.ToString()
+                            + "]"
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_host_timestamp[" 
+                                + value.timing_host_timestamp
+                            + "]"
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp[" 
+                                + value.timing_varjo_timestamp.ToString()
+                            + "]"
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_local_position[" 
+                                + "[" + System.String.Join(";", value.local_position) + "]"
+                            + "]"
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_world_position[" 
+                                + "[" + System.String.Join(";", value.world_position) + "]"
+                            + "]"
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_aero_position[" 
+                                + "[" + System.String.Join(";", value.aero_position) + "]"
+                            + "]";
+                    
+                    } /* foreach() */
+
                 } /* foreach() */
 
                 return stream;
@@ -384,23 +409,40 @@ namespace Labsim.experiment.AIRWISE
                 results["C_timing_on_entry_varjo_timestamp"] = this.PhaseC.timing_on_entry_varjo_timestamp.ToString();
                 results["C_timing_on_exit_varjo_timestamp"]  = this.PhaseC.timing_on_exit_varjo_timestamp.ToString();                
 
-                foreach(var (value, index) in this.PhaseC.user_checkpoints_crossing.Select((value, index) => (value, index)))
+                 // for each run in trial
+                foreach(
+                    var (run_value, run_index) 
+                    in  this.PhaseC.user_checkpoints_crossing
+                            .Select((value, index) => (value, index))
+                )
                 {
-                
-                    // debug
-                    if(value == null)
+                    // only print the first element crossed  
+                    foreach(
+                        var (value, index) 
+                        in  run_value.Values
+                                .Select(x => x.Peek())
+                                .ToList()
+                                .Select((value, index) => (value, index))
+                    )
                     {
-                        continue;
-                    }
-
-                    results["C_user_checkpoint_" + index + "_crossing_kind"]                   = apollon.ApollonEngine.GetEnumDescription(value.kind);
-                    results["C_user_checkpoint_" + index + "_crossing_timing_unity_timestamp"] = value.timing_unity_timestamp.ToString();
-                    results["C_user_checkpoint_" + index + "_crossing_timing_host_timestamp"]  = value.timing_host_timestamp;
-                    results["C_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp"] = value.timing_varjo_timestamp.ToString();
-                    results["C_user_checkpoint_" + index + "_crossing_local_position"]         = "[" + System.String.Join(";", value.local_position)    + "]";
-                    results["C_user_checkpoint_" + index + "_crossing_world_position"]         = "[" + System.String.Join(";", value.world_position)    + "]";
-                    results["C_user_checkpoint_" + index + "_crossing_aero_position"]          = "[" + System.String.Join(";", value.aero_position)    + "]";
+                
                     
+                        // debug
+                        if(value == null)
+                        {
+                            continue;
+                        }
+
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_kind"]                   = apollon.ApollonEngine.GetEnumDescription(value.kind);
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_unity_timestamp"] = value.timing_unity_timestamp.ToString();
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_host_timestamp"]  = value.timing_host_timestamp;
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp"] = value.timing_varjo_timestamp.ToString();
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_local_position"]         = "[" + System.String.Join(";", value.local_position)    + "]";
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_world_position"]         = "[" + System.String.Join(";", value.world_position)    + "]";
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_aero_position"]          = "[" + System.String.Join(";", value.aero_position)    + "]";
+                        
+                    } /* foreach() */
+
                 } /* foreach() */
 
                 // phase D

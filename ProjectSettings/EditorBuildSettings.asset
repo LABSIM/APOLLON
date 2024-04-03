@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Labsim/Experiment/AIRWISE/Scenes/Main.unity
     guid: 61faedc049f4d3c4ab0e8956a9d48e4b
   - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_Familiarisation.unity
+    guid: f3b9cbbbaf4a79f419d9d3cc0bd81d19
+  - enabled: 1
     path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID1.unity
     guid: c4c604fa9b402484384540c42d525a78
   - enabled: 1
@@ -24,6 +27,12 @@ EditorBuildSettings:
     path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID5.unity
     guid: ec0377822bbaa5d4f896874e26f825eb
   - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_ID6.unity
+    guid: 8ea6fc26865d7734ca3eef29ceb3a8b3
+  - enabled: 1
+    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_Familiarisation.unity
+    guid: 15b744533bee71744b02c595de53ce83
+  - enabled: 1
     path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetA.unity
     guid: a4da6a88a54108d48b94357d56f31657
   - enabled: 1
@@ -38,15 +47,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_StreetE.unity
     guid: 45acd5e1a8023a64089895afbc3577ff
-  - enabled: 1
-    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Scene_Familiarisation.unity
-    guid: f3b9cbbbaf4a79f419d9d3cc0bd81d19
-  - enabled: 1
-    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Visual_Familiarisation.unity
-    guid: 15b744533bee71744b02c595de53ce83
-  - enabled: 1
-    path: Assets/Labsim/Experiment/AIRWISE/Scenes/Test_scene.unity
-    guid: 3513c6e3d571d8c4ba0f7e4e77ab7d67
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8264bf70eef11fa42bde15fd25bc24c5,
       type: 2}

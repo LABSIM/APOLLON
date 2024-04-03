@@ -53,12 +53,13 @@ public class IncrementXYZOtherAxisMapping : AbstractMapping
         this.AbstractMappingConfig = abstractMappingConfig;
         if (BrunnerHandle.Instance.GetReturnBrunner()) 
         {
-            UnityEngine.Debug.Log("IncrementXYZOtherAxisMapping: debut phaseC, repart de 0 alors que devrait mesurer position courante");
             this.PositionDesired = AeroFrame.GetPosition(rb);
+            UnityEngine.Debug.Log("IncrementXYZOtherAxisMapping: " + this.PositionDesired);
         } 
         else 
         {
             this.PositionDesired = new Vector3(IncrementXYZOtherAxisMappingConfig.DefaultDesiredX, IncrementXYZOtherAxisMappingConfig.DefaultDesiredY, IncrementXYZOtherAxisMappingConfig.DefaultDesiredZ);
+            UnityEngine.Debug.Log("IncrementXYZOtherAxisMapping ELSE: " + this.PositionDesired);
         }
         this.OtherAxisDesired = IncrementXYZOtherAxisMappingConfig.DefaultDesiredOtherAxis;
         this.DefaultPositionDesired = this.PositionDesired;
@@ -88,8 +89,10 @@ public class IncrementXYZOtherAxisMapping : AbstractMapping
         {
             Vector3 positionDesired = new Vector3
             {
-                x = this.PositionDesired.x + BrunnerHandle.Instance.GetX() / 100.0f,
-                y = BrunnerHandle.Instance.GetY() / 100.0f
+                // x = this.PositionDesired.x + Parameters. JoystickToPositionX * BrunnerHandle.Instance.GetX() / 100.0f,
+                // y = Parameters. JoystickToPositionY * BrunnerHandle.Instance.GetY() / 100.0f
+                x = AeroFrame.GetPosition(this.m_rb).x + 1.0f * BrunnerHandle.Instance.GetX() / 100.0f,
+                y = 15.0f * BrunnerHandle.Instance.GetY() / 100.0f
             };
             positionDesired.z = this.PositionDesired.z -Parameters.JoystickToPositionZ * (Convert.ToSingle(BrunnerHandle.Instance.GetHatUp()) - Convert.ToSingle(BrunnerHandle.Instance.GetHatDown()));
             this.PositionDesired = positionDesired;
