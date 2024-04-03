@@ -48,9 +48,9 @@ public class Manager
     private ErrorDisplayFactory ErrorDisplayFactory  { get; set; }
     private AbstractErrorDisplay ErrorDisplay { get; set; }
 
-    private TimeSpan m_currElapsed;
-    private float m_tElapsed, m_tFinal, m_arrivalRadius;
-    private int m_nbTrials, m_currTrial;
+    private double m_tElapsed, m_tFinal;
+    private float m_arrivalRadius;
+    private int m_nbTrials;
 
 
     #region singleton pattern
@@ -65,47 +65,41 @@ public class Manager
 
     public static Manager Instance => _lazyManager.Value;
 
+    private bool m_isDisposed = false;
+
     private Manager() { }
-    ~Manager()
-    {
-        this.Dispose();
+    ~Manager() { 
+        if (!this.m_isDisposed) {
+            this.Dispose();
+        }
     }
 
     public void Dispose()
     {
         this.SetDisposeConditions();
+        BrunnerHandle.Instance.Dispose();
+        Logger.Instance.Dispose();
+        this.m_isDisposed = true;
     }
 
     #endregion 
     
 
-    public void Instantiate(QuadController mb, TimeSpan elapsed)
+    public void Instantiate(QuadController mb)
     {
-        UnityEngine.Debug.Log(Constants.ConfigFilePath);
         // Initiate Controller variable
         this.QuadController = mb;
-        UnityEngine.Debug.Log("Manager.Instantiate()" + Manager.Instance.QuadController.Rb);
-
-        this.m_currElapsed = elapsed;
-        this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
-        // First Initialization upon QuadController Awake
-        this.m_currTrial = 0;
     }
 
-    public void Initialize(Rigidbody rb, TimeSpan elapsed, DateTime timestamp, Rotor[] rotors)
+    public void Initialize(Rigidbody rb, DateTime timestamp, Rotor[] rotors)
     {
-        // Initialize inner members
-        this.m_currElapsed = elapsed;
-        this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
-        this.m_currTrial += 1;
-
         // Build manager
         this.Build(timestamp, rb, rotors);
 
         // Set initial conditions
         this.SetInitialConditions();
             Debug.Log(
-                "<color=blue>Info: </color> " + this.GetType() + ".Initialize(): Entering block " + this.m_currTrial.ToString("#") + "."
+                "<color=blue>Info: </color> " + this.GetType() + ".Initialize(): Entering block " + this.GetCurrTrial().ToString("#") + "."
             );
         if (this.DuringTrial()) {
         }
@@ -119,7 +113,7 @@ public class Manager
         this.BuildConfig();
 
         // Initiate logger
-        Logger.Instance.Configure(this.LoggerConfig, timestamp, this.m_currElapsed, rb);
+        Logger.Instance.Configure(this.LoggerConfig, timestamp, rb);
         
         // Define initial conditions
         // this.InitialConditions = this.Config.InitialConditions;
@@ -181,9 +175,7 @@ public class Manager
     }
 
     public void Reset()
-    {
-        UnityEngine.Debug.Log("Manager.Reset()");
-        
+    {        
         // Reset logger
         Logger.Instance.Reset();
 
@@ -217,10 +209,9 @@ public class Manager
     }
 
     // Compute routine: return false to stop, true to continue
-    public bool Compute(TimeSpan elapsed)
+    public bool Compute()
     {
-        this.m_currElapsed = elapsed;
-        this.m_tElapsed = Utilities.FromTimeSpanToFloatElapsed(this.m_currElapsed);
+        // this.m_tElapsed = Labsim.apollon.ApollonHighResolutionTime.Now.ElapsedMilliseconds;
         
         // // Pause simulation if criterion reached
         // if (this.PauseTrialOnButtonCondition())
@@ -238,8 +229,8 @@ public class Manager
         };
 
         // Update elapsed time-based members
-        Logger.Instance.SaveElapsed(elapsed);
-        this.ForcingFunction.Compute(this.m_tElapsed);
+        Logger.Instance.SaveElapsed();
+        this.ForcingFunction.Compute(Labsim.apollon.ApollonHighResolutionTime.Now.ElapsedMilliseconds);
 
         // Update Brunner input-based members 
         this.Mapping.ReadMapping();
@@ -253,9 +244,9 @@ public class Manager
         this.Actuation.FilterActuation();
         this.Actuation.HandlePropellers();
         
-        this.Haptic.FetchCriterion(this.m_tElapsed);
+        this.Haptic.FetchCriterion();
         this.Haptic.ComputeForce();
-        this.Haptic.Actuate(this.m_tElapsed);
+        this.Haptic.Actuate();
         
         this.ErrorDisplay.ComputeError();
 
@@ -273,17 +264,19 @@ public class Manager
 
     // Compute simulation end condition: return true to stop, false to continue
     // TODO: vérifier la condition d'itérations et la durée
-    public bool EndTrialOnIterationCountCondition() { return this.m_currTrial > this.m_nbTrials - 1; }
-    public bool EndTrialOnFinalTimeCondition() { return this.m_tElapsed - Time.fixedDeltaTime >= this.m_tFinal; }
+    public bool EndTrialOnIterationCountCondition() { return this.GetCurrTrial() > this.m_nbTrials - 1; }
+    public bool EndTrialOnFinalTimeCondition() { return Labsim.apollon.ApollonHighResolutionTime.Now.ElapsedMilliseconds - Time.fixedDeltaTime >= this.m_tFinal; }
     public bool EndTrialOnButtonCondition() { BrunnerHandle.Instance.ExecuteOneStep(); return BrunnerHandle.Instance.GetButton2(); }
     public bool EndTrialOnTaskEndCondition() { return this.GetDistanceToArrival() <= this.m_arrivalRadius; }
     public float GetDistanceToArrival() { return float.PositiveInfinity; /*Utilities.Distance(AeroFrame.ProjectOnHorizontalplane(AeroFrame.GetPosition(this.QuadController.ArrivalRb)), AeroFrame.ProjectOnHorizontalplane(AeroFrame.GetPosition(this.QuadController.Rb)))*/; }
-    public int GetCurrTrial() { return this.m_currTrial; }
-    // public void SetCurrTrial(int currTrial) { this.m_currTrial = currTrial; }
-    public float GetElapsedTime() { return this.m_tElapsed; }
-    public float GetCorrectedElapsedTime() { return this.m_tElapsed - Time.fixedDeltaTime; }
-    public void SetElapsedTime(float tElapsed) { this.m_tElapsed = tElapsed; }
-    public bool DuringTrial() { return (this.m_currTrial >= 0 /*&& this.m_currTrial < this.m_nbTrials*/); }
+    public int GetCurrTrial() { return Labsim.apollon.experiment.ApollonExperimentManager.Instance.Session.currentTrialNum; }
+    public int GetCurrRun() { return (int)(Labsim.apollon.experiment.ApollonExperimentManager.Instance.Profile as Labsim.experiment.AIRWISE.AIRWISEProfile)
+                                            .CurrentResults
+                                            .Trial
+                                            .user_performance_try_count; }
+    public double GetElapsedTime() { return Labsim.apollon.ApollonHighResolutionTime.Now.ElapsedMilliseconds; }
+    public double GetCorrectedElapsedTime() { return Labsim.apollon.ApollonHighResolutionTime.Now.ElapsedMilliseconds - Time.fixedDeltaTime; }
+    public bool DuringTrial() { return (this.GetCurrTrial() >= 0); }
 }
 
 

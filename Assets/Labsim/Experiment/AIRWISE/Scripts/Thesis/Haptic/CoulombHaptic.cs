@@ -65,9 +65,9 @@ public class CoulombHaptic : AbstractHaptic
     }
 
     // Apply to current RigidBody provided force and torque expressed in aero frame using Euler-Cardan ZYX angles
-    public override void FetchCriterion(float tElapsed)
+    public override void FetchCriterion()
     {
-        base.FetchCriterion(tElapsed);
+        base.FetchCriterion();
         for (int i = 0; i < Manager.Instance.QuadController.NbRaycast; i++)
         {
             RaycastHit hit;
@@ -131,7 +131,7 @@ public class CoulombHaptic : AbstractHaptic
         // this.ForceXToSend = -gainXPos * 1 / (this.SecuredDistances[0] ) + gainXNeg * 1 / (this.SecuredDistances[2]);
         // this.ForceYToSend = -gainYPos * 1 / (this.SecuredDistances[1] ) + gainYNeg * 1 / (this.SecuredDistances[3]);
     }
-    public override void Actuate(float elapsed)
+    public override void Actuate()
     {
         this.profileX = this.profileLat;
         this.profileY = this.profileLongi;

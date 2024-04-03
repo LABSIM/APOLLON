@@ -118,5 +118,5 @@ public abstract class AbstractForcingFunction
     }
 
     // Declare abstract methods to be implemented in child classes
-    public abstract void Compute(float elapsed);
+    public abstract void Compute(double elapsed);
 }

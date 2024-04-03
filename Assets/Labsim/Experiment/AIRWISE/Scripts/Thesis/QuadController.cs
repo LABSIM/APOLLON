@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class QuadController : MonoBehaviour
 {
-    private System.Diagnostics.Stopwatch _chrono = System.Diagnostics.Stopwatch.StartNew();
     private DateTime _timestamp = DateTime.Now;
 
     // Mechanical members
     private Rigidbody m_rb 
         = new();
-    public Rigidbody Rb 
-        => this.m_rb;
-
+    public Rigidbody Rb { get { return this.m_rb; } set { this.m_rb = value; } }
 
     [UnityEngine.SerializeField]
     private UnityEngine.Vector3 m_initPos 
@@ -53,7 +50,6 @@ public class QuadController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if(this.Inhibit)
         {
             return;
@@ -61,9 +57,7 @@ public class QuadController : MonoBehaviour
 
         // UnityEditor.EditorApplication.pauseStateChanged += RestartChronoAfterPause;
         // Stop chrono to current time if Manager returned simulation stop condition
-        if (Manager.Instance.Compute(this._chrono.Elapsed)) {
-            this._chrono.Stop();
-        }
+        Manager.Instance.Compute();
         Logger.Instance.FlushBuffer();
         Logger.Instance.FlushTrialConfigBuffer();
 
@@ -83,6 +77,12 @@ public class QuadController : MonoBehaviour
     {
         // Initialize simulation state
         this.Initialize();
+
+        // Pass current position to child rotor
+        foreach (var rotor in this.Rotors) 
+        {
+            rotor.ComputeInitPosRot(this.InitPos, this.InitRot);
+        }
     }
 
     private void OnDisable()
@@ -110,20 +110,20 @@ public class QuadController : MonoBehaviour
         {
             try {
                     GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired translational velocity: " + ((PositionMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((PositionMapping)Manager.Instance.Mapping).PositionDesired.y);
-                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.m_rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.m_rb)[1]);
+                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.Rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.Rb)[1]);
 
                     GUI.Label(new Rect(0, 5 * d + 2 * dSpace, dWidth, d), "Desired heading: " + -((PositionMapping)Manager.Instance.Mapping).OtherAxisDesired);
-                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.Rb)[2]);
 
                     if (Manager.Instance.Control.GetType() == typeof(DirectAltitudeSingleIntegratorVelocityDirectYaw))
                     {
                         GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude increment: " + -((PositionMapping)Manager.Instance.Mapping).PositionDesired.z);
-                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.Rb)[2]);
                     }
                     else if (Manager.Instance.Control.GetType() == typeof(DirectPitchSingleIntegratorVelocityDirectYaw))
                     {
                         GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired pitch: " + -((PositionMapping)Manager.Instance.Mapping).PositionDesired.z);
-                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current pitch: " + AeroFrame.GetAngles(this.m_rb)[1]);
+                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current pitch: " + AeroFrame.GetAngles(this.Rb)[1]);
                     }
 
                     GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
@@ -136,20 +136,20 @@ public class QuadController : MonoBehaviour
         {
             try {
                     GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired translational velocity: " + ((XYIncrementZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((XYIncrementZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.y);
-                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.m_rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.m_rb)[1]);
+                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.Rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.Rb)[1]);
 
                     GUI.Label(new Rect(0, 5 * d + 2 * dSpace, dWidth, d), "Desired heading: " + -((XYIncrementZOtherAxisMapping)Manager.Instance.Mapping).OtherAxisDesired);
-                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.Rb)[2]);
 
                     if (Manager.Instance.Control.GetType() == typeof(DirectAltitudeSingleIntegratorVelocityDirectYaw))
                     {
                         GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude rate increment: " + -((XYIncrementZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.z);
-                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.Rb)[2]);
                     }
                     else if (Manager.Instance.Control.GetType() == typeof(DirectPitchSingleIntegratorVelocityDirectYaw))
                     {
                         GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired pitch rate: " + -((XYIncrementZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.z);
-                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current pitch: " + AeroFrame.GetAngles(this.m_rb)[1]);
+                        GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current pitch: " + AeroFrame.GetAngles(this.Rb)[1]);
                     }
 
                     GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
@@ -160,15 +160,15 @@ public class QuadController : MonoBehaviour
          else if (Manager.Instance.Mapping.GetType() == typeof(IncrementXYZOtherAxisMapping)
             && ((Manager.Instance.Control.GetType() == typeof(DirectAltitudeDoubleIntegratorPositionDirectYaw))))
             { try {
-                    GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired position increment: " + ((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.y);
-                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current position: " + AeroFrame.GetRelativeVelocity(this.m_rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.m_rb)[1]);
+                    GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired position: " + ((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.y);
+                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current position increment: " + AeroFrame.GetRelativeVelocity(this.Rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.Rb)[1]);
 
                     GUI.Label(new Rect(0, 5 * d + 2 * dSpace, dWidth, d), "Desired heading: " + -((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).OtherAxisDesired);
-                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.Rb)[2]);
 
                     
-                    GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude rate increment: " + ((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.z);
-                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude rate: " + ((IncrementXYZOtherAxisMapping)Manager.Instance.Mapping).PositionDesired.z);
+                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.Rb)[2]);
                     
                     
                     GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
@@ -181,14 +181,14 @@ public class QuadController : MonoBehaviour
         {
             try{
                     GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired translational velocity: " + ((PositionMapping)Manager.Instance.Mapping).PositionDesired.x + ", " +((PositionMapping)Manager.Instance.Mapping).PositionDesired.y);
-                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.m_rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.m_rb)[1]);
+                    GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Current translational velocity: " + AeroFrame.GetRelativeVelocity(this.Rb)[0] + ", " + AeroFrame.GetRelativeVelocity(this.Rb)[1]);
 
                     GUI.Label(new Rect(0, 5 * d + 2 * dSpace, dWidth, d), "Desired heading: " + -((PositionMapping)Manager.Instance.Mapping).OtherAxisDesired);
-                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.Rb)[2]);
 
                     
                     GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired altitude rate increment: " + -((PositionMapping)Manager.Instance.Mapping).PositionDesired.z);
-                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.Rb)[2]);
                     
                     
                     GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
@@ -205,15 +205,15 @@ public class QuadController : MonoBehaviour
             try {
                     GUI.Label(new Rect(0, 3 * d + dSpace, dWidth, d), "Desired unfiltered velocity: " + ((AltitudeTranslationalVelocityMapping)Manager.Instance.Mapping).VelocityDesiredUnfiltered);
                     GUI.Label(new Rect(0, 4 * d + dSpace, dWidth, d), "Desired filtered velocity: " + ((AltitudeTranslationalVelocityMapping)Manager.Instance.Mapping).VelocityDesired);
-                    GUI.Label(new Rect(0, 5 * d + dSpace, dWidth, d), "Current velocity: " + AeroFrame.GetAbsoluteVelocity(this.m_rb));
+                    GUI.Label(new Rect(0, 5 * d + dSpace, dWidth, d), "Current velocity: " + AeroFrame.GetAbsoluteVelocity(this.Rb));
 
                     GUI.Label(new Rect(0, 6 * d + 2 * dSpace, dWidth, d), "Desired unfiltered altitude: " + ((AltitudeTranslationalVelocityMapping)Manager.Instance.Mapping).AltitudeDesiredUnfiltered);
                     GUI.Label(new Rect(0, 7 * d + 2 * dSpace, dWidth, d), "Desired filtered altitude: " + ((AltitudeTranslationalVelocityMapping)Manager.Instance.Mapping).AltitudeDesired);
-                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 8 * d + 2 * dSpace, dWidth, d), "Current altitude: " + AeroFrame.GetPosition(this.Rb)[2]);
 
                     GUI.Label(new Rect(0, 9 * d + 4 * dSpace, dWidth, d), "Desired unfiltered heading: " + ((AltitudeTranslationalVelocityMapping)Manager.Instance.Mapping).YawDesiredUnfiltered);
                     GUI.Label(new Rect(0, 10 * d + 4 * dSpace, dWidth, d), "Desired filtered heading: " + ((AltitudeTranslationalVelocityMapping)Manager.Instance.Mapping).YawDesired);
-                    GUI.Label(new Rect(0, 11 * d + 4 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.m_rb)[2]);
+                    GUI.Label(new Rect(0, 11 * d + 4 * dSpace, dWidth, d), "Current heading: " + AeroFrame.GetAngles(this.Rb)[2]);
 
                     GUI.Label(new Rect(0, 12 * d + 5 * dSpace, dWidth, d), "Force: " + Manager.Instance.Control.Order);
             }
@@ -221,36 +221,24 @@ public class QuadController : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
-    {
-        // BrunnerHandle.Instance.Dispose();
-        // Logger.Instance.Dispose();
-    }
-
     // Home-made methods
 
     private void Instantiate() 
-    {        UnityEngine.Debug.Log("QuadController.Instantiate()");
+    {
         // Instantiate mechanical control elements
 
-        this.m_rb = this.gameObject.GetComponent<Rigidbody>();
+        this.Rb = this.gameObject.GetComponent<Rigidbody>();
         this.HitPts = new Vector3[_nbRaycast] { new Vector3(), new Vector3(), new Vector3(), new Vector3() };
         this._distances = new float[_nbRaycast] { Parameters.DistMax, Parameters.DistMax, Parameters.DistMax, Parameters.DistMax };
         this.Rotors = this.transform.parent.GetComponentsInChildren<Rotor>();
 
-        // Reset chrono
-        this._chrono.Reset();
-        this._chrono.Restart();
         
         // Build manager
-        Manager.Instance.Instantiate(this, this._chrono.Elapsed);
+        Manager.Instance.Instantiate(this);
     }
 
     private void Initialize() 
     {
-        // Reset chrono
-        this._chrono.Reset();
-        this._chrono.Restart();
         
         // find all loaded tags gate
         foreach(var obj in UnityEngine.GameObject.FindGameObjectsWithTag("AIRWISETag_Arrival"))
@@ -271,14 +259,11 @@ public class QuadController : MonoBehaviour
         }/* foreach() */
 
         // Initialize manager (hence, logger)
-        Manager.Instance.Initialize(this.Rb, this._chrono.Elapsed, this._timestamp, this.Rotors);
+        Manager.Instance.Initialize(this.Rb, this._timestamp, this.Rotors);
     }
 
     private void Reset()
     {
-        // Reset chrono
-        this._chrono.Reset();
-        this._chrono.Restart();
 
         // Reset manager (hence, logger)
         Manager.Instance.Reset();
@@ -286,15 +271,14 @@ public class QuadController : MonoBehaviour
 
     public void ResetRigidBody() 
     {
-        // Reset RigidBody
+        if (this.Rb == null) { return; }
         AeroFrame.SetPosition(this.Rb, this.InitPos);
-        UnityEngine.Debug.Log("QuadController.Reset " + this.InitPos);
         AeroFrame.SetAngles(this.Rb, this.InitRot);
         AeroFrame.SetAbsoluteVelocity(this.Rb, Vector3.zero);
         AeroFrame.SetAngularVelocity(this.Rb, Vector3.zero);
         AeroFrame.ApplyRelativeForce(this.Rb, Vector3.zero);
         AeroFrame.ApplyRelativeTorque(this.Rb, Vector3.zero);
-
+        
         foreach (var rotor in this.Rotors) {
             rotor.ResetRigidBody();
         }

@@ -42,8 +42,5 @@ public class VariableSquareForcingFunction : AbstractForcingFunction
     public VariableSquareForcingFunctionConfig VariableSquareForcingFunctionConfig => this.AbstractForcingFunctionConfig as VariableSquareForcingFunctionConfig;
 
     // Compute current value
-    public override void Compute(float t)
-    {
-
-    }
+    public override void Compute(double t) { }
 }

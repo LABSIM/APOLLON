@@ -4,8 +4,9 @@ using UnityEngine;
 public static class Constants
 {
     // General config file path
-    public static string defaultStreamingAssetsPath = @"Assets/StreamingAssets/";
-    public static string streamingAssetsPath = @"Assets/StreamingAssets/";
+
+    public static string defaultStreamingAssetsPath = UnityEngine.Application.streamingAssetsPath;
+    public static string streamingAssetsPath = UnityEngine.Application.streamingAssetsPath;
     public const string ConfigFile = @"ConfigFile.json";
 
     public static string ConfigFilePath => Constants.streamingAssetsPath + Constants.ConfigFile;
@@ -112,7 +113,7 @@ public static class Constants
 public static class Parameters
 {
     public const float DistMax = 1000.0f;
-    public const float PosIncrMax = 5.0f;
+    public const float PosIncrMax = 1.0f;
     public const float VMax = 130.0f / 3.6f;
 
     public const float JoystickToPositionX = 1 / 2.0f;
@@ -221,24 +222,24 @@ public static class UnityFrame
     // Set current RigidBody in provided position expressed in Unity frame
     public static void SetPosition(Rigidbody rb, Vector3 position)
     {
-        rb.MovePosition(position);
+        rb.transform.position = position;
     }
     // Increment current RigidBody by provided position vector expressed in Unity frame
     public static void IncrementPosition(Rigidbody rb, Vector3 positionVector)
     {
-        rb.position += positionVector;
+        rb.transform.position += positionVector;
     }
 
     // Return current RigidBody position expressed in Unity frame
     public static Vector3 GetPosition(Rigidbody rb)
     {
-        return rb.position;
+        return rb.transform.position;
     }
 
     // Set current RigidBody in provided rotation matrix expressed in Unity frame
     public static void SetRotation(Rigidbody rb, Matrix4x4 mRotation)
     {
-        rb.MoveRotation(Utilities.MatrixToQuaternion(mRotation));
+        rb.transform.rotation = Utilities.MatrixToQuaternion(mRotation);
     }
 
     // Set current RigidBody as provided angles expressed in Unity frame using Tait-Bryan ZXY angles
@@ -251,13 +252,13 @@ public static class UnityFrame
     // Return rotation matrix of current RigidBody expressed in aero frame
     public static Matrix4x4 GetRotationMatrix(Rigidbody rb)
     {
-        return Utilities.ZXYToMatrix(rb.rotation.eulerAngles);
+        return Utilities.ZXYToMatrix(rb.transform.rotation.eulerAngles);
     }
 
     // Return current RigidBody Tait-Bryan ZXY angles expressed in Unity frame
     public static Vector3 GetAngles(Rigidbody rb)
     {
-        return rb.rotation.eulerAngles;
+        return rb.transform.rotation.eulerAngles;
     }
 
     // Set current RigidBody to provided absolute velocity expressed in Unity frame
@@ -394,7 +395,7 @@ public static class AeroFrame
     // Return rotation matrix of current RigidBody expressed in aero frame
     public static Matrix4x4 GetRotationMatrix(Rigidbody rb)
     {
-        return Constants.mAeroUnity * Matrix4x4.Rotate(rb.rotation) * Constants.mUnityAero;
+        return Constants.mAeroUnity * Matrix4x4.Rotate(rb.transform.rotation) * Constants.mUnityAero;
     }
 
     // Return current RigidBody Euler-Cardan ZYX angles expressed in aero frame

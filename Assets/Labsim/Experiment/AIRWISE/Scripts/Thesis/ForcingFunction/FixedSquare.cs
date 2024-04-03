@@ -42,8 +42,8 @@ public class FixedSquareForcingFunction : AbstractForcingFunction
     public FixedSquareForcingFunctionConfig FixedSquareForcingFunctionConfig => this.AbstractForcingFunctionConfig as FixedSquareForcingFunctionConfig;
     
     // Compute current value
-    public override void Compute(float t)
+    public override void Compute(double t)
     {
-        this.val = this.A * Mathf.Sign(Mathf.Sin(2.0f * Mathf.PI * this.f * (t + this.tau))) + this.average;
+        this.val = this.A * Mathf.Sign(Mathf.Sin(2.0f * Mathf.PI * this.f * ((float) t + this.tau))) + this.average;
     }
 }

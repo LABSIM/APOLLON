@@ -42,8 +42,5 @@ public class VariableSineForcingFunction : AbstractForcingFunction
     public VariableSineForcingFunctionConfig VariableSineForcingFunctionConfig => this.AbstractForcingFunctionConfig as VariableSineForcingFunctionConfig;
 
     // Compute current value
-    public override void Compute(float t)
-    {
-
-    }
+    public override void Compute(double t) { }
 }

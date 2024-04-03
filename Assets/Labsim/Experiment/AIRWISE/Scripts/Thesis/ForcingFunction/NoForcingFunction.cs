@@ -25,5 +25,5 @@ public class NoForcingFunction : AbstractForcingFunction
     public NoForcingFunctionConfig NoForcingFunctionConfig => this.AbstractForcingFunctionConfig as NoForcingFunctionConfig;
 
     // Compute current value
-    public override void Compute(float t) { }
+    public override void Compute(double t) { }
 }

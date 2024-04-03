@@ -23,7 +23,7 @@ public class NoHaptic : AbstractHaptic
 {
     public NoHaptic(NoHapticConfig config, Rigidbody rb, Manager manager) : base(config as AbstractHapticConfig, rb, manager) { }
 
-    public override void FetchCriterion(float tElapsed) { }
+    public override void FetchCriterion() { }
     public override void ComputeForce() { }
-    public override void Actuate(float elapsed) { }
+    public override void Actuate() { }
 }

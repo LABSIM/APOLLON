@@ -44,8 +44,8 @@ public class FixedSineForcingFunction : AbstractForcingFunction
     public FixedSineForcingFunctionConfig FixedSineForcingFunctionConfig => this.AbstractForcingFunctionConfig as FixedSineForcingFunctionConfig;
 
     // Compute current value
-    public override void Compute(float t)
+    public override void Compute(double t)
     {
-        this.val = this.A * Mathf.Sin(2.0f * Mathf.PI * this.f * (t + this.tau)) + this.average;
+        this.val = this.A * Mathf.Sin(2.0f * Mathf.PI * this.f * ((float)t + this.tau)) + this.average;
     }
 }

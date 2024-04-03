@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17893565, g: 0.22405514, b: 0.3059012, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5114,7 +5114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd632381d4a7d174a8fee240f73bf04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rb: {fileID: 0}
+  m_defaultPos: {x: 0, y: 0, z: 0}
+  m_defaultRot: {x: 0, y: 0, z: 0}
+  m_initPos: {x: 0, y: 0, z: 0}
+  m_initRot: {x: 0, y: 0, z: 0}
 --- !u!1 &614997978
 GameObject:
   m_ObjectHideFlags: 0
@@ -6092,8 +6095,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d5e8e9a17e49f4b9aa7bd805119202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_initPos: {x: 0, y: 1, z: 0}
-  m_initRot: {x: 0, y: 0, z: 0}
 --- !u!1 &673252555
 GameObject:
   m_ObjectHideFlags: 0
@@ -11485,7 +11486,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd632381d4a7d174a8fee240f73bf04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rb: {fileID: 0}
+  m_defaultPos: {x: 0, y: 0, z: 0}
+  m_defaultRot: {x: 0, y: 0, z: 0}
+  m_initPos: {x: 0, y: 0, z: 0}
+  m_initRot: {x: 0, y: 0, z: 0}
 --- !u!1 &1170147981
 GameObject:
   m_ObjectHideFlags: 0
@@ -11799,7 +11803,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd632381d4a7d174a8fee240f73bf04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rb: {fileID: 0}
+  m_defaultPos: {x: 0, y: 0, z: 0}
+  m_defaultRot: {x: 0, y: 0, z: 0}
+  m_initPos: {x: 0, y: 0, z: 0}
+  m_initRot: {x: 0, y: 0, z: 0}
 --- !u!1 &1235633869 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3932316795399243470, guid: 90f628996bb053f4a9029d11cc08933c,
@@ -16691,7 +16698,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd632381d4a7d174a8fee240f73bf04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rb: {fileID: 0}
+  m_defaultPos: {x: 0, y: 0, z: 0}
+  m_defaultRot: {x: 0, y: 0, z: 0}
+  m_initPos: {x: 0, y: 0, z: 0}
+  m_initRot: {x: 0, y: 0, z: 0}
 --- !u!1 &1742849210
 GameObject:
   m_ObjectHideFlags: 0
@@ -17492,6 +17502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a231347104907d4591da06410aae60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_initPos: {x: 0, y: 0, z: 0}
+  m_initRot: {x: 0, y: 0, z: 0}
   RayDirections:
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 1, z: 0}
@@ -17684,7 +17696,7 @@ PrefabInstance:
     - target: {fileID: 3372775544887497386, guid: 0cbc3c6ad151dae4e98568b75e3959fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3372775544887497388, guid: 0cbc3c6ad151dae4e98568b75e3959fa,
         type: 3}

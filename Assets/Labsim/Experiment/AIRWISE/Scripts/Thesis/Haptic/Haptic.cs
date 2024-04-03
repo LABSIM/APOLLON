@@ -291,7 +291,7 @@ public abstract class AbstractHaptic
     }
 
     // Declare abstract methods to be implemented in child classes
-    public virtual void FetchCriterion(float tElapsed) {
+    public virtual void FetchCriterion() {
         this.MeasuredX = BrunnerHandle.Instance.GetX();
         this.MeasuredY = BrunnerHandle.Instance.GetY();
         this.MeasuredForceX = BrunnerHandle.Instance.GetForceLongitudinal();
@@ -303,5 +303,5 @@ public abstract class AbstractHaptic
         Logger.Instance.AddEntry (this.MeasuredForceYLoggerIdx, this.MeasuredForceY);
     }
     public abstract void ComputeForce();
-    public abstract void Actuate(float elapsed);
+    public abstract void Actuate();
 }

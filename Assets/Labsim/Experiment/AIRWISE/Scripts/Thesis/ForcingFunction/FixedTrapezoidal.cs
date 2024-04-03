@@ -42,8 +42,5 @@ public class FixedTrapezoidalForcingFunction : AbstractForcingFunction
     public FixedTrapezoidalForcingFunctionConfig FixedTrapezoidalForcingFunctionConfig => this.AbstractForcingFunctionConfig as FixedTrapezoidalForcingFunctionConfig;
 
     // Compute current value
-    public override void Compute(float t)
-    {
-
-    }
+    public override void Compute(double t) { }
 }

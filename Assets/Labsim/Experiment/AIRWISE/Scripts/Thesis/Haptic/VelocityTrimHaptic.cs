@@ -22,9 +22,9 @@ public class VelocityTrimHaptic : AbstractHaptic
 {
     public VelocityTrimHaptic(VelocityTrimHapticConfig config, Rigidbody rb, Manager manager, AbstractHaptic.HapticAxisModes axisMode) : base(config, rb, manager) { }
 
-    public override void FetchCriterion(float tElapsed)
+    public override void FetchCriterion()
     {
-        base.FetchCriterion(tElapsed);
+        base.FetchCriterion();
         Debug.Log("FetchCriterion from VelocityTrimHaptic");
     }
 
@@ -40,7 +40,7 @@ public class VelocityTrimHaptic : AbstractHaptic
         // BrunnerHandle.Instance.WriteAxisRangeLimit(-50, 50, -75, 75);
     }
 
-    public override void Actuate(float elapsed)
+    public override void Actuate()
     {
         Debug.Log("Actuate from VelocityTrimHaptic");
     }

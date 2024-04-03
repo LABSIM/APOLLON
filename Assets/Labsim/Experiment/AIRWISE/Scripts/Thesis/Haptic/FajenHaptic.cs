@@ -37,16 +37,16 @@ public class FajenHapticConfig : AbstractHapticConfig
 public class FajenHaptic : AbstractHaptic
 {
     // FajenHaptic-specific members
-    private SteeringDynamics m_SteeringDynamics;
+    // private SteeringDynamics m_SteeringDynamics;
 
     private float PositionXToSend, PositionYToSend;
     private int PositionXToSendLoggerIdx, PositionYToSendLoggerIdx;
 
     public FajenHaptic(FajenHapticConfig config, Rigidbody rb, Manager manager) : base(config as AbstractHapticConfig, rb, manager)
     {
-        this.m_SteeringDynamics = rb.GetComponentsInChildren<SteeringDynamics>()[0];
-        this.m_SteeringDynamics.Configure(config.b, config.kG, config.c1, config.c2, config.kO, config.c3, config.c4, this.m_rb, config.order, config.tSolver, config.dt, config.nStepSolver);
-        this.m_SteeringDynamics.SetGoalAndObstacles(config.xG, config.yG, config.xO, config.yO, config.errD);
+        // this.m_SteeringDynamics = rb.GetComponentsInChildren<SteeringDynamics>()[0];
+        // this.m_SteeringDynamics.Configure(config.b, config.kG, config.c1, config.c2, config.kO, config.c3, config.c4, this.m_rb, config.order, config.tSolver, config.dt, config.nStepSolver);
+        // this.m_SteeringDynamics.SetGoalAndObstacles(config.xG, config.yG, config.xO, config.yO, config.errD);
 
         Vector4 X0 = new Vector4();
 
@@ -62,22 +62,22 @@ public class FajenHaptic : AbstractHaptic
         //Logger.Instance.AddTrialConfigEntry(Logger.Utilities.InitialConditionsKey, Logger.Utilities.kYKey, this.kY);
     }
 
-    public void Initialize(float t0, float tf, Vector4 X0)
+    public void Initialize(double t0, double tf, Vector4 X0)
     {
-        this.m_SteeringDynamics.Initialize(
-            t0, tf, 
-            new Vector4(AeroFrame.ComputePhi(this.m_rb), AeroFrame.ComputePhiDot(this.m_rb), AeroFrame.GetPosition(this.m_rb).x, AeroFrame.GetPosition(this.m_rb).y), 
-            Utilities.Norm(AeroFrame.GetAbsoluteVelocity(this.m_rb)));
+        // this.m_SteeringDynamics.Initialize(
+        //     t0, tf, 
+        //     new Vector4(AeroFrame.ComputePhi(this.m_rb), AeroFrame.ComputePhiDot(this.m_rb), AeroFrame.GetPosition(this.m_rb).x, AeroFrame.GetPosition(this.m_rb).y), 
+        //     Utilities.Norm(AeroFrame.GetAbsoluteVelocity(this.m_rb)));
     }
 
 
-    public override void FetchCriterion(float tElapsed)
+    public override void FetchCriterion()
     {
-        base.FetchCriterion(tElapsed);
-        UnityEngine.Debug.Log(this.m_SteeringDynamics.GetResolutionResultAtTime(tElapsed));
+        base.FetchCriterion();
+        // UnityEngine.Debug.Log(this.m_SteeringDynamics.GetResolutionResultAtTime(Labsim.apollon.ApollonHighResolutionTime.Now.ElapsedMilliseconds));
     }
     public override void ComputeForce() { }
-    public override void Actuate(float elapsed)
+    public override void Actuate()
     {
         BrunnerHandle.Instance.WriteTrimPositionXY(this.PositionXToSend, this.PositionYToSend);
         Logger.Instance.AddEntry(this.PositionXToSendLoggerIdx, this.PositionXToSend);

@@ -46,7 +46,6 @@ public class Logger
     private string m_numSep, m_textSep, m_tableExtension = csvExt, m_structureExtension = jsonExt, m_varjoVideoFilenameSep, m_varjoVideoFilenameSep2;
     private DateTime m_timestamp;
     private bool m_runPython, m_copyVarjoVideo;
-    private TimeSpan m_elapsed;
 
     // private bool m_isInitialized = false;
 
@@ -68,9 +67,8 @@ public class Logger
         this.Dispose();
     }
 
-    private void Init(LoggerConfig config, DateTime timestamp, TimeSpan elapsed, Rigidbody rb)
+    private void Init(LoggerConfig config, DateTime timestamp, Rigidbody rb)
     {
-        UnityEngine.Debug.Log("Logger.Init()");
         // // Bail out early with error is already initialized
         // if (this.m_isInitialized) {
         //     UnityEngine.Debug.LogError(
@@ -103,17 +101,13 @@ public class Logger
         // Simulation process-related log
         this.m_keys = new List<string>();
         this.m_buffer = new List<string>();
-        UnityEngine.Debug.Log("Logger.Init\t" + this.m_buffer);
-        this.m_elapsed = elapsed;
-        this.m_buffer.Add(String.Format("{0:00000}.{1:000}", this.m_elapsed.Seconds, this.m_elapsed.Milliseconds));
-        UnityEngine.Debug.Log("Logger.Init - suite " + this.m_buffer);
+        this.m_buffer.Add(Labsim.apollon.ApollonHighResolutionTime.Now.ToString());
 
         // this.m_isInitialized = true;
     }
 
     public void BuildConfig(Type forcingFunction, Type mapping, Type control, Type actuation, Type haptic, Type errorDisplay)
     {   
-        UnityEngine.Debug.Log("Logger.BuildConfig()" + Manager.Instance.QuadController.Rb);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.DtKey, Time.fixedDeltaTime);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.ForcingFunctionKey, forcingFunction);
         Logger.Instance.AddTrialConfigEntry(Logger.Utilities.ConfigurationKey, Logger.Utilities.MappingKey, mapping);
@@ -125,7 +119,6 @@ public class Logger
 
     public void Initialize()
     {
-        UnityEngine.Debug.Log("Logger.Initialize()" + Manager.Instance.QuadController.Rb);
         // Start by creating log path based on current member values 
         this.CreateLogPath();
 
@@ -145,7 +138,6 @@ public class Logger
 
     public void Dispose()
     {
-        UnityEngine.Debug.Log("Logger.Dispose()");
         // Potentially, plot results in Python
         this.PlotInPython();
 
@@ -163,8 +155,6 @@ public class Logger
 
     public void Flush()
     {
-        UnityEngine.Debug.Log("Logger.Flush()");
-
         // Flush remaining logger buffer
         this.FlushBuffer();
         this.FlushTrialConfigBuffer();
@@ -182,9 +172,9 @@ public class Logger
 
     #endregion 
 
-    public void Configure(LoggerConfig config, DateTime timestamp, TimeSpan elapsed, Rigidbody rb)
+    public void Configure(LoggerConfig config, DateTime timestamp, Rigidbody rb)
     {
-        this.Init(config, timestamp, elapsed, rb);
+        this.Init(config, timestamp, rb);
         this.loggerConfigured = true;
     }
     public string GetPath() { return this.m_path; }
@@ -198,8 +188,8 @@ public class Logger
     public string GetVarjoVideoFilenameSep() { return this.m_varjoVideoFilenameSep; }
     public string GetVarjoVideoFilenameSep2() { return this.m_varjoVideoFilenameSep2; }
 
-    public void Reset() {
-        UnityEngine.Debug.Log("Logger.Reset()");
+    public void Reset() 
+    {        
         this.FlushBuffer();
         this.FlushTrialConfigBuffer();
         if (this.m_writer != null) {
@@ -233,9 +223,10 @@ public class Logger
         }
     }
 
-    private string GenerateSuffixFromTrial() {
-        UnityEngine.Debug.Log("loggerConfigured.GenerateSuffixFromTrial()" + Manager.Instance.GetCurrTrial());
-        return this.GetTextSep() + "T" + Manager.Instance.GetCurrTrial().ToString("D3");
+    private string GenerateSuffixFromTrial() 
+    {
+        return this.GetTextSep() + "T" + Manager.Instance.GetCurrTrial().ToString("D3")
+            + this.GetTextSep() + "R" + (Manager.Instance.GetCurrRun() + 1).ToString("D3");
     }
 
     private string GenerateTableFilenameFromTrial(string filename)
@@ -307,9 +298,8 @@ public class Logger
     //     this.AddTrialConfigEntry(Utilities.InitialConditionsKey, Utilities.AngularVelocityKey, initialConditions.AngularVelocity0);
     // }
 
-    public void SaveElapsed(TimeSpan elapsed) {
-        this.m_elapsed = elapsed;
-        this.m_buffer[0] = String.Format("{0:00000}.{1:000}", this.m_elapsed.Seconds + 60 * this.m_elapsed.Minutes, this.m_elapsed.Milliseconds);
+    public void SaveElapsed() {
+        this.m_buffer[0] = Labsim.apollon.ApollonHighResolutionTime.Now.ToString();
     }
 
     public int GetEntry(string newKey){

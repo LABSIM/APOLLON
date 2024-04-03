@@ -1,6 +1,6 @@
 {
-  "DefaultDesiredX": 1,
-  "DefaultDesiredY": 2,
+  "DefaultDesiredX": 0,
+  "DefaultDesiredY": 0,
   "DefaultDesiredZ": 0,
   "DefaultDesiredOtherAxis": 0,
   "filterX": {
