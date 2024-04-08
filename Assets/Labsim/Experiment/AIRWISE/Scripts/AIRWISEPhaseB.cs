@@ -99,6 +99,84 @@ namespace Labsim.experiment.AIRWISE
                     System.Threading.Tasks.TaskScheduler.Default
                 );
 
+            // UI update lambda function
+            System.EventHandler<
+                apollon.ApollonEngine.EngineEventArgs
+            > UI_lambda_function 
+                = (sender, args) 
+                    => 
+                    {  
+                        
+                        // extract values
+                        float
+                            current
+                                = UnityFrame.GetAbsoluteVelocity(
+                                    airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Rb
+                                ).z,
+                            target      
+                                = /* Z accel */ this.FSM.CurrentSettings.PhaseB.linear_acceleration_target[2] 
+                                * /* delta T */ (this.FSM.CurrentSettings.PhaseB.acceleration_duration / 1000.0f),
+                            lower_bound 
+                                = /* 0x  */ 0.0f * target,
+                            upper_bound 
+                                = /* 2x  */ 2.0f * target,
+                            // margin_value 
+                            //     = /* 10% */ 0.1f,
+                            cursor_value         
+                                = UnityEngine.Mathf.Clamp(
+                                    current - lower_bound,
+                                    lower_bound,
+                                    upper_bound
+                                ) 
+                                / (upper_bound - lower_bound);
+
+                        // update cursor
+                        apollon.frontend.ApollonFrontendManager.Instance
+                            .getConcreteBridge<apollon.frontend.gui.ApollonSideSliderGUIBridge>
+                            (
+                                apollon.frontend.ApollonFrontendManager.FrontendIDType.SideSliderGUI
+                            )
+                            .Behaviour
+                            .GetComponentInParent<UnityEngine.UI.Slider>()
+                            .value 
+                            = cursor_value;
+
+                        // log 
+                        // WTF... demander a Yale... ? 
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : FUCK "
+                            + "unity absolute frame:"  + UnityFrame.GetAbsoluteVelocity(airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Rb) 
+                            + "/unity relative  frame:" + UnityFrame.GetRelativeVelocity(airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Rb) 
+                            + "/aero absolute frame:"  + AeroFrame.GetAbsoluteVelocity(airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Rb) 
+                            + "/aero relative  frame:" + AeroFrame.GetRelativeVelocity(airwise_entity.ConcreteBehaviour.GetComponentInChildren<QuadController>().Rb) 
+                            + "/current:" + current
+                            + "/target:" + target
+                            + "/lower_bound:" + lower_bound
+                            + "/upper_bound:" + upper_bound
+                            + "/cursor_value:" + cursor_value
+                        );
+                        
+                    }; /* lambda */
+
+            // show UI if active
+            if(this.FSM.CurrentSettings.Trial.bIsActive)
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : active condition, initializing UI"
+                );
+
+                // activate UI
+                apollon.frontend.ApollonFrontendManager.Instance.setActive(
+                    apollon.frontend.ApollonFrontendManager.FrontendIDType.SideSliderGUI
+                );
+
+                // mapping UI update  
+                apollon.ApollonEngine.Instance.EngineUpdateEvent += UI_lambda_function; 
+                
+            } /* if() */
+
             var parallel_tasks 
                 = new System.Collections.Generic.List<System.Threading.Tasks.Task>() 
                 {
@@ -183,7 +261,7 @@ namespace Labsim.experiment.AIRWISE
                                 {
 
                                     airwise_entity.ConcreteDispatcher.RaiseControl();
-
+                                    
                                 }
                                 else
                                 {
@@ -269,6 +347,25 @@ namespace Labsim.experiment.AIRWISE
 
             // cancel running task
             parallel_tasks_ct_src.Cancel();
+
+            // hide UI if active
+            if(this.FSM.CurrentSettings.Trial.bIsActive)
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> AIRWISEPhaseB.OnEntry() : active condition, closing UI"
+                );
+
+                // inactivate UI
+                apollon.frontend.ApollonFrontendManager.Instance.setInactive(
+                    apollon.frontend.ApollonFrontendManager.FrontendIDType.SideSliderGUI
+                );
+
+                // deleting UI update  
+                apollon.ApollonEngine.Instance.EngineUpdateEvent -= UI_lambda_function; 
+                
+            } /* if() */
 
             // finally, hide all green
             apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);

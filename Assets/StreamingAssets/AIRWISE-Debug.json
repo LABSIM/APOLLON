@@ -11,7 +11,7 @@
         "test_pattern_TrainingIdealPositionControl": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "TrainingIdealPositionControl",
             "scene_name": "Familiarisation",
@@ -41,7 +41,7 @@
         "test_pattern_TrainingIdealVelocityControl": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "TrainingIdealVelocityControl",
             "scene_name": "Familiarisation",
@@ -71,7 +71,7 @@
         "test_pattern_IdealPosition_ID1_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealPositionControl",
             "scene_name": "ID1",
@@ -101,7 +101,7 @@
         "test_pattern_IdealPosition_ID2_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealPositionControl",
             "scene_name": "ID2",
@@ -131,7 +131,7 @@
         "test_pattern_IdealPosition_ID3_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealPositionControl",
             "scene_name": "ID3",
@@ -161,7 +161,7 @@
         "test_pattern_IdealPosition_ID4_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealPositionControl",
             "scene_name": "ID4",
@@ -191,7 +191,7 @@
         "test_pattern_IdealPosition_ID5_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealPositionControl",
             "scene_name": "ID5",
@@ -221,7 +221,7 @@
         "test_pattern_IdealVelocity_ID1_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealVelocityControl",
             "scene_name": "ID1",
@@ -251,7 +251,7 @@
         "test_pattern_IdealVelocity_ID2_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealVelocityControl",
             "scene_name": "ID2",
@@ -281,7 +281,7 @@
         "test_pattern_IdealVelocity_ID3_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealVelocityControl",
             "scene_name": "ID3",
@@ -311,7 +311,7 @@
         "test_pattern_IdealVelocity_ID4_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealVelocityControl",
             "scene_name": "ID4",
@@ -341,7 +341,7 @@
         "test_pattern_IdealVelocity_ID5_A": {
   
             "is_catch_try_condition": false,
-            "is_active_condition": false,
+            "is_active_condition": true,
 
             "control_name": "IdealVelocityControl",
             "scene_name": "ID5",
