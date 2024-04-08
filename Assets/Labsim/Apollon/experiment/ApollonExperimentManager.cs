@@ -296,7 +296,10 @@ namespace Labsim.apollon.experiment
             CAVIAR,
 
             [System.ComponentModel.Description("AIRWISE")]
-            AIRWISE
+            AIRWISE,
+
+            [System.ComponentModel.Description("LEXIKHUM-OAT")]
+            LEXIKHUM_OAT
 
         } /* enum*/
 
@@ -527,6 +530,19 @@ namespace Labsim.apollon.experiment
                         "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [AIRWISE]"
                     );
                     this.setActiveProfile(ProfileIDType.AIRWISE);
+                    break;
+                }
+
+                // AIRWISE
+                case string param when param.Equals(
+                    ApollonEngine.GetEnumDescription(ProfileIDType.LEXIKHUM_OAT), 
+                    System.StringComparison.InvariantCultureIgnoreCase
+                ) : {
+
+                    UnityEngine.Debug.Log(
+                        "<color=blue>Info: </color> ApollonExperimentManager.onExperimentSessionBegin() : found APOLLON_profile setting value [LEXIKHUM-OAT]"
+                    );
+                    this.setActiveProfile(ProfileIDType.LEXIKHUM_OAT);
                     break;
                 }
 
