@@ -864,11 +864,11 @@ namespace Labsim.apollon.io
         public override void onStart(object sender, ApollonEngine.EngineEventArgs arg)
         {
 
-            // check if directories exist
-            if (!System.IO.Directory.Exists(this.ExperimentationPath))
-            {
-                System.IO.Directory.CreateDirectory(this.ExperimentationPath);
-            }
+            // // check if directories exist
+            // if (!System.IO.Directory.Exists(this.ExperimentationPath))
+            // {
+            //     System.IO.Directory.CreateDirectory(this.ExperimentationPath);
+            // }
 
         } /* onStart() */
 
