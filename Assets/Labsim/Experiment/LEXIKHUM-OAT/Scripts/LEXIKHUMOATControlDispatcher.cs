@@ -65,9 +65,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         #region Dictionary & each list of event
 
         private readonly System.Collections.Generic.List<System.EventHandler<LEXIKHUMOATControlEventArgs>> 
-            _eventJoystickHorizontalValueChangedList   = new System.Collections.Generic.List<System.EventHandler<LEXIKHUMOATControlEventArgs>>(),
-            _eventJoystickVerticalValueChangedList     = new System.Collections.Generic.List<System.EventHandler<LEXIKHUMOATControlEventArgs>>(),
-            _eventResponseTriggeredList                = new System.Collections.Generic.List<System.EventHandler<LEXIKHUMOATControlEventArgs>>();
+            _eventJoystickHorizontalValueChangedList = new(),
+            _eventJoystickVerticalValueChangedList   = new(),
+            _eventResponseTriggeredList              = new();
 
         #endregion
 
@@ -183,7 +183,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<LEXIKHUMOATControlEventArgs>)this._eventTable["JoystickHorizontalValueChanged"];
-                callback?.Invoke(this, new LEXIKHUMOATControlEventArgs(joystick_horizontal_axis_value: value));
+                callback?.Invoke(this, new(joystick_horizontal_axis_value: value));
             }
         } /* RaiseJoystickHorizontalValueChanged() */
 
@@ -192,7 +192,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<LEXIKHUMOATControlEventArgs>)this._eventTable["JoystickVerticalValueChanged"];
-                callback?.Invoke(this, new LEXIKHUMOATControlEventArgs(joystick_vertical_axis_value: value));
+                callback?.Invoke(this, new(joystick_vertical_axis_value: value));
             }
         } /* RaiseJoystickVerticalValueChanged() */
 
@@ -201,7 +201,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             lock (this._eventTable)
             {
                 var callback = (System.EventHandler<LEXIKHUMOATControlEventArgs>)this._eventTable["ResponseTriggered"];
-                callback?.Invoke(this, new LEXIKHUMOATControlEventArgs(trigger_value: true));
+                callback?.Invoke(this, new(trigger_value: true));
             }
         } /* RaiseResponseTriggered() */
 
