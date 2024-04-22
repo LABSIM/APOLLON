@@ -178,7 +178,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         {
 
             private LEXIKHUMOATEntityBehaviour _parent = null;
-            private QuadController _controller = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -278,7 +277,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         {
 
             private LEXIKHUMOATEntityBehaviour _parent = null;
-            private QuadController _controller = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -367,7 +365,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         {
 
             private LEXIKHUMOATEntityBehaviour _parent = null;
-            private QuadController _controller = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
