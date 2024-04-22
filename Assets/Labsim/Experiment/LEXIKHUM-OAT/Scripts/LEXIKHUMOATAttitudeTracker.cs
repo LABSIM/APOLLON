@@ -44,21 +44,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 "world_position_z",
                 "world_orientation_x", 
                 "world_orientation_y", 
-                "world_orientation_z",
-                "aero_position_x", 
-                "aero_position_y", 
-                "aero_position_z",
-                "aero_orientation_x", 
-                "aero_orientation_y", 
-                "aero_orientation_z"
+                "world_orientation_z"
             };
 
         protected override UXF.UXFDataRow GetCurrentValues()
         {
-           
-            UnityEngine.Vector3
-                aero_pos = Utilities.ToUnityFromAeroFrame(this.gameObject.transform.position), 
-                aero_ori = Utilities.ZYXToMatrix(this.gameObject.transform.rotation.eulerAngles).rotation.eulerAngles;
 
             // return it
             return new UXF.UXFDataRow()
@@ -74,13 +64,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 ("world_position_z",    this.gameObject.transform.position.z),
                 ("world_orientation_x", this.gameObject.transform.rotation.eulerAngles.x),
                 ("world_orientation_y", this.gameObject.transform.rotation.eulerAngles.y),
-                ("world_orientation_z", this.gameObject.transform.rotation.eulerAngles.z),
-                ("aero_position_x",     aero_pos.x),
-                ("aero_position_y",     aero_pos.y),
-                ("aero_position_z",     aero_pos.z),
-                ("aero_orientation_x",  aero_ori.x),
-                ("aero_orientation_y",  aero_ori.y),
-                ("aero_orientation_z",  aero_ori.z)
+                ("world_orientation_z", this.gameObject.transform.rotation.eulerAngles.z)
             };
 
         } /* GetCurrentValues() */
