@@ -472,6 +472,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.ActiveSeatEntity, false },
                 { GameplayIDType.CAVIAREntity, false },
                 { GameplayIDType.AIRWISEEntity, false },
+                { GameplayIDType.LEXIKHUMOATEntity, false },
                 { GameplayIDType.VirtualMotionSystemCommand, false },
                 { GameplayIDType.MotionSystemCommand, false },
                 { GameplayIDType.MotionSystemSensor, false },
@@ -484,6 +485,7 @@ namespace Labsim.apollon.gameplay
                 { GameplayIDType.AgencyAndThresholdPerceptionV4Control, false },
                 { GameplayIDType.CAVIARControl, false },
                 { GameplayIDType.AIRWISEControl, false },
+                { GameplayIDType.LEXIKHUMOATControl, false },
                 { GameplayIDType.All, false }
             };
 
@@ -533,6 +535,9 @@ namespace Labsim.apollon.gameplay
             [System.ComponentModel.Description("AIRWISEEntity")]
             AIRWISEEntity,
 
+            [System.ComponentModel.Description("LEXIKHUMOATEntity")]
+            LEXIKHUMOATEntity,
+
             [System.ComponentModel.Description("MotionSystemCommand")]
             MotionSystemCommand,
 
@@ -568,6 +573,9 @@ namespace Labsim.apollon.gameplay
 
             [System.ComponentModel.Description("AIRWISEControl")]
             AIRWISEControl,
+
+            [System.ComponentModel.Description("LEXIKHUMOATControl")]
+            LEXIKHUMOATControl,
 
             [System.ComponentModel.Description("All")]
             All

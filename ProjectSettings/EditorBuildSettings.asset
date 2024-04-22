@@ -56,7 +56,7 @@ EditorBuildSettings:
       type: 2}
     Varjo.XR.Settings: {fileID: 11400000, guid: 01bbbb52158fabc499eede82a4764e23,
       type: 2}
-    com.unity.input.settings: {fileID: 11400000, guid: 75c3e0dd3b8bcdd41927047db6835bde,
+    com.unity.input.settings: {fileID: 11400000, guid: a6623c99ce7fdd741b899a7e80c8a06a,
       type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 8218d71d969fdc94c96b58c4b6ed219c,
       type: 2}

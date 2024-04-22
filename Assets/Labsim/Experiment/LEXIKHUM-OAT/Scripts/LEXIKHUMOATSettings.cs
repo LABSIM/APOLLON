@@ -177,7 +177,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             [JSONSettingsAttribute(settings:"fog_start_distance", unit:"m")]
             public float fog_start_distance;
 
-            [JSONSettingsAttribute(settings:"fog_start_distance", unit:"m")]
+            [JSONSettingsAttribute(settings:"fog_end_distance", unit:"m")]
             public float fog_end_distance;
 
             [JSONSettingsAttribute(settings:"fog_color", unit:"rvb")]
