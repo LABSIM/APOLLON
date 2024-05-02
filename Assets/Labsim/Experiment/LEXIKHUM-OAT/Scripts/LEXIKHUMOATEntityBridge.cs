@@ -60,7 +60,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         protected override apollon.gameplay.ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUM_OATEntity;
+            return apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity;
         }
 
         protected override async void SetActive(bool value)
@@ -428,7 +428,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         #region FSM event delegate
 
-        private async void OnInitRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUM_OATEntityEventArgs args)
+        private async void OnInitRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUMOATEntityEventArgs args)
         {
 
             // log
@@ -486,7 +486,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         } /* OnInitRequested() */
 
-        private async void OnHoldRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUM_OATEntityEventArgs args)
+        private async void OnHoldRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUMOATEntityEventArgs args)
         {
 
             // log
@@ -504,7 +504,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         } /* OnHoldRequested() */
 
-        private async void OnControlRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUM_OATEntityEventArgs args)
+        private async void OnControlRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUMOATEntityEventArgs args)
         {
 
             // log
@@ -522,7 +522,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         } /* OnControlRequested() */
 
-        private async void OnResetRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUM_OATEntityEventArgs args)
+        private async void OnResetRequested(object sender, LEXIKHUMOATEntityDispatcher.LEXIKHUMOATEntityEventArgs args)
         {
 
             // log

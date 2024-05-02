@@ -38,6 +38,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         private bool m_bHasInitialized = false;
 
+        private readonly static string _ROS_topicName = "ONERA_to_ISIR_Downstream";
+        private readonly static float _ROS_publishMessageFrequency = 0.5f;
+        private Unity.Robotics.ROSTCPConnector.ROSConnection ROS_connection = null;
+        private float ROS_timeElapsed = 0.0f;
+
         #endregion
 
         #region controllers implemention
@@ -357,6 +362,35 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
             } /* OnDisable() */
+
+            private void FixedUpdate()
+            {
+
+                // ROS publishing
+                this._parent.ROS_timeElapsed += UnityEngine.Time.deltaTime;
+
+                if (this._parent.ROS_timeElapsed > _ROS_publishMessageFrequency)
+                {
+
+                    var cubePos = 
+                        new RosMessageTypes.UnityRoboticsDemo.PosRotMsg(
+                            this.transform.position.x,
+                            this.transform.position.y,
+                            this.transform.position.z,
+                            this.transform.rotation.x,
+                            this.transform.rotation.y,
+                            this.transform.rotation.z,
+                            this.transform.rotation.w
+                        );
+
+                    // Finally send the message to server_endpoint.py running in ROS
+                    this._parent.ROS_connection.Publish(_ROS_topicName, cubePos);
+
+                    this._parent.ROS_timeElapsed = 0;
+
+                } /* if() */
+                
+            } /* FixedUpdate() */
             
         } /* class ControlController */
         
@@ -523,7 +557,13 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             var control    = this.gameObject.AddComponent<ControlController>();
             var reset      = this.gameObject.AddComponent<ResetController>();
             
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : state controller added as gameObject's component, initializing ROS connection");
+
+            // start the ROS connection
+            this.ROS_connection = Unity.Robotics.ROSTCPConnector.ROSConnection.GetOrCreateInstance();
+            this.ROS_connection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(_ROS_topicName);
+            
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : ROS connection started, mark as initialized");
 
             // switch state
             this.m_bHasInitialized = true;

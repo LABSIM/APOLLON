@@ -111,11 +111,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     [System.ComponentModel.Description("None")]
                     None,
 
-                    [System.ComponentModel.Description("Left")]
-                    Left,
+                    [System.ComponentModel.Description("Success")]
+                    Success,
 
-                    [System.ComponentModel.Description("Right")]
-                    Right,
+                    [System.ComponentModel.Description("Fail")]
+                    Fail,
+
+                    [System.ComponentModel.Description("Cue")]
+                    Cue,
 
                     [System.ComponentModel.Description("Arrival")]
                     Arrival,
@@ -125,7 +128,25 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* enum */
 
+                public enum SideIDType
+                {
+
+                    [System.ComponentModel.Description("Undefined")]
+                    Undefined = -1,
+
+                    [System.ComponentModel.Description("Left")]
+                    Left,
+
+                    [System.ComponentModel.Description("Right")]
+                    Right,
+
+                    [System.ComponentModel.Description("Center")]
+                    Center
+
+                } /* enum */
+
                 public KindIDType kind = KindIDType.Undefined;
+                public SideIDType side = SideIDType.Undefined;
 
                 public float timing_unity_timestamp = float.NaN;
 
@@ -136,8 +157,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 public float[] local_position = new float[3]{ float.NaN, float.NaN, float.NaN };
 
                 public float[] world_position = new float[3]{ float.NaN, float.NaN, float.NaN };
-
-                public float[] aero_position = new float[3]{ float.NaN, float.NaN, float.NaN };
 
             } /* class Checkpoint */
 
@@ -184,6 +203,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         stream 
                             += "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_kind[" 
                                 + apollon.ApollonEngine.GetEnumDescription(value.kind)
+                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_side[" 
+                                + apollon.ApollonEngine.GetEnumDescription(value.side)
                             + "]"
                             + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_unity_timestamp[" 
                                 + value.timing_unity_timestamp.ToString()
@@ -199,9 +220,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             + "]"
                             + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_world_position[" 
                                 + "[" + System.String.Join(";", value.world_position) + "]"
-                            + "]"
-                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_aero_position[" 
-                                + "[" + System.String.Join(";", value.aero_position) + "]"
                             + "]";
                     
                     } /* foreach() */
@@ -322,12 +340,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         }
 
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_kind"]                   = apollon.ApollonEngine.GetEnumDescription(value.kind);
+                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_side"]                   = apollon.ApollonEngine.GetEnumDescription(value.side);
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_unity_timestamp"] = value.timing_unity_timestamp.ToString();
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_host_timestamp"]  = value.timing_host_timestamp;
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp"] = value.timing_varjo_timestamp.ToString();
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_local_position"]         = "[" + System.String.Join(";", value.local_position)    + "]";
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_world_position"]         = "[" + System.String.Join(";", value.world_position)    + "]";
-                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_aero_position"]          = "[" + System.String.Join(";", value.aero_position)    + "]";
                         
                     } /* foreach() */
 

@@ -145,7 +145,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             Auditive,
 
             [System.ComponentModel.Description("Visual")]
-            Visual
+            Visual,
+
+            [System.ComponentModel.Description("Practice")]
+            Practice
 
         } /* enum */
 
