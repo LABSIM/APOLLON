@@ -160,21 +160,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         private void OnCheckpointReached(string parent_name, LEXIKHUMOATResults.PhaseCResults.Checkpoint checkpoint)
         {
 
-            // check if Departure and if already logged
-            // if (checkpoint.kind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure)
-            // {
-            //     if ((checkpoints as System.Collections.Generic.List<LEXIKHUMOATResults.PhaseCResults.Checkpoint>).Count != 0) 
-            //     {
-            //         if (checkpoints[0] != null) 
-            //         {
-            //             if (checkpoints[0].kind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure) 
-            //             {
-            //                 return;
-            //             }
-            //         }
-            //     }
-            // }
-
             // shorcuts
             var checkpoints 
                 = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile)
@@ -299,7 +284,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                     break;
 
-                } /* case Departure */ 
+                } /* case (Departure, _) */
 
                 case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival, _):
                 {
@@ -309,7 +294,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                     break;
 
-                } /* case Arrival */ 
+                } /* case (Arrival, _) */
 
                 case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, _):
                 {
@@ -318,17 +303,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     this.m_currentCount++;
                     this.m_currentSuccess++;
 
-                    // play sound 
-                    if(apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.settings.GetBool("is_practice_condition"))
-                    {
-                    
-                        // this.m_soundBehaviour?.PlaySuccessClip();
-
-                    } /* if() */ 
-
                     break;
 
-                }
+                } /* case (Success, _) */
 
                 case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, _):
                 {
@@ -336,73 +313,17 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     // update counter
                     this.m_currentCount++;
 
-                    // play sound 
-                    if(apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.settings.GetBool("is_practice_condition"))
-                    {
-
-                        // this.m_soundBehaviour?.PlayFailureClip();
-
-                    } /* if() */ 
-
                     break;
 
-                }
+                } /* case (Fail, _) */
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, _):
                 {
 
-                    // play sound 
-                    if((apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile).CurrentSettings.PhaseC.shared_intention_type
-                        == LEXIKHUMOATSettings.SharedIntentionIDType.Auditive
-                    )
-                    {
-
-                        // schedule
-                        apollon.ApollonEngine.Schedule(
-                            async () => {
-
-                                await apollon.ApollonHighResolutionTime.DoSleep( 
-                                    (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile).CurrentSettings.PhaseC.shared_intention_offset
-                                );
-
-                                // this.m_soundBehaviour?.PlayLeftCueClip();
-
-                            }
-                        );
-
-                    } /* if() */ 
-
+                    // skip
                     break;
 
-                }
-
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
-                {
-
-                    // play sound 
-                    if((apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile).CurrentSettings.PhaseC.shared_intention_type
-                        == LEXIKHUMOATSettings.SharedIntentionIDType.Auditive
-                    )
-                    {
-
-                        // schedule
-                        apollon.ApollonEngine.Schedule(
-                            async () => {
-
-                                await apollon.ApollonHighResolutionTime.DoSleep( 
-                                    (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile).CurrentSettings.PhaseC.shared_intention_offset
-                                );
-
-                                // this.m_soundBehaviour?.PlayRightCueClip();
-
-                            }
-                        );
-
-                    } /* if() */ 
-                    
-                    break;
-
-                }
+                } /* case (Cue, _) */
 
                 case (_, _):
                 default:
