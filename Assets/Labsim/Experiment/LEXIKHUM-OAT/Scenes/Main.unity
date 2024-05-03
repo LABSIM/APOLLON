@@ -841,6 +841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 736703311}
+  - component: {fileID: 736703312}
   m_Layer: 0
   m_Name: Vecteur
   m_TagString: Untagged
@@ -865,6 +866,19 @@ Transform:
   - {fileID: 1038996621}
   m_Father: {fileID: 2053231699}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &736703312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736703310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f74b1b51dd9a04e870ad6f555d4ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ROSUpstream: {fileID: 2019200904}
 --- !u!1 &740542498
 GameObject:
   m_ObjectHideFlags: 0
@@ -44149,6 +44163,52 @@ MonoBehaviour:
   m_sceneName: Visual_C
   m_sceneMode: 1
   m_asynchronousSceneLoading: 1
+--- !u!1 &2019200904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2019200905}
+  - component: {fileID: 2019200906}
+  m_Layer: 0
+  m_Name: HapticArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2019200905
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019200904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2053231699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2019200906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019200904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: HapticArm
+  updateType: 0
 --- !u!1 &2053231698
 GameObject:
   m_ObjectHideFlags: 0
@@ -44181,6 +44241,7 @@ Transform:
   - {fileID: 687339842}
   - {fileID: 1619845795}
   - {fileID: 736703311}
+  - {fileID: 2019200905}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2055932597

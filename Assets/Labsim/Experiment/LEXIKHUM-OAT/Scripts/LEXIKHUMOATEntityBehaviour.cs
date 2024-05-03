@@ -26,6 +26,43 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         : apollon.gameplay.ApollonConcreteGameplayBehaviour<LEXIKHUMOATEntityBridge>
     {
 
+        #region ROS specific section
+
+        private readonly static string s_ROSDownstreamTopicName = "ONERA_to_ISIR_Downstream";
+
+        private readonly static string s_ROSUpstreamTopicName = "ISIR_to_ONERA_Upstream";
+
+        private readonly static float s_ROSPublishMessageFrequency = 0.5f;
+
+        private Unity.Robotics.ROSTCPConnector.ROSConnection m_ROSConnection = null;
+        
+        private float m_ROSTimeElapsed = 0.0f;
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.GameObject m_ROSUpstream = null;
+        public UnityEngine.GameObject ROSUpstream => this.m_ROSUpstream;
+
+        private void HandleROSUpstreamData(RosMessageTypes.UnityRoboticsDemo.PosRotMsg data)
+        {
+
+            this.m_ROSUpstream.transform.localPosition 
+                = new(
+                    data.pos_x,
+                    data.pos_y,
+                    data.pos_z
+                );
+            this.m_ROSUpstream.transform.localRotation
+                = new(
+                    data.rot_x,
+                    data.rot_y,
+                    data.rot_z,
+                    data.rot_w
+                );
+        
+        } /* HandleROSUpstreamData() */
+
+        #endregion
+
         #region properties/members
 
         public UnityEngine.Vector3 AngularAccelerationTarget { get; set; } = new UnityEngine.Vector3();
@@ -37,11 +74,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         public System.Diagnostics.Stopwatch Chrono { get; private set; } = new System.Diagnostics.Stopwatch();
 
         private bool m_bHasInitialized = false;
-
-        private readonly static string _ROS_topicName = "ONERA_to_ISIR_Downstream";
-        private readonly static float _ROS_publishMessageFrequency = 0.5f;
-        private Unity.Robotics.ROSTCPConnector.ROSConnection ROS_connection = null;
-        private float ROS_timeElapsed = 0.0f;
 
         #endregion
 
@@ -284,6 +316,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             private LEXIKHUMOATEntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
+            // private System 
+
             private void Awake()
             {
 
@@ -321,7 +355,17 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* if() */
 
-                // TODO
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : register ROS publisher & Subscriber"
+                );
+
+                // ROS init
+                
+                this._parent.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(s_ROSDownstreamTopicName);
+                this._parent.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
+                    s_ROSUpstreamTopicName, 
+                    this._parent.HandleROSUpstreamData
+                );
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -338,23 +382,25 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnDisable() : begin"
                 );
 
-                // // preliminary
-                // if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null)
-                // {
+                // preliminary
+                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                )
+                {
 
-                //     // log
-                //     UnityEngine.Debug.LogError(
-                //         "<color=Red>Error: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : failed to get parent reference ! Self disabling..."
-                //     );
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : failed to get parent reference ! Self disabling..."
+                    );
 
-                //     // disable
-                //     this.gameObject.SetActive(false);
-                //     this.enabled = false;
+                    // disable
+                    this.gameObject.SetActive(false);
+                    this.enabled = false;
 
-                //     // return
-                //     return;
+                    // return
+                    return;
 
-                // } /* if() */
+                } /* if() */
 
                 // log
                 UnityEngine.Debug.Log(
@@ -367,9 +413,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             {
 
                 // ROS publishing
-                this._parent.ROS_timeElapsed += UnityEngine.Time.deltaTime;
+                this._parent.m_ROSTimeElapsed += UnityEngine.Time.deltaTime;
 
-                if (this._parent.ROS_timeElapsed > _ROS_publishMessageFrequency)
+                if (this._parent.m_ROSTimeElapsed > s_ROSPublishMessageFrequency)
                 {
 
                     var cubePos = 
@@ -384,9 +430,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         );
 
                     // Finally send the message to server_endpoint.py running in ROS
-                    this._parent.ROS_connection.Publish(_ROS_topicName, cubePos);
-
-                    this._parent.ROS_timeElapsed = 0;
+                    this._parent.m_ROSConnection.Publish(s_ROSDownstreamTopicName, cubePos);
+                    this._parent.m_ROSTimeElapsed = 0;
 
                 } /* if() */
                 
@@ -560,8 +605,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : state controller added as gameObject's component, initializing ROS connection");
 
             // start the ROS connection
-            this.ROS_connection = Unity.Robotics.ROSTCPConnector.ROSConnection.GetOrCreateInstance();
-            this.ROS_connection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(_ROS_topicName);
+            this.m_ROSConnection = Unity.Robotics.ROSTCPConnector.ROSConnection.GetOrCreateInstance();
+
+            // ROS init
+            this.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(s_ROSDownstreamTopicName);
+            this.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
+                s_ROSUpstreamTopicName, 
+                this.HandleROSUpstreamData
+            );                
             
             UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : ROS connection started, mark as initialized");
 
@@ -610,23 +661,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 return;
             }
 
-            // otherwise, get corresponding QuadController
-            QuadController controller = null;
-            if ((controller = this.gameObject.GetComponentInChildren<QuadController>()) == null)
-            {
-
-                // log
-                UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> LEXIKHUMOATEntityBehaviour.OnDisable() : failed to get QuadController reference ! Could not call ResetRigidBody()..."
-                );
-
-                // skip
-                return;
-
-            } /* if() */
-            
-            // reset
-            controller.ResetRigidBody();
+            // ROS Unsubscribe
+            this.m_ROSConnection.Unsubscribe(
+                s_ROSUpstreamTopicName
+            );                
                 
         } /* OnDisable() */
 

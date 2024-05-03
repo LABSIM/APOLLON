@@ -29,7 +29,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         [UnityEngine.SerializeField]
         private LEXIKHUMOATSettings.SharedIntentionIDType m_kind = LEXIKHUMOATSettings.SharedIntentionIDType.Practice;
-        public LEXIKHUMOATSettings.SharedIntentionIDType Kind { get => this.m_kind; private set => this.m_kind = value; }
+        public LEXIKHUMOATSettings.SharedIntentionIDType Kind 
+        { 
+            get => this.m_kind; 
+            private set => this.m_kind = value; 
+        }
 
         [UnityEngine.SerializeField]
         private UnityEngine.AudioClip m_successClip;
