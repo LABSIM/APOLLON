@@ -28,36 +28,47 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         #region ROS specific section
 
-        private readonly static string s_ROSDownstreamTopicName = "ONERA_to_ISIR_Downstream";
+        [UnityEngine.SerializeField]
+        private string m_ROSDownstreamTopicName = "ONERA_to_ISIR_Downstream";
+        public string ROSDownstreamTopicName => this.m_ROSDownstreamTopicName;
 
-        private readonly static string s_ROSUpstreamTopicName = "ISIR_to_ONERA_Upstream";
+        [
+            UnityEngine.SerializeField, 
+            UnityEngine.Range(0.01f, 1.0f), 
+            UnityEngine.Tooltip("update frequency in second")
+        ]
+        private float m_ROSDownstreamMessageFrequency = 0.2f;
+        public float ROSDownstreamMessageFrequency => this.m_ROSDownstreamMessageFrequency;
 
-        private readonly static float s_ROSPublishMessageFrequency = 0.5f;
+
+        [UnityEngine.SerializeField]
+        private string m_ROSUpstreamTopicName = "ISIR_to_ONERA_Upstream";
+        public string ROSUpstreamTopicName => this.m_ROSUpstreamTopicName;
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.GameObject m_ROSUpstreamGameObject = null;
+        public UnityEngine.GameObject ROSUpstreamGameObject => this.m_ROSUpstreamGameObject;
 
         private Unity.Robotics.ROSTCPConnector.ROSConnection m_ROSConnection = null;
         
         private float m_ROSTimeElapsed = 0.0f;
 
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject m_ROSUpstream = null;
-        public UnityEngine.GameObject ROSUpstream => this.m_ROSUpstream;
-
         private void HandleROSUpstreamData(RosMessageTypes.UnityRoboticsDemo.PosRotMsg data)
         {
 
-            this.m_ROSUpstream.transform.localPosition 
-                = new(
+            this.ROSUpstreamGameObject.transform.SetLocalPositionAndRotation( 
+                new(
                     data.pos_x,
                     data.pos_y,
                     data.pos_z
-                );
-            this.m_ROSUpstream.transform.localRotation
-                = new(
+                ),
+                new(
                     data.rot_x,
                     data.rot_y,
                     data.rot_z,
                     data.rot_w
-                );
+                )
+            );
         
         } /* HandleROSUpstreamData() */
 
@@ -361,9 +372,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 // ROS init
                 
-                this._parent.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(s_ROSDownstreamTopicName);
+                this._parent.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(this._parent.ROSDownstreamTopicName);
                 this._parent.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
-                    s_ROSUpstreamTopicName, 
+                    this._parent.ROSUpstreamTopicName, 
                     this._parent.HandleROSUpstreamData
                 );
                 
@@ -413,9 +424,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             {
 
                 // ROS publishing
-                this._parent.m_ROSTimeElapsed += UnityEngine.Time.deltaTime;
+                this._parent.m_ROSTimeElapsed += UnityEngine.Time.fixedDeltaTime;
 
-                if (this._parent.m_ROSTimeElapsed > s_ROSPublishMessageFrequency)
+                if (this._parent.m_ROSTimeElapsed > this._parent.ROSDownstreamMessageFrequency)
                 {
 
                     var cubePos = 
@@ -430,7 +441,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         );
 
                     // Finally send the message to server_endpoint.py running in ROS
-                    this._parent.m_ROSConnection.Publish(s_ROSDownstreamTopicName, cubePos);
+                    this._parent.m_ROSConnection.Publish(this._parent.ROSDownstreamTopicName, cubePos);
                     this._parent.m_ROSTimeElapsed = 0;
 
                 } /* if() */
@@ -608,9 +619,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             this.m_ROSConnection = Unity.Robotics.ROSTCPConnector.ROSConnection.GetOrCreateInstance();
 
             // ROS init
-            this.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(s_ROSDownstreamTopicName);
+            this.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(this.ROSDownstreamTopicName);
             this.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
-                s_ROSUpstreamTopicName, 
+                this.ROSUpstreamTopicName, 
                 this.HandleROSUpstreamData
             );                
             
@@ -663,7 +674,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // ROS Unsubscribe
             this.m_ROSConnection.Unsubscribe(
-                s_ROSUpstreamTopicName
+                this.ROSUpstreamTopicName
             );                
                 
         } /* OnDisable() */

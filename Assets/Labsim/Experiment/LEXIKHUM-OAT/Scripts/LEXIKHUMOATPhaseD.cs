@@ -22,16 +22,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // avoid namespace pollution
-namespace Labsim.experiment.AIRWISE
+namespace Labsim.experiment.LEXIKHUM_OAT
 {
 
     //
     // End subject + reset internal - FSM state
     //
-    public sealed class AIRWISEPhaseD 
-        : apollon.experiment.ApollonAbstractExperimentState<AIRWISEProfile>
+    public sealed class LEXIKHUMOATPhaseD 
+        : apollon.experiment.ApollonAbstractExperimentState<LEXIKHUMOATProfile>
     {
-        public AIRWISEPhaseD(AIRWISEProfile fsm)
+        public LEXIKHUMOATPhaseD(LEXIKHUMOATProfile fsm)
             : base(fsm)
         {
         }
@@ -41,7 +41,7 @@ namespace Labsim.experiment.AIRWISE
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : begin"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : begin"
             );
 
             // save timestamps
@@ -49,11 +49,10 @@ namespace Labsim.experiment.AIRWISE
             this.FSM.CurrentResults.PhaseD.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseD.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
-
             // refs
-            var airwise_entity
-                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<AIRWISEEntityBridge>(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+            var lexikhum_entity
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATEntityBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
                 );
 
             // setup UI frontend instructions
@@ -64,7 +63,7 @@ namespace Labsim.experiment.AIRWISE
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : stop moving"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : stop moving"
             );
 
             // synchronisation mechanism (TCS + lambda event handler)
@@ -93,7 +92,7 @@ namespace Labsim.experiment.AIRWISE
                         { 
                             // log
                             UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has "
+                                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : LEXIKHUMOAT Vecteur has "
                                 + this.FSM.CurrentSettings.PhaseD.total_duration
                                 + " ms to cross the stop"
                             );
@@ -116,7 +115,7 @@ namespace Labsim.experiment.AIRWISE
                                 {
                                     
                                     UnityEngine.Debug.LogWarning(
-                                        "<color=Orange>Warn: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur hasn't stopped..."
+                                        "<color=Orange>Warn: </color> LEXIKHUMOATPhaseD.OnEntry() : LEXIKHUMOAT Vecteur hasn't stopped..."
                                     );
                                     
                                     sync_point?.TrySetResult(false);
@@ -124,7 +123,7 @@ namespace Labsim.experiment.AIRWISE
                                 } else {
                                     
                                     UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has stopped ! Ignore this message ;)"
+                                        "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : LEXIKHUMOAT Vecteur has stopped ! Ignore this message ;)"
                                     );
                                 
                                 } /* if() */
@@ -140,12 +139,12 @@ namespace Labsim.experiment.AIRWISE
                         { 
 
                             UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : raise final decceleration motion"
+                                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : raise final decceleration motion"
                             );
 
                             // inject decceleration settings 
                             apollon.ApollonEngine.Schedule(() => { 
-                                airwise_entity.ConcreteDispatcher.RaiseReset(
+                                lexikhum_entity.ConcreteDispatcher.RaiseReset(
                                     this.FSM.CurrentSettings.PhaseD.angular_decceleration_target,
                                     this.FSM.CurrentSettings.PhaseD.angular_velocity_saturation_threshold,
                                     this.FSM.CurrentSettings.PhaseD.linear_decceleration_target,
@@ -156,7 +155,7 @@ namespace Labsim.experiment.AIRWISE
                             });
 
                             UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : waiting for motion idle state"
+                                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : waiting for motion idle state"
                             );
 
                         },
@@ -172,7 +171,7 @@ namespace Labsim.experiment.AIRWISE
                                     
                                     // log
                                     UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : wait for even start lane is crossed or end of phase"
+                                        "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : wait for even start lane is crossed or end of phase"
                                     );
 
                                     // wait until any result
@@ -181,18 +180,18 @@ namespace Labsim.experiment.AIRWISE
                                 } else {
                                     
                                     UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has crossed the start line or end of phase already reached !"
+                                        "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : LEXIKHUMOAT Vecteur has crossed the start line or end of phase already reached !"
                                     );
 
                                 } /* if() */
 
                                 // // log
                                 // UnityEngine.Debug.Log(
-                                //     "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : motion idle state reached"
+                                //     "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : motion idle state reached"
                                 // );
 
                                 // // stop acceleration settings 
-                                // airwise_entity.ConcreteDispatcher.RaiseHold();
+                                // lexikhum_entity.ConcreteDispatcher.RaiseHold();
 
                             } /* if() */
                         },
@@ -206,7 +205,7 @@ namespace Labsim.experiment.AIRWISE
                             
                             // log
                             UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : will wait " 
+                                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : will wait " 
                                 + this.FSM.CurrentSettings.PhaseD.decceleration_duration
                                 + "ms before showing red frame"
                             );
@@ -230,7 +229,7 @@ namespace Labsim.experiment.AIRWISE
                                     
                                     // log
                                     UnityEngine.Debug.Log(
-                                        "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : show red frame"
+                                        "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : show red frame"
                                     );
                                     
                                     //show red frame at decceleration duration
@@ -261,28 +260,28 @@ namespace Labsim.experiment.AIRWISE
             if(result)
             {
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : AIRWISE Vecteur has stopped, will check performance criteria"
+                    "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : LEXIKHUMOAT Vecteur has stopped, will check performance criteria"
                 );
             }
             else
             {
                 UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warning: </color> AIRWISEPhaseD.OnEntry() : Timer has reached duration before AIRWISE Vecteur stopped... You should check configuration file..."
+                    "<color=Orange>Warning: </color> LEXIKHUMOATPhaseD.OnEntry() : Timer has reached duration before LEXIKHUMOAT Vecteur stopped... You should check configuration file..."
                 );
             }
             
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : deactivating AIRWISE Vecteur"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : deactivating LEXIKHUMOAT Vecteur"
             );
 
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.AIRWISEEntity
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
             );
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnEntry() : end"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : end"
             );
 
         } /* OnEntry() */
@@ -292,7 +291,7 @@ namespace Labsim.experiment.AIRWISE
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnExit() : begin"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnExit() : begin"
             );
             
             // save timestamps
@@ -302,16 +301,11 @@ namespace Labsim.experiment.AIRWISE
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AIRWISEPhaseD.OnExit() : end"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnExit() : end"
             );
 
         } /* OnExit() */
-        
-        #region Coroutines
 
+    } /* public sealed class LEXIKHUMOATPhaseD */
 
-        #endregion
-
-    } /* public sealed class AIRWISEPhaseD */
-
-} /* } Labsim.experiment.AIRWISE */
+} /* } Labsim.experiment.LEXIKHUM_OAT */

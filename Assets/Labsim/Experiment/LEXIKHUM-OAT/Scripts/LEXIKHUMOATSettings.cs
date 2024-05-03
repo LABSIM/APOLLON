@@ -112,20 +112,20 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             [System.ComponentModel.Description("None")]
             None,
 
-            [System.ComponentModel.Description("VisualA")]
-            VisualA,
+            [System.ComponentModel.Description("A")]
+            A,
 
-            [System.ComponentModel.Description("VisualB")]
-            VisualB,
+            [System.ComponentModel.Description("B")]
+            B,
 
-            [System.ComponentModel.Description("VisualC")]
-            VisualC,
+            [System.ComponentModel.Description("C")]
+            C,
 
-            [System.ComponentModel.Description("VisualD")]
-            VisualD,
+            [System.ComponentModel.Description("D")]
+            D,
 
-            [System.ComponentModel.Description("VisualE")]
-            VisualE,
+            [System.ComponentModel.Description("E")]
+            E,
 
         } /* enum */
 
@@ -409,48 +409,48 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         break;
                     }
 
-                    // VisualA
+                    // A
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.VisualA),
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.A),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.visual_type = VisualIDType.VisualA;
+                        this.Trial.visual_type = VisualIDType.A;
                         break;
                     }
 
-                    // VisualB
+                    // B
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.VisualB),
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.B),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.visual_type = VisualIDType.VisualB;
+                        this.Trial.visual_type = VisualIDType.B;
                         break;
                     }
 
-                    // VisualC
+                    // C
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.VisualC),
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.C),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.visual_type = VisualIDType.VisualC;
+                        this.Trial.visual_type = VisualIDType.C;
                         break;
                     }
 
-                    // VisualD
+                    // D
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.VisualD),
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.D),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.visual_type = VisualIDType.VisualD;
+                        this.Trial.visual_type = VisualIDType.D;
                         break;
                     }
 
-                    // VisualE
+                    // E
                     case string param when param.Equals(
-                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.VisualE),
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.E),
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
-                        this.Trial.visual_type = VisualIDType.VisualE;
+                        this.Trial.visual_type = VisualIDType.E;
                         break;
                     }
 
