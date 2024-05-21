@@ -12,6 +12,15 @@ TagManager:
   - AIRWISETag_RightGates
   - AIRWISETag_Departure
   - AIRWISETag_Arrival
+  - Pattern_A
+  - LEXIKHUMOATTag_LeftCue
+  - LEXIKHUMOATTag_LeftFail
+  - LEXIKHUMOATTag_LeftSuccess
+  - LEXIKHUMOATTag_RightCue
+  - LEXIKHUMOATTag_RightFail
+  - LEXIKHUMOATTag_RightSuccess
+  - LEXIKHUMOATTag_Departure
+  - LEXIKHUMOATTag_Arrival
   layers:
   - Default
   - TransparentFX
