@@ -57,7 +57,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     // play sound !
                     this.LoadClip(checkpoint.kind);
                     this.PlayClip(checkpoint.side);
-                    
 
                 }
             );
