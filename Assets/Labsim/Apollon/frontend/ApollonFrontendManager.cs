@@ -467,7 +467,26 @@ namespace Labsim.apollon.frontend
                 { FrontendIDType.TemporalDemandSliderGUI, false },
                 { FrontendIDType.OverallPerformanceSliderGUI, false },
                 { FrontendIDType.EffortSliderGUI, false },
-                { FrontendIDType.FrustrationSliderGUI, false },
+                { FrontendIDType.Question01GUI, false },
+                { FrontendIDType.Question02GUI, false },
+                { FrontendIDType.Question03GUI, false },
+                { FrontendIDType.Question04GUI, false },
+                { FrontendIDType.Question05GUI, false },
+                { FrontendIDType.Question06GUI, false },
+                { FrontendIDType.Question07GUI, false },
+                { FrontendIDType.Question08GUI, false },
+                { FrontendIDType.Question09GUI, false },
+                { FrontendIDType.Question10GUI, false },
+                { FrontendIDType.Question11GUI, false },
+                { FrontendIDType.Question12GUI, false },
+                { FrontendIDType.Question13GUI, false },
+                { FrontendIDType.Question14GUI, false },
+                { FrontendIDType.Question15GUI, false },
+                { FrontendIDType.Question16GUI, false },
+                { FrontendIDType.Question17GUI, false },
+                { FrontendIDType.Question18GUI, false },
+                { FrontendIDType.Question19GUI, false },
+                { FrontendIDType.Question20GUI, false },
                 { FrontendIDType.All, false }
             };
 
@@ -570,6 +589,66 @@ namespace Labsim.apollon.frontend
 
             [System.ComponentModel.Description("FrustrationSliderGUI")]
             FrustrationSliderGUI,
+
+            [System.ComponentModel.Description("Question01GUI")]
+            Question01GUI,
+
+            [System.ComponentModel.Description("Question02GUI")]
+            Question02GUI,
+
+            [System.ComponentModel.Description("Question03GUI")]
+            Question03GUI,
+
+            [System.ComponentModel.Description("Question04GUI")]
+            Question04GUI,
+
+            [System.ComponentModel.Description("Question05GUI")]
+            Question05GUI,
+
+            [System.ComponentModel.Description("Question06GUI")]
+            Question06GUI,
+
+            [System.ComponentModel.Description("Question07GUI")]
+            Question07GUI,
+
+            [System.ComponentModel.Description("Question08GUI")]
+            Question08GUI,
+
+            [System.ComponentModel.Description("Question09GUI")]
+            Question09GUI,
+
+            [System.ComponentModel.Description("Question10GUI")]
+            Question10GUI,
+
+            [System.ComponentModel.Description("Question11GUI")]
+            Question11GUI,
+
+            [System.ComponentModel.Description("Question12GUI")]
+            Question12GUI,
+
+            [System.ComponentModel.Description("Question13GUI")]
+            Question13GUI,
+
+            [System.ComponentModel.Description("Question14GUI")]
+            Question14GUI,
+
+            [System.ComponentModel.Description("Question15GUI")]
+            Question15GUI,
+
+            [System.ComponentModel.Description("Question16GUI")]
+            Question16GUI,
+
+            [System.ComponentModel.Description("Question17GUI")]
+            Question17GUI,
+
+            [System.ComponentModel.Description("Question18GUI")]
+            Question18GUI,
+
+            [System.ComponentModel.Description("Question19GUI")]
+            Question19GUI,
+
+            [System.ComponentModel.Description("Question20GUI")]
+            Question20GUI,
 
             [System.ComponentModel.Description("All")]
             All

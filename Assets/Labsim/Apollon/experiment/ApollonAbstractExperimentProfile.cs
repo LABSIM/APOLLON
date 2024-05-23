@@ -39,33 +39,37 @@ namespace Labsim.apollon.experiment
             }
         }
 
+        #region various status infos 
+
         // Experiment profile current status info
-        public System.String Status
-        {
-            get
-            {
-                return this.getCurrentStatusInfo();
-            }
-        }
+        public System.String Status => this.getCurrentStatusInfo();
         protected virtual System.String getCurrentStatusInfo() { return ""; }
 
-        public System.String CounterStatus
-        {
-            get
-            {
-                return this.getCurrentCounterStatusInfo();
-            }
-        }
+        public System.String CounterStatus => this.getCurrentCounterStatusInfo(); 
         protected virtual System.String getCurrentCounterStatusInfo() { return ""; }
 
-        public System.String InstructionStatus
-        {
-            get
-            {
-                return this.getCurrentInstructionStatusInfo();
-            }
-        }
+        public System.String InstructionStatus => this.getCurrentInstructionStatusInfo();
         protected virtual System.String getCurrentInstructionStatusInfo() { return ""; }
+
+        public System.String QuestionStatus => this.getCurrentQuestionStatusInfo();
+        protected virtual System.String getCurrentQuestionStatusInfo() { return ""; }
+
+        public System.String QuestionDetailStatus => this.getCurrentQuestionDetailStatusInfo();
+        protected virtual System.String getCurrentQuestionDetailStatusInfo() { return ""; }
+
+        public System.String QuestionTickLowerBoundStatus => this.getCurrentQuestionTickLowerBoundStatusInfo();
+        protected virtual System.String getCurrentQuestionTickLowerBoundStatusInfo() { return ""; }
+        
+        public System.String QuestionTickUpperBoundStatus => this.getCurrentQuestionTickUpperBoundStatusInfo();
+        protected virtual System.String getCurrentQuestionTickUpperBoundStatusInfo() { return ""; }
+
+        public bool QuestionHasTickStatus => this.getCurrentQuestionHasTickStatusInfo();
+        protected virtual bool getCurrentQuestionHasTickStatusInfo() { return true; }
+
+        public bool QuestionHasTickTextStatus => this.getCurrentQuestionHasTickTextStatusInfo();
+        protected virtual bool getCurrentQuestionHasTickTextStatusInfo() { return true; }
+
+        #endregion
 
         // constructor
         public ApollonAbstractExperimentProfile()
