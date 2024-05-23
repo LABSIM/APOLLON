@@ -129,25 +129,4 @@ namespace Labsim.apollon.frontend.gui
 
     } /* public class ApollonGenericQuestionGUIBehaviour */
 
-    public sealed class ApollonQuestion01GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion02GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion03GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion04GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion05GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion06GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion07GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion08GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion09GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion10GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion11GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion12GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion13GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion14GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion15GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion16GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion17GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion18GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion19GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-    public sealed class ApollonQuestion20GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-
 } /* } Labsim.apollon.frontend.gui */
