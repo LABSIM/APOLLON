@@ -54,14 +54,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         public void StartCue(LEXIKHUMOATResults.PhaseCResults.Checkpoint checkpoint)
         {
 
-            // play sound ?
-            if(apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.settings.GetBool("is_practice_condition"))
-            {
-            
-                this.LoadClip(checkpoint.kind);
-                this.PlayClip(checkpoint.side);
-
-            } /* if() */ 
+            // play sound !
+            this.LoadClip(checkpoint.kind);
+            this.PlayClip(checkpoint.side);
 
         } /* StartCue() */
 
@@ -94,7 +89,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             switch(side)
             {
 
-                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left: 
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center: 
                 { 
 
                     this.RightSpeakerSource.Play(); 
@@ -112,7 +107,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 }
 
                 default:
-                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center: 
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left: 
                 { 
 
                     this.LeftSpeakerSource.Play(); 

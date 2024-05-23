@@ -84,7 +84,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             switch(side)
             {
 
-                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left: 
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center: 
                 { 
 
                     this.RightSpeakerSource.Play(); 
@@ -102,7 +102,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 }
 
                 default:
-                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center: 
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left: 
                 { 
 
                     this.LeftSpeakerSource.Play(); 

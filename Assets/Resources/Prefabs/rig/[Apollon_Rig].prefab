@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 3080789988563964930}
   - component: {fileID: 8505208485408715644}
   m_Layer: 5
-  m_Name: Apollon
+  m_Name: '[Apollon_Rig]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

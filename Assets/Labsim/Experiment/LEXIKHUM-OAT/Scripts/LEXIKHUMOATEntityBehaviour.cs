@@ -420,6 +420,23 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             } /* OnDisable() */
 
+            private void Update()
+            {
+
+                // debug set from keyboard inputs 
+                
+                if(UnityEngine.InputSystem.Keyboard.current.leftArrowKey.isPressed)
+                {
+                    this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.left * 0.01f));
+                }
+
+                if(UnityEngine.InputSystem.Keyboard.current.rightArrowKey.isPressed)
+                {
+                    this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * 0.01f));
+                }
+
+            } /* Update() */
+
             private void FixedUpdate()
             {
 

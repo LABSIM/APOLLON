@@ -111,6 +111,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             [System.ComponentModel.Description("None")]
             None,
+            
+            [System.ComponentModel.Description("Familiarisation")]
+            Familiarisation,
 
             [System.ComponentModel.Description("A")]
             A,
@@ -406,6 +409,15 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
                         this.Trial.visual_type = VisualIDType.None;
+                        break;
+                    }
+
+                    // Familiarisation
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(VisualIDType.Familiarisation),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.visual_type = VisualIDType.Familiarisation;
                         break;
                     }
 

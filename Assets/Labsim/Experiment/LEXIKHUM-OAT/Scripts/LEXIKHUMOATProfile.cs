@@ -584,7 +584,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             } /* if() */
 
             // inactivate checkpoint manager
-            dynamic_entity.References["EntityTag_Checkpoint"].SetActive(false);
+            dynamic_entity.References["EntityTag_Checkpoints"].SetActive(false);
 
             // export current trial results & log on completion
             if(this.CurrentResults.ExportUXFResults(arg.Trial.result))

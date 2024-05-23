@@ -35,7 +35,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         {
 
             // TODO 
-            // send order to ISIR here... 
+            // send order to ISIR here...
 
         } /* StartCue() */
 

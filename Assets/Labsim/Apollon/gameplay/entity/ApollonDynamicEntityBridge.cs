@@ -92,8 +92,6 @@ namespace Labsim.apollon.gameplay.entity
             } /* if() */
 
         } /* SetActive() */
-
-        
         
         #endregion
 
