@@ -112,7 +112,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
                 // preliminary
-                if ((this._parent       = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
@@ -130,6 +130,24 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     return;
 
                 } /* if() */
+
+                // Reset our rigidbody & gameObject
+                this._parent.transform.SetPositionAndRotation(UnityEngine.Vector3.up * 0.5f, UnityEngine.Quaternion.identity);
+                this._rigidbody.ResetCenterOfMass();
+                this._rigidbody.ResetInertiaTensor();
+                this._rigidbody.constraints = UnityEngine.RigidbodyConstraints.FreezePositionY | UnityEngine.RigidbodyConstraints.FreezeRotation;
+                this._rigidbody.drag = 0.0f;
+                this._rigidbody.angularDrag = 0.0f;
+                this._rigidbody.useGravity = false;
+                this._rigidbody.isKinematic = false;
+                this._rigidbody.interpolation = UnityEngine.RigidbodyInterpolation.None;
+                this._rigidbody.collisionDetectionMode = UnityEngine.CollisionDetectionMode.Continuous;
+                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.VelocityChange);
+                this._rigidbody.AddForce(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                this._rigidbody.AddTorque(UnityEngine.Vector3.zero, UnityEngine.ForceMode.Acceleration);
+                this._rigidbody.velocity = UnityEngine.Vector3.zero;
+                this._rigidbody.angularVelocity = UnityEngine.Vector3.zero;
 
                 // restart 
                 this._parent.Chrono.Restart();
@@ -214,7 +232,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         force_target,
                         UnityEngine.ForceMode.Acceleration
                     );
-                                    
+                            
                 } /* if() */
 
             } /* FixedUpdate */
@@ -309,7 +327,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             private void FixedUpdate()
             {
-
+              
                 // only counter gravity
                 // this._rigidbody.AddForce(
                 //     -1.0f * UnityFrame.GetGravity(this._rigidbody),
@@ -366,17 +384,17 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* if() */
 
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : register ROS publisher & Subscriber"
-                );
+                // UnityEngine.Debug.Log(
+                //     "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : register ROS publisher & Subscriber"
+                // );
 
-                // ROS init
+                // // ROS init
                 
-                this._parent.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(this._parent.ROSDownstreamTopicName);
-                this._parent.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
-                    this._parent.ROSUpstreamTopicName, 
-                    this._parent.HandleROSUpstreamData
-                );
+                // this._parent.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(this._parent.ROSDownstreamTopicName);
+                // this._parent.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
+                //     this._parent.ROSUpstreamTopicName, 
+                //     this._parent.HandleROSUpstreamData
+                // );
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -427,12 +445,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 
                 if(UnityEngine.InputSystem.Keyboard.current.leftArrowKey.isPressed)
                 {
-                    this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.left * 0.01f));
+                    this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.left * 0.2f));
                 }
 
                 if(UnityEngine.InputSystem.Keyboard.current.rightArrowKey.isPressed)
                 {
-                    this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * 0.01f));
+                    this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * 0.2f));
                 }
 
             } /* Update() */
@@ -440,28 +458,28 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             private void FixedUpdate()
             {
 
-                // ROS publishing
-                this._parent.m_ROSTimeElapsed += UnityEngine.Time.fixedDeltaTime;
+                // // ROS publishing
+                // this._parent.m_ROSTimeElapsed += UnityEngine.Time.fixedDeltaTime;
 
-                if (this._parent.m_ROSTimeElapsed > this._parent.ROSDownstreamMessageFrequency)
-                {
+                // if (this._parent.m_ROSTimeElapsed > this._parent.ROSDownstreamMessageFrequency)
+                // {
 
-                    var cubePos = 
-                        new RosMessageTypes.UnityRoboticsDemo.PosRotMsg(
-                            this.transform.position.x,
-                            this.transform.position.y,
-                            this.transform.position.z,
-                            this.transform.rotation.x,
-                            this.transform.rotation.y,
-                            this.transform.rotation.z,
-                            this.transform.rotation.w
-                        );
+                //     var cubePos = 
+                //         new RosMessageTypes.UnityRoboticsDemo.PosRotMsg(
+                //             this.transform.position.x,
+                //             this.transform.position.y,
+                //             this.transform.position.z,
+                //             this.transform.rotation.x,
+                //             this.transform.rotation.y,
+                //             this.transform.rotation.z,
+                //             this.transform.rotation.w
+                //         );
 
-                    // Finally send the message to server_endpoint.py running in ROS
-                    this._parent.m_ROSConnection.Publish(this._parent.ROSDownstreamTopicName, cubePos);
-                    this._parent.m_ROSTimeElapsed = 0;
+                //     // Finally send the message to server_endpoint.py running in ROS
+                //     this._parent.m_ROSConnection.Publish(this._parent.ROSDownstreamTopicName, cubePos);
+                //     this._parent.m_ROSTimeElapsed = 0;
 
-                } /* if() */
+                // } /* if() */
                 
             } /* FixedUpdate() */
             
@@ -492,7 +510,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
                 
                 // preliminary
-                if ((this._parent        = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
                 )
                 {
@@ -519,6 +537,40 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
             } /* OnEnable() */
+
+            private void OnDisable()
+            {
+
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ResetController.OnDisable() : begin"
+                );
+                
+                // preliminary
+                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                )
+                {
+
+                    // log
+                    UnityEngine.Debug.LogError(
+                        "<color=Red>Error: </color> LEXIKHUMOATEntityBehaviour.ResetController.OnDisable() : failed to get parent/rigidbody reference ! Self disabling..."
+                    );
+
+                    // disable
+                    this.gameObject.SetActive(false);
+
+                    // return
+                    return;
+
+                } /* if() */
+                
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ResetController.OnDisable() : end"
+                );
+
+            } /* OnDisable() */
 
             private void FixedUpdate()
             {
@@ -640,7 +692,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             this.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
                 this.ROSUpstreamTopicName, 
                 this.HandleROSUpstreamData
-            );                
+            );
             
             UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : ROS connection started, mark as initialized");
 
@@ -677,7 +729,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 this.Initialize();
 
             } /* if() */
-                        
+
+            // reset our gameObject inital transform
+            this.transform.SetPositionAndRotation(UnityEngine.Vector3.up * 0.5f, UnityEngine.Quaternion.identity);
+                
         } /* OnEnable()*/
 
         void OnDisable()
@@ -689,10 +744,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 return;
             }
 
-            // ROS Unsubscribe
-            this.m_ROSConnection.Unsubscribe(
-                this.ROSUpstreamTopicName
-            );                
+            // // ROS Unsubscribe
+            // this.m_ROSConnection.Unsubscribe(
+            //     this.ROSUpstreamTopicName
+            // );                
                 
         } /* OnDisable() */
 

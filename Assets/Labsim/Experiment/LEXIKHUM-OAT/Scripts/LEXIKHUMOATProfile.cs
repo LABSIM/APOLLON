@@ -426,6 +426,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
             } /* if() */
+            
+            // activate entity
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity);
 
             // synchronous wait loading scene
             await apollon.ApollonHighResolutionTime.DoSleep(2000.0f);

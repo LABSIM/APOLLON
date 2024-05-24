@@ -46,8 +46,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         private void OnTriggerEnter(UnityEngine.Collider other)
         {
             
-            // skip unnecessary stuff by checking if collidee has QuadController component
-            if(!other.gameObject.GetComponent<QuadController>())
+            // skip unnecessary stuff by checking if collidee has LEXIKHUMOATEntityBehaviour component
+            if(!other.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>())
             {
                 return;   
             }
@@ -57,9 +57,16 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 world_pos = other.ClosestPoint(this.transform.position),
                 local_pos = this.transform.worldToLocalMatrix * other.ClosestPoint(world_pos);
 
+            // build dict entry name
+            var name = this.gameObject.transform.parent.parent.name;
+            if(this.gameObject.name == "Cue") 
+            {
+                name += "_Cue";
+            }
+
             // invoke with current settings
             checkpointReached.Invoke(
-                this.gameObject.transform.parent.name,
+                name,
                 new() 
                 {
                     kind                   = this.CheckpointKind,

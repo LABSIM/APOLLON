@@ -94,7 +94,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             UnityEngine.Debug.Log(
                                 "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : LEXIKHUMOAT Vecteur has "
                                 + this.FSM.CurrentSettings.PhaseD.total_duration
-                                + " ms to cross the stop"
+                                + " ms to stop"
                             );
 
                             // wait a certain amout of time between each bound if cancel not requested
@@ -232,7 +232,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                                         "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : show red frame"
                                     );
                                     
-                                    //show red frame at decceleration duration
+                                    // show red frame at decceleration duration
                                     apollon.ApollonEngine.Schedule(
                                         () => apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.RedFrameGUI)
                                     );

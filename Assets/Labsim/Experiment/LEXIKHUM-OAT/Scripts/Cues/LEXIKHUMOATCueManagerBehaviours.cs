@@ -63,8 +63,19 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             switch((checkpoint.kind, checkpoint.side))
             {
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, _):
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center):
+                {
+
+                    // skip
+                    break;
+
+                } /* case (Departure, Center) || (Arrival, Center)*/
+
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 {
 
                     // play practice ?
@@ -103,7 +114,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Success, _) || (Fail, _)*/
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 {
 
                     // extract current shared intention
@@ -143,13 +155,16 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Cue, _) */
 
-                case (_, _):
                 default:
                 {
                     
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> LEXIKHUMOATCueManagerBehaviour.OnCheckpointReached() :  checkpoint.kind is Undefined or Unknown... this is impossible ! :)"
+                        "<color=Red>Error: </color> LEXIKHUMOATCueManagerBehaviour.OnCheckpointReached() : (" 
+                        + checkpoint.kind
+                        + ","
+                        + checkpoint.side
+                        + ")... this is impossible ! :)"
                     );
 
                     break;

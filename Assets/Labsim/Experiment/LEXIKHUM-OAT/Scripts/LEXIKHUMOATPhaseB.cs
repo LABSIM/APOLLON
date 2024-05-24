@@ -155,19 +155,19 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         async () => 
                         { 
 
-                            // log
-                            UnityEngine.Debug.Log(
-                                "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : activating LEXIKHUMOAT Entity"
-                            );
+                            // // log
+                            // UnityEngine.Debug.Log(
+                            //     "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : activating LEXIKHUMOAT Entity"
+                            // );
 
-                            // initializing
-                            apollon.ApollonEngine.Schedule(() => {
+                            // // initializing
+                            // apollon.ApollonEngine.Schedule(() => {
                                 
-                                apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
-                                );
+                            //     apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                            //         apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
+                            //     );
                                 
-                            });
+                            // });
 
                             UnityEngine.Debug.Log(
                                 "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : raise initial accel motion"
@@ -194,6 +194,43 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         },
                         parallel_tasks_ct_src.Token 
                     ).Unwrap(),
+                    // ).Unwrap().ContinueWith(
+                    //     async(antecedent) => 
+                    //     {
+                    //         if(!parallel_tasks_ct.IsCancellationRequested)
+                    //         {
+
+                    //             if(!sync_point.Task.IsCompleted) 
+                    //             {
+                                    
+                    //                 // log
+                    //                 UnityEngine.Debug.Log(
+                    //                     "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : wait for even start lane is crossed or end of phase"
+                    //                 );
+
+                    //                 // wait until any result
+                    //                 result = await sync_point.Task;
+
+                    //             } else {
+                                    
+                    //                 UnityEngine.Debug.Log(
+                    //                     "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : LEXIKHUMOAT Vecteur has crossed the start line or end of phase already reached !"
+                    //                 );
+
+                    //             } /* if() */
+
+                    //             // hide all UI 
+                    //             apollon.ApollonEngine.Schedule(() => {
+
+                    //                 apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
+                    //                 apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);                                
+
+                    //             });
+
+                    //         } /* if() */
+                    //     },
+                    //     parallel_tasks_ct_src.Token
+                    // ),
 
                     // hide green frame 
                     parallel_tasks_factory.StartNew(
@@ -248,7 +285,38 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     ),
 
                 }; /* parrallel tasks */
+
+            // wait for sync point or end of phase timer == until any result
+            result = await sync_point.Task;
+
+            // hide all UI 
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenCrossGUI);
+            apollon.frontend.ApollonFrontendManager.Instance.setInactive(apollon.frontend.ApollonFrontendManager.FrontendIDType.GreenFrameGUI);
+
+            // log
+            if(result)
+            {
+                                    
+                // log
+                UnityEngine.Debug.Log(
+                    "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : LEXIKHUMOAT Vecteur has crossed the line, continuing"
+                );
+
+
+            } else {
                 
+                UnityEngine.Debug.LogWarning(
+                    "<color=Orange>Warn: </color> LEXIKHUMOATPhaseB.OnEntry() : LEXIKHUMOAT Vecteur hasn't crossed the start line ==> end of phase already reached ! check speed settings..."
+                );
+
+            } /* if() */
+
+
+            // await System.Threading.Tasks.Task.WhenAll(parallel_tasks);    
+            
+            // cancel running task
+            parallel_tasks_ct_src.Cancel();
+            
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> LEXIKHUMOATPhaseB.OnEntry() : end"

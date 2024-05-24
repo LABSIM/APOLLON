@@ -276,7 +276,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             switch((checkpoint.kind, checkpoint.side))
             {
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center):
                 {
 
                     // propagate event
@@ -286,7 +286,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Departure, _) */
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center):
                 {
 
                     // propagate event
@@ -296,7 +296,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Arrival, _) */
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 {
 
                     // update counters
@@ -307,7 +308,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Success, _) */
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 {
                     
                     // update counter
@@ -317,7 +319,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Fail, _) */
 
-                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, _):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 {
 
                     // skip
@@ -325,13 +328,16 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Cue, _) */
 
-                case (_, _):
                 default:
                 {
                     
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() :  checkpoint.kind is Undefined or Unknown... this is impossible ! :)"
+                        "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : (" 
+                        + checkpoint.kind
+                        + ","
+                        + checkpoint.side
+                        + ")... this is impossible ! :)"
                     );
 
                     break;
