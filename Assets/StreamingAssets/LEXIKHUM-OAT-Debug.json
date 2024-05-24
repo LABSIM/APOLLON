@@ -51,7 +51,7 @@
             "is_active_condition": true,
 
             "scene_name": "Familiarisation",
-            "visual_name": "VisualA",
+            "visual_name": "A",
 
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
@@ -82,13 +82,13 @@
 
         },
 
-        "test_pattern_ID1_VisualB_Auditive": {
+        "test_pattern_ID1_VisualA_Auditive": {
   
             "is_catch_try_condition": false,
             "is_active_condition": true,
 
             "scene_name": "Familiarisation",
-            "visual_name": "VisualB",
+            "visual_name": "B",
 
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
@@ -125,7 +125,7 @@
             "is_active_condition": true,
 
             "scene_name": "Familiarisation",
-            "visual_name": "VisualC",
+            "visual_name": "C",
 
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
@@ -164,7 +164,7 @@
   
       "block_test": {
   
-        "is_practice_condition": true,
+        "is_practice_condition": false,
         "is_draft_bucket_randomized": true,
 
         "trial_max_retry_per_draw" : 1,

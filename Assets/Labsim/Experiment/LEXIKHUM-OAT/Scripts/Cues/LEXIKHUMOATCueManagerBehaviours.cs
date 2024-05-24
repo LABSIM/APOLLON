@@ -137,7 +137,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         );
 
                         // start
-                        this.Cues[LEXIKHUMOATSettings.SharedIntentionIDType.Practice].StartCue(checkpoint);
+                        this.Cues[current_mode].StartCue(checkpoint);
 
                     }
                     else
