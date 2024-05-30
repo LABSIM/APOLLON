@@ -244,7 +244,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         } /* class PhaseDResult */
         
-        // Question : Agentivity demand
+        // Question : Control usage
         public class PhaseEResults 
             : DefaultPhaseTimingResults
         {
@@ -265,12 +265,259 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         } /* class PhaseEResults */
 
+        // Question : Control feeling
+        public class PhaseFResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseFResults */
+
+        // Question : acceptability re-usage
+        public class PhaseGResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseGResults */
+
+        // Question : acceptability statisfaction 
+        public class PhaseHResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseHResults */
+
+        // Question : colaboration efficiency
+        public class PhaseIResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseIResults */
+
+         // Question : colaboration useful
+        public class PhaseJResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseJResults */
+
+        // Question : fluid interaction
+        public class PhaseKResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseKResults */
+
+         // Question : system contribution to fluidity
+        public class PhaseLResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseLResults */
+
+         // Question : communication efficiency
+        public class PhaseMResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseMResults */
+
+         // Question : communication return
+        public class PhaseNResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseNResults */
+
+         // Question : usability
+        public class PhaseOResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhaseOResults */
+
+         // Question : system confidence
+        public class PhasePResults 
+            : DefaultPhaseTimingResults
+        {
+
+            #region user_*
+
+            public float user_response_timing_unity_timestamp = float.NaN;
+
+            public string user_response_timing_host_timestamp = "";
+
+            public long user_response_timing_varjo_timestamp = -1;
+
+            public float user_response_value = float.NaN;
+
+            public long user_elapsed_ms_since_entry = -1;
+
+            #endregion
+
+        } /* class PhasePResults */
+
+        // experimental protocol
         public TrialResults Trial { get; set; } = new(); 
         public PhaseAResults PhaseA { get; set; } = new(); 
         public PhaseBResults PhaseB { get; set; } = new();
         public PhaseCResults PhaseC { get; set; } = new();
         public PhaseDResults PhaseD { get; set; } = new();
+
+        // end trial questions
         public PhaseEResults PhaseE { get; set; } = new();
+        public PhaseFResults PhaseF { get; set; } = new();
+        public PhaseGResults PhaseG { get; set; } = new();
+        public PhaseHResults PhaseH { get; set; } = new();
+
+        // end bloc questions
+        public PhaseIResults PhaseI { get; set; } = new();
+        public PhaseJResults PhaseJ { get; set; } = new();
+        public PhaseKResults PhaseK { get; set; } = new();
+        public PhaseLResults PhaseL { get; set; } = new();
+        public PhaseMResults PhaseM { get; set; } = new();
+        public PhaseNResults PhaseN { get; set; } = new();
+        public PhaseOResults PhaseO { get; set; } = new();
+        public PhasePResults PhaseP { get; set; } = new();
 
         public bool ExportUXFResults(UXF.ResultsDictionary results)
         {
@@ -371,6 +618,149 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["E_user_response_timing_varjo_timestamp"] = this.PhaseE.user_response_timing_varjo_timestamp.ToString();
                 results["E_user_response_value"]                  = this.PhaseE.user_response_value.ToString();
                 results["E_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
+
+                // phase F
+                results["F_timing_on_entry_unity_timestamp"]      = this.PhaseF.timing_on_entry_unity_timestamp.ToString();
+                results["F_timing_on_exit_unity_timestamp"]       = this.PhaseF.timing_on_exit_unity_timestamp.ToString();
+                results["F_timing_on_entry_host_timestamp"]       = this.PhaseF.timing_on_entry_host_timestamp;
+                results["F_timing_on_exit_host_timestamp"]        = this.PhaseF.timing_on_exit_host_timestamp;
+                results["F_timing_on_entry_varjo_timestamp"]      = this.PhaseF.timing_on_entry_varjo_timestamp.ToString();
+                results["F_timing_on_exit_varjo_timestamp"]       = this.PhaseF.timing_on_exit_varjo_timestamp.ToString();     
+                results["F_user_response_timing_unity_timestamp"] = this.PhaseF.user_response_timing_unity_timestamp.ToString();
+                results["F_user_response_timing_host_timestamp"]  = this.PhaseF.user_response_timing_host_timestamp;
+                results["F_user_response_timing_varjo_timestamp"] = this.PhaseF.user_response_timing_varjo_timestamp.ToString();
+                results["F_user_response_value"]                  = this.PhaseF.user_response_value.ToString();
+                results["F_user_elapsed_ms_since_entry"]          = this.PhaseF.user_elapsed_ms_since_entry.ToString();
+
+                // phase G
+                results["G_timing_on_entry_unity_timestamp"]      = this.PhaseG.timing_on_entry_unity_timestamp.ToString();
+                results["G_timing_on_exit_unity_timestamp"]       = this.PhaseG.timing_on_exit_unity_timestamp.ToString();
+                results["G_timing_on_entry_host_timestamp"]       = this.PhaseG.timing_on_entry_host_timestamp;
+                results["G_timing_on_exit_host_timestamp"]        = this.PhaseG.timing_on_exit_host_timestamp;
+                results["G_timing_on_entry_varjo_timestamp"]      = this.PhaseG.timing_on_entry_varjo_timestamp.ToString();
+                results["G_timing_on_exit_varjo_timestamp"]       = this.PhaseG.timing_on_exit_varjo_timestamp.ToString();     
+                results["G_user_response_timing_unity_timestamp"] = this.PhaseG.user_response_timing_unity_timestamp.ToString();
+                results["G_user_response_timing_host_timestamp"]  = this.PhaseG.user_response_timing_host_timestamp;
+                results["G_user_response_timing_varjo_timestamp"] = this.PhaseG.user_response_timing_varjo_timestamp.ToString();
+                results["G_user_response_value"]                  = this.PhaseG.user_response_value.ToString();
+                results["G_user_elapsed_ms_since_entry"]          = this.PhaseG.user_elapsed_ms_since_entry.ToString();
+
+                // phase H
+                results["H_timing_on_entry_unity_timestamp"]      = this.PhaseH.timing_on_entry_unity_timestamp.ToString();
+                results["H_timing_on_exit_unity_timestamp"]       = this.PhaseH.timing_on_exit_unity_timestamp.ToString();
+                results["H_timing_on_entry_host_timestamp"]       = this.PhaseH.timing_on_entry_host_timestamp;
+                results["H_timing_on_exit_host_timestamp"]        = this.PhaseH.timing_on_exit_host_timestamp;
+                results["H_timing_on_entry_varjo_timestamp"]      = this.PhaseH.timing_on_entry_varjo_timestamp.ToString();
+                results["H_timing_on_exit_varjo_timestamp"]       = this.PhaseH.timing_on_exit_varjo_timestamp.ToString();     
+                results["H_user_response_timing_unity_timestamp"] = this.PhaseH.user_response_timing_unity_timestamp.ToString();
+                results["H_user_response_timing_host_timestamp"]  = this.PhaseH.user_response_timing_host_timestamp;
+                results["H_user_response_timing_varjo_timestamp"] = this.PhaseH.user_response_timing_varjo_timestamp.ToString();
+                results["H_user_response_value"]                  = this.PhaseH.user_response_value.ToString();
+                results["H_user_elapsed_ms_since_entry"]          = this.PhaseH.user_elapsed_ms_since_entry.ToString();
+
+                // phase I
+                results["I_timing_on_entry_unity_timestamp"]      = this.PhaseI.timing_on_entry_unity_timestamp.ToString();
+                results["I_timing_on_exit_unity_timestamp"]       = this.PhaseI.timing_on_exit_unity_timestamp.ToString();
+                results["I_timing_on_entry_host_timestamp"]       = this.PhaseI.timing_on_entry_host_timestamp;
+                results["I_timing_on_exit_host_timestamp"]        = this.PhaseI.timing_on_exit_host_timestamp;
+                results["I_timing_on_entry_varjo_timestamp"]      = this.PhaseI.timing_on_entry_varjo_timestamp.ToString();
+                results["I_timing_on_exit_varjo_timestamp"]       = this.PhaseI.timing_on_exit_varjo_timestamp.ToString();     
+                results["I_user_response_timing_unity_timestamp"] = this.PhaseI.user_response_timing_unity_timestamp.ToString();
+                results["I_user_response_timing_host_timestamp"]  = this.PhaseI.user_response_timing_host_timestamp;
+                results["I_user_response_timing_varjo_timestamp"] = this.PhaseI.user_response_timing_varjo_timestamp.ToString();
+                results["I_user_response_value"]                  = this.PhaseI.user_response_value.ToString();
+                results["I_user_elapsed_ms_since_entry"]          = this.PhaseI.user_elapsed_ms_since_entry.ToString();
+
+                // phase J
+                results["J_timing_on_entry_unity_timestamp"]      = this.PhaseJ.timing_on_entry_unity_timestamp.ToString();
+                results["J_timing_on_exit_unity_timestamp"]       = this.PhaseJ.timing_on_exit_unity_timestamp.ToString();
+                results["J_timing_on_entry_host_timestamp"]       = this.PhaseJ.timing_on_entry_host_timestamp;
+                results["J_timing_on_exit_host_timestamp"]        = this.PhaseJ.timing_on_exit_host_timestamp;
+                results["J_timing_on_entry_varjo_timestamp"]      = this.PhaseJ.timing_on_entry_varjo_timestamp.ToString();
+                results["J_timing_on_exit_varjo_timestamp"]       = this.PhaseJ.timing_on_exit_varjo_timestamp.ToString();     
+                results["J_user_response_timing_unity_timestamp"] = this.PhaseJ.user_response_timing_unity_timestamp.ToString();
+                results["J_user_response_timing_host_timestamp"]  = this.PhaseJ.user_response_timing_host_timestamp;
+                results["J_user_response_timing_varjo_timestamp"] = this.PhaseJ.user_response_timing_varjo_timestamp.ToString();
+                results["J_user_response_value"]                  = this.PhaseJ.user_response_value.ToString();
+                results["J_user_elapsed_ms_since_entry"]          = this.PhaseJ.user_elapsed_ms_since_entry.ToString();
+
+                // phase K
+                results["K_timing_on_entry_unity_timestamp"]      = this.PhaseK.timing_on_entry_unity_timestamp.ToString();
+                results["K_timing_on_exit_unity_timestamp"]       = this.PhaseK.timing_on_exit_unity_timestamp.ToString();
+                results["K_timing_on_entry_host_timestamp"]       = this.PhaseK.timing_on_entry_host_timestamp;
+                results["K_timing_on_exit_host_timestamp"]        = this.PhaseK.timing_on_exit_host_timestamp;
+                results["K_timing_on_entry_varjo_timestamp"]      = this.PhaseK.timing_on_entry_varjo_timestamp.ToString();
+                results["K_timing_on_exit_varjo_timestamp"]       = this.PhaseK.timing_on_exit_varjo_timestamp.ToString();     
+                results["K_user_response_timing_unity_timestamp"] = this.PhaseK.user_response_timing_unity_timestamp.ToString();
+                results["K_user_response_timing_host_timestamp"]  = this.PhaseK.user_response_timing_host_timestamp;
+                results["K_user_response_timing_varjo_timestamp"] = this.PhaseK.user_response_timing_varjo_timestamp.ToString();
+                results["K_user_response_value"]                  = this.PhaseK.user_response_value.ToString();
+                results["K_user_elapsed_ms_since_entry"]          = this.PhaseK.user_elapsed_ms_since_entry.ToString();
+
+                // phase L
+                results["L_timing_on_entry_unity_timestamp"]      = this.PhaseL.timing_on_entry_unity_timestamp.ToString();
+                results["L_timing_on_exit_unity_timestamp"]       = this.PhaseL.timing_on_exit_unity_timestamp.ToString();
+                results["L_timing_on_entry_host_timestamp"]       = this.PhaseL.timing_on_entry_host_timestamp;
+                results["L_timing_on_exit_host_timestamp"]        = this.PhaseL.timing_on_exit_host_timestamp;
+                results["L_timing_on_entry_varjo_timestamp"]      = this.PhaseL.timing_on_entry_varjo_timestamp.ToString();
+                results["L_timing_on_exit_varjo_timestamp"]       = this.PhaseL.timing_on_exit_varjo_timestamp.ToString();     
+                results["L_user_response_timing_unity_timestamp"] = this.PhaseL.user_response_timing_unity_timestamp.ToString();
+                results["L_user_response_timing_host_timestamp"]  = this.PhaseL.user_response_timing_host_timestamp;
+                results["L_user_response_timing_varjo_timestamp"] = this.PhaseL.user_response_timing_varjo_timestamp.ToString();
+                results["L_user_response_value"]                  = this.PhaseL.user_response_value.ToString();
+                results["L_user_elapsed_ms_since_entry"]          = this.PhaseL.user_elapsed_ms_since_entry.ToString();
+
+                // phase M
+                results["M_timing_on_entry_unity_timestamp"]      = this.PhaseM.timing_on_entry_unity_timestamp.ToString();
+                results["M_timing_on_exit_unity_timestamp"]       = this.PhaseM.timing_on_exit_unity_timestamp.ToString();
+                results["M_timing_on_entry_host_timestamp"]       = this.PhaseM.timing_on_entry_host_timestamp;
+                results["M_timing_on_exit_host_timestamp"]        = this.PhaseM.timing_on_exit_host_timestamp;
+                results["M_timing_on_entry_varjo_timestamp"]      = this.PhaseM.timing_on_entry_varjo_timestamp.ToString();
+                results["M_timing_on_exit_varjo_timestamp"]       = this.PhaseM.timing_on_exit_varjo_timestamp.ToString();     
+                results["M_user_response_timing_unity_timestamp"] = this.PhaseM.user_response_timing_unity_timestamp.ToString();
+                results["M_user_response_timing_host_timestamp"]  = this.PhaseM.user_response_timing_host_timestamp;
+                results["M_user_response_timing_varjo_timestamp"] = this.PhaseM.user_response_timing_varjo_timestamp.ToString();
+                results["M_user_response_value"]                  = this.PhaseM.user_response_value.ToString();
+                results["M_user_elapsed_ms_since_entry"]          = this.PhaseM.user_elapsed_ms_since_entry.ToString();
+
+                // phase N
+                results["N_timing_on_entry_unity_timestamp"]      = this.PhaseN.timing_on_entry_unity_timestamp.ToString();
+                results["N_timing_on_exit_unity_timestamp"]       = this.PhaseN.timing_on_exit_unity_timestamp.ToString();
+                results["N_timing_on_entry_host_timestamp"]       = this.PhaseN.timing_on_entry_host_timestamp;
+                results["N_timing_on_exit_host_timestamp"]        = this.PhaseN.timing_on_exit_host_timestamp;
+                results["N_timing_on_entry_varjo_timestamp"]      = this.PhaseN.timing_on_entry_varjo_timestamp.ToString();
+                results["N_timing_on_exit_varjo_timestamp"]       = this.PhaseN.timing_on_exit_varjo_timestamp.ToString();     
+                results["N_user_response_timing_unity_timestamp"] = this.PhaseN.user_response_timing_unity_timestamp.ToString();
+                results["N_user_response_timing_host_timestamp"]  = this.PhaseN.user_response_timing_host_timestamp;
+                results["N_user_response_timing_varjo_timestamp"] = this.PhaseN.user_response_timing_varjo_timestamp.ToString();
+                results["N_user_response_value"]                  = this.PhaseN.user_response_value.ToString();
+                results["N_user_elapsed_ms_since_entry"]          = this.PhaseN.user_elapsed_ms_since_entry.ToString();
+
+                // phase O
+                results["O_timing_on_entry_unity_timestamp"]      = this.PhaseO.timing_on_entry_unity_timestamp.ToString();
+                results["O_timing_on_exit_unity_timestamp"]       = this.PhaseO.timing_on_exit_unity_timestamp.ToString();
+                results["O_timing_on_entry_host_timestamp"]       = this.PhaseO.timing_on_entry_host_timestamp;
+                results["O_timing_on_exit_host_timestamp"]        = this.PhaseO.timing_on_exit_host_timestamp;
+                results["O_timing_on_entry_varjo_timestamp"]      = this.PhaseO.timing_on_entry_varjo_timestamp.ToString();
+                results["O_timing_on_exit_varjo_timestamp"]       = this.PhaseO.timing_on_exit_varjo_timestamp.ToString();     
+                results["O_user_response_timing_unity_timestamp"] = this.PhaseO.user_response_timing_unity_timestamp.ToString();
+                results["O_user_response_timing_host_timestamp"]  = this.PhaseO.user_response_timing_host_timestamp;
+                results["O_user_response_timing_varjo_timestamp"] = this.PhaseO.user_response_timing_varjo_timestamp.ToString();
+                results["O_user_response_value"]                  = this.PhaseO.user_response_value.ToString();
+                results["O_user_elapsed_ms_since_entry"]          = this.PhaseO.user_elapsed_ms_since_entry.ToString();
+
+                // phase P
+                results["P_timing_on_entry_unity_timestamp"]      = this.PhaseP.timing_on_entry_unity_timestamp.ToString();
+                results["P_timing_on_exit_unity_timestamp"]       = this.PhaseP.timing_on_exit_unity_timestamp.ToString();
+                results["P_timing_on_entry_host_timestamp"]       = this.PhaseP.timing_on_entry_host_timestamp;
+                results["P_timing_on_exit_host_timestamp"]        = this.PhaseP.timing_on_exit_host_timestamp;
+                results["P_timing_on_entry_varjo_timestamp"]      = this.PhaseP.timing_on_entry_varjo_timestamp.ToString();
+                results["P_timing_on_exit_varjo_timestamp"]       = this.PhaseP.timing_on_exit_varjo_timestamp.ToString();     
+                results["P_user_response_timing_unity_timestamp"] = this.PhaseP.user_response_timing_unity_timestamp.ToString();
+                results["P_user_response_timing_host_timestamp"]  = this.PhaseP.user_response_timing_host_timestamp;
+                results["P_user_response_timing_varjo_timestamp"] = this.PhaseP.user_response_timing_varjo_timestamp.ToString();
+                results["P_user_response_value"]                  = this.PhaseP.user_response_value.ToString();
+                results["P_user_elapsed_ms_since_entry"]          = this.PhaseP.user_elapsed_ms_since_entry.ToString();
 
             } 
             catch(System.Exception ex)
@@ -571,6 +961,490 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 + "\n - E_user_elapsed_ms_since_entry"  
                     + "[" 
                     + this.PhaseE.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - F_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseF.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - F_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseF.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - F_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseF.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - F_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseF.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - F_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseF.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - F_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseF.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - F_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseF.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - F_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseF.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - F_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseF.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - F_user_response_value"  
+                    + "[" 
+                    + this.PhaseF.user_response_value.ToString()
+                    + "]"
+                + "\n - F_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseF.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - G_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseG.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - G_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseG.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - G_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseG.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - G_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseG.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - G_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseG.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - G_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseG.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - G_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseG.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - G_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseG.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - G_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseG.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - G_user_response_value"  
+                    + "[" 
+                    + this.PhaseG.user_response_value.ToString()
+                    + "]"
+                + "\n - G_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseG.user_elapsed_ms_since_entry.ToString()
+                    + "]"                    
+                + "\n - H_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseH.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - H_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseH.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - H_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseH.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - H_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseH.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - H_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseH.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - H_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseH.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - H_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseH.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - H_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseH.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - H_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseH.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - H_user_response_value"  
+                    + "[" 
+                    + this.PhaseH.user_response_value.ToString()
+                    + "]"
+                + "\n - H_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseH.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - I_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseI.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - I_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseI.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - I_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseI.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - I_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseI.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - I_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseI.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - I_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseI.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - I_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseI.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - I_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseI.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - I_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseI.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - I_user_response_value"  
+                    + "[" 
+                    + this.PhaseI.user_response_value.ToString()
+                    + "]"
+                + "\n - I_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseI.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - J_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseJ.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - J_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseJ.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - J_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseJ.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - J_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseJ.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - J_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseJ.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - J_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseJ.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - J_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseJ.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - J_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseJ.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - J_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseJ.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - J_user_response_value"  
+                    + "[" 
+                    + this.PhaseJ.user_response_value.ToString()
+                    + "]"
+                + "\n - J_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseJ.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - K_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseK.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - K_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseK.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - K_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseK.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - K_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseK.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - K_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseK.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - K_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseK.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - K_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseK.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - K_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseK.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - K_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseK.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - K_user_response_value"  
+                    + "[" 
+                    + this.PhaseK.user_response_value.ToString()
+                    + "]"
+                + "\n - K_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseK.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - L_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseL.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - L_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseL.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - L_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseL.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - L_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseL.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - L_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseL.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - L_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseL.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - L_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseL.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - L_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseL.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - L_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseL.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - L_user_response_value"  
+                    + "[" 
+                    + this.PhaseL.user_response_value.ToString()
+                    + "]"
+                + "\n - L_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseL.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - M_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseM.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - M_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseM.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - M_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseM.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - M_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseM.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - M_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseM.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - M_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseM.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - M_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseM.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - M_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseM.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - M_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseM.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - M_user_response_value"  
+                    + "[" 
+                    + this.PhaseM.user_response_value.ToString()
+                    + "]"
+                + "\n - M_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseM.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - N_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseN.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - N_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseN.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - N_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseN.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - N_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseN.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - N_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseN.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - N_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseN.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - N_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseN.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - N_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseN.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - N_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseN.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - N_user_response_value"  
+                    + "[" 
+                    + this.PhaseN.user_response_value.ToString()
+                    + "]"
+                + "\n - N_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseN.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - O_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseO.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - O_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseO.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - O_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseO.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - O_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseO.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - O_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseO.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - O_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseO.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - O_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseO.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - O_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseO.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - O_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseO.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - O_user_response_value"  
+                    + "[" 
+                    + this.PhaseO.user_response_value.ToString()
+                    + "]"
+                + "\n - O_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseO.user_elapsed_ms_since_entry.ToString()
+                    + "]"
+                + "\n - P_timing_on_entry_unity_timestamp" 
+                    + "[" 
+                    + this.PhaseP.timing_on_entry_unity_timestamp.ToString()
+                    + "]"
+                + "\n - P_timing_on_exit_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseP.timing_on_exit_unity_timestamp.ToString()
+                    + "]"
+                + "\n - P_timing_on_entry_host_timestamp"  
+                    + "[" 
+                    + this.PhaseP.timing_on_entry_host_timestamp
+                    + "]"
+                + "\n - P_timing_on_exit_host_timestamp"   
+                    + "[" 
+                    + this.PhaseP.timing_on_exit_host_timestamp
+                    + "]"
+                + "\n - P_timing_on_entry_varjo_timestamp" 
+                    + "[" 
+                    + this.PhaseP.timing_on_entry_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - P_timing_on_exit_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseP.timing_on_exit_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - P_user_response_timing_unity_timestamp"  
+                    + "[" 
+                    + this.PhaseP.user_response_timing_unity_timestamp.ToString()
+                    + "]"
+                + "\n - P_user_response_timing_host_timestamp"  
+                    + "[" 
+                    + this.PhaseP.user_response_timing_host_timestamp
+                    + "]"
+                + "\n - P_user_response_timing_varjo_timestamp"  
+                    + "[" 
+                    + this.PhaseP.user_response_timing_varjo_timestamp.ToString()
+                    + "]"
+                + "\n - P_user_response_value"  
+                    + "[" 
+                    + this.PhaseP.user_response_value.ToString()
+                    + "]"
+                + "\n - P_user_elapsed_ms_since_entry"  
+                    + "[" 
+                    + this.PhaseP.user_elapsed_ms_since_entry.ToString()
                     + "]"
             );
 

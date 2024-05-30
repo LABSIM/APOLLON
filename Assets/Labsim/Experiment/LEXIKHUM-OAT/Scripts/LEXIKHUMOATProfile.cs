@@ -40,7 +40,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         public LEXIKHUMOATSettings CurrentSettings { get; private set; } = null;
         public LEXIKHUMOATResults CurrentResults { get; private set; } = null;
 
-        #region abstract implementation
+        #region Abstract implementation
 
         // infos
         protected override System.String getCurrentStatusInfo()
@@ -88,6 +88,70 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
         } /* getCurrentInstructionStatusInfo() */
 
+
+        public System.String CurrentQuestion { get; set; } = "";
+        protected override System.String getCurrentQuestionStatusInfo()
+        {
+
+            // simply
+            return this.CurrentQuestion;
+
+        } /* getCurrentQuestionStatusInfo() */
+
+
+        public System.String CurrentQuestionDetail { get; set; } = "";
+        protected override System.String getCurrentQuestionDetailStatusInfo()
+        {
+
+            // simply
+            return this.CurrentQuestionDetail;
+
+        } /* getCurrentQuestionDetailStatusInfo() */
+
+
+        public System.String CurrentQuestionTickLowerBound { get; set; } = "";
+        protected override System.String getCurrentQuestionTickLowerBoundStatusInfo()
+        {
+
+            // simply
+            return this.CurrentQuestionTickLowerBound;
+
+        } /* getCurrentQuestionTickLowerBoundStatusInfo() */
+
+
+        public System.String CurrentQuestionTickUpperBound { get; set; } = "";
+        protected override System.String getCurrentQuestionTickUpperBoundStatusInfo()
+        {
+
+            // simply
+            return this.CurrentQuestionTickUpperBound;
+
+        } /* getCurrentQuestionTickUpperBoundStatusInfo() */
+
+
+        public bool CurrentQuestionHasTick { get; set; } = true;
+        protected override bool getCurrentQuestionHasTickStatusInfo()
+        {
+
+            // simply
+            return this.CurrentQuestionHasTick;
+
+        } /* getCurrentQuestionHasTickStatusInfo() */
+
+
+        public bool CurrentQuestionHasTickText { get; set; } = true;
+        protected override bool getCurrentQuestionHasTickTextStatusInfo()
+        {
+
+            // simply
+            return this.CurrentQuestionHasTickText;
+
+        } /* getCurrentQuestionHasTickStatusInfo() */
+
+        #endregion
+
+        #region Entry points callback override
+
         public override void OnUpdate(object sender, apollon.ApollonEngine.EngineEventArgs arg)
         {
 
@@ -110,166 +174,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             );
 
             // async fade in
-            this.DoBlankFadeIn(2500.0f);
-            this.DoLightFadeIn(2500.0f);
+            this.DoBlankFadeIn(250.0f);
+            this.DoLightFadeIn(250.0f);
 
-            // configure VarjoXR eye tracking
-            // fixed 200Hz / Raw data == no filtering / auto IPD 
-            if(!Varjo.XR.VarjoEyeTracking.SetGazeOutputFrequency(Varjo.XR.VarjoEyeTracking.GazeOutputFrequency.Frequency200Hz))
-            {
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warn: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : failed to set GazeOutputFrequency parameter..."
-                );
-            }
-            if(!Varjo.XR.VarjoEyeTracking.SetGazeOutputFilterType(Varjo.XR.VarjoEyeTracking.GazeOutputFilterType.None))
-            {
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warn: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : failed to set GazeOutputFilterType parameter..."
-                );
-            }
-            if(!Varjo.XR.VarjoHeadsetIPD.SetInterPupillaryDistanceParameters(Varjo.XR.VarjoHeadsetIPD.IPDAdjustmentMode.Automatic))
-            {
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warn: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : failed to set InterPupillaryDistanceParameters parameter..."
-                );
-            }
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : configured Varjo parameters to [200Hz, No filter, automatic IPD], requesting calibration"
-            );
-
-            // force recalibration
-            if(!Varjo.XR.VarjoEyeTracking.CancelGazeCalibration())
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warn: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : failed to cancel gaze calibration..."
-                );
-
-            } /* if() */
-
-            await apollon.ApollonHighResolutionTime.DoSleep(1000.0f);
-
-            if( !Varjo.XR.VarjoEyeTracking.RequestGazeCalibration(
-                    Varjo.XR.VarjoEyeTracking.GazeCalibrationMode.Fast,
-                    Varjo.XR.VarjoEyeTracking.HeadsetAlignmentGuidanceMode.AutoContinueOnAcceptableHeadsetPosition
-                )
-            )
-            {
-
-                // log
-                UnityEngine.Debug.LogWarning(
-                    "<color=Orange>Warn: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : failed to request gaze calibration..."
-                );
-
-            }
- 
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : Fast (5 dots) calibration requested"
-            );
-
-            // wait for eye tracking system init
-            do
-            {
-                await apollon.ApollonHighResolutionTime.DoSleep(2000.0f);
-
-                bool 
-                    calibrating = Varjo.XR.VarjoEyeTracking.IsGazeCalibrating(), 
-                    calibrated  = Varjo.XR.VarjoEyeTracking.IsGazeCalibrated();
-            } 
-            while(Varjo.XR.VarjoEyeTracking.IsGazeCalibrating() && !Varjo.XR.VarjoEyeTracking.IsGazeCalibrated());
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : calibration done !"
-            );
-
-            // extract calibration results
-            var calibration_results = Varjo.XR.VarjoEyeTracking.GetGazeCalibrationQuality();
-            string left_result, right_result;
-
-            switch(calibration_results.left)
-            {
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Low:
-                {
-                    left_result
-                        = "Low";
-                    break;
-                }
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Medium:
-                {
-                    left_result
-                        = "Medium";
-                    break;
-                }
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.High:
-                {
-                    left_result
-                        = "High";
-                    break;
-                }
-                default:
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Invalid:
-                {
-                    left_result
-                        = "Invalid";
-                    break;
-                }
-            } /* switch() */
-
-            switch(calibration_results.right)
-            {
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Low:
-                {
-                    right_result
-                        = "Low";
-                    break;
-                }
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Medium:
-                {
-                    right_result
-                        = "Medium";
-                    break;
-                }
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.High:
-                {
-                    right_result
-                        = "High";
-                    break;
-                }
-                default:
-                case Varjo.XR.VarjoEyeTracking.GazeEyeCalibrationQuality.Invalid:
-                {
-                    right_result
-                        = "Invalid";
-                    break;
-                }
-            } /* switch() */
-            
-            apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_left_eye_quality"] 
-                = left_result;
-            apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_right_eye_quality"] 
-                = right_result;
-            apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["inter_pupillary_distance"] 
-                = Varjo.XR.VarjoEyeTracking.GetIPDEstimate().ToString();
-
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : calibration results logged in participant details ["
-                + "gaze_calibration_left_eye_quality:"
-                    + apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_left_eye_quality"]
-                + "/gaze_calibration_right_eye_quality:"
-                    + apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["gaze_calibration_right_eye_quality"] 
-                + "/inter_pupillary_distance:"
-                    + apollon.experiment.ApollonExperimentManager.Instance.Session.participantDetails["inter_pupillary_distance"]
-                +"]"
-            );
+            // synchronous wait loading scene
+            await apollon.ApollonHighResolutionTime.DoSleep(250.0f);
 
             // deactivate default DB & Light
             var static_element
@@ -279,6 +188,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.StaticElement
                 ).ConcreteBehaviour;
             static_element.References["DBTag_BaseSetup"].SetActive(false);
+
+            // activate fog element
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement
+            );
 
             // base call
             base.OnExperimentSessionBegin(sender, arg);
@@ -349,6 +263,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour;
+            var fog_bridge
+                = (
+                    apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        apollon.gameplay.element.ApollonFogElementBridge
+                    >(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement
+                    )
+                ); 
             
             // first of all, activate current checkpoint & cue manager to dynamically handle scene loading
             dynamic_entity.References["EntityTag_Checkpoints"].SetActive(true);
@@ -445,6 +367,18 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             this.DoBlankFadeOut(250.0f);
             this.DoLightFadeOut(250.0f);
 
+            // show fog
+            fog_bridge.ConcreteDispatcher.RaiseSmoothLinearFogRequested(
+                this.CurrentSettings.Trial.fog_start_distance,
+                this.CurrentSettings.Trial.fog_end_distance,
+                new(
+                    this.CurrentSettings.Trial.fog_color[0], 
+                    this.CurrentSettings.Trial.fog_color[1], 
+                    this.CurrentSettings.Trial.fog_color[2]
+                ),
+                250.0f
+            );
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentTrialBegin() : trial protocol will start"
@@ -477,13 +411,36 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             // then check performance criteria
                             return this.CurrentResults.Trial.user_performance_value >= this.CurrentSettings.Trial.performance_criteria;
 
-                        }
-                        // async () => { await this.SetState( new LEXIKHUMOATPhaseE(this) ); },
-                        // async () => { await this.SetState( new LEXIKHUMOATPhaseF(this) ); },
-                        // async () => { await this.SetState( new LEXIKHUMOATPhaseG(this) ); },
-                        // async () => { await this.SetState( new LEXIKHUMOATPhaseH(this) ); },
-                        // async () => { await this.SetState( new LEXIKHUMOATPhaseI(this) ); },
-                        // async () => { await this.SetState( new LEXIKHUMOATPhaseJ(this) ); }
+                        },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseE(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseF(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseG(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseH(this) ); }
+                    );
+                },
+                async () => {
+                    await this.DoIfBranch(
+                        () => {
+
+                            // then if it was the last in block & not block size == 2 (aka. control block)
+                            return (
+                                (
+                                    apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.lastTrial
+                                        == apollon.experiment.ApollonExperimentManager.Instance.Trial
+                                ) && (
+                                    apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Count > 2
+                                )
+                            );
+
+                        },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseI(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseJ(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseK(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseL(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseM(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseN(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseO(this) ); },
+                        async () => { await this.SetState( new LEXIKHUMOATPhaseP(this) ); }
                     );
                 },
                 async () => { await this.SetState( null ); }
@@ -517,10 +474,26 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.DynamicEntity
                 ).ConcreteBehaviour;
+            var fog_bridge
+                = (
+                    apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        apollon.gameplay.element.ApollonFogElementBridge
+                    >(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement
+                    )
+                ); 
 
             // inactivate all subject control
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
+            );
+
+            // default fog
+            fog_bridge.ConcreteDispatcher.RaiseSmoothLinearFogRequested(
+                0.0f,
+                300.0f,
+                UnityEngine.Color.white,
+                250.0f
             );
 
             // async fade in

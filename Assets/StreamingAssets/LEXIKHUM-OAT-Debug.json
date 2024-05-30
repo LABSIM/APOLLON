@@ -19,8 +19,8 @@
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
 
-            "fog_start_distance_m" : 250.0,
-            "fog_end_distance_m" : 1500.0,
+            "fog_start_distance_m" : 0.0,
+            "fog_end_distance_m" : 100.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -56,8 +56,8 @@
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
 
-            "fog_start_distance_m" : 250.0,
-            "fog_end_distance_m" : 1500.0,
+            "fog_start_distance_m" : 0.0,
+            "fog_end_distance_m" : 100.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 2500.0,
@@ -93,8 +93,8 @@
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
 
-            "fog_start_distance_m" : 250.0,
-            "fog_end_distance_m" : 1500.0,
+            "fog_start_distance_m" : 0.0,
+            "fog_end_distance_m" : 100.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 2500.0,
@@ -130,8 +130,8 @@
             "performance_criteria_value_percent": 50.0,
             "performance_max_try_count": 1,
 
-            "fog_start_distance_m" : 250.0,
-            "fog_end_distance_m" : 1500.0,
+            "fog_start_distance_m" : 0.0,
+            "fog_end_distance_m" : 100.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 2500.0,

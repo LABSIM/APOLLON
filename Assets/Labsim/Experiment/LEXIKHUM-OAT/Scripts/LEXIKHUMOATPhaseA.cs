@@ -20,6 +20,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Labsim.apollon.gameplay.control.impedance;
 
 // avoid namespace pollution
 namespace Labsim.experiment.LEXIKHUM_OAT
