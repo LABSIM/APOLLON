@@ -23,5 +23,5 @@ namespace Labsim.apollon.frontend.gui
 {
 
     public sealed class ApollonQuestion01GUIBehaviour : ApollonGenericQuestionGUIBehaviour { }
-
+    
 } /* } Labsim.apollon.frontend.gui */
