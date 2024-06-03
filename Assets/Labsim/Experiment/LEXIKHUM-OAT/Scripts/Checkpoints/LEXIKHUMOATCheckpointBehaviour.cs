@@ -19,6 +19,8 @@
 //
 
 // avoid namespace pollution
+using Unity.Logging.Sinks;
+
 namespace Labsim.experiment.LEXIKHUM_OAT
 {
 
@@ -63,6 +65,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             {
                 name += "_Cue";
             }
+            // else if(this.gameObject.name == "StrongCue") 
+            // {
+            //     name += "_StrongCue";
+            // }
 
             // invoke with current settings
             checkpointReached.Invoke(

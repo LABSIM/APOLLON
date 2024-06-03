@@ -119,6 +119,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                     [System.ComponentModel.Description("Cue")]
                     Cue,
+                    
+                    [System.ComponentModel.Description("StrongCue")]
+                    StrongCue,
 
                     [System.ComponentModel.Description("Arrival")]
                     Arrival,

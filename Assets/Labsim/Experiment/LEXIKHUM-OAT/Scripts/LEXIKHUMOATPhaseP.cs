@@ -90,7 +90,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 }; /* user interaction lambda */
 
             // update instructions 
-            this.FSM.CurrentQuestion               = "Contrôle utilisé ?";
+            this.FSM.CurrentQuestion               = "Je me suis senti très confiant dans l'utilisation du système ?";
             this.FSM.CurrentQuestionDetail         = "";
             this.FSM.CurrentQuestionTickLowerBound = "pas du tout d'accord";
             this.FSM.CurrentQuestionTickUpperBound = "tout à fait d'accord";

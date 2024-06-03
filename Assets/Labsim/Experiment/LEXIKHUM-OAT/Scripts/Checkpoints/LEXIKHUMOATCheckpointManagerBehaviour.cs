@@ -32,14 +32,16 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         > c_tags_dict
             = new()
             {
-                {"LEXIKHUMOATTag_LeftSuccess",  (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success  )},
-                {"LEXIKHUMOATTag_LeftFail",     (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail     )},
-                {"LEXIKHUMOATTag_LeftCue",      (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue      )},
-                {"LEXIKHUMOATTag_RightSuccess", (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success  )},
-                {"LEXIKHUMOATTag_RightFail",    (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail     )},
-                {"LEXIKHUMOATTag_RightCue",     (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue      )},
-                {"LEXIKHUMOATTag_Departure",    (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center, LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure)},
-                {"LEXIKHUMOATTag_Arrival",      (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center, LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival  )}
+                {"LEXIKHUMOATTag_LeftSuccess",    (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success  )},
+                {"LEXIKHUMOATTag_LeftFail",       (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail     )},
+                {"LEXIKHUMOATTag_LeftCue",        (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue      )},
+                {"LEXIKHUMOATTag_LeftStrongCue",  (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left,   LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.StrongCue)},
+                {"LEXIKHUMOATTag_RightSuccess",   (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success  )},
+                {"LEXIKHUMOATTag_RightFail",      (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Fail     )},
+                {"LEXIKHUMOATTag_RightCue",       (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue      )},
+                {"LEXIKHUMOATTag_RightStrongCue", (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right,  LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.StrongCue)},
+                {"LEXIKHUMOATTag_Departure",      (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center, LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Departure)},
+                {"LEXIKHUMOATTag_Arrival",        (LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center, LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival  )}
             };
 
         [UnityEngine.SerializeField]

@@ -90,7 +90,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 }; /* user interaction lambda */
 
             // update instructions 
-            this.FSM.CurrentQuestion               = "Le système et moi avons interagi de manière fluide ?";
+            this.FSM.CurrentQuestion               = "Le système et moi avons interagit de manière fluide ?";
             this.FSM.CurrentQuestionDetail         = "";
             this.FSM.CurrentQuestionTickLowerBound = "pas du tout d'accord";
             this.FSM.CurrentQuestionTickUpperBound = "tout à fait d'accord";

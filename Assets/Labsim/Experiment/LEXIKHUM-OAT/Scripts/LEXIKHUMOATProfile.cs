@@ -379,6 +379,15 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 250.0f
             );
 
+            // Set camera clear flag
+            UnityEngine.Camera.main.clearFlags = UnityEngine.CameraClearFlags.Color;
+            UnityEngine.Camera.main.backgroundColor 
+                = new(
+                    this.CurrentSettings.Trial.fog_color[0], 
+                    this.CurrentSettings.Trial.fog_color[1], 
+                    this.CurrentSettings.Trial.fog_color[2]
+                );
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentTrialBegin() : trial protocol will start"
@@ -426,7 +435,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             return (
                                 (
                                     apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.lastTrial
-                                        == apollon.experiment.ApollonExperimentManager.Instance.Trial
+                                        == arg.Trial
                                 ) && (
                                     apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Count > 2
                                 )
@@ -495,6 +504,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 UnityEngine.Color.white,
                 250.0f
             );
+
+            // reset camera clear flag
+            UnityEngine.Camera.main.clearFlags = UnityEngine.CameraClearFlags.Skybox;
 
             // async fade in
             this.DoBlankFadeIn(250.0f);

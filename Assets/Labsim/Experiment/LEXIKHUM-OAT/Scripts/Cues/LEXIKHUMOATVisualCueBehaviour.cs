@@ -38,7 +38,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // check side 
             string entityTag 
-                = "EntityTag_" + ApollonEngine.GetEnumDescription(checkpoint.side) + "Cue";
+                = "EntityTag_" + ApollonEngine.GetEnumDescription(checkpoint.side) + ApollonEngine.GetEnumDescription(checkpoint.kind);
             var dynamicEntityBehaviour 
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
                     apollon.gameplay.entity.ApollonDynamicEntityBridge
@@ -51,7 +51,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 // log
                 UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> LEXIKHUMOATVisualCueBehaviour.StartCue() : visual cue is required to start but checkpoint.side is inconsistent ["
+                    "<color=Red>Error: </color> LEXIKHUMOATVisualCueBehaviour.StartCue() : visual [" 
+                    + apollon.ApollonEngine.GetEnumDescription(checkpoint.kind) 
+                    + "] is required to start but checkpoint.side is inconsistent ["
                     + apollon.ApollonEngine.GetEnumDescription(checkpoint.side)
                     + "]... strange"
                 );
@@ -67,7 +69,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> LEXIKHUMOATVisualCueBehaviour.StartCue() : required checkpoint.side is ["
                     + apollon.ApollonEngine.GetEnumDescription(checkpoint.side)
-                    + "]... will activate cue"
+                    + "]... will activate [" 
+                    + apollon.ApollonEngine.GetEnumDescription(checkpoint.kind) 
+                    + "]"
                 );
 
             } /* if()*/

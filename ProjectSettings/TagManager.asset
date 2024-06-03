@@ -21,6 +21,8 @@ TagManager:
   - LEXIKHUMOATTag_RightSuccess
   - LEXIKHUMOATTag_Departure
   - LEXIKHUMOATTag_Arrival
+  - LEXIKHUMOATTag_LeftStrongCue
+  - LEXIKHUMOATTag_RightStrongCue
   layers:
   - Default
   - TransparentFX

@@ -32,8 +32,20 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         public LEXIKHUMOATSettings.SharedIntentionIDType Kind { get => this.m_kind; private set => this.m_kind = value; }
 
         [UnityEngine.SerializeField]
-        private UnityEngine.AudioClip m_cueClip;
-        public UnityEngine.AudioClip CueClip => this.m_cueClip;
+        private UnityEngine.AudioClip m_leftCueClip;
+        public UnityEngine.AudioClip LeftCueClip => this.m_leftCueClip;
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.AudioClip m_rightCueClip;
+        public UnityEngine.AudioClip RightCueClip => this.m_rightCueClip;
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.AudioClip m_leftStrongCueClip;
+        public UnityEngine.AudioClip LeftStrongCueClip => this.m_leftStrongCueClip;
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.AudioClip m_rightStrongCueClip;
+        public UnityEngine.AudioClip RightStrongCueClip => this.m_rightStrongCueClip;
 
         [UnityEngine.SerializeField]
         private UnityEngine.AudioSource m_leftSpeakerSource;
@@ -67,14 +79,29 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         {
 
             // load clip
-            if(kind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue)
+            switch(kind)
             {
-                
-                this.LeftSpeakerSource.clip  
-                    = this.RightSpeakerSource.clip 
-                    = this.CueClip;
 
-            }
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.StrongCue: 
+                { 
+
+                    this.LeftSpeakerSource.clip  = this.LeftStrongCueClip;
+                    this.RightSpeakerSource.clip = this.RightStrongCueClip;
+
+                    break; 
+                }
+                
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue: 
+                default:
+                { 
+
+                    this.LeftSpeakerSource.clip  = this.LeftCueClip;
+                    this.RightSpeakerSource.clip = this.RightCueClip;
+
+                    break; 
+                }
+
+            } /* switch() */
 
         } /* LoadClip() */
 
@@ -84,15 +111,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             switch(side)
             {
 
-                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center: 
-                { 
-
-                    this.RightSpeakerSource.Play(); 
-                    this.LeftSpeakerSource.Play(); 
-
-                    break;
-                }
-
                 case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right: 
                 { 
 
@@ -101,13 +119,22 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     break; 
                 }
 
-                default:
                 case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left: 
                 { 
 
                     this.LeftSpeakerSource.Play(); 
 
                     break; 
+                }
+
+                case LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Center: 
+                default:
+                { 
+
+                    this.RightSpeakerSource.Play(); 
+                    this.LeftSpeakerSource.Play(); 
+
+                    break;
                 }
 
             } /* switch() */
