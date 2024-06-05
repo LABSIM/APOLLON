@@ -102,8 +102,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 apollon.frontend.ApollonFrontendManager.FrontendIDType.Question01GUI
             ).Behaviour.GetComponent<UnityEngine.UI.Slider>().value = 50.0f;
 
-            // show confidence slider                            
-            apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.Question01GUI);
+            // show slider
+            // apollon.ApollonEngine.Schedule(() => {
+                apollon.frontend.ApollonFrontendManager.Instance.setActive(apollon.frontend.ApollonFrontendManager.FrontendIDType.Question01GUI);
+            // });
             
             // register our synchronisation function
 

@@ -321,6 +321,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* case (Fail, _) */
 
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.StrongCue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
+                case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.StrongCue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Left):
                 case (LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue, LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Right):
                 {

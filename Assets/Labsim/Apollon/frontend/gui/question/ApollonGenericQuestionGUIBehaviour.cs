@@ -29,35 +29,35 @@ namespace Labsim.apollon.frontend.gui
         #region UI elements
 
         [UnityEngine.SerializeField]
-        private TMPro.TextMeshProUGUI m_questionText = null;
+        protected TMPro.TextMeshProUGUI m_questionText = null;
         public TMPro.TextMeshProUGUI QuestionText => this.m_questionText;
 
         [UnityEngine.SerializeField]
-        private UnityEngine.Color m_questionColor = UnityEngine.Color.black;
+        protected UnityEngine.Color m_questionColor = UnityEngine.Color.black;
         public UnityEngine.Color QuestionColor => this.m_questionColor;
 
         [UnityEngine.SerializeField]
-        private TMPro.TextMeshProUGUI m_questionDetailText = null;
+        protected TMPro.TextMeshProUGUI m_questionDetailText = null;
         public TMPro.TextMeshProUGUI QuestionDetailText => this.m_questionDetailText;
 
         [UnityEngine.SerializeField]
-        private UnityEngine.Color m_questionDetailColor = UnityEngine.Color.black;
+        protected UnityEngine.Color m_questionDetailColor = UnityEngine.Color.black;
         public UnityEngine.Color QuestionDetailColor => this.m_questionDetailColor;
 
         [UnityEngine.SerializeField]
-        private TMPro.TextMeshProUGUI m_questionTickLowerBoundText = null;
+        protected TMPro.TextMeshProUGUI m_questionTickLowerBoundText = null;
         public TMPro.TextMeshProUGUI QuestionTickLowerBoundText => this.m_questionTickLowerBoundText;
 
         [UnityEngine.SerializeField]
-        private TMPro.TextMeshProUGUI m_questionTickUpperBoundText = null;
+        protected TMPro.TextMeshProUGUI m_questionTickUpperBoundText = null;
         public TMPro.TextMeshProUGUI QuestionTickUpperBoundText => this.m_questionTickUpperBoundText;
         
         [UnityEngine.SerializeField]
-        private System.Collections.Generic.List<UnityEngine.GameObject> m_questionTick = new();
+        protected System.Collections.Generic.List<UnityEngine.GameObject> m_questionTick = new();
         public System.Collections.Generic.List<UnityEngine.GameObject> QuestionTick => this.m_questionTick;
         
         [UnityEngine.SerializeField]
-        private System.Collections.Generic.List<UnityEngine.GameObject> m_questionTickText = new();
+        protected System.Collections.Generic.List<UnityEngine.GameObject> m_questionTickText = new();
         public System.Collections.Generic.List<UnityEngine.GameObject> QuestionTickText => this.m_questionTickText;
 
         #endregion
@@ -95,26 +95,18 @@ namespace Labsim.apollon.frontend.gui
 
             } /* if() */
 
-            if(this.QuestionTickUpperBoundText != null)
-            {
+            // hide/show all ticks & text
+            this.QuestionTick.ForEach(
+                (tickObj) => { 
+                    tickObj.SetActive(experiment.ApollonExperimentManager.Instance.Profile.QuestionHasTickStatus); 
+                }
+            );
+            this.QuestionTickText.ForEach(
+                (tickText) => { 
+                    tickText.SetActive(experiment.ApollonExperimentManager.Instance.Profile.QuestionHasTickTextStatus); 
+                }
+            );
 
-                this.QuestionTickUpperBoundText.text = experiment.ApollonExperimentManager.Instance.Profile.QuestionTickUpperBoundStatus;
-
-            } /* if() */
-
-            if(experiment.ApollonExperimentManager.Instance.Profile.QuestionHasTickStatus)
-            {
-
-                this.QuestionTick.ForEach((tickObj) => tickObj.SetActive(true));
-
-                if(experiment.ApollonExperimentManager.Instance.Profile.QuestionHasTickTextStatus)
-                {
-
-                    this.QuestionTickText.ForEach((tickText) => tickText.SetActive(true));
-
-                } /* if() */
-
-            } /* if() */
 
         } /* OnEnable() */
 

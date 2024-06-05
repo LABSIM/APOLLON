@@ -226,6 +226,16 @@ namespace Labsim.apollon.frontend.gui
 
     } /* class ApollonQuestion09GUIBridge */
 
+    public class ApollonQuestion10GUIBridge 
+        : ApollonAbstractQuestionGUIBridge<ApollonQuestion10GUIBehaviour>
+    {
+
+        private const ApollonFrontendManager.FrontendIDType _innerID = ApollonFrontendManager.FrontendIDType.Question10GUI; 
+
+        protected override ApollonFrontendManager.FrontendIDType InnerID { get { return _innerID;} }  
+
+    } /* class ApollonQuestion09GUIBridge */
+
     public class ApollonQuestion11GUIBridge 
         : ApollonAbstractQuestionGUIBridge<ApollonQuestion11GUIBehaviour>
     {

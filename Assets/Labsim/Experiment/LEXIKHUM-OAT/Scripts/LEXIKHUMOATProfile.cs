@@ -270,7 +270,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     >(
                         apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement
                     )
-                ); 
+                );
             
             // first of all, activate current checkpoint & cue manager to dynamically handle scene loading
             dynamic_entity.References["EntityTag_Checkpoints"].SetActive(true);
@@ -388,6 +388,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     this.CurrentSettings.Trial.fog_color[2]
                 );
 
+            // activate all subject control
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
+            );
+
             // log
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentTrialBegin() : trial protocol will start"
@@ -431,14 +436,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     await this.DoIfBranch(
                         () => {
 
-                            // then if it was the last in block & not block size == 2 (aka. control block)
+                            // then if block size == 2 (aka. control block)
                             return (
-                                (
-                                    apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.lastTrial
-                                        == arg.Trial
-                                ) && (
-                                    apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Count > 2
-                                )
+                                apollon.experiment.ApollonExperimentManager.Instance.Session.CurrentBlock.trials.Count == 2
                             );
 
                         },
