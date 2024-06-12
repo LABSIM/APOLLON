@@ -23,38 +23,49 @@ namespace Labsim.apollon.backend
 {
 
     public abstract class ApollonAbstractTCPStreamHandle
-        : ApollonAbstractHandle
+        : ApollonAbstractStandardHandle
     {
 
         #region TCP/IP settings
 
-        private static readonly System.Int32 _s_port = 8888;
-        private static readonly System.Net.IPAddress _s_localAddr = System.Net.IPAddress.Loopback;
+        public static System.Int32 _s_port = 8888;
+        public static System.Net.IPAddress _s_localAddr = System.Net.IPAddress.Loopback;
         private readonly System.Net.Sockets.TcpListener _server = new System.Net.Sockets.TcpListener(_s_localAddr, _s_port);
 
         private System.Net.Sockets.NetworkStream m_TCPStream = null;
         public System.Net.Sockets.NetworkStream TCPStream
         {
-            get => m_TCPStream;
-            private set => m_TCPStream = value;
+            get => this.m_TCPStream;
+            private set => this.m_TCPStream = value;
         }
 
         private System.Diagnostics.Process m_TCPClientProcess = null;
         public System.Diagnostics.Process TCPClientProcess
         {
-            get => m_TCPClientProcess;
-            private set => m_TCPClientProcess = value;
+            get => this.m_TCPClientProcess;
+            private set => this.m_TCPClientProcess = value;
         }
 
         #endregion
 
-        #region TCP/IP init/close methods
+        #region Dispose pattern impl.
 
-        private bool Initialize()
+        protected sealed override void Dispose(bool bDisposing = true)
+        {
+
+            // TODO ?
+
+        } /* Dispose(bool) */
+
+        #endregion
+
+        #region Standard HandleInit/HandleClose pattern impl.
+
+        protected sealed override StatusIDType HandleInitialize()
         {
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : on entry"
+                "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : on entry"
             );
 
             // encapsulate
@@ -66,7 +77,7 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCP server started"
+                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : TCP server started"
                 );
 
                 // wait for client
@@ -76,7 +87,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : server is async waiting for connection, launch client."
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : server is async waiting for connection, launch client."
                     );
 
                     // Configure the client process.
@@ -94,7 +105,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess configured."
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : TCPClientProcess configured."
                     );
 
                     // launch client process
@@ -124,7 +135,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess instantiated & started"
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : TCPClientProcess instantiated & started"
                     );
 
                     // start redirection
@@ -133,7 +144,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCPClientProcess output/error redirected"
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : TCPClientProcess output/error redirected"
                     );
 
                     // wait for client completion 
@@ -142,7 +153,7 @@ namespace Labsim.apollon.backend
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : accepted client ["
+                        "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : accepted client ["
                         + client.Client.LocalEndPoint
                         + "]."
                     );
@@ -154,11 +165,11 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Initialize() : TCP stream ok, Initialization successfull"
+                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : TCP stream ok, Initialization successfull"
                 );
 
                 // success
-                return true;
+                return StatusIDType.Status_OK;
 
             }
             catch (System.IO.IOException ex)
@@ -167,7 +178,7 @@ namespace Labsim.apollon.backend
                 // Catch the IOException that is raised if the pipe is broken
                 // or disconnected.
                 UnityEngine.Debug.LogError(
-                    "<color=red>Error: </color> ApollonAbstractTCPStreamHandle.Initialize() : "
+                    "<color=red>Error: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : "
                     + ex.Message
                 );
 
@@ -175,18 +186,18 @@ namespace Labsim.apollon.backend
 
             // whatever, fail
             UnityEngine.Debug.LogWarning(
-                "<color=orange>Warning: </color> ApollonAbstractTCPStreamHandle.Initialize() : Initialization failed..."
+                "<color=orange>Warning: </color> ApollonAbstractTCPStreamHandle.HandleInitialize() : Initialization failed..."
             );
-            return false;
+            return StatusIDType.Status_ERROR;
 
-        } /* Initialize() */
+        } /* HandleInitialize() */
 
-        private bool Close()
+        protected sealed override StatusIDType HandleClose()
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Close() : entry"
+                "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleClose() : entry"
             );
 
             // encapsulate
@@ -215,7 +226,7 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Close() : close client process OK !"
+                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleClose() : close client process OK !"
                 );
 
                 // end server
@@ -224,11 +235,11 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.Close() : close TCP server OK !"
+                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.HandleClose() : close TCP server OK !"
                 );
 
                 // success
-                return true;
+                return StatusIDType.Status_OK;
 
             }
             catch (System.IO.IOException ex)
@@ -237,7 +248,7 @@ namespace Labsim.apollon.backend
                 // Catch the IOException that is raised if the pipe is broken
                 // or disconnected.
                 UnityEngine.Debug.LogError(
-                    "<color=red>Error: </color> ApollonAbstractTCPStreamHandle.Close() : "
+                    "<color=red>Error: </color> ApollonAbstractTCPStreamHandle.HandleClose() : "
                     + ex.Message
                 );
 
@@ -245,93 +256,11 @@ namespace Labsim.apollon.backend
 
             // whatever, fail
             UnityEngine.Debug.LogWarning(
-                "<color=orange>Warning: </color> ApollonAbstractTCPStreamHandle.Close() : Closure failed..."
+                "<color=orange>Warning: </color> ApollonAbstractTCPStreamHandle.HandleClose() : Closure failed..."
             );
-            return false;
+            return StatusIDType.Status_ERROR;
 
-        } /* Close() */
-        
-        #endregion
-
-        // ctor     
-        public ApollonAbstractTCPStreamHandle()
-            : base()
-        { }
-
-        protected override void Dispose(bool bDisposing = true)
-        {
-
-
-        } /* Dispose(bool) */
-
-        #region event handling 
-
-        public override void OnHandleActivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
-        {
-
-            // check
-            if (this.ID == arg.HandleID)
-            {
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.OnHandleActivationRequested() : initialize TCP communication system"
-                );
-
-                // init
-                if (!this.Initialize())
-                {
-
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.OnHandleActivationRequested() : failed to initialize connection, exit"
-                    );
-
-                    // abort
-                    this.Dispose();
-
-                } /* if() */
-
-                // pull-up
-                base.OnHandleActivationRequested(sender, arg);
-
-            } /* if() */
-
-        } /* OnHandleActivationRequested() */
-
-        // unregistration
-        public override void OnHandleDeactivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
-        {
-
-            // check
-            if (this.ID == arg.HandleID)
-            {
-
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonAbstractTCPStreamHandle.OnHandleDeactivationRequested() : close TCP communication system"
-                );
-
-                // close
-                if (!this.Close())
-                {
-
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractTCPStreamHandle.OnHandleDeactivationRequested() : failed to close connection, exit"
-                    );
-
-                    // abort
-                    this.Dispose();
-
-                } /* if() */
-
-                // pull-up
-                base.OnHandleDeactivationRequested(sender, arg);
-
-            } /* if() */
-
-        } /* OnHandleDeactivationRequested() */
+        } /* HandleClose() */
 
         #endregion
 

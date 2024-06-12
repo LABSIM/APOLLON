@@ -22,8 +22,8 @@
 namespace Labsim.apollon.gameplay.device
 {
 
-    public class AppollonGenericMotionSystemBehaviour
-        : ApollonConcreteGameplayBehaviour<AppollonGenericMotionSystemBridge>
+    public class ApollonGeneric6DoFMotionSystemBehaviour
+        : ApollonConcreteGameplayBehaviour<ApollonGeneric6DoFMotionSystemBridge>
     {
 
         #region properties/members
@@ -60,7 +60,7 @@ namespace Labsim.apollon.gameplay.device
         internal class InitController
             : UnityEngine.MonoBehaviour
         {
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -75,18 +75,18 @@ namespace Labsim.apollon.gameplay.device
             {
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.InitController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.InitController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.InitController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.InitController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -118,7 +118,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.InitController.OnEnable() : rigidbody initialized"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.InitController.OnEnable() : rigidbody initialized"
                 );
 
                 // // virtual world setup
@@ -133,7 +133,7 @@ namespace Labsim.apollon.gameplay.device
 
                 //     // log
                 //     UnityEngine.Debug.LogWarning(
-                //         "<color=Yellow>Warning: </color> AppollonGenericMotionSystemBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
+                //         "<color=Yellow>Warning: </color> ApollonGeneric6DoFMotionSystemBehaviour.InitController.OnEnable() : failed to get current participant PoV_offset, setup PoV_offset (height,depth) to default value [ "
                 //         + PoV_height_offset 
                 //         + ","
                 //         + PoV_depth_offset
@@ -150,7 +150,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.InitController.OnEnable() : rigidbody configured with current user settings, going idle state"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.InitController.OnEnable() : rigidbody configured with current user settings, going idle state"
                 );
 
                 // change state
@@ -158,7 +158,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.InitController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.InitController.OnEnable() : end"
                 );
                 
             } /* OnEnable() */
@@ -169,7 +169,7 @@ namespace Labsim.apollon.gameplay.device
             : UnityEngine.MonoBehaviour
         {
 
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -186,18 +186,18 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.IdleController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.IdleController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -219,7 +219,7 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.IdleController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.IdleController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -229,16 +229,16 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.IdleController.OnDisable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.IdleController.OnDisable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null)
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null)
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.IdleController.OnEnable() : failed to get parent reference ! Self disabling..."
                     );
 
                     // disable
@@ -252,7 +252,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.IdleController.OnDisable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.IdleController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
@@ -263,7 +263,7 @@ namespace Labsim.apollon.gameplay.device
             : UnityEngine.MonoBehaviour
         {
 
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
             private UnityEngine.Vector3 _torque_dampener = UnityEngine.Vector3.zero;
             private UnityEngine.Vector3 _force_dampener = UnityEngine.Vector3.zero;
@@ -283,18 +283,18 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -311,7 +311,7 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -331,7 +331,7 @@ namespace Labsim.apollon.gameplay.device
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.FixedUpdate() : angular & linear saturation velocity reached, raise saturation event"
+                        "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.FixedUpdate() : angular & linear saturation velocity reached, raise saturation event"
                     );
 
                     // fix saturatation speed (useless ?)
@@ -396,7 +396,7 @@ namespace Labsim.apollon.gameplay.device
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.FixedUpdate() : stimulation duration/angle reached, raise deceleration event"
+                        "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.FixedUpdate() : stimulation duration/angle reached, raise deceleration event"
                     );
 
                     // notify idle event
@@ -453,7 +453,7 @@ namespace Labsim.apollon.gameplay.device
             : UnityEngine.MonoBehaviour
         {
 
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -470,18 +470,18 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.DecelerateController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.DecelerateController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.DecelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.DecelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -498,7 +498,7 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.DecelerateController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.DecelerateController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -534,7 +534,7 @@ namespace Labsim.apollon.gameplay.device
 
                         // log
                         UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.DecelerateController.FixedUpdate() : movement stopped, raise iddle event"
+                            "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.DecelerateController.FixedUpdate() : movement stopped, raise iddle event"
                         );
 
                         // notify reset event
@@ -592,7 +592,7 @@ namespace Labsim.apollon.gameplay.device
             : UnityEngine.MonoBehaviour
         {
 
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
 
             private void Awake()
@@ -609,18 +609,18 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.HoldController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.HoldController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.HoldController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.HoldController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -633,7 +633,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.HoldController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.HoldController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -696,7 +696,7 @@ namespace Labsim.apollon.gameplay.device
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.HoldController.FixedUpdate() : stimulation duration/angle reached, raise stop event"
+                        "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.HoldController.FixedUpdate() : stimulation duration/angle reached, raise stop event"
                     );
 
                     // notify saturation event
@@ -712,7 +712,7 @@ namespace Labsim.apollon.gameplay.device
             : UnityEngine.MonoBehaviour
         {
 
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
             private UnityEngine.Vector3 _torque_dampener = UnityEngine.Vector3.zero;
             private UnityEngine.Vector3 _force_dampener = UnityEngine.Vector3.zero;
@@ -732,18 +732,18 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.OnEnable() : begin"
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -760,7 +760,7 @@ namespace Labsim.apollon.gameplay.device
                 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.AccelerateController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController.OnEnable() : end"
                 );
 
             } /* OnEnable()*/
@@ -771,7 +771,7 @@ namespace Labsim.apollon.gameplay.device
             : UnityEngine.MonoBehaviour
         {
 
-            private AppollonGenericMotionSystemBehaviour _parent = null;
+            private ApollonGeneric6DoFMotionSystemBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
             private UnityEngine.Quaternion _lerp_rotation_from;
             private UnityEngine.Vector3 _lerp_position_from;
@@ -796,18 +796,18 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.ResetController.OnEnable() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.ResetController.OnEnable() : begin"
                 );
                 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<AppollonGenericMotionSystemBehaviour>()) == null
+                if ((this._parent = this.GetComponentInParent<ApollonGeneric6DoFMotionSystemBehaviour>()) == null
                     || (this._rigidbody = this._parent.CommandReference.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
                     // log
                     UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> AppollonGenericMotionSystemBehaviour.ResetController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
+                        "<color=Red>Error: </color> ApollonGeneric6DoFMotionSystemBehaviour.ResetController.OnEnable() : failed to get parent/rigidbody reference ! Self disabling..."
                     );
 
                     // disable
@@ -829,7 +829,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.ResetController.OnEnable() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.ResetController.OnEnable() : end"
                 );
 
             } /* OnEnable() */
@@ -843,7 +843,7 @@ namespace Labsim.apollon.gameplay.device
 
                     // log
                     UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.ResetController.FixedUpdate() : reset reached, doing re-init procedure"
+                        "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.ResetController.FixedUpdate() : reset reached, doing re-init procedure"
                     );
 
                     // notify Init event
@@ -979,7 +979,7 @@ namespace Labsim.apollon.gameplay.device
         {
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.Initialize() : begin");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.Initialize() : begin");
             
             // instantiate state controller components
             var init       = this.gameObject.AddComponent<InitController>();
@@ -987,15 +987,16 @@ namespace Labsim.apollon.gameplay.device
             var accelerate = this.gameObject.AddComponent<AccelerateController>();
             var decelarate = this.gameObject.AddComponent<DecelerateController>();
             var hold       = this.gameObject.AddComponent<HoldController>();
+            var control    = this.gameObject.AddComponent<ControlController>();
             var reset      = this.gameObject.AddComponent<ResetController>();
             
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");
 
             // switch state
             this.m_bHasInitialized = true;
 
             // log
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.Initialize() : end");
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.Initialize() : end");
 
         } /* Initialize() */
 
@@ -1018,7 +1019,7 @@ namespace Labsim.apollon.gameplay.device
             {
 
                 // log
-                UnityEngine.Debug.Log("<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.OnEnable() : initialize recquired");
+                UnityEngine.Debug.Log("<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBehaviour.OnEnable() : initialize recquired");
 
                 // call
                 this.Initialize();
@@ -1027,33 +1028,6 @@ namespace Labsim.apollon.gameplay.device
 
             // skip if no experimental setup is found necessary
             if (experiment.ApollonExperimentManager.Instance.Session == null) return;
-
-            // // get current user mass detail
-            // float user_mass = 60.0f;
-            // if (!float.TryParse(experiment.ApollonExperimentManager.Instance.Session.participantDetails["mass"].ToString(), out user_mass))
-            // {
-
-            //     // log
-            //     UnityEngine.Debug.LogWarning(
-            //         "<color=Yellow>Warning: </color> AppollonGenericMotionSystemBehaviour.OnEnable() : failed to get current participant mass detail, setup mass to default value [ "
-            //         + user_mass
-            //         + " ]"
-            //     );
-
-            // } /* if() */
-
-            // // add to settings 
-            // this.gameObject.GetComponentInParent<UnityEngine.Rigidbody>().mass += user_mass;
-
-            // // log
-            // UnityEngine.Debug.Log(
-            //     "<color=Blue>Info: </color> AppollonGenericMotionSystemBehaviour.OnEnable() : added participant mass detail to simulated setup, total mass value is [ "
-            //     + this.gameObject.GetComponentInParent<UnityEngine.Rigidbody>().mass
-            //     + " ]");
-
-            // save initial orientation/position
-            // this.InitialPosition = this.Anchor.transform.position;
-            // this.InitialRotation = this.Anchor.transform.rotation;
                         
         } /* OnEnable()*/
 
@@ -1070,6 +1044,6 @@ namespace Labsim.apollon.gameplay.device
 
         #endregion
 
-    } /* public class AppollonGenericMotionSystemBehaviour */
+    } /* public class ApollonGeneric6DoFMotionSystemBehaviour */
 
 } /* } Labsim.apollon.gameplay.device.command */

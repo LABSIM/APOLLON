@@ -23,13 +23,13 @@ namespace Labsim.apollon.backend.handle
 {
 
     public class ApollonMotionSystemPS6TM550Handle
-        : ApollonAbstractDefaultHandle
+        : ApollonAbstractGenericHandle
     {
 
-        // ctor     
-        public ApollonMotionSystemPS6TM550Handle()
-            : base()
-        { this.m_handleID = ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle; }
+        protected sealed override ApollonBackendManager.HandleIDType WrapID()
+        {
+            return ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle;;
+        }
 
         #region Motion System API implementation : Gateway / Updater / Command / Sensor
 
@@ -278,139 +278,101 @@ namespace Labsim.apollon.backend.handle
 
         #endregion
 
-        #region Abstract Apollon handle overriding 
+        #region Dispose pattern impl.
 
-        public bool Initialized { get; private set; } = false;
-
-        protected override void Dispose(bool bDisposing = true)
+        protected sealed override void Dispose(bool bDisposing = true)
         {
+
+            // TODO ?
 
         } /* Dispose(bool) */
-        
-        public override void OnHandleActivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
+
+        #endregion
+
+        #region Concrete HandleInitialize/HandleClose pattern impl.
+
+        protected sealed override StatusIDType ConcreteHandleInitialize()
         {
 
-            // check
-            if (this.ID == arg.HandleID)
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.ConcreteHandleInitialize() : initialize motion system API"
+            );
+
+            // first try old implementation
+            var command_behaviour
+                = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
+                )?.Behaviour.gameObject;
+            var sensor_behaviour
+            
+                = gameplay.ApollonGameplayManager.Instance.getBridge(
+                    gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
+                )?.Behaviour.gameObject;
+                    
+            // check if null, there should be at least a generic 6DoF motion system device
+            if(command_behaviour == null)
             {
+            
+                command_behaviour 
+                    = gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        gameplay.device.ApollonGeneric6DoFMotionSystemBridge
+                    >(
+                        gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
+                    ).ConcreteBehaviour.CommandReference;
+            
+            } /* if()*/
+            if(sensor_behaviour == null)
+            {
+            
+                sensor_behaviour 
+                    = gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        gameplay.device.ApollonGeneric6DoFMotionSystemBridge
+                    >(
+                        gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
+                    ).ConcreteBehaviour.SensorReference;
+            
+            } /* if()*/
 
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.OnHandleActivationRequested() : requesting activation"
-                );
-                
-                if(!this.Initialized) 
-                {
+            // ForceSeatMI - BEGIN
 
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.OnHandleActivationRequested() : initialize motion system API"
-                    );
+            this.m_FSMI_UnityAPI               = new MotionSystems.ForceSeatMI_Unity();
+            this.m_FSMI_CommandExtraParameters = new MotionSystems.ForceSeatMI_Unity.ExtraParameters();
+            this.m_FSMI_Command                = new ApollonMotionSystemPS6TM550Command(command_behaviour);
+            this.m_FSMI_Sensor                 = new ApollonMotionSystemPS6TM550Sensor(sensor_behaviour);
+            this.m_FSMI_Updater                = new ApollonMotionSystemPS6TM550Updater(this);
 
-                    // first try old implementation
-                    var command_behaviour
-                        = gameplay.ApollonGameplayManager.Instance.getBridge(
-                            gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemCommand
-                        )?.Behaviour.gameObject;
-                    var sensor_behaviour
-                        = gameplay.ApollonGameplayManager.Instance.getBridge(
-                            gameplay.ApollonGameplayManager.GameplayIDType.MotionSystemSensor
-                        )?.Behaviour.gameObject;
+            this.m_FSMI_UnityAPI.SetAppID(""); // If you have dedicated app id, remove ActivateProfile calls from your code
+            this.m_FSMI_UnityAPI.ActivateProfile("APOLLON - " + experiment.ApollonExperimentManager.Instance.getActiveProfile());
+            this.m_FSMI_UnityAPI.SetPositioningObject(this.m_FSMI_Command);
+            this.m_FSMI_UnityAPI.SetPlatformInfoObject(this.m_FSMI_Sensor);
+            this.m_FSMI_UnityAPI.Pause(false);
+            this.m_FSMI_UnityAPI.Begin();
+            
+            // ForceSeatMI - END
 
-                    // check
-                    if(command_behaviour == null)
-                    {
-                    
-                        // if null, there should be at least a generic device
-                        command_behaviour 
-                            = (
-                                gameplay.ApollonGameplayManager.Instance.getBridge(
-                                    gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
-                                ) as gameplay.device.AppollonGenericMotionSystemBridge
-                            )
-                            .ConcreteBehaviour.CommandReference;
-                    
-                    } /* if()*/
-                    if(sensor_behaviour == null)
-                    {
-                    
-                        // if null, there should be at least a generic device
-                        sensor_behaviour 
-                            = (
-                                gameplay.ApollonGameplayManager.Instance.getBridge(
-                                    gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
-                                ) as gameplay.device.AppollonGenericMotionSystemBridge
-                            )
-                            .ConcreteBehaviour.SensorReference;
-                    
-                    } /* if()*/
+            // success 
+            return StatusIDType.Status_OK;
+            
+        } /* ConcreteHandleInitialize() */
 
-                    // ForceSeatMI - BEGIN
-
-                    this.m_FSMI_UnityAPI               = new MotionSystems.ForceSeatMI_Unity();
-                    this.m_FSMI_CommandExtraParameters = new MotionSystems.ForceSeatMI_Unity.ExtraParameters();
-                    this.m_FSMI_Command                = new ApollonMotionSystemPS6TM550Command(command_behaviour);
-                    this.m_FSMI_Sensor                 = new ApollonMotionSystemPS6TM550Sensor(sensor_behaviour);
-                    this.m_FSMI_Updater                = new ApollonMotionSystemPS6TM550Updater(this);
-
-                    this.m_FSMI_UnityAPI.SetAppID(""); // If you have dedicated app id, remove ActivateProfile calls from your code
-                    this.m_FSMI_UnityAPI.ActivateProfile("APOLLON - " + experiment.ApollonExperimentManager.Instance.getActiveProfile());
-                    this.m_FSMI_UnityAPI.SetPositioningObject(this.m_FSMI_Command);
-                    this.m_FSMI_UnityAPI.SetPlatformInfoObject(this.m_FSMI_Sensor);
-                    this.m_FSMI_UnityAPI.Pause(false);
-                    this.m_FSMI_UnityAPI.Begin();
-                    
-                    // ForceSeatMI - END
-
-                    // mark as init
-                    this.Initialized = true;
-
-                } /* if() */
-
-                // pull-up
-                base.OnHandleActivationRequested(sender, arg);
-
-            } /* if() */
-
-        } /* OnHandleActivationRequested() */
-
-        // unregistration
-        public override void OnHandleDeactivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
+        protected sealed override StatusIDType ConcreteHandleClose()
         {
 
-            // check
-            if (this.ID == arg.HandleID)
-            {
+            // log
+            UnityEngine.Debug.Log(
+                "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.ConcreteHandleClose() : finalize motion system API"
+            );
+            
+            // ForceSeatMI - BEGIN
+            this.m_FSMI_UnityAPI.Pause(true);
+            this.m_FSMI_UnityAPI.End();
+            // ForceSeatMI - END
 
-                // log
-                UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.OnHandleDeactivationRequested() : requesting deactivation "
-                );
+            // success
+            return StatusIDType.Status_OK;
 
-                if(this.Initialized) 
-                {
-
-                    // log
-                    UnityEngine.Debug.Log(
-                        "<color=Blue>Info: </color> ApollonMotionSystemPS6TM550Handle.OnHandleDeactivationRequested() : finalize motion system API"
-                    );
-                    
-                    // ForceSeatMI - BEGIN
-                    this.m_FSMI_UnityAPI.Pause(true);
-                    this.m_FSMI_UnityAPI.End();
-                    // ForceSeatMI - END
-
-                    // mark as init
-                    this.Initialized = false;
-
-                } /* if() */
-
-                // pull-up
-                base.OnHandleDeactivationRequested(sender, arg);
-
-            } /* if() */
-
-        } /* OnHandleDeactivationRequested() */
+        }
 
         #endregion
 

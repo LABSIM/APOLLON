@@ -56,9 +56,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // // refs
             // var motion_platform
             //     = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-            //         apollon.gameplay.device.AppollonGenericMotionSystemBridge
+            //         apollon.gameplay.device.ApollonGeneric6DoFMotionSystemBridge
             //     >(
-            //         apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
+            //         apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
             //     );
 
             // setup UI frontend instructions

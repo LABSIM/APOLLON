@@ -21,8 +21,8 @@
 // avoid namespace pollution
 namespace Labsim.apollon.gameplay.device
 {
-    public class AppollonGenericMotionSystemDispatcher
-        : ApollonConcreteGameplayDispatcher<AppollonGenericMotionSystemBridge>
+    public class ApollonGeneric6DoFMotionSystemDispatcher
+        : ApollonConcreteGameplayDispatcher<ApollonGeneric6DoFMotionSystemBridge>
     {
         
         #region event args class
@@ -100,7 +100,7 @@ namespace Labsim.apollon.gameplay.device
         #endregion
 
         // Constructor
-        public AppollonGenericMotionSystemDispatcher()
+        public ApollonGeneric6DoFMotionSystemDispatcher()
         {
 
             // event table
@@ -112,7 +112,7 @@ namespace Labsim.apollon.gameplay.device
             this._eventTable.Add("Control",    null);
             this._eventTable.Add("Reset",      null);
 
-        } /* AppollonGenericMotionSystemDispatcher() */
+        } /* ApollonGeneric6DoFMotionSystemDispatcher() */
 
         #region actual events
 
@@ -431,6 +431,6 @@ namespace Labsim.apollon.gameplay.device
 
         #endregion
 
-    } /* class AppollonGenericMotionSystemDispatcher */
+    } /* class ApollonGeneric6DoFMotionSystemDispatcher */
 
 } /* } Labsim.apollon.gameplay.device.command */

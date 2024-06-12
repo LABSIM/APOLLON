@@ -676,6 +676,17 @@
                 },
                 {
                     "name": "",
+                    "id": "4f2f489e-24e4-4b01-a042-bae5aeff2d2f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResponseTriggered",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e3ba3c14-4b2a-4f3a-b91f-1885c770043c",
                     "path": "<HID::Thustmaster Joystick - HOTAS Warthog>/stick/y",
                     "interactions": "",

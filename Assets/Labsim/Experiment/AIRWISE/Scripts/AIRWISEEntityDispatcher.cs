@@ -28,7 +28,7 @@ namespace Labsim.experiment.AIRWISE
         #region event args class
 
         public class AIRWISEEntityEventArgs
-            : apollon.gameplay.device.AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs
+            : apollon.gameplay.device.ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs
         {
 
             // ctor

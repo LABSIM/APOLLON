@@ -18,22 +18,17 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-// extensions
-// using System.Runtime.InteropServices;
-
 // avoid namespace pollution
 namespace Labsim.apollon.backend.handle
 {
 
     public class ApollonRobulabHandle
-        : ApollonAbstractNativeHandle
+        : ApollonAbstractNativeDLLHandle
     {
 
-        // ctor
-        public ApollonRobulabHandle() 
-            : base()
+        protected override ApollonBackendManager.HandleIDType WrapID()
         {
-            this.m_handleID = ApollonBackendManager.HandleIDType.ApollonRobulabHandle;
+            return ApollonBackendManager.HandleIDType.ApollonRobulabHandle;;
         }
 
         #region .dll settings

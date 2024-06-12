@@ -44,7 +44,10 @@ namespace Labsim.apollon.backend
             ApollonISMActiveSeatHandle = 2,
 
             [System.ComponentModel.Description("Motion System PS-6TM-550")]
-            ApollonMotionSystemPS6TM550Handle = 3
+            ApollonMotionSystemPS6TM550Handle = 3,
+
+            [System.ComponentModel.Description("ISIR Force Dimension Omega-3 handle")]
+            ApollonISIRForceDimensionOmega3Handle = 4,
 
         } /* enum*/
 
@@ -135,9 +138,9 @@ namespace Labsim.apollon.backend
         private void RegisterAllAvailableHandle()
         {
 
-            this.RegisterAllAvailableHandle<ApollonAbstractNativeHandle>();
+            this.RegisterAllAvailableHandle<ApollonAbstractGenericHandle>();
             this.RegisterAllAvailableHandle<ApollonAbstractTCPStreamHandle>();
-            this.RegisterAllAvailableHandle<ApollonAbstractDefaultHandle>();
+            this.RegisterAllAvailableHandle<ApollonAbstractNativeDLLHandle>();
             
         } /* RegisterAllAvailableHandle() */
 

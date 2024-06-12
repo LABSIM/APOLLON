@@ -18,22 +18,15 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-// using directives 
-// using System.Runtime.InteropServices;
-// using System.Runtime.ConstrainedExecution;
-// using System.Security.Permissions;
-// using System.Security;
-// using Microsoft.Win32.SafeHandles;
-
 // avoid namespace pollution
 namespace Labsim.apollon.backend 
 {
 
-    public abstract class ApollonAbstractNativeHandle
-        : ApollonAbstractHandle
+    public abstract class ApollonAbstractNativeDLLHandle
+        : ApollonAbstractStandardHandle
     {
 
-        #region .dll system safe handle
+        #region .dll System safe handle
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode = true)]
         protected class NativeDLLSafeHandle
@@ -58,7 +51,7 @@ namespace Labsim.apollon.backend
 
         #endregion
         
-        #region .dll system interop services (PInvoke)
+        #region .dll System interop services (PInvoke)
 
         [System.Security.SuppressUnmanagedCodeSecurity()]
         protected static class NativeDLLInteropServices
@@ -96,7 +89,7 @@ namespace Labsim.apollon.backend
 
         #endregion
 
-        #region .dll native library handling
+        #region .dll Abstract native library handling decl.
 
         // fail safe mode. do not throw, use default implementation
         protected bool m_bEnableFailSafeMode = false;
@@ -112,13 +105,10 @@ namespace Labsim.apollon.backend
 
         #endregion
 
-        // ctor
-        public ApollonAbstractNativeHandle()
-            : base()
-        { }
+        #region Dispose pattern impl.
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode = true)]
-        protected override void Dispose(bool bDisposing = true)
+        protected sealed override void Dispose(bool bDisposing = true)
         {
 
             // free lib
@@ -127,7 +117,7 @@ namespace Labsim.apollon.backend
 
                 // log
                 UnityEngine.Debug.LogError(
-                    "<color=Red>Error: </color> ApollonAbstractNativeHandle.Dispose(" + bDisposing + ") : failed to dispose library. "
+                    "<color=Red>Error: </color> ApollonAbstractNativeDLLHandle.Dispose(" + bDisposing + ") : failed to dispose library. "
                     + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
                 );
 
@@ -144,84 +134,73 @@ namespace Labsim.apollon.backend
 
         } /* Dispose(bool) */
 
-        #region event handling 
+        #endregion
 
-        public override void OnHandleActivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
+        #region Standard HandleInit/HandleClose pattern impl.
+
+        protected sealed override StatusIDType HandleInitialize()
         {
 
-            // check
-            if (this.ID == arg.HandleID)
+            // Load native library
+            if (!this.LoadNativeLibrary())
             {
-                
-                // Load native library
-                if (!this.LoadNativeLibrary())
-                {
 
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractNativeHandle.OnHandleActivationRequested() : failed to load library. "
-                        + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
-                    );
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> ApollonAbstractNativeDLLHandle.HandleInitialize() : failed to load library. "
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
+                );
 
-                    // fail 
-                    return;
-
-                } /* if() */
-
-                // bind delegate(s) 
-                if (!this.BindNativeLibrary())
-                {
-
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractNativeHandle.OnHandleActivationRequested() : failed to bind library entries to delegates. "
-                        + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
-                    );
-
-                    // fail 
-                    return;
-
-                } /* if() */
-
-                // construct internal
-                if (!this.ConstructNativeLibrary())
-                {
-
-                    // log
-                    UnityEngine.Debug.LogError(
-                        "<color=Red>Error: </color> ApollonAbstractNativeHandle.OnHandleActivationRequested() : failed to construct library. "
-                        + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
-                    );
-
-                    // fail 
-                    return;
-
-                } /* if() */
-
-                // pull-up
-                base.OnHandleActivationRequested(sender, arg);
+                // fail 
+                return StatusIDType.Status_ERROR;
 
             } /* if() */
 
-        } /* OnHandleActivationRequested() */
-
-        // unregistration
-        public override void OnHandleDeactivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
-        {
-
-            // check
-            if (this.ID == arg.HandleID)
+            // bind delegate(s) 
+            if (!this.BindNativeLibrary())
             {
 
-                // pull-up
-                base.OnHandleDeactivationRequested(sender, arg);
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> ApollonAbstractNativeDLLHandle.HandleInitialize() : failed to bind library entries to delegates. "
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
+                );
+
+                // fail 
+                return StatusIDType.Status_ERROR;
 
             } /* if() */
 
-        } /* OnHandleDeactivationRequested() */
+            // construct internal
+            if (!this.ConstructNativeLibrary())
+            {
+
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> ApollonAbstractNativeDLLHandle.HandleInitialize() : failed to construct library. "
+                    + System.Runtime.InteropServices.Marshal.GetLastWin32Error()
+                );
+
+                // fail 
+                return StatusIDType.Status_ERROR;
+
+            } /* if() */
+
+            // Success ! 
+            return StatusIDType.Status_OK;
+
+        } /* HandleInitialize() */
+
+        protected sealed override StatusIDType HandleClose()
+        {
+            
+            // whatever. Success ! do not unload DLL under windaube 
+            return StatusIDType.Status_OK;
+
+        } /* HandleClose() */
 
         #endregion
 
-    } /* class ApollonAbstractNativeHandle */
+    } /* class ApollonAbstractNativeDLLHandle */
 
 } /* } namespace */

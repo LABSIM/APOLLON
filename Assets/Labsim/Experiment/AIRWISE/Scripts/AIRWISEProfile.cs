@@ -298,7 +298,7 @@ namespace Labsim.experiment.AIRWISE
 
             // activate all motion system command/sensor/impedence
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
             );
 
             // log 
@@ -315,9 +315,9 @@ namespace Labsim.experiment.AIRWISE
 
             // Raise reset motion event
             apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                 apollon.gameplay.device.AppollonGenericMotionSystemBridge
+                 apollon.gameplay.device.ApollonGeneric6DoFMotionSystemBridge
             >(
-                apollon.gameplay.ApollonGameplayManager.GameplayIDType.GenericMotionSystem
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
             ).ConcreteDispatcher.RaiseReset(2500.0f);     
 
             UnityEngine.Debug.Log(

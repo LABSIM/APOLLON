@@ -18,6 +18,9 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
+// using
+using System.Linq;
+
 // avoid namespace pollution
 namespace Labsim.apollon.backend
 {
@@ -26,21 +29,70 @@ namespace Labsim.apollon.backend
         : System.IDisposable
     {
 
-        // Handle ID field
-        protected ApollonBackendManager.HandleIDType m_handleID = ApollonBackendManager.HandleIDType.None;
+        #region StatusID section
+
+        public enum StatusIDType
+        {
+            
+            [System.ComponentModel.Description("None")]
+            None = 0,
+
+            State_Idle     = 1 << 0,
+            State_Run      = 1 << 1,
+            
+            Status_OK      = 1 << 2,
+            Status_WARN    = 1 << 3,
+            Status_ERROR   = 1 << 4,
+
+            Idling         = State_Idle | Status_OK,
+            Running        = State_Run  | Status_OK,
+
+        } /* enum */
+
+        static readonly int s_status_history_depth = 2; 
+        protected System.Collections.Generic.Queue<StatusIDType> InternalStatus { get; set; } = new(s_status_history_depth);
+
+        public StatusIDType CurrentStatus  => this.InternalStatus.First();
+        public StatusIDType PreviousStatus => this.InternalStatus.Last();
+
+        public bool IsInitialized => this.CurrentStatus == StatusIDType.Running && this.PreviousStatus == StatusIDType.Idling;
+        public bool IsClosed      => this.CurrentStatus == StatusIDType.Idling  && this.PreviousStatus == StatusIDType.Running;
+        public bool IsOK          => (this.CurrentStatus & StatusIDType.Status_OK)    == StatusIDType.Status_OK;
+        public bool HasWarn       => (this.CurrentStatus & StatusIDType.Status_WARN)  == StatusIDType.Status_WARN;
+        public bool HasError      => (this.CurrentStatus & StatusIDType.Status_ERROR) == StatusIDType.Status_ERROR;
+
+        #endregion
+
+        #region HandleID section
+        
+        protected abstract ApollonBackendManager.HandleIDType WrapID();
+        private ApollonBackendManager.HandleIDType m_ID = ApollonBackendManager.HandleIDType.None;
         public ApollonBackendManager.HandleIDType ID
         {
             get
             {
-                return this.m_handleID;
+                if (this.m_ID == ApollonBackendManager.HandleIDType.None)
+                {
+
+                    // log
+                    UnityEngine.Debug.Log(
+                        "<color=Blue>Info: </color> ApollonAbstractHandle.ID : property is uninitilized, trying to wrap ID."
+                    );
+
+                    this.m_ID = this.WrapID();
+                }
+                return this.m_ID;
+            }
+            private set
+            {
+                this.m_ID = value;
             }
         }
-
-        // ctor
-        public ApollonAbstractHandle()
-        { }
         
-        // Dispose pattern
+        #endregion
+
+        #region Dispose pattern decl.
+
         public void Dispose()
         {
 
@@ -50,8 +102,10 @@ namespace Labsim.apollon.backend
         } /* Dispose() */
 
         protected abstract void Dispose(bool bDisposing = true);
+        
+        #endregion
 
-        #region event handling 
+        #region Event handling decl.
 
         public virtual void OnHandleActivationRequested(object sender, ApollonBackendManager.EngineHandleEventArgs arg)
         {

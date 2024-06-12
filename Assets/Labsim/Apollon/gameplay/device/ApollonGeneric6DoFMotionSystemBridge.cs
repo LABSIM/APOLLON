@@ -21,29 +21,29 @@
 namespace Labsim.apollon.gameplay.device
 {
 
-    public class AppollonGenericMotionSystemBridge 
-        : ApollonGameplayBridge<AppollonGenericMotionSystemBridge>
+    public class ApollonGeneric6DoFMotionSystemBridge 
+        : ApollonGameplayBridge<ApollonGeneric6DoFMotionSystemBridge>
     {
 
         //ctor
-        public AppollonGenericMotionSystemBridge()
+        public ApollonGeneric6DoFMotionSystemBridge()
             : base()
         { }
 
-        public AppollonGenericMotionSystemBehaviour ConcreteBehaviour 
-            => this.Behaviour as AppollonGenericMotionSystemBehaviour;
+        public ApollonGeneric6DoFMotionSystemBehaviour ConcreteBehaviour 
+            => this.Behaviour as ApollonGeneric6DoFMotionSystemBehaviour;
 
-        public AppollonGenericMotionSystemDispatcher ConcreteDispatcher 
-            => this.Dispatcher as AppollonGenericMotionSystemDispatcher;
+        public ApollonGeneric6DoFMotionSystemDispatcher ConcreteDispatcher 
+            => this.Dispatcher as ApollonGeneric6DoFMotionSystemDispatcher;
 
         #region Bridge abstract implementation
         
         protected override ApollonGameplayBehaviour WrapBehaviour()
         {
 
-            return this.WrapBehaviour<AppollonGenericMotionSystemBehaviour>(
-                "AppollonGenericMotionSystemBridge",
-                "AppollonGenericMotionSystemBehaviour"
+            return this.WrapBehaviour<ApollonGeneric6DoFMotionSystemBehaviour>(
+                "ApollonGeneric6DoFMotionSystemBridge",
+                "ApollonGeneric6DoFMotionSystemBehaviour"
             );
 
         } /* WrapBehaviour() */
@@ -51,16 +51,16 @@ namespace Labsim.apollon.gameplay.device
         protected override ApollonGameplayDispatcher WrapDispatcher()
         {
 
-            return this.WrapDispatcher<AppollonGenericMotionSystemDispatcher>(
-                "AppollonGenericMotionSystemBridge",
-                "AppollonGenericMotionSystemDispatcher"
+            return this.WrapDispatcher<ApollonGeneric6DoFMotionSystemDispatcher>(
+                "ApollonGeneric6DoFMotionSystemBridge",
+                "ApollonGeneric6DoFMotionSystemDispatcher"
             );
 
         } /* WrapDispatcher() */
 
         protected override ApollonGameplayManager.GameplayIDType WrapID()
         {
-            return ApollonGameplayManager.GameplayIDType.GenericMotionSystem;
+            return ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem;
         }
 
         protected override async void SetActive(bool value)
@@ -134,10 +134,10 @@ namespace Labsim.apollon.gameplay.device
         #region FSM state implementation
 
         internal sealed class InitState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
 
-            public InitState(AppollonGenericMotionSystemBridge fsm)
+            public InitState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -147,17 +147,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.InitState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.InitState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.InitController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.InitController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.InitState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.InitState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -170,7 +170,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.InitState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.InitState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -180,17 +180,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.InitState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.InitState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.InitController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.InitController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.InitState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.InitState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -203,7 +203,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.InitState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.InitState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -211,10 +211,10 @@ namespace Labsim.apollon.gameplay.device
         } /* internal sealed class InitState */
 
         internal sealed class IdleState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
 
-            public IdleState(AppollonGenericMotionSystemBridge fsm)
+            public IdleState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -224,17 +224,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.IdleState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.IdleState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.IdleController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.IdleState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.IdleState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -247,7 +247,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.IdleState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.IdleState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -257,17 +257,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.IdleState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.IdleState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.IdleController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.IdleController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.IdleState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.IdleState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -280,7 +280,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.IdleState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.IdleState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -288,10 +288,10 @@ namespace Labsim.apollon.gameplay.device
         } /* internal sealed class IdleState */
 
         internal sealed class AccelerateState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
 
-            public AccelerateState(AppollonGenericMotionSystemBridge fsm)
+            public AccelerateState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -301,17 +301,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.AccelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -324,7 +324,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -334,17 +334,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.AccelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.AccelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -357,7 +357,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -365,10 +365,10 @@ namespace Labsim.apollon.gameplay.device
         } /* internal sealed class AccelerateState */
 
         internal sealed class DecelerateState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
 
-            public DecelerateState(AppollonGenericMotionSystemBridge fsm)
+            public DecelerateState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -378,17 +378,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.DecelerateState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.DecelerateState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.DecelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.DecelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.DecelerateState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.DecelerateState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -401,7 +401,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.AccelerateState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.AccelerateState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -411,17 +411,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.DecelerateState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.DecelerateState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.DecelerateController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.DecelerateController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.DecelerateState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.DecelerateState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -434,7 +434,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.DecelerateState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.DecelerateState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -442,9 +442,9 @@ namespace Labsim.apollon.gameplay.device
         } /* internal sealed class DecelerateState */
 
         internal sealed class HoldState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
-            public HoldState(AppollonGenericMotionSystemBridge fsm)
+            public HoldState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -454,17 +454,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.HoldState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.HoldState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.HoldController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.HoldState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.HoldState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -477,7 +477,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.HoldState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.HoldState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -487,17 +487,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.HoldState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.HoldState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.HoldController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.HoldController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.HoldState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.HoldState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -510,7 +510,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.HoldState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.HoldState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -518,10 +518,10 @@ namespace Labsim.apollon.gameplay.device
         } /* internal sealed class Hold */
 
         internal sealed class ControlState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
 
-            public ControlState(AppollonGenericMotionSystemBridge fsm)
+            public ControlState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -531,17 +531,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ControlState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ControlState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.ControlController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.ControlController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.ControlState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.ControlState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -554,7 +554,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ControlState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ControlState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -564,17 +564,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ControlState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ControlState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.ControlController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.ControlController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.ControlState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.ControlState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -587,7 +587,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ControlState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ControlState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -595,9 +595,9 @@ namespace Labsim.apollon.gameplay.device
         } /* internal sealed class ControlState */
 
         internal sealed class ResetState 
-            : ApollonAbstractGameplayState<AppollonGenericMotionSystemBridge>
+            : ApollonAbstractGameplayState<ApollonGeneric6DoFMotionSystemBridge>
         {
-            public ResetState(AppollonGenericMotionSystemBridge fsm)
+            public ResetState(ApollonGeneric6DoFMotionSystemBridge fsm)
                 : base(fsm)
             {
             }
@@ -607,17 +607,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ResetState.OnEntry() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ResetState.OnEntry() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.ResetController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.ResetController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.ResetState.OnEntry() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.ResetState.OnEntry() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -630,7 +630,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ResetState.OnEntry() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ResetState.OnEntry() : end"
                 );
 
             } /* OnEntry() */
@@ -640,17 +640,17 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ResetState.OnExit() : begin"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ResetState.OnExit() : begin"
                 );
 
                 // find component behaviour
-                var controller = this.FSM.Behaviour.gameObject.GetComponent<AppollonGenericMotionSystemBehaviour.ResetController>();
+                var controller = this.FSM.Behaviour.gameObject.GetComponent<ApollonGeneric6DoFMotionSystemBehaviour.ResetController>();
                 if (!controller)
                 {
 
                     // log
                     UnityEngine.Debug.LogWarning(
-                        "<color=Orange>Warning: </color> AppollonGenericMotionSystemBridge.ResetState.OnExit() : could not find controller component behaviour..."
+                        "<color=Orange>Warning: </color> ApollonGeneric6DoFMotionSystemBridge.ResetState.OnExit() : could not find controller component behaviour..."
                     );
 
                     // fail
@@ -663,7 +663,7 @@ namespace Labsim.apollon.gameplay.device
 
                 // log
                 UnityEngine.Debug.Log(
-                    "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.ResetState.OnExit() : end"
+                    "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.ResetState.OnExit() : end"
                 );
 
             } /* OnExit() */
@@ -674,12 +674,12 @@ namespace Labsim.apollon.gameplay.device
 
         #region FSM event delegate
 
-        private async void OnInitRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnInitRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnInitRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnInitRequested() : begin"
             );
 
             // activate state
@@ -687,17 +687,17 @@ namespace Labsim.apollon.gameplay.device
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnInitRequested() : end"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnInitRequested() : end"
             );
 
         } /* OnInitRequested() */
 
-        private async void OnIdleRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnIdleRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnIdleRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnIdleRequested() : begin"
             );
 
             // activate state
@@ -705,21 +705,21 @@ namespace Labsim.apollon.gameplay.device
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnIdleRequested() : end"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnIdleRequested() : end"
             );
 
         } /* OnIdleRequested() */
 
-        private async void OnAccelerateRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnAccelerateRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnAccelerateRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnAccelerateRequested() : begin"
             );
 
             // get behaviour
-            var behaviour = this.Behaviour as AppollonGenericMotionSystemBehaviour;
+            var behaviour = this.Behaviour as ApollonGeneric6DoFMotionSystemBehaviour;
 
             // set internal settings
             behaviour.AngularAccelerationTarget 
@@ -779,21 +779,21 @@ namespace Labsim.apollon.gameplay.device
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnAccelerateRequested() : end"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnAccelerateRequested() : end"
             );
 
         } /* OnAccelerateRequested() */
 
-        private async void OnDecelerateRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnDecelerateRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnDecelerateRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnDecelerateRequested() : begin"
             );
 
             // get behaviour
-            var behaviour = this.Behaviour as AppollonGenericMotionSystemBehaviour;
+            var behaviour = this.Behaviour as ApollonGeneric6DoFMotionSystemBehaviour;
 
             // keep internal settings
 
@@ -802,17 +802,17 @@ namespace Labsim.apollon.gameplay.device
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnDecelerateRequested() : end"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnDecelerateRequested() : end"
             );
 
         } /* OnAccelerateRequested() */
 
-        private async void OnSaturationRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnSaturationRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnSaturationRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnSaturationRequested() : begin"
             );
 
             // activate state
@@ -820,21 +820,21 @@ namespace Labsim.apollon.gameplay.device
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnSaturationRequested() : end"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnSaturationRequested() : end"
             );
 
         } /* OnSaturationRequested() */
 
-        private async void OnControlRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnControlRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnControlRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnControlRequested() : begin"
             );
 
             // get behaviour
-            // var behaviour = this.Behaviour as AppollonGenericMotionSystemBehaviour;
+            // var behaviour = this.Behaviour as ApollonGeneric6DoFMotionSystemBehaviour;
             // set internal settings
             // behaviour.AngularAccelerationTarget 
             //     = (
@@ -898,29 +898,29 @@ namespace Labsim.apollon.gameplay.device
 
         } /* OnControlRequested() */
 
-        private async void OnResetRequested(object sender, AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs args)
+        private async void OnResetRequested(object sender, ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs args)
         {
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnResetRequested() : begin"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnResetRequested() : begin"
             );
             
             // inject duration
-            (this.Behaviour as AppollonGenericMotionSystemBehaviour).Duration = args.Duration;
+            (this.Behaviour as ApollonGeneric6DoFMotionSystemBehaviour).Duration = args.Duration;
 
             // activate state
             await this.SetState(new ResetState(this));
 
             // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> AppollonGenericMotionSystemBridge.OnResetRequested() : end"
+                "<color=Blue>Info: </color> ApollonGeneric6DoFMotionSystemBridge.OnResetRequested() : end"
             );
 
         } /* OnResetRequested() */
 
         #endregion
 
-    }  /* class AppollonGenericMotionSystemBridge */
+    }  /* class ApollonGeneric6DoFMotionSystemBridge */
 
 } /* } Labsim.apollon.gameplay.device.command */

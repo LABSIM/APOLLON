@@ -27,6 +27,11 @@ namespace Labsim.apollon.backend.handle
         : ApollonAbstractTCPStreamHandle
     {
 
+        protected override ApollonBackendManager.HandleIDType WrapID()
+        {
+            return ApollonBackendManager.HandleIDType.ApollonISMActiveSeatHandle;;
+        }
+
         public enum messageID : short
         {
             NoMoreData = -1,
@@ -121,13 +126,6 @@ namespace Labsim.apollon.backend.handle
             );
 
         } /* Reset() */
-
-        // ctor
-        public ApollonISMActiveSeatHandle()
-            : base()
-        {
-            this.m_handleID = ApollonBackendManager.HandleIDType.ApollonISMActiveSeatHandle;
-        }
 
     } /* class ApollonISMActiveSeatHandle */
     

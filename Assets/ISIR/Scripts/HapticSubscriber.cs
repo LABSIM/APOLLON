@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.UnityRoboticsDemo;
 
 public class HapticSubscriber 
-    : MonoBehaviour
+    : UnityEngine.MonoBehaviour
 {
     private ROSConnection ROS_connection = null;
     public string ROS_topicName = "ISIR_to_ONERA_Upstream";

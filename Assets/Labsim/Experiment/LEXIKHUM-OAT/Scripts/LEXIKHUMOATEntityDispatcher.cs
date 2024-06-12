@@ -28,7 +28,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         #region event args class
 
         public class LEXIKHUMOATEntityEventArgs
-            : apollon.gameplay.device.AppollonGenericMotionSystemDispatcher.MotionSystemEventArgs
+            : apollon.gameplay.device.ApollonGeneric6DoFMotionSystemDispatcher.MotionSystemEventArgs
         {
 
             // ctor
