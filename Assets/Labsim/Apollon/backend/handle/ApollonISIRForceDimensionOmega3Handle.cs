@@ -88,21 +88,21 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonISIRForceDimensionOmega3Handle.ConcreteHandleInitialize() : Tail object from scene"
             );
 
-            // this.CommandObject
-            //     = (
-            //         gameplay.ApollonGameplayManager.Instance.getBridge(
-            //             gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
-            //         ) as gameplay.device.AppollonGeneric3DoFHapticArmBridge
-            //     )
-            //     .ConcreteBehaviour.CommandReference;
+            this.CommandObject
+                = (
+                    gameplay.ApollonGameplayManager.Instance.getBridge(
+                        gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                    ) as gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                )
+                .ConcreteBehaviour.CommandReference;
             
-            // this.SensorObject
-            //     = (
-            //         gameplay.ApollonGameplayManager.Instance.getBridge(
-            //             gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
-            //         ) as gameplay.device.AppollonGeneric3DoFHapticArmBridge
-            //     )
-            //     .ConcreteBehaviour.SensorReference;
+            this.SensorObject
+                = (
+                    gameplay.ApollonGameplayManager.Instance.getBridge(
+                        gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                    ) as gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                )
+                .ConcreteBehaviour.SensorReference;
 
             // success 
             return StatusIDType.Status_OK;

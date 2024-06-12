@@ -26,54 +26,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         : apollon.gameplay.ApollonConcreteGameplayBehaviour<LEXIKHUMOATEntityBridge>
     {
 
-        #region ROS specific section
-
-        [UnityEngine.SerializeField]
-        private string m_ROSDownstreamTopicName = "ONERA_to_ISIR_Downstream";
-        public string ROSDownstreamTopicName => this.m_ROSDownstreamTopicName;
-
-        [
-            UnityEngine.SerializeField, 
-            UnityEngine.Range(0.01f, 1.0f), 
-            UnityEngine.Tooltip("update frequency in second")
-        ]
-        private float m_ROSDownstreamMessageFrequency = 0.2f;
-        public float ROSDownstreamMessageFrequency => this.m_ROSDownstreamMessageFrequency;
-
-
-        [UnityEngine.SerializeField]
-        private string m_ROSUpstreamTopicName = "ISIR_to_ONERA_Upstream";
-        public string ROSUpstreamTopicName => this.m_ROSUpstreamTopicName;
-
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject m_ROSUpstreamGameObject = null;
-        public UnityEngine.GameObject ROSUpstreamGameObject => this.m_ROSUpstreamGameObject;
-
-        private Unity.Robotics.ROSTCPConnector.ROSConnection m_ROSConnection = null;
-        
-        private float m_ROSTimeElapsed = 0.0f;
-
-        private void HandleROSUpstreamData(RosMessageTypes.UnityRoboticsDemo.PosRotMsg data)
-        {
-
-            this.ROSUpstreamGameObject.transform.SetLocalPositionAndRotation( 
-                new(
-                    data.pos_x,
-                    data.pos_y,
-                    data.pos_z
-                ),
-                new(
-                    data.rot_x,
-                    data.rot_y,
-                    data.rot_z,
-                    data.rot_w
-                )
-            );
-        
-        } /* HandleROSUpstreamData() */
-
-        #endregion
-
         #region properties/members
 
         public UnityEngine.Vector3 AngularAccelerationTarget { get; set; } = new UnityEngine.Vector3();
@@ -324,17 +276,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
             } /* OnDisable() */
-
-            private void FixedUpdate()
-            {
-              
-                // only counter gravity
-                // this._rigidbody.AddForce(
-                //     -1.0f * UnityFrame.GetGravity(this._rigidbody),
-                //     UnityEngine.ForceMode.Acceleration
-                // );
-                    
-            } /* FixedUpdate */
             
         } /* class HoldController */
 
@@ -383,18 +324,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     return;
 
                 } /* if() */
-
-                // UnityEngine.Debug.Log(
-                //     "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : register ROS publisher & Subscriber"
-                // );
-
-                // // ROS init
-                
-                // this._parent.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(this._parent.ROSDownstreamTopicName);
-                // this._parent.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
-                //     this._parent.ROSUpstreamTopicName, 
-                //     this._parent.HandleROSUpstreamData
-                // );
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -454,34 +383,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 }
 
             } /* Update() */
-
-            private void FixedUpdate()
-            {
-
-                // // ROS publishing
-                // this._parent.m_ROSTimeElapsed += UnityEngine.Time.fixedDeltaTime;
-
-                // if (this._parent.m_ROSTimeElapsed > this._parent.ROSDownstreamMessageFrequency)
-                // {
-
-                //     var cubePos = 
-                //         new RosMessageTypes.UnityRoboticsDemo.PosRotMsg(
-                //             this.transform.position.x,
-                //             this.transform.position.y,
-                //             this.transform.position.z,
-                //             this.transform.rotation.x,
-                //             this.transform.rotation.y,
-                //             this.transform.rotation.z,
-                //             this.transform.rotation.w
-                //         );
-
-                //     // Finally send the message to server_endpoint.py running in ROS
-                //     this._parent.m_ROSConnection.Publish(this._parent.ROSDownstreamTopicName, cubePos);
-                //     this._parent.m_ROSTimeElapsed = 0;
-
-                // } /* if() */
-                
-            } /* FixedUpdate() */
             
         } /* class ControlController */
         
@@ -682,20 +583,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             var control    = this.gameObject.AddComponent<ControlController>();
             var reset      = this.gameObject.AddComponent<ResetController>();
             
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : state controller added as gameObject's component, initializing ROS connection");
-
-            // start the ROS connection
-            this.m_ROSConnection = Unity.Robotics.ROSTCPConnector.ROSConnection.GetOrCreateInstance();
-
-            // ROS init
-            this.m_ROSConnection.RegisterPublisher<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(this.ROSDownstreamTopicName);
-            this.m_ROSConnection.Subscribe<RosMessageTypes.UnityRoboticsDemo.PosRotMsg>(
-                this.ROSUpstreamTopicName, 
-                this.HandleROSUpstreamData
-            );
+            UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : state controller added as gameObject's component, mark as initialized");
             
-            UnityEngine.Debug.Log("<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.Initialize() : ROS connection started, mark as initialized");
-
             // switch state
             this.m_bHasInitialized = true;
 
@@ -743,11 +632,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             {
                 return;
             }
-
-            // // ROS Unsubscribe
-            // this.m_ROSConnection.Unsubscribe(
-            //     this.ROSUpstreamTopicName
-            // );                
                 
         } /* OnDisable() */
 
