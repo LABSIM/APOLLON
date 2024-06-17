@@ -37,7 +37,9 @@ namespace Labsim.apollon.gameplay.device.impedence
         {
             
             if(!(this.VirtualWorld.Sensor != null && this.PhysicalWorld.Sensor != null))
+            {                
                 return;
+            }
             
             var output_matrix 
                 = this.PhysicalWorld.Sensor.transform.localToWorldMatrix 
@@ -53,7 +55,9 @@ namespace Labsim.apollon.gameplay.device.impedence
         {
 
             if(!(this.PhysicalWorld.Command != null && this.VirtualWorld.Command != null))
+            {                
                 return;
+            }
             
             var input_matrix 
                 = this.VirtualWorld.Command.transform.localToWorldMatrix 
@@ -67,16 +71,28 @@ namespace Labsim.apollon.gameplay.device.impedence
 
         public sealed override void DirectProcessing()
         {
-
+        
             // direct assignement
-            this.PhysicalWorld.Command.transform.SetPositionAndRotation(
-                this.VirtualWorld.Command.transform.position,
-                this.VirtualWorld.Command.transform.rotation
-            );
-            this.VirtualWorld.Sensor.transform.SetPositionAndRotation(
-                this.PhysicalWorld.Sensor.transform.position,
-                this.PhysicalWorld.Sensor.transform.rotation
-            );
+                
+            if(this.PhysicalWorld.Command != null && this.VirtualWorld.Command != null)
+            {
+                
+                this.PhysicalWorld.Command.transform.SetPositionAndRotation(
+                    this.VirtualWorld.Command.transform.position,
+                    this.VirtualWorld.Command.transform.rotation
+                );
+
+            } /* if() */
+
+            if(this.VirtualWorld.Sensor != null && this.PhysicalWorld.Sensor != null)
+            {
+        
+                this.VirtualWorld.Sensor.transform.SetPositionAndRotation(
+                    this.PhysicalWorld.Sensor.transform.position,
+                    this.PhysicalWorld.Sensor.transform.rotation
+                );
+
+            } /* if() */
             
         } /* DirectProcessing() */
 

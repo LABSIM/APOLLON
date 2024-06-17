@@ -33,7 +33,7 @@ namespace Labsim.apollon.gameplay.device.impedence
         private UnityEngine.GameObject m_sensorObject = null;
         public UnityEngine.GameObject Sensor => this.m_sensorObject;
 
-    } /* struct ApollonImpedenceIOMapping */
+    } /* class ApollonImpedenceIOMapping */
 
     [System.Serializable]
     public class ApollonStandardTRSImpedenceFactor
@@ -59,7 +59,7 @@ namespace Labsim.apollon.gameplay.device.impedence
                 this.Scale
             );
 
-    } /* struct ApollonStandardTRSImpedenceFactor */
+    } /* class ApollonStandardTRSImpedenceFactor */
 
     public interface IApollonImpedenceModel
     {

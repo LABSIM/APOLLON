@@ -54,6 +54,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATEntityBridge>(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
                 );
+            var haptic_arm
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                );
 
             // setup UI frontend instructions
             this.FSM.CurrentInstruction = "Arret";
@@ -152,6 +158,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                                     this.FSM.CurrentSettings.PhaseD.decceleration_duration,
                                     this.FSM.CurrentSettings.Trial.bIsTryCatch
                                 );
+                            });
+                            apollon.ApollonEngine.Schedule(() => { 
+                                haptic_arm.ConcreteDispatcher.RaiseReset();
                             });
 
                             UnityEngine.Debug.Log(

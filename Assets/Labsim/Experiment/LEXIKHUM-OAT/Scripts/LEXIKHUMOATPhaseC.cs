@@ -60,13 +60,20 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATEntityBridge>(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
                 );
+            var haptic_arm
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                );
 
              // log
             UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> LEXIKHUMOATPhaseC.OnEntry() : starting slalom task"
+                "<color=Blue>Info: </color> LEXIKHUMOATPhaseC.OnEntry() : starting slalom task, raise control event"
             );
             
             lexikhum_entity.ConcreteDispatcher.RaiseControl();
+            haptic_arm.ConcreteDispatcher.RaiseControl();
 
             // await for end of phase 
             // END REACHED

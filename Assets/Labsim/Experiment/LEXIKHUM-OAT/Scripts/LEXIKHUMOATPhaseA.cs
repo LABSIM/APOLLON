@@ -53,13 +53,13 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // currrent timestamp
             System.Diagnostics.Stopwatch current_stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-            // // refs
-            // var motion_platform
-            //     = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-            //         apollon.gameplay.device.ApollonGeneric6DoFMotionSystemBridge
-            //     >(
-            //         apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
-            //     );
+            // refs
+            var haptic_arm
+                = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                >(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                );
 
             // setup UI frontend instructions
             this.FSM.CurrentInstruction = "Initialisation";
@@ -73,8 +73,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 "<color=Blue>Info: </color> LEXIKHUMOATPhaseA.OnEntry() : initializing LEXIKHUMOAT Motion platform impedence system"
             );
 
-            // // raise init motion event
-            // motion_platform.ConcreteDispatcher.RaiseInit();
+            // raise init event
+            haptic_arm.ConcreteDispatcher.RaiseInit();
             
             // get elapsed 
             var remaining = this.FSM.CurrentSettings.PhaseA.duration - current_stopwatch.ElapsedMilliseconds;
