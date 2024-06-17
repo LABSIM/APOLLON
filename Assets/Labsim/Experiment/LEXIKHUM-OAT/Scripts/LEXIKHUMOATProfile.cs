@@ -189,9 +189,15 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 ).ConcreteBehaviour;
             static_element.References["DBTag_BaseSetup"].SetActive(false);
 
-            // activate fog element
+            // activate gameplay element & backend
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.FogElement
+            );
+            apollon.gameplay.ApollonGameplayManager.Instance.setActive(
+                apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+            );
+            apollon.backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
+                apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
             );
 
             // base call
@@ -201,7 +207,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             UnityEngine.Debug.Log(
                 "<color=Blue>Info: </color> LEXIKHUMOATProfile.onExperimentSessionBegin() : end"
             );
-
+ 
         } /* onExperimentSessionBegin() */
 
         public override async void OnExperimentSessionEnd(object sender, apollon.ApollonEngine.EngineExperimentEventArgs arg)
@@ -218,6 +224,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // deactivate all entity
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.All
+            );
+            apollon.backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
+                apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
             );
 
             // log

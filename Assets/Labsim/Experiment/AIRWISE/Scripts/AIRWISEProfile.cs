@@ -296,9 +296,12 @@ namespace Labsim.experiment.AIRWISE
                 +"]"
             );
 
-            // activate all motion system command/sensor/impedence
+            // activate the gameplay object with the corresponding backend handle 
             apollon.gameplay.ApollonGameplayManager.Instance.setActive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic6DoFMotionSystem
+            );
+            apollon.backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
+                apollon.backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
             );
 
             // log 
@@ -354,9 +357,12 @@ namespace Labsim.experiment.AIRWISE
             // base call
             base.OnExperimentSessionEnd(sender, arg);
 
-            // deactivate all entity
+            // deactivate all entity & backend
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.All
+            );
+            apollon.backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
+                apollon.backend.ApollonBackendManager.HandleIDType.ApollonMotionSystemPS6TM550Handle
             );
 
             // log

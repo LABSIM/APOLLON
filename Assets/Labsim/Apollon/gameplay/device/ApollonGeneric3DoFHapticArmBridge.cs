@@ -86,11 +86,6 @@ namespace Labsim.apollon.gameplay.device
                 this.ConcreteDispatcher.ControlEvent    += this.OnControlRequested;
                 this.ConcreteDispatcher.ResetEvent      += this.OnResetRequested;
 
-                // activate the motion system backend
-                backend.ApollonBackendManager.Instance.RaiseHandleActivationRequestedEvent(
-                    backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
-                );
-
                 // nullify FSM
                 await this.SetState(null);
 
@@ -103,11 +98,6 @@ namespace Labsim.apollon.gameplay.device
 
                 // nullify FSM
                 await this.SetState(null);
-
-                // inactivate the motion system backend
-                backend.ApollonBackendManager.Instance.RaiseHandleDeactivationRequestedEvent(
-                    backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
-                );
 
                 // unsubscribe
                 this.ConcreteDispatcher.InitEvent       -= this.OnInitRequested;

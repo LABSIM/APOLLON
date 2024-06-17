@@ -27,20 +27,17 @@ namespace Labsim.apollon.gameplay.device
     {
 
         #region properties/members
-        
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject m_CommandReference = null;        
-        [UnityEngine.SerializeField]
-        private UnityEngine.GameObject m_SensorReference = null;
 
         [UnityEngine.SerializeField]
-        public UnityEngine.Vector3 m_initialPosition = new UnityEngine.Vector3();
-        [UnityEngine.SerializeField]
-        public UnityEngine.Vector3 m_initialRotation = new UnityEngine.Vector3();
+        private impedence.IApollonImpedenceModel m_impedenceReference = null;
+        public ref impedence.IApollonImpedenceModel ImpedenceReference => ref this.m_impedenceReference;
 
-        public ref UnityEngine.GameObject CommandReference => ref this.m_CommandReference;
-        public ref UnityEngine.GameObject SensorReference => ref this.m_SensorReference;
+        [UnityEngine.SerializeField]
+        public UnityEngine.Vector3 m_initialPosition = UnityEngine.Vector3.zero;
         public ref UnityEngine.Vector3 InitialPosition => ref this.m_initialPosition;
+
+        [UnityEngine.SerializeField]
+        public UnityEngine.Vector3 m_initialRotation = UnityEngine.Vector3.zero;
         public ref UnityEngine.Vector3 InitialRotation => ref this.m_initialRotation;
 
         private bool m_bHasInitialized = false;

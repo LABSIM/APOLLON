@@ -94,7 +94,7 @@ namespace Labsim.apollon.backend.handle
                         gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
                     ) as gameplay.device.ApollonGeneric3DoFHapticArmBridge
                 )
-                .ConcreteBehaviour.CommandReference;
+                .ConcreteBehaviour.ImpedenceReference.PhysicalWorld.Command;
             
             this.SensorObject
                 = (
@@ -102,7 +102,7 @@ namespace Labsim.apollon.backend.handle
                         gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
                     ) as gameplay.device.ApollonGeneric3DoFHapticArmBridge
                 )
-                .ConcreteBehaviour.SensorReference;
+                .ConcreteBehaviour.ImpedenceReference.PhysicalWorld.Sensor;
 
             // success 
             return StatusIDType.Status_OK;

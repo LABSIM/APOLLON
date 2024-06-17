@@ -90,7 +90,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 }; /* user interaction lambda */
 
             // update instructions 
-            this.FSM.CurrentQuestion               = "Le systeme a ete un membre utile de l'equipe prendant la resolution de la situation ?";
+            this.FSM.CurrentQuestion               = "Le systeme a été un membre utile de l'equipe prendant la resolution de la situation ?";
             this.FSM.CurrentQuestionDetail         = "";
             this.FSM.CurrentQuestionTickLowerBound = "pas du tout d'accord";
             this.FSM.CurrentQuestionTickUpperBound = "tout à fait d'accord";
