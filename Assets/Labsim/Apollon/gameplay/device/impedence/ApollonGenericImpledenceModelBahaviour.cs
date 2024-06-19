@@ -36,36 +36,28 @@ namespace Labsim.apollon.gameplay.device.impedence
         public sealed override void UpstreamProcessing()
         {
             
-            if(!(this.VirtualWorld.Sensor != null && this.PhysicalWorld.Sensor != null))
+            if(!(this.VirtualWorld.Command != null && this.PhysicalWorld.Sensor != null))
             {                
                 return;
             }
             
-            var output_matrix 
-                = this.PhysicalWorld.Sensor.transform.localToWorldMatrix 
-                * this.UpstreamFactor.TRS;
-
-            this.VirtualWorld.Sensor.transform.position   = output_matrix.GetPosition();
-            this.VirtualWorld.Sensor.transform.rotation   = output_matrix.rotation;
-            this.VirtualWorld.Sensor.transform.localScale = output_matrix.lossyScale;
+            this.VirtualWorld.Command.transform.position   = this.UpstreamFactor.TRS * this.PhysicalWorld.Sensor.transform.position;
+            this.VirtualWorld.Command.transform.rotation   = this.UpstreamFactor.TRS.rotation * this.PhysicalWorld.Sensor.transform.rotation;
+            this.VirtualWorld.Command.transform.localScale = this.UpstreamFactor.TRS * this.PhysicalWorld.Sensor.transform.lossyScale;
 
         } /* UpstreamProcessing() */
 
         public sealed override void DownstreamProcessing()
         {
 
-            if(!(this.PhysicalWorld.Command != null && this.VirtualWorld.Command != null))
+            if(!(this.PhysicalWorld.Command != null && this.VirtualWorld.Sensor != null))
             {                
                 return;
             }
-            
-            var input_matrix 
-                = this.VirtualWorld.Command.transform.localToWorldMatrix 
-                * this.DownstreamFactor.TRS;
 
-            this.PhysicalWorld.Command.transform.position   = input_matrix.GetPosition();
-            this.PhysicalWorld.Command.transform.rotation   = input_matrix.rotation;
-            this.PhysicalWorld.Command.transform.localScale = input_matrix.lossyScale;
+            this.PhysicalWorld.Command.transform.position   = this.DownstreamFactor.TRS * this.VirtualWorld.Sensor.transform.position;
+            this.PhysicalWorld.Command.transform.rotation   = this.DownstreamFactor.TRS.rotation * this.VirtualWorld.Sensor.transform.rotation;
+            this.PhysicalWorld.Command.transform.localScale = this.DownstreamFactor.TRS * this.VirtualWorld.Sensor.transform.lossyScale;
 
         } /* DownstreamProcessing() */
 
@@ -74,25 +66,23 @@ namespace Labsim.apollon.gameplay.device.impedence
         
             // direct assignement
                 
-            if(this.PhysicalWorld.Command != null && this.VirtualWorld.Command != null)
-            {
-                
-                this.PhysicalWorld.Command.transform.SetPositionAndRotation(
-                    this.VirtualWorld.Command.transform.position,
-                    this.VirtualWorld.Command.transform.rotation
-                );
-
-            } /* if() */
-
-            if(this.VirtualWorld.Sensor != null && this.PhysicalWorld.Sensor != null)
-            {
-        
-                this.VirtualWorld.Sensor.transform.SetPositionAndRotation(
-                    this.PhysicalWorld.Sensor.transform.position,
-                    this.PhysicalWorld.Sensor.transform.rotation
-                );
-
-            } /* if() */
+            if(!(
+                this.PhysicalWorld.Command   != null
+                && this.PhysicalWorld.Sensor != null
+                && this.VirtualWorld.Command != null 
+                && this.VirtualWorld.Sensor  != null
+            ))
+            {                
+                return;
+            } 
+            
+            this.PhysicalWorld.Command.transform.position   = this.VirtualWorld.Sensor.transform.position;
+            this.PhysicalWorld.Command.transform.rotation   = this.VirtualWorld.Sensor.transform.rotation;
+            this.PhysicalWorld.Command.transform.localScale = this.VirtualWorld.Sensor.transform.lossyScale;
+            
+            this.VirtualWorld.Command.transform.position    = this.PhysicalWorld.Sensor.transform.position;
+            this.VirtualWorld.Command.transform.rotation    = this.PhysicalWorld.Sensor.transform.rotation;
+            this.VirtualWorld.Command.transform.localScale  = this.PhysicalWorld.Sensor.transform.lossyScale;
             
         } /* DirectProcessing() */
 

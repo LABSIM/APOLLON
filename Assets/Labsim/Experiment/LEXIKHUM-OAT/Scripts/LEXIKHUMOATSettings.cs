@@ -83,23 +83,56 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             [System.ComponentModel.Description("Familiarisation")]
             Familiarisation,
 
-            [System.ComponentModel.Description("ID1")]
-            ID1,
-
-            [System.ComponentModel.Description("ID2")]
-            ID2,
-
-            [System.ComponentModel.Description("ID3")]
-            ID3,
-
-            [System.ComponentModel.Description("ID4")]
-            ID4,
-
-            [System.ComponentModel.Description("ID5")]
-            ID5,
-
-            [System.ComponentModel.Description("ID6")]
-            ID6
+            [System.ComponentModel.Description("ID1")]  ID1,
+            [System.ComponentModel.Description("ID2")]  ID2,
+            [System.ComponentModel.Description("ID3")]  ID3,
+            [System.ComponentModel.Description("ID4")]  ID4,
+            [System.ComponentModel.Description("ID5")]  ID5,
+            [System.ComponentModel.Description("ID6")]  ID6,
+            [System.ComponentModel.Description("ID7")]  ID7,
+            [System.ComponentModel.Description("ID8")]  ID8,
+            [System.ComponentModel.Description("ID9")]  ID9,
+            [System.ComponentModel.Description("ID10")] ID10,
+            [System.ComponentModel.Description("ID11")] ID11,
+            [System.ComponentModel.Description("ID12")] ID12,
+            [System.ComponentModel.Description("ID13")] ID13,
+            [System.ComponentModel.Description("ID14")] ID14,
+            [System.ComponentModel.Description("ID15")] ID15,
+            [System.ComponentModel.Description("ID16")] ID16,
+            [System.ComponentModel.Description("ID17")] ID17,
+            [System.ComponentModel.Description("ID18")] ID18,
+            [System.ComponentModel.Description("ID19")] ID19,
+            [System.ComponentModel.Description("ID20")] ID20,
+            [System.ComponentModel.Description("ID21")] ID21,
+            [System.ComponentModel.Description("ID22")] ID22,
+            [System.ComponentModel.Description("ID23")] ID23,
+            [System.ComponentModel.Description("ID24")] ID24,
+            [System.ComponentModel.Description("ID25")] ID25,
+            [System.ComponentModel.Description("ID26")] ID26,
+            [System.ComponentModel.Description("ID27")] ID27,
+            [System.ComponentModel.Description("ID28")] ID28,
+            [System.ComponentModel.Description("ID29")] ID29,
+            [System.ComponentModel.Description("ID30")] ID30,
+            [System.ComponentModel.Description("ID31")] ID31,
+            [System.ComponentModel.Description("ID32")] ID32,
+            [System.ComponentModel.Description("ID33")] ID33,
+            [System.ComponentModel.Description("ID34")] ID34,
+            [System.ComponentModel.Description("ID35")] ID35,
+            [System.ComponentModel.Description("ID36")] ID36,
+            [System.ComponentModel.Description("ID37")] ID37,
+            [System.ComponentModel.Description("ID38")] ID38,
+            [System.ComponentModel.Description("ID39")] ID39,
+            [System.ComponentModel.Description("ID40")] ID40,
+            [System.ComponentModel.Description("ID41")] ID41,
+            [System.ComponentModel.Description("ID42")] ID42,
+            [System.ComponentModel.Description("ID43")] ID43,
+            [System.ComponentModel.Description("ID44")] ID44,
+            [System.ComponentModel.Description("ID45")] ID45,
+            [System.ComponentModel.Description("ID46")] ID46,
+            [System.ComponentModel.Description("ID47")] ID47,
+            [System.ComponentModel.Description("ID48")] ID48,
+            [System.ComponentModel.Description("ID49")] ID49,
+            [System.ComponentModel.Description("ID50")] ID50
 
         } /* enum */
 
@@ -384,6 +417,403 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         System.StringComparison.InvariantCultureIgnoreCase
                     ) : {
                         this.Trial.scene_type = SceneIDType.ID6;
+                        break;
+                    }
+
+                    // ID7
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID7),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID7;
+                        break;
+                    }
+
+                    // ID8
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID8),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID8;
+                        break;
+                    }
+
+                    // ID9
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID9),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID9;
+                        break;
+                    }
+
+
+                    // ID10
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID10),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID10;
+                        break;
+                    }
+
+                    // ID11
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID11),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID11;
+                        break;
+                    }
+
+                    // ID12
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID12),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID12;
+                        break;
+                    }
+
+                    // ID13
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID13),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID13;
+                        break;
+                    }
+
+                    // ID14
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID14),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID14;
+                        break;
+                    }
+
+                    // ID15
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID15),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID15;
+                        break;
+                    }
+
+                    // ID16
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID16),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID16;
+                        break;
+                    }
+
+                    // ID17
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID17),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID17;
+                        break;
+                    }
+
+                    // ID18
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID18),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID18;
+                        break;
+                    }
+
+                    // ID19
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID19),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID19;
+                        break;
+                    }
+
+                    // ID20
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID20),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID20;
+                        break;
+                    }
+
+                    // ID21
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID21),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID21;
+                        break;
+                    }
+
+                    // ID22
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID22),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID22;
+                        break;
+                    }
+
+                    // ID23
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID23),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID23;
+                        break;
+                    }
+
+                    // ID24
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID24),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID24;
+                        break;
+                    }
+
+                    // ID25
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID25),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID25;
+                        break;
+                    }
+
+                    // ID26
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID26),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID26;
+                        break;
+                    }
+
+                    // ID27
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID27),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID27;
+                        break;
+                    }
+
+                    // ID28
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID28),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID28;
+                        break;
+                    }
+
+                    // ID29
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID29),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID29;
+                        break;
+                    }
+
+                    // ID30
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID30),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID30;
+                        break;
+                    }
+
+                    // ID31
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID31),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID31;
+                        break;
+                    }
+
+                    // ID32
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID32),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID32;
+                        break;
+                    }
+
+                    // ID33
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID33),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID33;
+                        break;
+                    }
+
+                    // ID34
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID34),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID34;
+                        break;
+                    }
+
+                    // ID35
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID35),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID35;
+                        break;
+                    }
+
+                    // ID36
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID36),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID36;
+                        break;
+                    }
+
+                    // ID37
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID37),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID37;
+                        break;
+                    }
+
+                    // ID38
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID38),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID38;
+                        break;
+                    }
+
+                    // ID39
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID39),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID39;
+                        break;
+                    }
+
+                    // ID40
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID40),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID40;
+                        break;
+                    }
+
+                    // ID41
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID41),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID41;
+                        break;
+                    }
+
+                    // ID42
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID42),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID42;
+                        break;
+                    }
+
+                    // ID43
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID43),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID43;
+                        break;
+                    }
+
+                    // ID44
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID44),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID44;
+                        break;
+                    }
+
+                    // ID45
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID45),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID45;
+                        break;
+                    }
+
+                    // ID46
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID46),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID46;
+                        break;
+                    }
+
+                    // ID47
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID47),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID47;
+                        break;
+                    }
+
+                    // ID48
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID48),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID48;
+                        break;
+                    }
+
+                    // ID49
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID49),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID49;
+                        break;
+                    }
+
+                    // ID50
+                    case string param when param.Equals(
+                        apollon.ApollonEngine.GetEnumDescription(SceneIDType.ID50),
+                        System.StringComparison.InvariantCultureIgnoreCase
+                    ) : {
+                        this.Trial.scene_type = SceneIDType.ID50;
                         break;
                     }
 

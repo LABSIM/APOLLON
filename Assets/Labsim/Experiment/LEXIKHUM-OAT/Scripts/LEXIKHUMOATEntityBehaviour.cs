@@ -18,7 +18,6 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
-// avoid namespace pollution
 namespace Labsim.experiment.LEXIKHUM_OAT
 {
 
@@ -285,6 +284,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             private LEXIKHUMOATEntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
+            private System.EventHandler<LEXIKHUMOATControlDispatcher.LEXIKHUMOATControlEventArgs> _interaction_lambda = null;
+            private apollon.gameplay.device.impedence.IApollonImpedenceModel _impedence_ref = null;
+
 
             // private System 
 
@@ -294,6 +296,18 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 // disable by default & set name
                 this.enabled = false;
                 //this.name = "ApollonControlController";
+
+                this._interaction_lambda 
+                    = (sender, args) 
+                        => {
+                            this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * args.JoystickHorizontal));
+                        };
+                this._impedence_ref
+                    = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                    >(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                    ).ConcreteBehaviour.ImpedenceReference;
 
             } /* Awake() */
             
@@ -308,6 +322,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 // preliminary
                 if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                    || this._interaction_lambda == null
+                    || this._impedence_ref == null
                 )
                 {
 
@@ -324,6 +340,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     return;
 
                 } /* if() */
+
+                // map joystick 
+                apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATControlBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
+                ).ConcreteDispatcher.JoystickHorizontalValueChangedEvent += this._interaction_lambda;
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -343,6 +364,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 // preliminary
                 if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
                     || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                    || this._interaction_lambda == null
+                    || this._impedence_ref == null
                 )
                 {
 
@@ -360,12 +383,36 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* if() */
 
+                // unmap 
+                apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATControlBridge>(
+                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
+                ).ConcreteDispatcher.JoystickHorizontalValueChangedEvent -= this._interaction_lambda;
+
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnDisable() : end"
                 );
 
             } /* OnDisable() */
+
+            private void FixedUpdate()
+            {
+                
+                // downstream
+                // inject everything
+                this._impedence_ref.VirtualWorld.Command.transform.position   = this._parent.transform.position;
+                this._impedence_ref.VirtualWorld.Command.transform.rotation   = this._parent.transform.rotation;
+                this._impedence_ref.VirtualWorld.Command.transform.localScale = this._parent.transform.localScale;
+
+                // upstream
+                // => only use x axis 
+                this._parent.transform.position.Set(
+                    this._impedence_ref.VirtualWorld.Sensor.transform.position.x,
+                    this._parent.transform.position.y,
+                    this._parent.transform.position.z
+                );
+                
+            } /* FixedUpdate() */
 
             private void Update()
             {

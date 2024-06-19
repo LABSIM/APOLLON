@@ -70,10 +70,10 @@ namespace Labsim.apollon.gameplay.device.impedence
             // both impedence factor == 0.0f
             None = 0,
 
-            // only upstream : m_sensorObject =(m_upstreamImpedanceFactor)=> m_outputObject
+            // only upstream : physical sensor ==(m_upstreamImpedanceFactor)==> virtual command
             Sensor,
 
-            // only downstream : m_inputObject =(m_downstreamImpedanceFactor)=> m_commandObject
+            // only downstream : virtual command ==(m_downstreamImpedanceFactor)==> physical sensor
             Command,
 
             // both upstream & downstream
