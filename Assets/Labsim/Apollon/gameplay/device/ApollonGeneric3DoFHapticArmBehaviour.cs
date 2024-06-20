@@ -29,8 +29,8 @@ namespace Labsim.apollon.gameplay.device
         #region properties/members
 
         [UnityEngine.SerializeField]
-        private impedence.IApollonImpedenceModel m_impedenceReference = null;
-        public ref impedence.IApollonImpedenceModel ImpedenceReference => ref this.m_impedenceReference;
+        private impedence.ApollonAbstractImpedenceModelBehaviour m_impedenceReference = null;
+        public ref impedence.ApollonAbstractImpedenceModelBehaviour ImpedenceReference => ref this.m_impedenceReference;
 
         [UnityEngine.SerializeField]
         public UnityEngine.Vector3 m_initialPosition = UnityEngine.Vector3.zero;
@@ -67,7 +67,7 @@ namespace Labsim.apollon.gameplay.device
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
+                if ((this._parent = this.gameObject.GetComponent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
                 {
 
                     // log
@@ -128,7 +128,7 @@ namespace Labsim.apollon.gameplay.device
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
+                if ((this._parent = this.gameObject.GetComponent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
                 {
 
                     // log
@@ -164,7 +164,7 @@ namespace Labsim.apollon.gameplay.device
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
+                if ((this._parent = this.gameObject.GetComponent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
                 {
 
                     // log
@@ -214,7 +214,7 @@ namespace Labsim.apollon.gameplay.device
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
+                if ((this._parent = this.gameObject.GetComponent<ApollonGeneric3DoFHapticArmBehaviour>()) == null)
                 {
 
                     // log
@@ -272,7 +272,7 @@ namespace Labsim.apollon.gameplay.device
                 );
                 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<ApollonGeneric3DoFHapticArmBehaviour>()) == null
+                if ((this._parent = this.gameObject.GetComponent<ApollonGeneric3DoFHapticArmBehaviour>()) == null
                 )
                 {
 

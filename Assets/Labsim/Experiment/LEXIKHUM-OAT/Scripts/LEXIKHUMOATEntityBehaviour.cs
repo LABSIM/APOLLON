@@ -63,8 +63,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.gameObject.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -215,8 +215,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.gameObject.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -252,7 +252,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null)
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null)
                 {
 
                     // log
@@ -297,18 +297,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 this.enabled = false;
                 //this.name = "ApollonControlController";
 
-                this._interaction_lambda 
-                    = (sender, args) 
-                        => {
-                            this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * args.JoystickHorizontal));
-                        };
-                this._impedence_ref
-                    = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                        apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
-                    >(
-                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
-                    ).ConcreteBehaviour.ImpedenceReference;
-
             } /* Awake() */
             
             private void OnEnable()
@@ -320,10 +308,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
-                    || this._interaction_lambda == null
-                    || this._impedence_ref == null
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.gameObject.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -341,11 +327,31 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* if() */
 
+                // internal 
+                this._interaction_lambda 
+                    = (sender, args) 
+                        => {
+                            this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * args.JoystickHorizontal));
+                        };
+
+                this._impedence_ref
+                    = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                    >(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                    ).ConcreteBehaviour.ImpedenceReference;
+
+
                 // map joystick 
-                apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATControlBridge>(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
-                ).ConcreteDispatcher.JoystickHorizontalValueChangedEvent += this._interaction_lambda;
+                if(this._interaction_lambda != null)
+                {
+
+                    apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATControlBridge>(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
+                    ).ConcreteDispatcher.JoystickHorizontalValueChangedEvent += this._interaction_lambda;
                 
+                } /* if() */
+
                 // log
                 UnityEngine.Debug.Log(
                     "<color=Blue>Info: </color> LEXIKHUMOATEntityBehaviour.ControlController.OnEnable() : end"
@@ -362,10 +368,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
-                    || this._interaction_lambda == null
-                    || this._impedence_ref == null
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.gameObject.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -383,10 +387,15 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* if() */
 
-                // unmap 
-                apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATControlBridge>(
-                    apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
-                ).ConcreteDispatcher.JoystickHorizontalValueChangedEvent -= this._interaction_lambda;
+                // unmap joystick 
+                if(this._interaction_lambda != null)
+                {
+
+                    apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<LEXIKHUMOATControlBridge>(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATControl
+                    ).ConcreteDispatcher.JoystickHorizontalValueChangedEvent -= this._interaction_lambda;
+                
+                } /* if() */
 
                 // log
                 UnityEngine.Debug.Log(
@@ -398,6 +407,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             private void FixedUpdate()
             {
                 
+                // skip
+                if(this._impedence_ref == null || this._parent == null)
+                {
+                    return;
+                }
+
                 // downstream
                 // inject everything
                 this._impedence_ref.VirtualWorld.Command.transform.position   = this._parent.transform.position;
@@ -416,6 +431,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             private void Update()
             {
+
+                // skip
+                if(this._rigidbody == null)
+                {
+                    return;
+                }
 
                 // debug set from keyboard inputs 
                 
@@ -458,8 +479,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
                 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.gameObject.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
@@ -495,8 +516,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 );
                 
                 // preliminary
-                if ((this._parent = this.GetComponentInParent<LEXIKHUMOATEntityBehaviour>()) == null
-                    || (this._rigidbody = this.GetComponentInParent<UnityEngine.Rigidbody>()) == null
+                if ((this._parent = this.gameObject.GetComponent<LEXIKHUMOATEntityBehaviour>()) == null
+                    || (this._rigidbody = this.gameObject.GetComponent<UnityEngine.Rigidbody>()) == null
                 )
                 {
 
