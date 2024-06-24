@@ -329,10 +329,18 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 // internal 
                 this._interaction_lambda 
-                    = (sender, args) 
+                    = new(
+                        (sender, args) 
                         => {
-                            this._rigidbody.MovePosition(this._rigidbody.position + (UnityEngine.Vector3.right * args.JoystickHorizontal));
-                        };
+                            this._rigidbody.MovePosition(
+                                new(
+                                    args.JoystickHorizontal * 5.0f,
+                                    this._rigidbody.position.y,
+                                    this._rigidbody.position.z
+                                )
+                            );
+                        }
+                    );
 
                 this._impedence_ref
                     = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
@@ -388,6 +396,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 } /* if() */
 
                 // unmap joystick 
+                
                 if(this._interaction_lambda != null)
                 {
 
