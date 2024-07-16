@@ -19,11 +19,16 @@
 //
 
 // avoid namespace pollution
+using UnityEngine.UIElements;
+
 namespace Labsim.apollon.backend.handle
 {
 
     public class ApollonISIRForceDimensionOmega3Handle
-        : ApollonAbstractROS2StreamHandle< RosMessageTypes.UnityRoboticsDemo.PosRotMsg, RosMessageTypes.UnityRoboticsDemo.PosRotMsg>
+        : ApollonAbstractROS2StreamHandle< 
+            RosMessageTypes.LexikhumOatGateway.DownstreamMsg, 
+            RosMessageTypes.LexikhumOatGateway.UpstreamMsg 
+        >
     {
 
         protected sealed override ApollonBackendManager.HandleIDType WrapID()
@@ -33,35 +38,43 @@ namespace Labsim.apollon.backend.handle
         
         #region ROS2 callback decl. 
 
-        protected sealed override void Upstream(RosMessageTypes.UnityRoboticsDemo.PosRotMsg upstream)
+        private static ulong _s_upstream_uuid = 0;
+        private static ulong _s_downstream_uuid = 0;
+
+        protected sealed override void Upstream(RosMessageTypes.LexikhumOatGateway.UpstreamMsg upstream)
         {
 
             this.SensorObject.transform.localPosition 
                 = new(
-                    upstream.pos_x,
-                    upstream.pos_y,
-                    upstream.pos_z
+                    (float)upstream.haptic_arm_world_position.x,
+                    (float)upstream.haptic_arm_world_position.y,
+                    (float)upstream.haptic_arm_world_position.z
                 );
-            this.SensorObject.transform.localRotation
-                = new(
-                    upstream.rot_x,
-                    upstream.rot_y,
-                    upstream.rot_z,
-                    upstream.rot_w
-                );
+            this.SensorObject.transform.localRotation = UnityEngine.Quaternion.identity;
+            _s_upstream_uuid = upstream.uuid;
 
         } /* Upstream() */
 
-        protected sealed override RosMessageTypes.UnityRoboticsDemo.PosRotMsg Downstream()
+        protected sealed override RosMessageTypes.LexikhumOatGateway.DownstreamMsg Downstream()
         {
             return new(
-                this.CommandObject.transform.position.x,
-                this.CommandObject.transform.position.y,
-                this.CommandObject.transform.position.z,
-                this.CommandObject.transform.rotation.x,
-                this.CommandObject.transform.rotation.y,
-                this.CommandObject.transform.rotation.z,
-                this.CommandObject.transform.rotation.w
+                ++_s_downstream_uuid,
+                new( 
+                    new(
+                        this.CommandObject.transform.position.x, 
+                        this.CommandObject.transform.position.y, 
+                        this.CommandObject.transform.position.z
+                    ),
+                    new(
+                        this.CommandObject.transform.rotation.x, 
+                        this.CommandObject.transform.rotation.y, 
+                        this.CommandObject.transform.rotation.z, 
+                        this.CommandObject.transform.rotation.w
+                    )
+                ),
+                new(),
+                new(),
+                new()
             );
         }
 
