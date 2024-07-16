@@ -33,7 +33,7 @@ namespace Labsim.apollon.backend.handle
 
         protected sealed override ApollonBackendManager.HandleIDType WrapID()
         {
-            return ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle;;
+            return ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle;
         }
         
         #region ROS2 callback decl. 

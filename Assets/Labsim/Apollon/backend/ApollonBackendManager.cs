@@ -138,9 +138,10 @@ namespace Labsim.apollon.backend
         private void RegisterAllAvailableHandle()
         {
 
-            this.RegisterAllAvailableHandle<ApollonAbstractGenericHandle>();
-            this.RegisterAllAvailableHandle<ApollonAbstractTCPStreamHandle>();
-            this.RegisterAllAvailableHandle<ApollonAbstractNativeDLLHandle>();
+            this.RegisterAllAvailableHandle<ApollonAbstractHandle>();
+            // this.RegisterAllAvailableHandle<ApollonAbstractGenericHandle>();
+            // this.RegisterAllAvailableHandle<ApollonAbstractTCPStreamHandle>();
+            // this.RegisterAllAvailableHandle<ApollonAbstractNativeDLLHandle>();
             
         } /* RegisterAllAvailableHandle() */
 

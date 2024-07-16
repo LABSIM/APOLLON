@@ -50,7 +50,7 @@ namespace Labsim.apollon.backend
         } /* enum */
 
         static readonly int s_status_history_depth = 2; 
-        protected System.Collections.Generic.Queue<StatusIDType> InternalStatus { get; set; } = new(s_status_history_depth);
+        protected System.Collections.Generic.Queue<StatusIDType> InternalStatus { get; set; } = new(new[]{ StatusIDType.None, StatusIDType.None});
 
         public StatusIDType CurrentStatus  => this.InternalStatus.First();
         public StatusIDType PreviousStatus => this.InternalStatus.Last();
