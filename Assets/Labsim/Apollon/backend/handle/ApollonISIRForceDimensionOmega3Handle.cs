@@ -19,6 +19,7 @@
 //
 
 // avoid namespace pollution
+using System.Windows.Forms;
 using UnityEngine.UIElements;
 
 namespace Labsim.apollon.backend.handle
@@ -94,23 +95,28 @@ namespace Labsim.apollon.backend.handle
         protected sealed override RosMessageTypes.LexikhumOatGateway.DownstreamMsg Downstream()
         {
             return new(
-                ++_s_downstream_uuid,
-                new( 
-                    new(
-                        this.CommandObject.transform.position.x, 
-                        this.CommandObject.transform.position.y, 
-                        this.CommandObject.transform.position.z
+                uuid: 
+                    ++_s_downstream_uuid,
+                entity_world_pose: 
+                    new( 
+                        position: new(
+                            this.CommandObject.transform.position.x, 
+                            this.CommandObject.transform.position.y, 
+                            this.CommandObject.transform.position.z
+                        ),
+                        orientation: new(
+                            this.CommandObject.transform.rotation.x, 
+                            this.CommandObject.transform.rotation.y, 
+                            this.CommandObject.transform.rotation.z, 
+                            this.CommandObject.transform.rotation.w
+                        )
                     ),
-                    new(
-                        this.CommandObject.transform.rotation.x, 
-                        this.CommandObject.transform.rotation.y, 
-                        this.CommandObject.transform.rotation.z, 
-                        this.CommandObject.transform.rotation.w
-                    )
-                ),
-                new(),
-                new(),
-                new()
+                param_gate_size_forward: 
+                    new(),
+                param_gate_size_dodge: 
+                    new(),
+                param_gate_gradiant_force:
+                    new()
             );
         }
 

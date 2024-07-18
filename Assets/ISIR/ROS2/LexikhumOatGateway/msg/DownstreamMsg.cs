@@ -45,26 +45,26 @@ namespace RosMessageTypes.LexikhumOatGateway
         // 
         //  param_gate_size_forward : parametized forward size zone of the haptic gate in SI unit (meter)
         // 
-        public Geometry.Vector3Msg param_gate_size_forward;
+        public Geometry.PointMsg param_gate_size_forward;
         // 
         //  param_gate_size_dodge : parametized dodge size zone of the haptic gate in SI unit (meter)
         // 
-        public Geometry.Vector3Msg param_gate_size_dodge;
+        public Geometry.PointMsg param_gate_size_dodge;
         // 
         //  param_gate_gradiant_force : parametized gradiant of force applied by the haptic arm (N) ?
         // 
-        public Geometry.Vector3Msg param_gate_gradiant_force;
+        public Geometry.PointMsg param_gate_gradiant_force;
 
         public DownstreamMsg()
         {
             this.uuid = 0;
             this.entity_world_pose = new Geometry.PoseMsg();
-            this.param_gate_size_forward = new Geometry.Vector3Msg();
-            this.param_gate_size_dodge = new Geometry.Vector3Msg();
-            this.param_gate_gradiant_force = new Geometry.Vector3Msg();
+            this.param_gate_size_forward = new Geometry.PointMsg();
+            this.param_gate_size_dodge = new Geometry.PointMsg();
+            this.param_gate_gradiant_force = new Geometry.PointMsg();
         }
 
-        public DownstreamMsg(ulong uuid, Geometry.PoseMsg entity_world_pose, Geometry.Vector3Msg param_gate_size_forward, Geometry.Vector3Msg param_gate_size_dodge, Geometry.Vector3Msg param_gate_gradiant_force)
+        public DownstreamMsg(ulong uuid, Geometry.PoseMsg entity_world_pose, Geometry.PointMsg param_gate_size_forward, Geometry.PointMsg param_gate_size_dodge, Geometry.PointMsg param_gate_gradiant_force)
         {
             this.uuid = uuid;
             this.entity_world_pose = entity_world_pose;
@@ -79,9 +79,9 @@ namespace RosMessageTypes.LexikhumOatGateway
         {
             deserializer.Read(out this.uuid);
             this.entity_world_pose = Geometry.PoseMsg.Deserialize(deserializer);
-            this.param_gate_size_forward = Geometry.Vector3Msg.Deserialize(deserializer);
-            this.param_gate_size_dodge = Geometry.Vector3Msg.Deserialize(deserializer);
-            this.param_gate_gradiant_force = Geometry.Vector3Msg.Deserialize(deserializer);
+            this.param_gate_size_forward = Geometry.PointMsg.Deserialize(deserializer);
+            this.param_gate_size_dodge = Geometry.PointMsg.Deserialize(deserializer);
+            this.param_gate_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
         }
 
         public override void SerializeTo(MessageSerializer serializer)

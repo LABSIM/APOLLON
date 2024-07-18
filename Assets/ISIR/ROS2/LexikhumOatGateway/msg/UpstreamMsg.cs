@@ -41,35 +41,35 @@ namespace RosMessageTypes.LexikhumOatGateway
         // 
         //  haptic_arm_world_position : position of the haptic arm in SI unit (meter)
         // 
-        public Geometry.Vector3Msg haptic_arm_world_position;
+        public Geometry.PointMsg haptic_arm_world_position;
         // 
         //  gate_world_position : position of the current haptic center of the gate in SI unit (meter)
         // 
-        public Geometry.Vector3Msg gate_world_position;
+        public Geometry.PointMsg gate_world_position;
         // 
         //  gate_size_forward : forward size zone of the current haptic gate in SI unit (meter)
         // 
-        public Geometry.Vector3Msg gate_size_forward;
+        public Geometry.PointMsg gate_size_forward;
         // 
         //  gate_size_dodge : dodge size zone of the current haptic gate in SI unit (meter)
         // 
-        public Geometry.Vector3Msg gate_size_dodge;
+        public Geometry.PointMsg gate_size_dodge;
         // 
         //  gate_gradiant_force : gradiant of force applied by the haptic arm (N) ?
         // 
-        public Geometry.Vector3Msg gate_gradiant_force;
+        public Geometry.PointMsg gate_gradiant_force;
 
         public UpstreamMsg()
         {
             this.uuid = 0;
-            this.haptic_arm_world_position = new Geometry.Vector3Msg();
-            this.gate_world_position = new Geometry.Vector3Msg();
-            this.gate_size_forward = new Geometry.Vector3Msg();
-            this.gate_size_dodge = new Geometry.Vector3Msg();
-            this.gate_gradiant_force = new Geometry.Vector3Msg();
+            this.haptic_arm_world_position = new Geometry.PointMsg();
+            this.gate_world_position = new Geometry.PointMsg();
+            this.gate_size_forward = new Geometry.PointMsg();
+            this.gate_size_dodge = new Geometry.PointMsg();
+            this.gate_gradiant_force = new Geometry.PointMsg();
         }
 
-        public UpstreamMsg(ulong uuid, Geometry.Vector3Msg haptic_arm_world_position, Geometry.Vector3Msg gate_world_position, Geometry.Vector3Msg gate_size_forward, Geometry.Vector3Msg gate_size_dodge, Geometry.Vector3Msg gate_gradiant_force)
+        public UpstreamMsg(ulong uuid, Geometry.PointMsg haptic_arm_world_position, Geometry.PointMsg gate_world_position, Geometry.PointMsg gate_size_forward, Geometry.PointMsg gate_size_dodge, Geometry.PointMsg gate_gradiant_force)
         {
             this.uuid = uuid;
             this.haptic_arm_world_position = haptic_arm_world_position;
@@ -84,11 +84,11 @@ namespace RosMessageTypes.LexikhumOatGateway
         private UpstreamMsg(MessageDeserializer deserializer)
         {
             deserializer.Read(out this.uuid);
-            this.haptic_arm_world_position = Geometry.Vector3Msg.Deserialize(deserializer);
-            this.gate_world_position = Geometry.Vector3Msg.Deserialize(deserializer);
-            this.gate_size_forward = Geometry.Vector3Msg.Deserialize(deserializer);
-            this.gate_size_dodge = Geometry.Vector3Msg.Deserialize(deserializer);
-            this.gate_gradiant_force = Geometry.Vector3Msg.Deserialize(deserializer);
+            this.haptic_arm_world_position = Geometry.PointMsg.Deserialize(deserializer);
+            this.gate_world_position = Geometry.PointMsg.Deserialize(deserializer);
+            this.gate_size_forward = Geometry.PointMsg.Deserialize(deserializer);
+            this.gate_size_dodge = Geometry.PointMsg.Deserialize(deserializer);
+            this.gate_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
         }
 
         public override void SerializeTo(MessageSerializer serializer)
