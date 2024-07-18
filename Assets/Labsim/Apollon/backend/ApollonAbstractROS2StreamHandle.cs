@@ -18,6 +18,10 @@
 // If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Windows.Forms;
+using UnityEngine.ResourceManagement.ResourceProviders.Simulation;
+using UnityEngine.UIElements.Experimental;
+
 namespace Labsim.apollon.backend
 {
 
@@ -29,9 +33,59 @@ namespace Labsim.apollon.backend
 
         #region ROS2 settings decl.
 
-        public static string s_ROS2DownstreamTopicName = "ONERA_to_ISIR_Downstream";
-        public static string s_ROS2UpstreamTopicName   = "ISIR_to_ONERA_Upstream";
-        public static float  s_ROS2DownstreamMessageFrequency = 0.2f;
+        public interface IROS2Settings
+        {
+
+            public string DownstreamTopicName { get; }
+            public string UpstreamTopicName { get; }
+            public float DownstreamMessagePeriod { get; }
+
+        } /* interface IROS2Settings */ 
+
+        public sealed class DefaultROS2Settings
+            : IROS2Settings
+        {
+
+            private string m_ROS2UpstreamTopicName = "/DefaultUpstream";
+            public string UpstreamTopicName 
+            { 
+                get => this.m_ROS2UpstreamTopicName; 
+                private set => this.m_ROS2UpstreamTopicName = value; 
+            }
+
+            private string m_ROS2DownstreamTopicName = "/DefaultDownstream";
+            public string DownstreamTopicName 
+            { 
+                get => this.m_ROS2DownstreamTopicName; 
+                private set => this.m_ROS2DownstreamTopicName = value; 
+            }
+
+            private float m_ROS2DownstreamMessagePeriod = 0.5f;
+            public float DownstreamMessagePeriod 
+            { 
+                get => this.m_ROS2DownstreamMessagePeriod; 
+                private set => this.m_ROS2DownstreamMessagePeriod = value; 
+            }
+
+        } /* class DefaultROS2Settings */
+
+        protected virtual IROS2Settings WrapROS2Settings()
+        {
+            return new DefaultROS2Settings();
+        }
+
+        private IROS2Settings m_ROS2Settings = null;
+        public IROS2Settings ROS2Settings 
+        {
+            get 
+            {
+                if(this.m_ROS2Settings == null)
+                {
+                    this.m_ROS2Settings = this.WrapROS2Settings();
+                }
+                return this.m_ROS2Settings;
+            }
+        }
 
         private Unity.Robotics.ROSTCPConnector.ROSConnection m_ROS2Connection = null;
         private float m_ROS2TimeElapsed = 0.0f;
@@ -63,14 +117,14 @@ namespace Labsim.apollon.backend
                 // ROS publishing
                 this.m_ROS2TimeElapsed += UnityEngine.Time.fixedDeltaTime;
 
-                if (this.m_ROS2TimeElapsed > s_ROS2DownstreamMessageFrequency)
+                if (this.m_ROS2TimeElapsed > this.ROS2Settings.DownstreamMessagePeriod)
                 {
 
                     // acquire payload 
                     var payload = this.DownstreamCallback();
 
                     // Finally send the message to server_endpoint.py running in ROS2
-                    this.m_ROS2Connection.Publish(s_ROS2DownstreamTopicName, payload);
+                    this.m_ROS2Connection.Publish(this.ROS2Settings.DownstreamTopicName, payload);
                     this.m_ROS2TimeElapsed = 0.0f;
 
                 } /* if() */
@@ -113,10 +167,10 @@ namespace Labsim.apollon.backend
 
                 // ROS2 init
                 this.m_ROS2Connection.RegisterPublisher<DownstreamMsgT>(
-                    s_ROS2DownstreamTopicName
+                    this.ROS2Settings.DownstreamTopicName
                 );
                 this.m_ROS2Connection.Subscribe<UpstreamMsgT>(
-                    s_ROS2UpstreamTopicName, 
+                    this.ROS2Settings.UpstreamTopicName, 
                     this.UpstreamCallback
                 );
 
@@ -163,7 +217,7 @@ namespace Labsim.apollon.backend
 
                 // ROS2 Unsubscribing from all
                 this.m_ROS2Connection.Unsubscribe(
-                    s_ROS2UpstreamTopicName
+                    this.ROS2Settings.UpstreamTopicName
                 );
 
                 // reseting callbacks

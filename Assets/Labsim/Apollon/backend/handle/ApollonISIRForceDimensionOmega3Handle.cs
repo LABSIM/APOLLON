@@ -24,7 +24,7 @@ using UnityEngine.UIElements;
 namespace Labsim.apollon.backend.handle
 {
 
-    public class ApollonISIRForceDimensionOmega3Handle
+    public sealed class ApollonISIRForceDimensionOmega3Handle
         : ApollonAbstractROS2StreamHandle< 
             RosMessageTypes.LexikhumOatGateway.DownstreamMsg, 
             RosMessageTypes.LexikhumOatGateway.UpstreamMsg 
@@ -35,6 +35,42 @@ namespace Labsim.apollon.backend.handle
         {
             return ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle;
         }
+
+        #region ROS2 settings decl.
+
+        public sealed class CurrentROS2Settings
+            : IROS2Settings
+        {
+
+            private string m_ROS2UpstreamTopicName = "/gateway/ISIR_to_ONERA_Upstream";
+            public string UpstreamTopicName 
+            { 
+                get => this.m_ROS2UpstreamTopicName; 
+                private set => this.m_ROS2UpstreamTopicName = value; 
+            }
+
+            private string m_ROS2DownstreamTopicName = "/gateway/ONERA_to_ISIR_Downstream";
+            public string DownstreamTopicName 
+            { 
+                get => this.m_ROS2DownstreamTopicName; 
+                private set => this.m_ROS2DownstreamTopicName = value; 
+            }
+
+            private float m_ROS2DownstreamMessagePeriod = 0.2f;
+            public float DownstreamMessagePeriod 
+            { 
+                get => this.m_ROS2DownstreamMessagePeriod; 
+                private set => this.m_ROS2DownstreamMessagePeriod = value; 
+            }
+
+        } /* class CurrentROS2Settings */
+
+        protected override IROS2Settings WrapROS2Settings()
+        {
+            return new ApollonISIRForceDimensionOmega3Handle.CurrentROS2Settings();
+        }
+
+        #endregion
         
         #region ROS2 callback decl. 
 
