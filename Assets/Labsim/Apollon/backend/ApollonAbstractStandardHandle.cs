@@ -59,7 +59,9 @@ namespace Labsim.apollon.backend
                 } /* if() */
 
                 // init proc
-                StatusIDType status = StatusIDType.Status_ERROR;
+                StatusIDType 
+                    status   = StatusIDType.Status_ERROR, 
+                    overflow = StatusIDType.None;
                 if ((status = this.HandleInitialize()) != StatusIDType.Status_OK)
                 {
 
@@ -73,7 +75,7 @@ namespace Labsim.apollon.backend
 
                 } /* if() */
                 this.InternalStatus.Enqueue(StatusIDType.State_Run | status);
-
+                while(this.InternalStatus.Count > s_status_history_depth && this.InternalStatus.TryDequeue(out overflow)) {};
                 // pull-up
                 base.OnHandleActivationRequested(sender, arg);
 
@@ -106,7 +108,9 @@ namespace Labsim.apollon.backend
                 } /* if() */
 
                 // close
-                StatusIDType status = StatusIDType.Status_ERROR;
+                StatusIDType 
+                    status   = StatusIDType.Status_ERROR, 
+                    overflow = StatusIDType.None;
                 if ((status = this.HandleClose()) != StatusIDType.Status_OK)
                 {
 
@@ -120,6 +124,7 @@ namespace Labsim.apollon.backend
 
                 } /* if() */
                 this.InternalStatus.Enqueue(StatusIDType.State_Idle | status);
+                while(this.InternalStatus.Count > s_status_history_depth && this.InternalStatus.TryDequeue(out overflow)) {};
 
                 // pull-up
                 base.OnHandleDeactivationRequested(sender, arg);

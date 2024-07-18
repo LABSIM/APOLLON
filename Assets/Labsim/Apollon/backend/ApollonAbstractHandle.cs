@@ -49,11 +49,11 @@ namespace Labsim.apollon.backend
 
         } /* enum */
 
-        static readonly int s_status_history_depth = 2; 
-        protected System.Collections.Generic.Queue<StatusIDType> InternalStatus { get; set; } = new(new[]{ StatusIDType.None, StatusIDType.None});
+        protected static readonly int s_status_history_depth = 2; 
+        protected System.Collections.Generic.Queue<StatusIDType> InternalStatus { get; set; } = new(new[]{ StatusIDType.Idling, StatusIDType.Idling});
 
-        public StatusIDType CurrentStatus  => this.InternalStatus.First();
-        public StatusIDType PreviousStatus => this.InternalStatus.Last();
+        public StatusIDType CurrentStatus  => this.InternalStatus.Last();
+        public StatusIDType PreviousStatus => this.InternalStatus.First();
 
         public bool IsInitialized => this.CurrentStatus == StatusIDType.Running && this.PreviousStatus == StatusIDType.Idling;
         public bool IsClosed      => this.CurrentStatus == StatusIDType.Idling  && this.PreviousStatus == StatusIDType.Running;
