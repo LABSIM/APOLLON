@@ -57,7 +57,7 @@ namespace Labsim.apollon.backend.handle
                 private set => this.m_ROS2DownstreamTopicName = value; 
             }
 
-            private float m_ROS2DownstreamMessagePeriod = 0.2f;
+            private float m_ROS2DownstreamMessagePeriod = 0.1f;
             public float DownstreamMessagePeriod 
             { 
                 get => this.m_ROS2DownstreamMessagePeriod; 
@@ -81,11 +81,6 @@ namespace Labsim.apollon.backend.handle
         protected sealed override void Upstream(RosMessageTypes.LexikhumOatGateway.UpstreamMsg upstream)
         {
 
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonISIRForceDimensionOmega3Handle.Upstream() : call"
-            );
-
             this.SensorObject.transform.localPosition 
                 = new(
                     (float)upstream.haptic_arm_world_position.x,
@@ -100,11 +95,6 @@ namespace Labsim.apollon.backend.handle
         protected sealed override RosMessageTypes.LexikhumOatGateway.DownstreamMsg Downstream()
         {
             
-            // log
-            UnityEngine.Debug.Log(
-                "<color=Blue>Info: </color> ApollonISIRForceDimensionOmega3Handle.Downstream() : call"
-            );
-
             return new(
                 uuid: 
                     ++_s_downstream_uuid,
