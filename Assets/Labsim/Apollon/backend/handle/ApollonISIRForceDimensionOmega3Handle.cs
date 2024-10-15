@@ -37,6 +37,21 @@ namespace Labsim.apollon.backend.handle
             return ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle;
         }
 
+        #region Custom datas
+
+        private UnityEngine.GameObject EffectorSensorObject { get; set; } = null;
+        private UnityEngine.GameObject EffectorCommandObject { get; set; } = null;
+
+        private UnityEngine.GameObject ForceFeedbackSensorObject { get; set; } = null;
+        private UnityEngine.GameObject ForceFeedbackCommandObject { get; set; } = null;
+
+        private UnityEngine.GameObject TargetSensorObject { get; set; } = null;
+        private UnityEngine.GameObject TargetCommandObject { get; set; } = null;
+
+        public string CurrentGateStatus { get; set; } = null;
+
+        #endregion
+
         #region ROS2 settings decl.
 
         public sealed class CurrentROS2Settings
@@ -81,13 +96,13 @@ namespace Labsim.apollon.backend.handle
         protected sealed override void Upstream(RosMessageTypes.LexikhumOatGateway.UpstreamMsg upstream)
         {
 
-            this.SensorObject.transform.localPosition 
+            this.EffectorSensorObject.transform.localPosition 
                 = new(
                     (float)upstream.haptic_arm_world_position.x,
                     (float)upstream.haptic_arm_world_position.y,
                     (float)upstream.haptic_arm_world_position.z
                 );
-            this.SensorObject.transform.localRotation = UnityEngine.Quaternion.identity;
+            this.EffectorSensorObject.transform.localRotation = UnityEngine.Quaternion.identity;
             _s_upstream_uuid = upstream.uuid;
 
         } /* Upstream() */
@@ -101,23 +116,23 @@ namespace Labsim.apollon.backend.handle
                 entity_world_pose: 
                     new( 
                         position: new(
-                            this.CommandObject.transform.position.x, 
-                            this.CommandObject.transform.position.y, 
-                            this.CommandObject.transform.position.z
+                            this.EffectorCommandObject.transform.position.x, 
+                            this.EffectorCommandObject.transform.position.y, 
+                            this.EffectorCommandObject.transform.position.z
                         ),
                         orientation: new(
-                            this.CommandObject.transform.rotation.x, 
-                            this.CommandObject.transform.rotation.y, 
-                            this.CommandObject.transform.rotation.z, 
-                            this.CommandObject.transform.rotation.w
+                            this.EffectorCommandObject.transform.rotation.x, 
+                            this.EffectorCommandObject.transform.rotation.y, 
+                            this.EffectorCommandObject.transform.rotation.z, 
+                            this.EffectorCommandObject.transform.rotation.w
                         )
                     ),
-                param_gate_size_forward: 
+                current_gate_center: 
                     new(),
-                param_gate_size_dodge: 
-                    new(),
-                param_gate_gradiant_force:
-                    new()
+                current_gate_width: 
+                    1,
+                current_phase:
+                    ""
             );
         }
 
@@ -134,7 +149,7 @@ namespace Labsim.apollon.backend.handle
 
         #endregion
 
-        #region Concrete HandleInit/HandleClose pattern impl.
+        #region Concrete HandleInit/HandleClose pattern impl.     
 
         protected sealed override StatusIDType ConcreteHandleInitialize()
         {
@@ -144,21 +159,21 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonISIRForceDimensionOmega3Handle.ConcreteHandleInitialize() : Tail object from scene"
             );
 
-            this.CommandObject
-                = (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
-                    ) as gameplay.device.ApollonGeneric3DoFHapticArmBridge
-                )
-                .ConcreteBehaviour.ImpedenceReference.PhysicalWorld.Command;
-            
-            this.SensorObject
-                = (
-                    gameplay.ApollonGameplayManager.Instance.getBridge(
-                        gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
-                    ) as gameplay.device.ApollonGeneric3DoFHapticArmBridge
-                )
-                .ConcreteBehaviour.ImpedenceReference.PhysicalWorld.Sensor;
+            var generic3DoFHapticArmBridge 
+                = gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                    gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                >(
+                    gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                );
+
+            this.EffectorCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.EffectorImpedence.PhysicalWorld.Command;
+            this.EffectorSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.EffectorImpedence.PhysicalWorld.Sensor;
+
+            this.ForceFeedbackCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackImpedence.PhysicalWorld.Command;
+            this.ForceFeedbackSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackImpedence.PhysicalWorld.Sensor;
+
+            this.TargetCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.TargetImpedence.PhysicalWorld.Command;
+            this.TargetSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.TargetImpedence.PhysicalWorld.Sensor;
 
             // success 
             return StatusIDType.Status_OK;
@@ -173,7 +188,9 @@ namespace Labsim.apollon.backend.handle
                 "<color=Blue>Info: </color> ApollonISIRForceDimensionOmega3Handle.ConcreteHandleClose() : clean internal "
             );
 
-            this.CommandObject = this.SensorObject = null;
+            this.EffectorCommandObject 
+                = this.EffectorSensorObject 
+                = null;
 
             // success
             return StatusIDType.Status_OK;

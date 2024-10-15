@@ -274,6 +274,18 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             
             } /* if() */
 
+            // get an ISIR backend reference
+            var backend 
+                = apollon.backend.ApollonBackendManager.Instance.GetValidHandle(
+                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
+                ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
+
+            // inform ISIR backend
+            backend.CurrentGateStatus 
+                = apollon.ApollonEngine.GetEnumDescription(checkpoint.kind)
+                + "_"
+                + apollon.ApollonEngine.GetEnumDescription(checkpoint.side);
+
             // update data & raise events 
             switch((checkpoint.kind, checkpoint.side))
             {
@@ -282,7 +294,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 {
 
                     // propagate event
-                    this.slalomStarted?.Invoke(this, null); 
+                    this.slalomStarted?.Invoke(this, null);
 
                     break;
 

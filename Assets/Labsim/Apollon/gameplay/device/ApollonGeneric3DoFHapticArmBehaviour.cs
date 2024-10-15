@@ -29,8 +29,16 @@ namespace Labsim.apollon.gameplay.device
         #region properties/members
 
         [UnityEngine.SerializeField]
-        private impedence.ApollonAbstractImpedenceModelBehaviour m_impedenceReference = null;
-        public ref impedence.ApollonAbstractImpedenceModelBehaviour ImpedenceReference => ref this.m_impedenceReference;
+        private impedence.ApollonAbstractImpedenceModelBehaviour m_effectorImpedenceReference = null;
+        public ref impedence.ApollonAbstractImpedenceModelBehaviour EffectorImpedence => ref this.m_effectorImpedenceReference;
+
+        [UnityEngine.SerializeField]
+        private impedence.ApollonAbstractImpedenceModelBehaviour m_forceFeedbackImpedenceReference = null;
+        public ref impedence.ApollonAbstractImpedenceModelBehaviour ForceFeedbackImpedence => ref this.m_forceFeedbackImpedenceReference;
+
+        [UnityEngine.SerializeField]
+        private impedence.ApollonAbstractImpedenceModelBehaviour m_targetImpedenceReference = null;
+        public ref impedence.ApollonAbstractImpedenceModelBehaviour TargetImpedence => ref this.m_targetImpedenceReference;
 
         [UnityEngine.SerializeField]
         public UnityEngine.Vector3 m_initialPosition = UnityEngine.Vector3.zero;
@@ -237,6 +245,31 @@ namespace Labsim.apollon.gameplay.device
                 );
 
             } /* OnEnable()*/
+            
+            private void FixedUpdate()
+            {
+                
+                // // skip
+                // if(this._effector_impedence_ref == null || this._parent == null)
+                // {
+                //     return;
+                // }
+
+                // // downstream
+                // // inject everything
+                // this._effector_impedence_ref.VirtualWorld.Command.transform.position   = this._parent.transform.position;
+                // this._effector_impedence_ref.VirtualWorld.Command.transform.rotation   = this._parent.transform.rotation;
+                // this._effector_impedence_ref.VirtualWorld.Command.transform.localScale = this._parent.transform.localScale;
+
+                // // upstream
+                // // => only use x axis 
+                // this._parent.transform.position.Set(
+                //     this._effector_impedence_ref.VirtualWorld.Sensor.transform.position.x,
+                //     this._parent.transform.position.y,
+                //     this._parent.transform.position.z
+                // );
+                
+            } /* FixedUpdate() */
 
         } /* class ControlController */
 

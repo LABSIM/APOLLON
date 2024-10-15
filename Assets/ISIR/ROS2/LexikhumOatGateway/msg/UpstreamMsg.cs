@@ -39,44 +39,32 @@ namespace RosMessageTypes.LexikhumOatGateway
         //      Datagram to discuss
         //  ============================
         // 
-        //  haptic_arm_world_position : position of the haptic arm in SI unit (meter)
+        //  haptic_arm_world_position : real position of the haptic arm in SI unit (meter)
         // 
         public Geometry.PointMsg haptic_arm_world_position;
         // 
-        //  gate_world_position : position of the current haptic center of the gate in SI unit (meter)
+        //  target_world_position : position of the current haptic center of the gate in SI unit (meter)
         // 
-        public Geometry.PointMsg gate_world_position;
+        public Geometry.PointMsg target_world_position;
         // 
-        //  gate_size_forward : forward size zone of the current haptic gate in SI unit (meter)
+        //  target_gradiant_force : gradiant of force applied by the haptic arm (N) ?
         // 
-        public Geometry.PointMsg gate_size_forward;
-        // 
-        //  gate_size_dodge : dodge size zone of the current haptic gate in SI unit (meter)
-        // 
-        public Geometry.PointMsg gate_size_dodge;
-        // 
-        //  gate_gradiant_force : gradiant of force applied by the haptic arm (N) ?
-        // 
-        public Geometry.PointMsg gate_gradiant_force;
+        public Geometry.PointMsg target_gradiant_force;
 
         public UpstreamMsg()
         {
             this.uuid = 0;
             this.haptic_arm_world_position = new Geometry.PointMsg();
-            this.gate_world_position = new Geometry.PointMsg();
-            this.gate_size_forward = new Geometry.PointMsg();
-            this.gate_size_dodge = new Geometry.PointMsg();
-            this.gate_gradiant_force = new Geometry.PointMsg();
+            this.target_world_position = new Geometry.PointMsg();
+            this.target_gradiant_force = new Geometry.PointMsg();
         }
 
-        public UpstreamMsg(ulong uuid, Geometry.PointMsg haptic_arm_world_position, Geometry.PointMsg gate_world_position, Geometry.PointMsg gate_size_forward, Geometry.PointMsg gate_size_dodge, Geometry.PointMsg gate_gradiant_force)
+        public UpstreamMsg(ulong uuid, Geometry.PointMsg haptic_arm_world_position, Geometry.PointMsg target_world_position, Geometry.PointMsg target_gradiant_force)
         {
             this.uuid = uuid;
             this.haptic_arm_world_position = haptic_arm_world_position;
-            this.gate_world_position = gate_world_position;
-            this.gate_size_forward = gate_size_forward;
-            this.gate_size_dodge = gate_size_dodge;
-            this.gate_gradiant_force = gate_gradiant_force;
+            this.target_world_position = target_world_position;
+            this.target_gradiant_force = target_gradiant_force;
         }
 
         public static UpstreamMsg Deserialize(MessageDeserializer deserializer) => new UpstreamMsg(deserializer);
@@ -85,20 +73,16 @@ namespace RosMessageTypes.LexikhumOatGateway
         {
             deserializer.Read(out this.uuid);
             this.haptic_arm_world_position = Geometry.PointMsg.Deserialize(deserializer);
-            this.gate_world_position = Geometry.PointMsg.Deserialize(deserializer);
-            this.gate_size_forward = Geometry.PointMsg.Deserialize(deserializer);
-            this.gate_size_dodge = Geometry.PointMsg.Deserialize(deserializer);
-            this.gate_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
+            this.target_world_position = Geometry.PointMsg.Deserialize(deserializer);
+            this.target_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
         }
 
         public override void SerializeTo(MessageSerializer serializer)
         {
             serializer.Write(this.uuid);
             serializer.Write(this.haptic_arm_world_position);
-            serializer.Write(this.gate_world_position);
-            serializer.Write(this.gate_size_forward);
-            serializer.Write(this.gate_size_dodge);
-            serializer.Write(this.gate_gradiant_force);
+            serializer.Write(this.target_world_position);
+            serializer.Write(this.target_gradiant_force);
         }
 
         public override string ToString()
@@ -106,10 +90,8 @@ namespace RosMessageTypes.LexikhumOatGateway
             return "UpstreamMsg: " +
             "\nuuid: " + uuid.ToString() +
             "\nhaptic_arm_world_position: " + haptic_arm_world_position.ToString() +
-            "\ngate_world_position: " + gate_world_position.ToString() +
-            "\ngate_size_forward: " + gate_size_forward.ToString() +
-            "\ngate_size_dodge: " + gate_size_dodge.ToString() +
-            "\ngate_gradiant_force: " + gate_gradiant_force.ToString();
+            "\ntarget_world_position: " + target_world_position.ToString() +
+            "\ntarget_gradiant_force: " + target_gradiant_force.ToString();
         }
 
 #if UNITY_EDITOR

@@ -104,9 +104,6 @@ namespace Labsim.apollon.backend
 
         #region ROS2 <=> APOLLON/Unity integration
 
-        protected UnityEngine.GameObject SensorObject { get; set; } = null;
-        protected UnityEngine.GameObject CommandObject { get; set; } = null;
-
         private void OnEngineFixedUpdate(object sender, ApollonEngine.EngineEventArgs args)
         {
 

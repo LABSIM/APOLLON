@@ -43,34 +43,34 @@ namespace RosMessageTypes.LexikhumOatGateway
         // 
         public Geometry.PoseMsg entity_world_pose;
         // 
-        //  param_gate_size_forward : parametized forward size zone of the haptic gate in SI unit (meter)
+        //  current_gate_center : current target gate center in SI unit (meter) 
         // 
-        public Geometry.PointMsg param_gate_size_forward;
+        public Geometry.PointMsg current_gate_center;
         // 
-        //  param_gate_size_dodge : parametized dodge size zone of the haptic gate in SI unit (meter)
+        //  current_gate_width : current target gate width in SI unit (meter) 
         // 
-        public Geometry.PointMsg param_gate_size_dodge;
+        public ulong current_gate_width;
         // 
-        //  param_gate_gradiant_force : parametized gradiant of force applied by the haptic arm (N) ?
+        //  current_phase : current experimental phase (start_cue, gate_ok, gate_nok, stop, start, restart) 
         // 
-        public Geometry.PointMsg param_gate_gradiant_force;
+        public string current_phase;
 
         public DownstreamMsg()
         {
             this.uuid = 0;
             this.entity_world_pose = new Geometry.PoseMsg();
-            this.param_gate_size_forward = new Geometry.PointMsg();
-            this.param_gate_size_dodge = new Geometry.PointMsg();
-            this.param_gate_gradiant_force = new Geometry.PointMsg();
+            this.current_gate_center = new Geometry.PointMsg();
+            this.current_gate_width = 0;
+            this.current_phase = "";
         }
 
-        public DownstreamMsg(ulong uuid, Geometry.PoseMsg entity_world_pose, Geometry.PointMsg param_gate_size_forward, Geometry.PointMsg param_gate_size_dodge, Geometry.PointMsg param_gate_gradiant_force)
+        public DownstreamMsg(ulong uuid, Geometry.PoseMsg entity_world_pose, Geometry.PointMsg current_gate_center, ulong current_gate_width, string current_phase)
         {
             this.uuid = uuid;
             this.entity_world_pose = entity_world_pose;
-            this.param_gate_size_forward = param_gate_size_forward;
-            this.param_gate_size_dodge = param_gate_size_dodge;
-            this.param_gate_gradiant_force = param_gate_gradiant_force;
+            this.current_gate_center = current_gate_center;
+            this.current_gate_width = current_gate_width;
+            this.current_phase = current_phase;
         }
 
         public static DownstreamMsg Deserialize(MessageDeserializer deserializer) => new DownstreamMsg(deserializer);
@@ -79,18 +79,18 @@ namespace RosMessageTypes.LexikhumOatGateway
         {
             deserializer.Read(out this.uuid);
             this.entity_world_pose = Geometry.PoseMsg.Deserialize(deserializer);
-            this.param_gate_size_forward = Geometry.PointMsg.Deserialize(deserializer);
-            this.param_gate_size_dodge = Geometry.PointMsg.Deserialize(deserializer);
-            this.param_gate_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
+            this.current_gate_center = Geometry.PointMsg.Deserialize(deserializer);
+            deserializer.Read(out this.current_gate_width);
+            deserializer.Read(out this.current_phase);
         }
 
         public override void SerializeTo(MessageSerializer serializer)
         {
             serializer.Write(this.uuid);
             serializer.Write(this.entity_world_pose);
-            serializer.Write(this.param_gate_size_forward);
-            serializer.Write(this.param_gate_size_dodge);
-            serializer.Write(this.param_gate_gradiant_force);
+            serializer.Write(this.current_gate_center);
+            serializer.Write(this.current_gate_width);
+            serializer.Write(this.current_phase);
         }
 
         public override string ToString()
@@ -98,9 +98,9 @@ namespace RosMessageTypes.LexikhumOatGateway
             return "DownstreamMsg: " +
             "\nuuid: " + uuid.ToString() +
             "\nentity_world_pose: " + entity_world_pose.ToString() +
-            "\nparam_gate_size_forward: " + param_gate_size_forward.ToString() +
-            "\nparam_gate_size_dodge: " + param_gate_size_dodge.ToString() +
-            "\nparam_gate_gradiant_force: " + param_gate_gradiant_force.ToString();
+            "\ncurrent_gate_center: " + current_gate_center.ToString() +
+            "\ncurrent_gate_width: " + current_gate_width.ToString() +
+            "\ncurrent_phase: " + current_phase.ToString();
         }
 
 #if UNITY_EDITOR
