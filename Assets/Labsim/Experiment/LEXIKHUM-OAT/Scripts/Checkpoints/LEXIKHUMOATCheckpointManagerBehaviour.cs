@@ -19,6 +19,8 @@
 //
 
 // avoid namespace pollution
+using System.Linq;
+
 namespace Labsim.experiment.LEXIKHUM_OAT
 {
 
@@ -122,7 +124,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 } /* foreach() */
 
-            } /* foreach() */            
+            } /* foreach() */    
+
+            // finally reoder Slalom by checkpoints "deepness" 
+            // --> see. IComparable concept implementation in LEXIKHUMOATCheckpointBehaviour
+            this.Slalom.Sort();
 
         } /* OnSceneLoaded*() */
 
@@ -280,11 +286,58 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
                 ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
 
-            // inform ISIR backend
-            backend.CurrentGateStatus 
-                = apollon.ApollonEngine.GetEnumDescription(checkpoint.kind)
-                + "_"
-                + apollon.ApollonEngine.GetEnumDescription(checkpoint.side);
+            // update ISIR backend with current & next
+
+            var current_behaviour
+                = this.Slalom.Find(item => item.Equals(checkpoint));
+            var next_behaviour
+                = this.Slalom.Last().Equals(current_behaviour)
+                ? current_behaviour
+                : this.Slalom[this.Slalom.FindIndex(item => item.Equals(current_behaviour)) + 1];
+            
+            var center_cylinder 
+                = next_behaviour.GetComponentsInChildren<UnityEngine.Transform>().Where(obj => obj.gameObject.name == "Cylinder").First();
+            var external_cylinder 
+                = next_behaviour.GetComponentsInChildren<UnityEngine.Transform>().Where(obj => obj.gameObject.name == "ExternalCylinder").First();
+
+            if( (current_behaviour != null) 
+                && (next_behaviour != null)
+                && (center_cylinder != null)
+                && (external_cylinder != null)
+            )
+            {
+                
+                // ok, update backend ref data for downstream
+                
+                backend.NextGateKind             = apollon.ApollonEngine.GetEnumDescription(next_behaviour.CheckpointKind);
+                backend.NextGateSide             = apollon.ApollonEngine.GetEnumDescription(next_behaviour.CheckpointSide);
+                backend.NextGateWorldPosition    = next_behaviour.transform.position;
+                backend.NextGateWidth 
+                    = UnityEngine.Mathf.Abs(
+                        UnityEngine.Vector3.Distance(
+                            center_cylinder.position,
+                            external_cylinder.position
+                        )
+                    );
+
+            }
+            else
+            {
+                
+                // log
+                UnityEngine.Debug.LogError(
+                    "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, one of the raised behaviour or child was not found in current slalom... ( current:" 
+                    + current_behaviour != null ? "found" : "not_found"
+                    + ", next:"
+                    + next_behaviour != null ? "found" : "not_found"
+                    + ", center:"
+                    + center_cylinder != null ? "found" : "not_found"
+                    + ", external:"
+                    + external_cylinder != null ? "found" : "not_found"
+                    + ")"
+                );
+
+            } /* if() */
 
             // update data & raise events 
             switch((checkpoint.kind, checkpoint.side))

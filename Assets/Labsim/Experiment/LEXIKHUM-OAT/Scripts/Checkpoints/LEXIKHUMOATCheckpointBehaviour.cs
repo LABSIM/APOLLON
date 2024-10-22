@@ -19,13 +19,14 @@
 //
 
 // avoid namespace pollution
-using Unity.Logging.Sinks;
-
 namespace Labsim.experiment.LEXIKHUM_OAT
 {
 
     public class LEXIKHUMOATCheckpointBehaviour
         : UnityEngine.MonoBehaviour
+        , System.IEquatable<LEXIKHUMOATCheckpointBehaviour>
+        , System.IComparable<LEXIKHUMOATCheckpointBehaviour>
+        , System.IEquatable<LEXIKHUMOATResults.PhaseCResults.Checkpoint>
     {
 
         [UnityEngine.SerializeField]
@@ -86,6 +87,133 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             );
 
         } /* OnTriggerEnter() */
+
+        #endregion
+
+        #region IEquatable interface impl.
+
+        public bool Equals(LEXIKHUMOATCheckpointBehaviour other)
+        {
+
+            return (
+                (other != null)
+                && (this.CheckpointKind == other.CheckpointKind)
+                && (this.CheckpointSide == other.CheckpointSide)
+                && (this.transform == other.transform)
+                && (this.name == other.name)
+            );
+
+        } /* Equals(LEXIKHUMOATCheckpointBehaviour) */
+
+        public bool Equals(LEXIKHUMOATResults.PhaseCResults.Checkpoint other)
+        {
+
+            return (
+                (other != null)
+                && (this.CheckpointKind == other.kind)
+                && (this.CheckpointSide == other.side)
+                && (this.transform.position.x == other.world_position[0])
+                && (this.transform.position.y == other.world_position[1])
+                && (this.transform.position.z == other.world_position[2])
+            );
+
+        } /* Equals(LEXIKHUMOATResults.PhaseCResults.Checkpoint) */
+
+        public override bool Equals(System.Object obj)
+        {
+
+            // try cast into indentical first
+            var same = obj as LEXIKHUMOATCheckpointBehaviour;
+            if(same != null)
+            {
+                return this.Equals(same);
+            }
+
+            // else, whatever
+            return this.Equals(obj as LEXIKHUMOATResults.PhaseCResults.Checkpoint);
+
+        } /* Equals(System.Object) */
+
+        // public static bool operator == (LEXIKHUMOATCheckpointBehaviour left, LEXIKHUMOATCheckpointBehaviour right)
+        // {
+
+        //     if (((object)left) == null || ((object)right) == null)
+        //     {
+        //         return System.Object.Equals(left, right);
+        //     }
+
+        //     // otherwise
+        //     return left.Equals(right);
+
+        // } /*  operator==() */
+
+        // public static bool operator == (LEXIKHUMOATCheckpointBehaviour left, LEXIKHUMOATResults.PhaseCResults.Checkpoint right)
+        // {
+
+        //     if (((object)left) == null || ((object)right) == null)
+        //     {
+        //         return System.Object.Equals(left, right);
+        //     }
+
+        //     // otherwise
+        //     return left.Equals(right);
+
+        // } /*  operator==() */
+
+        // public static bool operator != (LEXIKHUMOATCheckpointBehaviour left, LEXIKHUMOATCheckpointBehaviour right)
+        // {
+
+        //     if (((object)left) == null || ((object)right) == null)
+        //     {
+        //         return !System.Object.Equals(left, right);
+        //     }
+
+        //     // otherwise
+        //     return !left.Equals(right);
+
+        // } /*  operator!=() */
+
+        // public static bool operator != (LEXIKHUMOATCheckpointBehaviour left, LEXIKHUMOATResults.PhaseCResults.Checkpoint right)
+        // {
+
+        //     if (((object)left) == null || ((object)right) == null)
+        //     {
+        //         return !System.Object.Equals(left, right);
+        //     }
+
+        //     // otherwise
+        //     return !left.Equals(right);
+
+        // } /*  operator!=() */
+
+        public override int GetHashCode()
+        {
+
+            // combine properties 
+            return System.HashCode.Combine(
+                this.CheckpointKind,
+                this.CheckpointSide,
+                this.transform,
+                this.name
+            );
+
+        } /* GetHashCode() */
+
+        #endregion
+
+        #region IComparable interface impl.
+
+        public int CompareTo(LEXIKHUMOATCheckpointBehaviour other)
+        {
+
+            // If other is not a valid object reference, this instance is greater.
+            if (other == null) return 1;
+
+            // The checkpoint comparison depends on the comparison of
+            // the "z" deepness values.
+            return this.transform.position.z.CompareTo(other.transform.position.z);
+
+        } /* CompareTo(LEXIKHUMOATCheckpointBehaviour) */
 
         #endregion
 

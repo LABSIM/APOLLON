@@ -48,7 +48,14 @@ namespace Labsim.apollon.backend.handle
         private UnityEngine.GameObject TargetSensorObject { get; set; } = null;
         private UnityEngine.GameObject TargetCommandObject { get; set; } = null;
 
-        public string CurrentGateStatus { get; set; } = null;
+        // public string CurrentSide { get; set; } = null;
+        // public string CurrentKind { get; set; } = null;
+        // public UnityEngine.Vector3 CurrentWorldPosition { get; set; } = UnityEngine.Vector3.zero;
+        
+        public string NextGateSide { get; set; } = null;
+        public string NextGateKind { get; set; } = null;
+        public float NextGateWidth { get; set; } = float.NaN;
+        public UnityEngine.Vector3 NextGateWorldPosition { get; set; } = UnityEngine.Vector3.zero;
 
         #endregion
 
@@ -96,13 +103,43 @@ namespace Labsim.apollon.backend.handle
         protected sealed override void Upstream(RosMessageTypes.LexikhumOatGateway.UpstreamMsg upstream)
         {
 
+            // the effector transform
             this.EffectorSensorObject.transform.localPosition 
                 = new(
                     (float)upstream.haptic_arm_world_position.x,
                     (float)upstream.haptic_arm_world_position.y,
                     (float)upstream.haptic_arm_world_position.z
                 );
-            this.EffectorSensorObject.transform.localRotation = UnityEngine.Quaternion.identity;
+            this.EffectorSensorObject.transform.localRotation 
+                = UnityEngine.Quaternion.identity;
+            this.EffectorSensorObject.transform.localScale
+                = UnityEngine.Vector3.one;
+
+            // the haptic feedback target position
+            this.TargetSensorObject.transform.localPosition
+                = new(
+                    (float)upstream.target_world_position.x,
+                    (float)upstream.target_world_position.y,
+                    (float)upstream.target_world_position.z
+                );
+            this.TargetSensorObject.transform.localRotation 
+                = UnityEngine.Quaternion.identity;
+            this.TargetSensorObject.transform.localScale
+                = UnityEngine.Vector3.one;
+
+            // the haptic feedback target gradiant
+            this.ForceFeedbackSensorObject.transform.localPosition
+                = new(  
+                    (float)upstream.target_gradiant_force.x,
+                    (float)upstream.target_gradiant_force.y,
+                    (float)upstream.target_gradiant_force.z
+                );
+            this.ForceFeedbackSensorObject.transform.localRotation 
+                = UnityEngine.Quaternion.identity;
+            this.ForceFeedbackSensorObject.transform.localScale
+                = UnityEngine.Vector3.one;
+
+            // the message uuid
             _s_upstream_uuid = upstream.uuid;
 
         } /* Upstream() */
@@ -128,11 +165,15 @@ namespace Labsim.apollon.backend.handle
                         )
                     ),
                 current_gate_center: 
-                    new(),
+                    new(
+                        this.NextGateWorldPosition.x,
+                        this.NextGateWorldPosition.y,
+                        this.NextGateWorldPosition.z
+                    ),
                 current_gate_width: 
-                    1,
+                    (ulong)this.NextGateWidth,
                 current_phase:
-                    ""
+                    this.NextGateKind + "_" + this.NextGateSide
             );
         }
 
