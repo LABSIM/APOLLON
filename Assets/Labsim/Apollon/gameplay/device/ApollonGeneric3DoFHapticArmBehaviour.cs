@@ -33,12 +33,12 @@ namespace Labsim.apollon.gameplay.device
         public ref impedence.ApollonAbstractImpedenceModelBehaviour EffectorImpedence => ref this.m_effectorImpedenceReference;
 
         [UnityEngine.SerializeField]
-        private impedence.ApollonAbstractImpedenceModelBehaviour m_forceFeedbackImpedenceReference = null;
-        public ref impedence.ApollonAbstractImpedenceModelBehaviour ForceFeedbackImpedence => ref this.m_forceFeedbackImpedenceReference;
+        private impedence.ApollonAbstractImpedenceModelBehaviour m_forceFeedbackGragiantImpedenceReference = null;
+        public ref impedence.ApollonAbstractImpedenceModelBehaviour ForceFeedbackGragiantImpedence => ref this.m_forceFeedbackGragiantImpedenceReference;
 
         [UnityEngine.SerializeField]
-        private impedence.ApollonAbstractImpedenceModelBehaviour m_targetImpedenceReference = null;
-        public ref impedence.ApollonAbstractImpedenceModelBehaviour TargetImpedence => ref this.m_targetImpedenceReference;
+        private impedence.ApollonAbstractImpedenceModelBehaviour m_forceFeedbackObjectiveImpedenceReference = null;
+        public ref impedence.ApollonAbstractImpedenceModelBehaviour ForceFeedbackObjectiveImpedence => ref this.m_forceFeedbackObjectiveImpedenceReference;
 
         [UnityEngine.SerializeField]
         public UnityEngine.Vector3 m_initialPosition = UnityEngine.Vector3.zero;
@@ -54,7 +54,7 @@ namespace Labsim.apollon.gameplay.device
 
         #region controllers implemantion
 
-        internal class InitController
+        internal class  InitController
             : UnityEngine.MonoBehaviour
         {
             private ApollonGeneric3DoFHapticArmBehaviour _parent = null;
@@ -93,7 +93,42 @@ namespace Labsim.apollon.gameplay.device
                 } /* if() */
 
                 // initialize
-                // TODO ?
+                this._parent.EffectorImpedence.VirtualWorld.Command.transform.SetPositionAndRotation(
+                    this._parent.InitialPosition,
+                    UnityEngine.Quaternion.Euler(
+                        this._parent.InitialRotation
+                    )
+                );
+                this._parent.EffectorImpedence.PhysicalWorld.Command.transform.SetPositionAndRotation(
+                    this._parent.InitialPosition,
+                    UnityEngine.Quaternion.Euler(
+                        this._parent.InitialRotation
+                    )
+                );
+                this._parent.ForceFeedbackObjectiveImpedence.VirtualWorld.Command.transform.SetPositionAndRotation(
+                    this._parent.InitialPosition,
+                    UnityEngine.Quaternion.Euler(
+                        this._parent.InitialRotation
+                    )
+                );
+                this._parent.ForceFeedbackObjectiveImpedence.PhysicalWorld.Command.transform.SetPositionAndRotation(
+                    this._parent.InitialPosition,
+                    UnityEngine.Quaternion.Euler(
+                        this._parent.InitialRotation
+                    )
+                );
+                this._parent.ForceFeedbackGragiantImpedence.VirtualWorld.Command.transform.SetPositionAndRotation(
+                    this._parent.InitialPosition,
+                    UnityEngine.Quaternion.Euler(
+                        this._parent.InitialRotation
+                    )
+                );
+                this._parent.ForceFeedbackGragiantImpedence.PhysicalWorld.Command.transform.SetPositionAndRotation(
+                    this._parent.InitialPosition,
+                    UnityEngine.Quaternion.Euler(
+                        this._parent.InitialRotation
+                    )
+                );
 
                 // log
                 UnityEngine.Debug.Log(

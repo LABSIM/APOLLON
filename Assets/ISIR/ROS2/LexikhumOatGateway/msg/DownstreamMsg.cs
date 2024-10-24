@@ -51,7 +51,31 @@ namespace RosMessageTypes.LexikhumOatGateway
         // 
         public ulong current_gate_width;
         // 
-        //  current_phase : current experimental phase (start_cue, gate_ok, gate_nok, stop, start, restart) 
+        //  current_mode : current experimental shared intention mode
+        //  [
+        //      Undefined,  <- default
+        //      Haptic,  
+        //      Auditive, 
+        //      Visual, 
+        //      Practice
+        //  ] 
+        // 
+        public string current_mode;
+        // 
+        //  current_phase : current experimental phase (string)
+        //  (
+        //      Undefined_Undefined, <- default
+        //      Initialize_Session, 
+        //      Initialize_Trial,  
+        //      End_Trial, 
+        //      End_Session, 
+        //      Cue_Left,
+        //      Cue_Right,
+        //      StrongCue_Left,
+        //      StrongCue_Right,
+        //      Success_Center,
+        //      Arrival_Center
+        //  ) 
         // 
         public string current_phase;
 
@@ -61,15 +85,17 @@ namespace RosMessageTypes.LexikhumOatGateway
             this.entity_world_pose = new Geometry.PoseMsg();
             this.current_gate_center = new Geometry.PointMsg();
             this.current_gate_width = 0;
+            this.current_mode = "";
             this.current_phase = "";
         }
 
-        public DownstreamMsg(ulong uuid, Geometry.PoseMsg entity_world_pose, Geometry.PointMsg current_gate_center, ulong current_gate_width, string current_phase)
+        public DownstreamMsg(ulong uuid, Geometry.PoseMsg entity_world_pose, Geometry.PointMsg current_gate_center, ulong current_gate_width, string current_mode, string current_phase)
         {
             this.uuid = uuid;
             this.entity_world_pose = entity_world_pose;
             this.current_gate_center = current_gate_center;
             this.current_gate_width = current_gate_width;
+            this.current_mode = current_mode;
             this.current_phase = current_phase;
         }
 
@@ -81,6 +107,7 @@ namespace RosMessageTypes.LexikhumOatGateway
             this.entity_world_pose = Geometry.PoseMsg.Deserialize(deserializer);
             this.current_gate_center = Geometry.PointMsg.Deserialize(deserializer);
             deserializer.Read(out this.current_gate_width);
+            deserializer.Read(out this.current_mode);
             deserializer.Read(out this.current_phase);
         }
 
@@ -90,6 +117,7 @@ namespace RosMessageTypes.LexikhumOatGateway
             serializer.Write(this.entity_world_pose);
             serializer.Write(this.current_gate_center);
             serializer.Write(this.current_gate_width);
+            serializer.Write(this.current_mode);
             serializer.Write(this.current_phase);
         }
 
@@ -100,6 +128,7 @@ namespace RosMessageTypes.LexikhumOatGateway
             "\nentity_world_pose: " + entity_world_pose.ToString() +
             "\ncurrent_gate_center: " + current_gate_center.ToString() +
             "\ncurrent_gate_width: " + current_gate_width.ToString() +
+            "\ncurrent_mode: " + current_mode.ToString() +
             "\ncurrent_phase: " + current_phase.ToString();
         }
 

@@ -200,6 +200,19 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
             );
 
+            // get our ISIR backend
+            var backend 
+                = apollon.backend.ApollonBackendManager.Instance.GetValidHandle(
+                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
+                ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
+
+            // init session
+            backend.NextGateKind          = "Initialize";
+            backend.NextGateSide          = "Session";
+            backend.SharedIntentionMode   = "";
+            backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
+            backend.NextGateWidth         = 0.0f;
+
             // base call
             base.OnExperimentSessionBegin(sender, arg);
 
@@ -220,6 +233,19 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // base call
             base.OnExperimentSessionEnd(sender, arg);
+
+            // get our ISIR backend
+            var backend 
+                = apollon.backend.ApollonBackendManager.Instance.GetValidHandle(
+                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
+                ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
+
+            // end session
+            backend.NextGateKind          = "End";
+            backend.NextGateSide          = "Session";
+            backend.SharedIntentionMode   = "";
+            backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
+            backend.NextGateWidth         = 0.0f;
 
             // deactivate all entity
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(

@@ -285,7 +285,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             private LEXIKHUMOATEntityBehaviour _parent = null;
             private UnityEngine.Rigidbody _rigidbody = null;
             private System.EventHandler<LEXIKHUMOATControlDispatcher.LEXIKHUMOATControlEventArgs> _interaction_lambda = null;
-            // private apollon.gameplay.device.impedence.IApollonImpedenceModel _effector_impedence_ref = null;
+            private apollon.gameplay.device.impedence.IApollonImpedenceModel _impedence_ref = null;
 
 
             // private System 
@@ -342,12 +342,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         }
                     );
 
-                // this._effector_impedence_ref
-                //     = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
-                //         apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
-                //     >(
-                //         apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
-                //     ).ConcreteBehaviour.EffectorImpedence;
+                this._impedence_ref
+                    = apollon.gameplay.ApollonGameplayManager.Instance.getConcreteBridge<
+                        apollon.gameplay.device.ApollonGeneric3DoFHapticArmBridge
+                    >(
+                        apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
+                    ).ConcreteBehaviour.EffectorImpedence;
 
 
                 // map joystick 
@@ -413,30 +413,30 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             } /* OnDisable() */
 
-            // private void FixedUpdate()
-            // {
+            private void FixedUpdate()
+            {
                 
-            //     // skip
-            //     if(this._effector_impedence_ref == null || this._parent == null)
-            //     {
-            //         return;
-            //     }
+                // skip
+                if(this._impedence_ref == null || this._parent == null)
+                {
+                    return;
+                }
 
-            //     // downstream
-            //     // inject everything
-            //     this._effector_impedence_ref.VirtualWorld.Command.transform.position   = this._parent.transform.position;
-            //     this._effector_impedence_ref.VirtualWorld.Command.transform.rotation   = this._parent.transform.rotation;
-            //     this._effector_impedence_ref.VirtualWorld.Command.transform.localScale = this._parent.transform.localScale;
+                // downstream
+                // inject everything
+                this._impedence_ref.VirtualWorld.Sensor.transform.position   = this._parent.transform.position;
+                this._impedence_ref.VirtualWorld.Sensor.transform.rotation   = this._parent.transform.rotation;
+                this._impedence_ref.VirtualWorld.Sensor.transform.localScale = this._parent.transform.localScale;
 
-            //     // upstream
-            //     // => only use x axis 
-            //     this._parent.transform.position.Set(
-            //         this._effector_impedence_ref.VirtualWorld.Sensor.transform.position.x,
-            //         this._parent.transform.position.y,
-            //         this._parent.transform.position.z
-            //     );
+                // upstream
+                // => only use x axis (closed loop) 
+                this._parent.transform.position.Set(
+                    this._impedence_ref.VirtualWorld.Command.transform.position.x,
+                    this._parent.transform.position.y,
+                    this._parent.transform.position.z
+                );
                 
-            // } /* FixedUpdate() */
+            } /* FixedUpdate() */
 
             // private void Update()
             // {

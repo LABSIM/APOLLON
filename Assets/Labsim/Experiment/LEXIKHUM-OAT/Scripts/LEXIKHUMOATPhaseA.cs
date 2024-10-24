@@ -60,6 +60,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 >(
                     apollon.gameplay.ApollonGameplayManager.GameplayIDType.Generic3DoFHapticArm
                 );
+            var backend 
+                = apollon.backend.ApollonBackendManager.Instance.GetValidHandle(
+                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
+                ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
 
             // setup UI frontend instructions
             this.FSM.CurrentInstruction = "Initialisation";
@@ -75,7 +79,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // raise init event
             haptic_arm.ConcreteDispatcher.RaiseInit();
-            
+
+            // init trial
+            backend.NextGateKind          = "Initialize";
+            backend.NextGateSide          = "Trial";
+            backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
+            backend.NextGateWidth         = 0.0f;
+            backend.SharedIntentionMode   = "";
+
             // get elapsed 
             var remaining = this.FSM.CurrentSettings.PhaseA.duration - current_stopwatch.ElapsedMilliseconds;
             if(remaining > 0.0f)

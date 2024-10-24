@@ -284,9 +284,23 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 "<color=Blue>Info: </color> LEXIKHUMOATPhaseD.OnEntry() : deactivating LEXIKHUMOAT Vecteur"
             );
 
+            // inactivate entity
             apollon.gameplay.ApollonGameplayManager.Instance.setInactive(
                 apollon.gameplay.ApollonGameplayManager.GameplayIDType.LEXIKHUMOATEntity
             );
+
+            // update backend status
+            var backend 
+                = apollon.backend.ApollonBackendManager.Instance.GetValidHandle(
+                    apollon.backend.ApollonBackendManager.HandleIDType.ApollonISIRForceDimensionOmega3Handle
+                ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
+
+            // end trial
+            backend.NextGateKind          = "End";
+            backend.NextGateSide          = "Trial";
+            backend.SharedIntentionMode   = "";
+            backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
+            backend.NextGateWidth         = 0.0f;
 
             // log
             UnityEngine.Debug.Log(

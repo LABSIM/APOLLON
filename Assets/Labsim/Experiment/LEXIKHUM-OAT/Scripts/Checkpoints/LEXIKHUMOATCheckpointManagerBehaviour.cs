@@ -128,7 +128,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // finally reoder Slalom by checkpoints "deepness" 
             // --> see. IComparable concept implementation in LEXIKHUMOATCheckpointBehaviour
-            this.Slalom.Sort();
+            this.Slalom.Sort((x,y) => x.CompareTo(y));
 
         } /* OnSceneLoaded*() */
 
@@ -287,38 +287,186 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 ) as apollon.backend.handle.ApollonISIRForceDimensionOmega3Handle;
 
             // update ISIR backend with current & next
-
             var current_behaviour
                 = this.Slalom.Find(item => item.Equals(checkpoint));
+            var bLast = this.Slalom.Last().Equals(current_behaviour);
             var next_behaviour
-                = this.Slalom.Last().Equals(current_behaviour)
+                = bLast
                 ? current_behaviour
-                : this.Slalom[this.Slalom.FindIndex(item => item.Equals(current_behaviour)) + 1];
-            
-            var center_cylinder 
-                = next_behaviour.GetComponentsInChildren<UnityEngine.Transform>().Where(obj => obj.gameObject.name == "Cylinder").First();
-            var external_cylinder 
-                = next_behaviour.GetComponentsInChildren<UnityEngine.Transform>().Where(obj => obj.gameObject.name == "ExternalCylinder").First();
+                : this.Slalom[
+                    this.Slalom.FindIndex(
+                        /* start index == next one */ 
+                        this.Slalom.FindIndex(item => item.Equals(current_behaviour)) + 1,
+                        /* predicate */
+                        item => (
+                            (item.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Cue)
+                            || (item.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.StrongCue)
+                            || (item.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success)
+                            || (item.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival)
+                        )
+                    )
+                ];
 
             if( (current_behaviour != null) 
                 && (next_behaviour != null)
-                && (center_cylinder != null)
-                && (external_cylinder != null)
             )
             {
                 
                 // ok, update backend ref data for downstream
-                
-                backend.NextGateKind             = apollon.ApollonEngine.GetEnumDescription(next_behaviour.CheckpointKind);
-                backend.NextGateSide             = apollon.ApollonEngine.GetEnumDescription(next_behaviour.CheckpointSide);
-                backend.NextGateWorldPosition    = next_behaviour.transform.position;
-                backend.NextGateWidth 
-                    = UnityEngine.Mathf.Abs(
-                        UnityEngine.Vector3.Distance(
-                            center_cylinder.position,
-                            external_cylinder.position
-                        )
+                backend.NextGateKind
+                    = apollon.ApollonEngine.GetEnumDescription(
+                        bLast 
+                        ? LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Undefined
+                        : next_behaviour.CheckpointKind
                     );
+                backend.NextGateSide
+                    = apollon.ApollonEngine.GetEnumDescription(
+                        bLast 
+                        ? LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Undefined
+                        : next_behaviour.CheckpointSide
+                    );
+                backend.SharedIntentionMode
+                    = apollon.ApollonEngine.GetEnumDescription(
+                            bLast 
+                            ? LEXIKHUMOATSettings.SharedIntentionIDType.Undefined
+                            : (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile)
+                                .CurrentSettings
+                                .PhaseC
+                                .shared_intention_type
+                        );
+
+                // depend on next target
+                if(bLast)
+                {
+
+                    // reset to default
+                    backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
+                    backend.NextGateWidth         = 0.0f;
+
+                }
+                else if(next_behaviour.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Success)
+                {
+                    
+                    // Obstacle base prefab structure :
+                    // ================================
+                    // +- [prefab]
+                    // | +- offset
+                    // | | +- Cylinder [3DObj]         <==
+                    // | | +- ExternalCylinder [3DObj] <==
+                    // | | +- Cue [Collider]
+                    // | | +- Left [Collider]
+                    // | | +- Right [Collider] 
+                    // | +
+                    // +
+                    var center_cylinder   = next_behaviour.transform.parent.Find("Cylinder");
+                    var external_cylinder = next_behaviour.transform.parent.Find("ExternalCylinder");
+
+                    if( (center_cylinder != null) 
+                        && (external_cylinder != null)
+                    )
+                    {
+
+                        // find gate center position & width
+                        backend.NextGateWorldPosition       
+                            = UnityEngine.Vector3.Lerp(
+                                center_cylinder.position, 
+                                external_cylinder.position, 
+                                0.5f
+                            );
+                        backend.NextGateWidth 
+                            = UnityEngine.Mathf.Abs(
+                                UnityEngine.Vector3.Distance(
+                                    center_cylinder.position,
+                                    external_cylinder.position
+                                )
+                            );
+                            
+                    }
+                    else
+                    {
+
+                        // log
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find gate reference object... ( center:"
+                            + center_cylinder != null ? "found" : "not_found"
+                            + ", external:"
+                            + external_cylinder != null ? "found" : "not_found"
+                            + ")"
+                        );
+                            
+                    } /* if() */
+                
+                }
+                else if(next_behaviour.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival)
+                {
+                    
+                    // Arrival/Departure prefab structure :
+                    // ================================
+                    // +- [prefab]
+                    // | +- offset
+                    // | | +- Plane [Collider] <==
+                    // | +
+                    // +
+                    var plane = next_behaviour.transform.parent.Find("Plane");
+
+                    if(plane != null)
+                    {
+
+                        // so center it at z deepness & infinite width
+                        backend.NextGateWorldPosition       
+                            = new(0.0f, 0.0f, plane.position.z);
+                        backend.NextGateWidth 
+                            = float.PositiveInfinity;
+                            
+                    }
+                    else
+                    {
+
+                        // log
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find Plane reference object..."
+                        );
+                            
+                    } /* if() */
+                
+                }
+                else
+                {
+                
+                    // Obstacle base prefab structure :
+                    // ================================
+                    // +- [prefab]
+                    // | +- offset
+                    // | | +- Cylinder [3DObj]
+                    // | | +- ExternalCylinder [3DObj]
+                    // | | +- Cue [Collider]           <==
+                    // | | +- Left [Collider]
+                    // | | +- Right [Collider] 
+                    // | +
+                    // +
+                    var cue = next_behaviour.transform.parent.Find("Cue");
+
+                    if(cue != null)
+                    {
+
+                        // so center it at z deepness & infinite width
+                        backend.NextGateWorldPosition       
+                            = new(0.0f, 0.0f, cue.position.z);
+                        backend.NextGateWidth 
+                            = float.PositiveInfinity;
+                            
+                    }
+                    else
+                    {
+
+                        // log
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find Cue reference object..."
+                        );
+                            
+                    } /* if() */
+
+                } /* if() */
 
             }
             else
@@ -330,10 +478,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + current_behaviour != null ? "found" : "not_found"
                     + ", next:"
                     + next_behaviour != null ? "found" : "not_found"
-                    + ", center:"
-                    + center_cylinder != null ? "found" : "not_found"
-                    + ", external:"
-                    + external_cylinder != null ? "found" : "not_found"
                     + ")"
                 );
 

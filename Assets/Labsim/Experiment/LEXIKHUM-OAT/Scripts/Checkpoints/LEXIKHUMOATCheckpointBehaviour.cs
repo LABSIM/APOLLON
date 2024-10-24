@@ -108,13 +108,20 @@ namespace Labsim.experiment.LEXIKHUM_OAT
         public bool Equals(LEXIKHUMOATResults.PhaseCResults.Checkpoint other)
         {
 
+            const float _threshold = 0.5f; // 50 cm margin
+
             return (
                 (other != null)
                 && (this.CheckpointKind == other.kind)
                 && (this.CheckpointSide == other.side)
-                && (this.transform.position.x == other.world_position[0])
-                && (this.transform.position.y == other.world_position[1])
-                && (this.transform.position.z == other.world_position[2])
+                // because result checkpoint are intersection of entity with actual checkpoint behaviour, 
+                // we only compare z plane distance
+                // if we are close enough, say from a "_threshold" constant in S.I units, then it's ok
+                && (
+                    UnityEngine.Mathf.Abs(
+                        UnityEngine.Mathf.Abs(this.transform.position.z) - UnityEngine.Mathf.Abs(other.world_position[2])
+                    ) <= _threshold
+                )
             );
 
         } /* Equals(LEXIKHUMOATResults.PhaseCResults.Checkpoint) */

@@ -39,19 +39,17 @@ namespace Labsim.apollon.backend.handle
 
         #region Custom datas
 
+        public string SharedIntentionMode { get; set; } = null;
+
         private UnityEngine.GameObject EffectorSensorObject { get; set; } = null;
         private UnityEngine.GameObject EffectorCommandObject { get; set; } = null;
 
-        private UnityEngine.GameObject ForceFeedbackSensorObject { get; set; } = null;
-        private UnityEngine.GameObject ForceFeedbackCommandObject { get; set; } = null;
+        private UnityEngine.GameObject ForceFeedbackGragiantSensorObject { get; set; } = null;
+        private UnityEngine.GameObject ForceFeedbackGragiantCommandObject { get; set; } = null;
 
-        private UnityEngine.GameObject TargetSensorObject { get; set; } = null;
-        private UnityEngine.GameObject TargetCommandObject { get; set; } = null;
+        private UnityEngine.GameObject ForceFeedbackObjectiveSensorObject { get; set; } = null;
+        private UnityEngine.GameObject ForceFeedbackObjectiveCommandObject { get; set; } = null;
 
-        // public string CurrentSide { get; set; } = null;
-        // public string CurrentKind { get; set; } = null;
-        // public UnityEngine.Vector3 CurrentWorldPosition { get; set; } = UnityEngine.Vector3.zero;
-        
         public string NextGateSide { get; set; } = null;
         public string NextGateKind { get; set; } = null;
         public float NextGateWidth { get; set; } = float.NaN;
@@ -115,28 +113,28 @@ namespace Labsim.apollon.backend.handle
             this.EffectorSensorObject.transform.localScale
                 = UnityEngine.Vector3.one;
 
-            // the haptic feedback target position
-            this.TargetSensorObject.transform.localPosition
+            // the haptic feedback objective position
+            this.ForceFeedbackObjectiveSensorObject.transform.localPosition
                 = new(
                     (float)upstream.target_world_position.x,
                     (float)upstream.target_world_position.y,
                     (float)upstream.target_world_position.z
                 );
-            this.TargetSensorObject.transform.localRotation 
+            this.ForceFeedbackObjectiveSensorObject.transform.localRotation 
                 = UnityEngine.Quaternion.identity;
-            this.TargetSensorObject.transform.localScale
+            this.ForceFeedbackObjectiveSensorObject.transform.localScale
                 = UnityEngine.Vector3.one;
 
             // the haptic feedback target gradiant
-            this.ForceFeedbackSensorObject.transform.localPosition
+            this.ForceFeedbackGragiantSensorObject.transform.localPosition
                 = new(  
                     (float)upstream.target_gradiant_force.x,
                     (float)upstream.target_gradiant_force.y,
                     (float)upstream.target_gradiant_force.z
                 );
-            this.ForceFeedbackSensorObject.transform.localRotation 
+            this.ForceFeedbackGragiantSensorObject.transform.localRotation 
                 = UnityEngine.Quaternion.identity;
-            this.ForceFeedbackSensorObject.transform.localScale
+            this.ForceFeedbackGragiantSensorObject.transform.localScale
                 = UnityEngine.Vector3.one;
 
             // the message uuid
@@ -172,6 +170,8 @@ namespace Labsim.apollon.backend.handle
                     ),
                 current_gate_width: 
                     (ulong)this.NextGateWidth,
+                current_mode :
+                    this.SharedIntentionMode,
                 current_phase:
                     this.NextGateKind + "_" + this.NextGateSide
             );
@@ -210,11 +210,11 @@ namespace Labsim.apollon.backend.handle
             this.EffectorCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.EffectorImpedence.PhysicalWorld.Command;
             this.EffectorSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.EffectorImpedence.PhysicalWorld.Sensor;
 
-            this.ForceFeedbackCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackImpedence.PhysicalWorld.Command;
-            this.ForceFeedbackSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackImpedence.PhysicalWorld.Sensor;
+            this.ForceFeedbackGragiantCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackGragiantImpedence.PhysicalWorld.Command;
+            this.ForceFeedbackGragiantSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackGragiantImpedence.PhysicalWorld.Sensor;
 
-            this.TargetCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.TargetImpedence.PhysicalWorld.Command;
-            this.TargetSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.TargetImpedence.PhysicalWorld.Sensor;
+            this.ForceFeedbackObjectiveCommandObject = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackObjectiveImpedence.PhysicalWorld.Command;
+            this.ForceFeedbackObjectiveSensorObject  = generic3DoFHapticArmBridge.ConcreteBehaviour.ForceFeedbackObjectiveImpedence.PhysicalWorld.Sensor;
 
             // success 
             return StatusIDType.Status_OK;
