@@ -104,9 +104,9 @@ namespace Labsim.apollon.backend.handle
             // the effector transform
             this.EffectorSensorObject.transform.localPosition 
                 = new(
-                    (float)upstream.haptic_arm_world_position.x,
-                    (float)upstream.haptic_arm_world_position.y,
-                    (float)upstream.haptic_arm_world_position.z
+                    (float)upstream.effector_world_position.x,
+                    (float)upstream.effector_world_position.y,
+                    (float)upstream.effector_world_position.z
                 );
             this.EffectorSensorObject.transform.localRotation 
                 = UnityEngine.Quaternion.identity;
@@ -116,9 +116,9 @@ namespace Labsim.apollon.backend.handle
             // the haptic feedback objective position
             this.ForceFeedbackObjectiveSensorObject.transform.localPosition
                 = new(
-                    (float)upstream.target_world_position.x,
-                    (float)upstream.target_world_position.y,
-                    (float)upstream.target_world_position.z
+                    (float)upstream.force_feedback_objective_world_position.x,
+                    (float)upstream.force_feedback_objective_world_position.y,
+                    (float)upstream.force_feedback_objective_world_position.z
                 );
             this.ForceFeedbackObjectiveSensorObject.transform.localRotation 
                 = UnityEngine.Quaternion.identity;
@@ -128,9 +128,9 @@ namespace Labsim.apollon.backend.handle
             // the haptic feedback target gradiant
             this.ForceFeedbackGragiantSensorObject.transform.localPosition
                 = new(  
-                    (float)upstream.target_gradiant_force.x,
-                    (float)upstream.target_gradiant_force.y,
-                    (float)upstream.target_gradiant_force.z
+                    (float)upstream.force_feedback_gradiant_force.x,
+                    (float)upstream.force_feedback_gradiant_force.y,
+                    (float)upstream.force_feedback_gradiant_force.z
                 );
             this.ForceFeedbackGragiantSensorObject.transform.localRotation 
                 = UnityEngine.Quaternion.identity;

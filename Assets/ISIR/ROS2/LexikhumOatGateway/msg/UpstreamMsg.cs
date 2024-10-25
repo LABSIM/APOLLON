@@ -39,32 +39,32 @@ namespace RosMessageTypes.LexikhumOatGateway
         //      Datagram to discuss
         //  ============================
         // 
-        //  haptic_arm_world_position : real position of the haptic arm in SI unit (meter)
+        //  effector_world_position : real position of the effector, aka. the haptic arm, in SI unit (meter)
         // 
-        public Geometry.PointMsg haptic_arm_world_position;
+        public Geometry.PointMsg effector_world_position;
         // 
-        //  target_world_position : position of the current haptic center of the gate in SI unit (meter)
+        //  force_feedback_objective_world_position : position of the computed current force feedback objective in SI unit (meter)
         // 
-        public Geometry.PointMsg target_world_position;
+        public Geometry.PointMsg force_feedback_objective_world_position;
         // 
-        //  target_gradiant_force : gradiant of force applied by the haptic arm (N) ?
+        //  force_feedback_gradiant_force : gradiant of force applied by the force feedback arm (N) ?
         // 
-        public Geometry.PointMsg target_gradiant_force;
+        public Geometry.PointMsg force_feedback_gradiant_force;
 
         public UpstreamMsg()
         {
             this.uuid = 0;
-            this.haptic_arm_world_position = new Geometry.PointMsg();
-            this.target_world_position = new Geometry.PointMsg();
-            this.target_gradiant_force = new Geometry.PointMsg();
+            this.effector_world_position = new Geometry.PointMsg();
+            this.force_feedback_objective_world_position = new Geometry.PointMsg();
+            this.force_feedback_gradiant_force = new Geometry.PointMsg();
         }
 
-        public UpstreamMsg(ulong uuid, Geometry.PointMsg haptic_arm_world_position, Geometry.PointMsg target_world_position, Geometry.PointMsg target_gradiant_force)
+        public UpstreamMsg(ulong uuid, Geometry.PointMsg effector_world_position, Geometry.PointMsg force_feedback_objective_world_position, Geometry.PointMsg force_feedback_gradiant_force)
         {
             this.uuid = uuid;
-            this.haptic_arm_world_position = haptic_arm_world_position;
-            this.target_world_position = target_world_position;
-            this.target_gradiant_force = target_gradiant_force;
+            this.effector_world_position = effector_world_position;
+            this.force_feedback_objective_world_position = force_feedback_objective_world_position;
+            this.force_feedback_gradiant_force = force_feedback_gradiant_force;
         }
 
         public static UpstreamMsg Deserialize(MessageDeserializer deserializer) => new UpstreamMsg(deserializer);
@@ -72,26 +72,26 @@ namespace RosMessageTypes.LexikhumOatGateway
         private UpstreamMsg(MessageDeserializer deserializer)
         {
             deserializer.Read(out this.uuid);
-            this.haptic_arm_world_position = Geometry.PointMsg.Deserialize(deserializer);
-            this.target_world_position = Geometry.PointMsg.Deserialize(deserializer);
-            this.target_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
+            this.effector_world_position = Geometry.PointMsg.Deserialize(deserializer);
+            this.force_feedback_objective_world_position = Geometry.PointMsg.Deserialize(deserializer);
+            this.force_feedback_gradiant_force = Geometry.PointMsg.Deserialize(deserializer);
         }
 
         public override void SerializeTo(MessageSerializer serializer)
         {
             serializer.Write(this.uuid);
-            serializer.Write(this.haptic_arm_world_position);
-            serializer.Write(this.target_world_position);
-            serializer.Write(this.target_gradiant_force);
+            serializer.Write(this.effector_world_position);
+            serializer.Write(this.force_feedback_objective_world_position);
+            serializer.Write(this.force_feedback_gradiant_force);
         }
 
         public override string ToString()
         {
             return "UpstreamMsg: " +
             "\nuuid: " + uuid.ToString() +
-            "\nhaptic_arm_world_position: " + haptic_arm_world_position.ToString() +
-            "\ntarget_world_position: " + target_world_position.ToString() +
-            "\ntarget_gradiant_force: " + target_gradiant_force.ToString();
+            "\neffector_world_position: " + effector_world_position.ToString() +
+            "\nforce_feedback_objective_world_position: " + force_feedback_objective_world_position.ToString() +
+            "\nforce_feedback_gradiant_force: " + force_feedback_gradiant_force.ToString();
         }
 
 #if UNITY_EDITOR
