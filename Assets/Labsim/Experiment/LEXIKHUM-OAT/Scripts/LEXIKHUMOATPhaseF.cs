@@ -50,7 +50,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             System.Diagnostics.Stopwatch current_stopwatch = new System.Diagnostics.Stopwatch();
 
             // synchronisation mechanism (TCS + lambda event handler)
-            var sync_point = new System.Threading.Tasks.TaskCompletionSource<(float, float, string, long, long)>();
+            var sync_point = new System.Threading.Tasks.TaskCompletionSource<(float, float, string, /*long,*/ long)>();
 
             // lambdas
             System.EventHandler<
@@ -68,8 +68,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         UnityEngine.Time.time,
                         /* host timestamp */
                         apollon.ApollonHighResolutionTime.Now.ToString(),
-                        /* host timestamp */
-                        Varjo.XR.VarjoTime.GetVarjoTimestamp(),
+                        // /* varjo timestamp */
+                        // Varjo.XR.VarjoTime.GetVarjoTimestamp(),
                         /* current timestamp */
                         current_stopwatch.ElapsedMilliseconds
                     ));
@@ -118,7 +118,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 += user_interaction_local_function;
 
             // wait until any result
-            (float, float, string, long, long) result = await sync_point.Task;
+            (float, float, string, /*long,*/ long) result = await sync_point.Task;
 
             // unregister our synchronisation function
 
@@ -139,13 +139,13 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // 1 - user responded
             // 2 - unity render timestamp
             // 3 - host timestamp
-            // 4 - host timestamp
+            // 4 - varjo timestamp
             // 5 - current timestamp
             this.FSM.CurrentResults.PhaseF.user_response_value                  = result.Item1;
             this.FSM.CurrentResults.PhaseF.user_response_timing_unity_timestamp = result.Item2;
             this.FSM.CurrentResults.PhaseF.user_response_timing_host_timestamp  = result.Item3;
             // this.FSM.CurrentResults.PhaseF.user_response_timing_varjo_timestamp = result.Item4;
-            this.FSM.CurrentResults.PhaseF.user_elapsed_ms_since_entry          = result.Item5;
+            this.FSM.CurrentResults.PhaseF.user_elapsed_ms_since_entry          = result.Item4;
             
             // log
             UnityEngine.Debug.Log(
