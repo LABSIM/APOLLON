@@ -19,7 +19,7 @@ namespace UXF
 		public bool logDebugLogCalls = true;
 
 		private Session session;
-		private string[] header = new string[]{ "host_timestamp", "unity_timestamp"/*, "varjo_timestamp",*/ "log_type", "message"};
+		private string[] header = new string[]{ "host_timestamp", "unity_timestamp"/*, "varjo_timestamp"*/, "log_type", "message"};
 		private UXFDataTable table;
 
 		void Awake()
