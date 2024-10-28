@@ -43,7 +43,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // save timestamps
             this.FSM.CurrentResults.PhaseJ.timing_on_entry_host_timestamp  = apollon.ApollonHighResolutionTime.Now.ToString();
-            this.FSM.CurrentResults.PhaseJ.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
+            // this.FSM.CurrentResults.PhaseJ.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseJ.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             // currrent timestamp
@@ -144,7 +144,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             this.FSM.CurrentResults.PhaseJ.user_response_value                  = result.Item1;
             this.FSM.CurrentResults.PhaseJ.user_response_timing_unity_timestamp = result.Item2;
             this.FSM.CurrentResults.PhaseJ.user_response_timing_host_timestamp  = result.Item3;
-            this.FSM.CurrentResults.PhaseJ.user_response_timing_varjo_timestamp = result.Item4;
+            // this.FSM.CurrentResults.PhaseJ.user_response_timing_varjo_timestamp = result.Item4;
             this.FSM.CurrentResults.PhaseJ.user_elapsed_ms_since_entry          = result.Item5;
             
             // log
@@ -153,7 +153,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 + "user responded["          + this.FSM.CurrentResults.PhaseJ.user_response_value                  + "]"
                 + "/unity render timestamp[" + this.FSM.CurrentResults.PhaseJ.user_response_timing_unity_timestamp + "]"
                 + "/host timestamp["         + this.FSM.CurrentResults.PhaseJ.user_response_timing_host_timestamp  + "]"
-                + "/host timestamp["         + this.FSM.CurrentResults.PhaseJ.user_response_timing_varjo_timestamp + "]"
+                // + "/varjo timestamp["         + this.FSM.CurrentResults.PhaseJ.user_response_timing_varjo_timestamp + "]"
                 + "/current timestamp["      + this.FSM.CurrentResults.PhaseJ.user_elapsed_ms_since_entry          + "]"
                 + "}"
             );
@@ -176,7 +176,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             
             // save timestamps
             this.FSM.CurrentResults.PhaseJ.timing_on_exit_host_timestamp  = apollon.ApollonHighResolutionTime.Now.ToString();
-            this.FSM.CurrentResults.PhaseJ.timing_on_exit_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
+            // this.FSM.CurrentResults.PhaseJ.timing_on_exit_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseJ.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

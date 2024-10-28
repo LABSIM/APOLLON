@@ -53,9 +53,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             #region timing_*
 
-            public long 
-                timing_on_entry_varjo_timestamp = -1,
-                timing_on_exit_varjo_timestamp  = -1;
+            // public long 
+            //     timing_on_entry_varjo_timestamp = -1,
+            //     timing_on_exit_varjo_timestamp  = -1;
 
             public float 
                 timing_on_entry_unity_timestamp = float.NaN,
@@ -155,7 +155,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 public string timing_host_timestamp = "";
 
-                public long timing_varjo_timestamp = -1;
+                // public long timing_varjo_timestamp = -1;
 
                 public float[] local_position = new float[3]{ float.NaN, float.NaN, float.NaN };
 
@@ -215,9 +215,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_host_timestamp[" 
                                 + value.timing_host_timestamp
                             + "]"
-                            + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp[" 
-                                + value.timing_varjo_timestamp.ToString()
-                            + "]"
+                            // + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp[" 
+                            //     + value.timing_varjo_timestamp.ToString()
+                            // + "]"
                             + "\n - C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_local_position[" 
                                 + "[" + System.String.Join(";", value.local_position) + "]"
                             + "]"
@@ -258,7 +258,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -279,7 +279,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -300,7 +300,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -321,7 +321,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -342,7 +342,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -363,7 +363,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -384,7 +384,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -405,7 +405,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -426,7 +426,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -447,7 +447,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -468,7 +468,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -489,7 +489,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             public string user_response_timing_host_timestamp = "";
 
-            public long user_response_timing_varjo_timestamp = -1;
+            // public long user_response_timing_varjo_timestamp = -1;
 
             public float user_response_value = float.NaN;
 
@@ -546,24 +546,24 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["A_timing_on_exit_unity_timestamp"]  = this.PhaseA.timing_on_exit_unity_timestamp.ToString();
                 results["A_timing_on_entry_host_timestamp"]  = this.PhaseA.timing_on_entry_host_timestamp;
                 results["A_timing_on_exit_host_timestamp"]   = this.PhaseA.timing_on_exit_host_timestamp;
-                results["A_timing_on_entry_varjo_timestamp"] = this.PhaseA.timing_on_entry_varjo_timestamp.ToString();
-                results["A_timing_on_exit_varjo_timestamp"]  = this.PhaseA.timing_on_exit_varjo_timestamp.ToString();
+                // results["A_timing_on_entry_varjo_timestamp"] = this.PhaseA.timing_on_entry_varjo_timestamp.ToString();
+                // results["A_timing_on_exit_varjo_timestamp"]  = this.PhaseA.timing_on_exit_varjo_timestamp.ToString();
 
                 // phase B
                 results["B_timing_on_entry_unity_timestamp"] = this.PhaseB.timing_on_entry_unity_timestamp.ToString();
                 results["B_timing_on_exit_unity_timestamp"]  = this.PhaseB.timing_on_exit_unity_timestamp.ToString();
                 results["B_timing_on_entry_host_timestamp"]  = this.PhaseB.timing_on_entry_host_timestamp;
                 results["B_timing_on_exit_host_timestamp"]   = this.PhaseB.timing_on_exit_host_timestamp;
-                results["B_timing_on_entry_varjo_timestamp"] = this.PhaseB.timing_on_entry_varjo_timestamp.ToString();
-                results["B_timing_on_exit_varjo_timestamp"]  = this.PhaseB.timing_on_exit_varjo_timestamp.ToString();
+                // results["B_timing_on_entry_varjo_timestamp"] = this.PhaseB.timing_on_entry_varjo_timestamp.ToString();
+                // results["B_timing_on_exit_varjo_timestamp"]  = this.PhaseB.timing_on_exit_varjo_timestamp.ToString();
 
                 // phase C
                 results["C_timing_on_entry_unity_timestamp"] = this.PhaseC.timing_on_entry_unity_timestamp.ToString();
                 results["C_timing_on_exit_unity_timestamp"]  = this.PhaseC.timing_on_exit_unity_timestamp.ToString();
                 results["C_timing_on_entry_host_timestamp"]  = this.PhaseC.timing_on_entry_host_timestamp;
                 results["C_timing_on_exit_host_timestamp"]   = this.PhaseC.timing_on_exit_host_timestamp;
-                results["C_timing_on_entry_varjo_timestamp"] = this.PhaseC.timing_on_entry_varjo_timestamp.ToString();
-                results["C_timing_on_exit_varjo_timestamp"]  = this.PhaseC.timing_on_exit_varjo_timestamp.ToString();                
+                // results["C_timing_on_entry_varjo_timestamp"] = this.PhaseC.timing_on_entry_varjo_timestamp.ToString();
+                // results["C_timing_on_exit_varjo_timestamp"]  = this.PhaseC.timing_on_exit_varjo_timestamp.ToString();                
 
                  // for each run in trial
                 foreach(
@@ -593,7 +593,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_side"]                   = apollon.ApollonEngine.GetEnumDescription(value.side);
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_unity_timestamp"] = value.timing_unity_timestamp.ToString();
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_host_timestamp"]  = value.timing_host_timestamp;
-                        results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp"] = value.timing_varjo_timestamp.ToString();
+                        // results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_timing_varjo_timestamp"] = value.timing_varjo_timestamp.ToString();
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_local_position"]         = "[" + System.String.Join(";", value.local_position)    + "]";
                         results["C_run_" + run_index + "_user_checkpoint_" + index + "_crossing_world_position"]         = "[" + System.String.Join(";", value.world_position)    + "]";
                         
@@ -606,19 +606,19 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["D_timing_on_exit_unity_timestamp"]  = this.PhaseD.timing_on_exit_unity_timestamp.ToString();
                 results["D_timing_on_entry_host_timestamp"]  = this.PhaseD.timing_on_entry_host_timestamp;
                 results["D_timing_on_exit_host_timestamp"]   = this.PhaseD.timing_on_exit_host_timestamp;
-                results["D_timing_on_entry_varjo_timestamp"] = this.PhaseD.timing_on_entry_varjo_timestamp.ToString();
-                results["D_timing_on_exit_varjo_timestamp"]  = this.PhaseD.timing_on_exit_varjo_timestamp.ToString();
+                // results["D_timing_on_entry_varjo_timestamp"] = this.PhaseD.timing_on_entry_varjo_timestamp.ToString();
+                // results["D_timing_on_exit_varjo_timestamp"]  = this.PhaseD.timing_on_exit_varjo_timestamp.ToString();
 
                 // phase E
                 results["E_timing_on_entry_unity_timestamp"]      = this.PhaseE.timing_on_entry_unity_timestamp.ToString();
                 results["E_timing_on_exit_unity_timestamp"]       = this.PhaseE.timing_on_exit_unity_timestamp.ToString();
                 results["E_timing_on_entry_host_timestamp"]       = this.PhaseE.timing_on_entry_host_timestamp;
                 results["E_timing_on_exit_host_timestamp"]        = this.PhaseE.timing_on_exit_host_timestamp;
-                results["E_timing_on_entry_varjo_timestamp"]      = this.PhaseE.timing_on_entry_varjo_timestamp.ToString();
-                results["E_timing_on_exit_varjo_timestamp"]       = this.PhaseE.timing_on_exit_varjo_timestamp.ToString();     
+                // results["E_timing_on_entry_varjo_timestamp"]      = this.PhaseE.timing_on_entry_varjo_timestamp.ToString();
+                // results["E_timing_on_exit_varjo_timestamp"]       = this.PhaseE.timing_on_exit_varjo_timestamp.ToString();     
                 results["E_user_response_timing_unity_timestamp"] = this.PhaseE.user_response_timing_unity_timestamp.ToString();
                 results["E_user_response_timing_host_timestamp"]  = this.PhaseE.user_response_timing_host_timestamp;
-                results["E_user_response_timing_varjo_timestamp"] = this.PhaseE.user_response_timing_varjo_timestamp.ToString();
+                // results["E_user_response_timing_varjo_timestamp"] = this.PhaseE.user_response_timing_varjo_timestamp.ToString();
                 results["E_user_response_value"]                  = this.PhaseE.user_response_value.ToString();
                 results["E_user_elapsed_ms_since_entry"]          = this.PhaseE.user_elapsed_ms_since_entry.ToString();
 
@@ -627,11 +627,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["F_timing_on_exit_unity_timestamp"]       = this.PhaseF.timing_on_exit_unity_timestamp.ToString();
                 results["F_timing_on_entry_host_timestamp"]       = this.PhaseF.timing_on_entry_host_timestamp;
                 results["F_timing_on_exit_host_timestamp"]        = this.PhaseF.timing_on_exit_host_timestamp;
-                results["F_timing_on_entry_varjo_timestamp"]      = this.PhaseF.timing_on_entry_varjo_timestamp.ToString();
-                results["F_timing_on_exit_varjo_timestamp"]       = this.PhaseF.timing_on_exit_varjo_timestamp.ToString();     
+                // results["F_timing_on_entry_varjo_timestamp"]      = this.PhaseF.timing_on_entry_varjo_timestamp.ToString();
+                // results["F_timing_on_exit_varjo_timestamp"]       = this.PhaseF.timing_on_exit_varjo_timestamp.ToString();     
                 results["F_user_response_timing_unity_timestamp"] = this.PhaseF.user_response_timing_unity_timestamp.ToString();
                 results["F_user_response_timing_host_timestamp"]  = this.PhaseF.user_response_timing_host_timestamp;
-                results["F_user_response_timing_varjo_timestamp"] = this.PhaseF.user_response_timing_varjo_timestamp.ToString();
+                // results["F_user_response_timing_varjo_timestamp"] = this.PhaseF.user_response_timing_varjo_timestamp.ToString();
                 results["F_user_response_value"]                  = this.PhaseF.user_response_value.ToString();
                 results["F_user_elapsed_ms_since_entry"]          = this.PhaseF.user_elapsed_ms_since_entry.ToString();
 
@@ -640,11 +640,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["G_timing_on_exit_unity_timestamp"]       = this.PhaseG.timing_on_exit_unity_timestamp.ToString();
                 results["G_timing_on_entry_host_timestamp"]       = this.PhaseG.timing_on_entry_host_timestamp;
                 results["G_timing_on_exit_host_timestamp"]        = this.PhaseG.timing_on_exit_host_timestamp;
-                results["G_timing_on_entry_varjo_timestamp"]      = this.PhaseG.timing_on_entry_varjo_timestamp.ToString();
-                results["G_timing_on_exit_varjo_timestamp"]       = this.PhaseG.timing_on_exit_varjo_timestamp.ToString();     
+                // results["G_timing_on_entry_varjo_timestamp"]      = this.PhaseG.timing_on_entry_varjo_timestamp.ToString();
+                // results["G_timing_on_exit_varjo_timestamp"]       = this.PhaseG.timing_on_exit_varjo_timestamp.ToString();     
                 results["G_user_response_timing_unity_timestamp"] = this.PhaseG.user_response_timing_unity_timestamp.ToString();
                 results["G_user_response_timing_host_timestamp"]  = this.PhaseG.user_response_timing_host_timestamp;
-                results["G_user_response_timing_varjo_timestamp"] = this.PhaseG.user_response_timing_varjo_timestamp.ToString();
+                // results["G_user_response_timing_varjo_timestamp"] = this.PhaseG.user_response_timing_varjo_timestamp.ToString();
                 results["G_user_response_value"]                  = this.PhaseG.user_response_value.ToString();
                 results["G_user_elapsed_ms_since_entry"]          = this.PhaseG.user_elapsed_ms_since_entry.ToString();
 
@@ -653,11 +653,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["H_timing_on_exit_unity_timestamp"]       = this.PhaseH.timing_on_exit_unity_timestamp.ToString();
                 results["H_timing_on_entry_host_timestamp"]       = this.PhaseH.timing_on_entry_host_timestamp;
                 results["H_timing_on_exit_host_timestamp"]        = this.PhaseH.timing_on_exit_host_timestamp;
-                results["H_timing_on_entry_varjo_timestamp"]      = this.PhaseH.timing_on_entry_varjo_timestamp.ToString();
-                results["H_timing_on_exit_varjo_timestamp"]       = this.PhaseH.timing_on_exit_varjo_timestamp.ToString();     
+                // results["H_timing_on_entry_varjo_timestamp"]      = this.PhaseH.timing_on_entry_varjo_timestamp.ToString();
+                // results["H_timing_on_exit_varjo_timestamp"]       = this.PhaseH.timing_on_exit_varjo_timestamp.ToString();     
                 results["H_user_response_timing_unity_timestamp"] = this.PhaseH.user_response_timing_unity_timestamp.ToString();
                 results["H_user_response_timing_host_timestamp"]  = this.PhaseH.user_response_timing_host_timestamp;
-                results["H_user_response_timing_varjo_timestamp"] = this.PhaseH.user_response_timing_varjo_timestamp.ToString();
+                // results["H_user_response_timing_varjo_timestamp"] = this.PhaseH.user_response_timing_varjo_timestamp.ToString();
                 results["H_user_response_value"]                  = this.PhaseH.user_response_value.ToString();
                 results["H_user_elapsed_ms_since_entry"]          = this.PhaseH.user_elapsed_ms_since_entry.ToString();
 
@@ -666,11 +666,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["I_timing_on_exit_unity_timestamp"]       = this.PhaseI.timing_on_exit_unity_timestamp.ToString();
                 results["I_timing_on_entry_host_timestamp"]       = this.PhaseI.timing_on_entry_host_timestamp;
                 results["I_timing_on_exit_host_timestamp"]        = this.PhaseI.timing_on_exit_host_timestamp;
-                results["I_timing_on_entry_varjo_timestamp"]      = this.PhaseI.timing_on_entry_varjo_timestamp.ToString();
-                results["I_timing_on_exit_varjo_timestamp"]       = this.PhaseI.timing_on_exit_varjo_timestamp.ToString();     
+                // results["I_timing_on_entry_varjo_timestamp"]      = this.PhaseI.timing_on_entry_varjo_timestamp.ToString();
+                // results["I_timing_on_exit_varjo_timestamp"]       = this.PhaseI.timing_on_exit_varjo_timestamp.ToString();     
                 results["I_user_response_timing_unity_timestamp"] = this.PhaseI.user_response_timing_unity_timestamp.ToString();
                 results["I_user_response_timing_host_timestamp"]  = this.PhaseI.user_response_timing_host_timestamp;
-                results["I_user_response_timing_varjo_timestamp"] = this.PhaseI.user_response_timing_varjo_timestamp.ToString();
+                // results["I_user_response_timing_varjo_timestamp"] = this.PhaseI.user_response_timing_varjo_timestamp.ToString();
                 results["I_user_response_value"]                  = this.PhaseI.user_response_value.ToString();
                 results["I_user_elapsed_ms_since_entry"]          = this.PhaseI.user_elapsed_ms_since_entry.ToString();
 
@@ -679,11 +679,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["J_timing_on_exit_unity_timestamp"]       = this.PhaseJ.timing_on_exit_unity_timestamp.ToString();
                 results["J_timing_on_entry_host_timestamp"]       = this.PhaseJ.timing_on_entry_host_timestamp;
                 results["J_timing_on_exit_host_timestamp"]        = this.PhaseJ.timing_on_exit_host_timestamp;
-                results["J_timing_on_entry_varjo_timestamp"]      = this.PhaseJ.timing_on_entry_varjo_timestamp.ToString();
-                results["J_timing_on_exit_varjo_timestamp"]       = this.PhaseJ.timing_on_exit_varjo_timestamp.ToString();     
+                // results["J_timing_on_entry_varjo_timestamp"]      = this.PhaseJ.timing_on_entry_varjo_timestamp.ToString();
+                // results["J_timing_on_exit_varjo_timestamp"]       = this.PhaseJ.timing_on_exit_varjo_timestamp.ToString();     
                 results["J_user_response_timing_unity_timestamp"] = this.PhaseJ.user_response_timing_unity_timestamp.ToString();
                 results["J_user_response_timing_host_timestamp"]  = this.PhaseJ.user_response_timing_host_timestamp;
-                results["J_user_response_timing_varjo_timestamp"] = this.PhaseJ.user_response_timing_varjo_timestamp.ToString();
+                // results["J_user_response_timing_varjo_timestamp"] = this.PhaseJ.user_response_timing_varjo_timestamp.ToString();
                 results["J_user_response_value"]                  = this.PhaseJ.user_response_value.ToString();
                 results["J_user_elapsed_ms_since_entry"]          = this.PhaseJ.user_elapsed_ms_since_entry.ToString();
 
@@ -692,11 +692,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["K_timing_on_exit_unity_timestamp"]       = this.PhaseK.timing_on_exit_unity_timestamp.ToString();
                 results["K_timing_on_entry_host_timestamp"]       = this.PhaseK.timing_on_entry_host_timestamp;
                 results["K_timing_on_exit_host_timestamp"]        = this.PhaseK.timing_on_exit_host_timestamp;
-                results["K_timing_on_entry_varjo_timestamp"]      = this.PhaseK.timing_on_entry_varjo_timestamp.ToString();
-                results["K_timing_on_exit_varjo_timestamp"]       = this.PhaseK.timing_on_exit_varjo_timestamp.ToString();     
+                // results["K_timing_on_entry_varjo_timestamp"]      = this.PhaseK.timing_on_entry_varjo_timestamp.ToString();
+                // results["K_timing_on_exit_varjo_timestamp"]       = this.PhaseK.timing_on_exit_varjo_timestamp.ToString();     
                 results["K_user_response_timing_unity_timestamp"] = this.PhaseK.user_response_timing_unity_timestamp.ToString();
                 results["K_user_response_timing_host_timestamp"]  = this.PhaseK.user_response_timing_host_timestamp;
-                results["K_user_response_timing_varjo_timestamp"] = this.PhaseK.user_response_timing_varjo_timestamp.ToString();
+                // results["K_user_response_timing_varjo_timestamp"] = this.PhaseK.user_response_timing_varjo_timestamp.ToString();
                 results["K_user_response_value"]                  = this.PhaseK.user_response_value.ToString();
                 results["K_user_elapsed_ms_since_entry"]          = this.PhaseK.user_elapsed_ms_since_entry.ToString();
 
@@ -705,11 +705,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["L_timing_on_exit_unity_timestamp"]       = this.PhaseL.timing_on_exit_unity_timestamp.ToString();
                 results["L_timing_on_entry_host_timestamp"]       = this.PhaseL.timing_on_entry_host_timestamp;
                 results["L_timing_on_exit_host_timestamp"]        = this.PhaseL.timing_on_exit_host_timestamp;
-                results["L_timing_on_entry_varjo_timestamp"]      = this.PhaseL.timing_on_entry_varjo_timestamp.ToString();
-                results["L_timing_on_exit_varjo_timestamp"]       = this.PhaseL.timing_on_exit_varjo_timestamp.ToString();     
+                // results["L_timing_on_entry_varjo_timestamp"]      = this.PhaseL.timing_on_entry_varjo_timestamp.ToString();
+                // results["L_timing_on_exit_varjo_timestamp"]       = this.PhaseL.timing_on_exit_varjo_timestamp.ToString();     
                 results["L_user_response_timing_unity_timestamp"] = this.PhaseL.user_response_timing_unity_timestamp.ToString();
                 results["L_user_response_timing_host_timestamp"]  = this.PhaseL.user_response_timing_host_timestamp;
-                results["L_user_response_timing_varjo_timestamp"] = this.PhaseL.user_response_timing_varjo_timestamp.ToString();
+                // results["L_user_response_timing_varjo_timestamp"] = this.PhaseL.user_response_timing_varjo_timestamp.ToString();
                 results["L_user_response_value"]                  = this.PhaseL.user_response_value.ToString();
                 results["L_user_elapsed_ms_since_entry"]          = this.PhaseL.user_elapsed_ms_since_entry.ToString();
 
@@ -718,11 +718,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["M_timing_on_exit_unity_timestamp"]       = this.PhaseM.timing_on_exit_unity_timestamp.ToString();
                 results["M_timing_on_entry_host_timestamp"]       = this.PhaseM.timing_on_entry_host_timestamp;
                 results["M_timing_on_exit_host_timestamp"]        = this.PhaseM.timing_on_exit_host_timestamp;
-                results["M_timing_on_entry_varjo_timestamp"]      = this.PhaseM.timing_on_entry_varjo_timestamp.ToString();
-                results["M_timing_on_exit_varjo_timestamp"]       = this.PhaseM.timing_on_exit_varjo_timestamp.ToString();     
+                // results["M_timing_on_entry_varjo_timestamp"]      = this.PhaseM.timing_on_entry_varjo_timestamp.ToString();
+                // results["M_timing_on_exit_varjo_timestamp"]       = this.PhaseM.timing_on_exit_varjo_timestamp.ToString();     
                 results["M_user_response_timing_unity_timestamp"] = this.PhaseM.user_response_timing_unity_timestamp.ToString();
                 results["M_user_response_timing_host_timestamp"]  = this.PhaseM.user_response_timing_host_timestamp;
-                results["M_user_response_timing_varjo_timestamp"] = this.PhaseM.user_response_timing_varjo_timestamp.ToString();
+                // results["M_user_response_timing_varjo_timestamp"] = this.PhaseM.user_response_timing_varjo_timestamp.ToString();
                 results["M_user_response_value"]                  = this.PhaseM.user_response_value.ToString();
                 results["M_user_elapsed_ms_since_entry"]          = this.PhaseM.user_elapsed_ms_since_entry.ToString();
 
@@ -731,11 +731,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["N_timing_on_exit_unity_timestamp"]       = this.PhaseN.timing_on_exit_unity_timestamp.ToString();
                 results["N_timing_on_entry_host_timestamp"]       = this.PhaseN.timing_on_entry_host_timestamp;
                 results["N_timing_on_exit_host_timestamp"]        = this.PhaseN.timing_on_exit_host_timestamp;
-                results["N_timing_on_entry_varjo_timestamp"]      = this.PhaseN.timing_on_entry_varjo_timestamp.ToString();
-                results["N_timing_on_exit_varjo_timestamp"]       = this.PhaseN.timing_on_exit_varjo_timestamp.ToString();     
+                // results["N_timing_on_entry_varjo_timestamp"]      = this.PhaseN.timing_on_entry_varjo_timestamp.ToString();
+                // results["N_timing_on_exit_varjo_timestamp"]       = this.PhaseN.timing_on_exit_varjo_timestamp.ToString();     
                 results["N_user_response_timing_unity_timestamp"] = this.PhaseN.user_response_timing_unity_timestamp.ToString();
                 results["N_user_response_timing_host_timestamp"]  = this.PhaseN.user_response_timing_host_timestamp;
-                results["N_user_response_timing_varjo_timestamp"] = this.PhaseN.user_response_timing_varjo_timestamp.ToString();
+                // results["N_user_response_timing_varjo_timestamp"] = this.PhaseN.user_response_timing_varjo_timestamp.ToString();
                 results["N_user_response_value"]                  = this.PhaseN.user_response_value.ToString();
                 results["N_user_elapsed_ms_since_entry"]          = this.PhaseN.user_elapsed_ms_since_entry.ToString();
 
@@ -744,11 +744,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["O_timing_on_exit_unity_timestamp"]       = this.PhaseO.timing_on_exit_unity_timestamp.ToString();
                 results["O_timing_on_entry_host_timestamp"]       = this.PhaseO.timing_on_entry_host_timestamp;
                 results["O_timing_on_exit_host_timestamp"]        = this.PhaseO.timing_on_exit_host_timestamp;
-                results["O_timing_on_entry_varjo_timestamp"]      = this.PhaseO.timing_on_entry_varjo_timestamp.ToString();
-                results["O_timing_on_exit_varjo_timestamp"]       = this.PhaseO.timing_on_exit_varjo_timestamp.ToString();     
+                // results["O_timing_on_entry_varjo_timestamp"]      = this.PhaseO.timing_on_entry_varjo_timestamp.ToString();
+                // results["O_timing_on_exit_varjo_timestamp"]       = this.PhaseO.timing_on_exit_varjo_timestamp.ToString();     
                 results["O_user_response_timing_unity_timestamp"] = this.PhaseO.user_response_timing_unity_timestamp.ToString();
                 results["O_user_response_timing_host_timestamp"]  = this.PhaseO.user_response_timing_host_timestamp;
-                results["O_user_response_timing_varjo_timestamp"] = this.PhaseO.user_response_timing_varjo_timestamp.ToString();
+                // results["O_user_response_timing_varjo_timestamp"] = this.PhaseO.user_response_timing_varjo_timestamp.ToString();
                 results["O_user_response_value"]                  = this.PhaseO.user_response_value.ToString();
                 results["O_user_elapsed_ms_since_entry"]          = this.PhaseO.user_elapsed_ms_since_entry.ToString();
 
@@ -757,11 +757,11 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 results["P_timing_on_exit_unity_timestamp"]       = this.PhaseP.timing_on_exit_unity_timestamp.ToString();
                 results["P_timing_on_entry_host_timestamp"]       = this.PhaseP.timing_on_entry_host_timestamp;
                 results["P_timing_on_exit_host_timestamp"]        = this.PhaseP.timing_on_exit_host_timestamp;
-                results["P_timing_on_entry_varjo_timestamp"]      = this.PhaseP.timing_on_entry_varjo_timestamp.ToString();
-                results["P_timing_on_exit_varjo_timestamp"]       = this.PhaseP.timing_on_exit_varjo_timestamp.ToString();     
+                // results["P_timing_on_entry_varjo_timestamp"]      = this.PhaseP.timing_on_entry_varjo_timestamp.ToString();
+                // results["P_timing_on_exit_varjo_timestamp"]       = this.PhaseP.timing_on_exit_varjo_timestamp.ToString();     
                 results["P_user_response_timing_unity_timestamp"] = this.PhaseP.user_response_timing_unity_timestamp.ToString();
                 results["P_user_response_timing_host_timestamp"]  = this.PhaseP.user_response_timing_host_timestamp;
-                results["P_user_response_timing_varjo_timestamp"] = this.PhaseP.user_response_timing_varjo_timestamp.ToString();
+                // results["P_user_response_timing_varjo_timestamp"] = this.PhaseP.user_response_timing_varjo_timestamp.ToString();
                 results["P_user_response_value"]                  = this.PhaseP.user_response_value.ToString();
                 results["P_user_elapsed_ms_since_entry"]          = this.PhaseP.user_elapsed_ms_since_entry.ToString();
 
@@ -840,14 +840,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseA.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - A_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseA.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - A_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseA.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - A_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseA.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - A_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseA.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - B_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseB.timing_on_entry_unity_timestamp.ToString()
@@ -864,14 +864,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseB.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - B_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseB.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - B_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseB.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - B_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseB.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - B_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseB.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - C_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseC.timing_on_entry_unity_timestamp.ToString()
@@ -888,14 +888,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseC.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - C_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseC.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - C_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseC.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - C_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseC.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - C_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseC.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + this.PhaseC.ToString()
                 + "\n - D_timing_on_entry_unity_timestamp" 
                     + "[" 
@@ -913,14 +913,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseD.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - D_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseD.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - D_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseD.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - D_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseD.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - D_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseD.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - E_timing_on_entry_unity_timestamp" 
                     + "[" 
                     + this.PhaseE.timing_on_entry_unity_timestamp.ToString()
@@ -937,14 +937,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseE.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - E_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseE.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - E_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseE.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - E_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseE.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - E_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseE.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - E_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseE.user_response_timing_unity_timestamp.ToString()
@@ -953,10 +953,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseE.user_response_timing_host_timestamp
                     + "]"
-                + "\n - E_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseE.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - E_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseE.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - E_user_response_value"  
                     + "[" 
                     + this.PhaseE.user_response_value.ToString()
@@ -981,14 +981,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseF.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - F_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseF.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - F_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseF.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - F_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseF.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - F_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseF.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - F_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseF.user_response_timing_unity_timestamp.ToString()
@@ -997,10 +997,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseF.user_response_timing_host_timestamp
                     + "]"
-                + "\n - F_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseF.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - F_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseF.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - F_user_response_value"  
                     + "[" 
                     + this.PhaseF.user_response_value.ToString()
@@ -1025,14 +1025,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseG.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - G_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseG.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - G_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseG.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - G_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseG.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - G_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseG.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - G_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseG.user_response_timing_unity_timestamp.ToString()
@@ -1041,10 +1041,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseG.user_response_timing_host_timestamp
                     + "]"
-                + "\n - G_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseG.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - G_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseG.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - G_user_response_value"  
                     + "[" 
                     + this.PhaseG.user_response_value.ToString()
@@ -1069,14 +1069,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseH.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - H_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseH.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - H_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseH.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - H_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseH.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - H_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseH.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - H_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseH.user_response_timing_unity_timestamp.ToString()
@@ -1085,10 +1085,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseH.user_response_timing_host_timestamp
                     + "]"
-                + "\n - H_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseH.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - H_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseH.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - H_user_response_value"  
                     + "[" 
                     + this.PhaseH.user_response_value.ToString()
@@ -1113,14 +1113,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseI.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - I_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseI.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - I_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseI.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - I_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseI.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - I_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseI.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - I_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseI.user_response_timing_unity_timestamp.ToString()
@@ -1129,10 +1129,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseI.user_response_timing_host_timestamp
                     + "]"
-                + "\n - I_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseI.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - I_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseI.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - I_user_response_value"  
                     + "[" 
                     + this.PhaseI.user_response_value.ToString()
@@ -1157,14 +1157,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseJ.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - J_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseJ.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - J_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseJ.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - J_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseJ.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - J_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseJ.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - J_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseJ.user_response_timing_unity_timestamp.ToString()
@@ -1173,10 +1173,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseJ.user_response_timing_host_timestamp
                     + "]"
-                + "\n - J_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseJ.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - J_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseJ.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - J_user_response_value"  
                     + "[" 
                     + this.PhaseJ.user_response_value.ToString()
@@ -1201,14 +1201,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseK.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - K_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseK.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - K_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseK.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - K_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseK.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - K_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseK.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - K_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseK.user_response_timing_unity_timestamp.ToString()
@@ -1217,10 +1217,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseK.user_response_timing_host_timestamp
                     + "]"
-                + "\n - K_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseK.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - K_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseK.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - K_user_response_value"  
                     + "[" 
                     + this.PhaseK.user_response_value.ToString()
@@ -1245,14 +1245,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseL.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - L_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseL.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - L_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseL.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - L_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseL.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - L_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseL.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - L_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseL.user_response_timing_unity_timestamp.ToString()
@@ -1261,10 +1261,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseL.user_response_timing_host_timestamp
                     + "]"
-                + "\n - L_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseL.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - L_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseL.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - L_user_response_value"  
                     + "[" 
                     + this.PhaseL.user_response_value.ToString()
@@ -1289,14 +1289,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseM.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - M_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseM.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - M_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseM.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - M_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseM.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - M_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseM.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - M_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseM.user_response_timing_unity_timestamp.ToString()
@@ -1305,10 +1305,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseM.user_response_timing_host_timestamp
                     + "]"
-                + "\n - M_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseM.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - M_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseM.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - M_user_response_value"  
                     + "[" 
                     + this.PhaseM.user_response_value.ToString()
@@ -1333,14 +1333,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseN.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - N_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseN.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - N_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseN.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - N_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseN.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - N_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseN.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - N_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseN.user_response_timing_unity_timestamp.ToString()
@@ -1349,10 +1349,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseN.user_response_timing_host_timestamp
                     + "]"
-                + "\n - N_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseN.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - N_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseN.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - N_user_response_value"  
                     + "[" 
                     + this.PhaseN.user_response_value.ToString()
@@ -1377,14 +1377,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseO.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - O_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseO.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - O_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseO.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - O_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseO.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - O_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseO.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - O_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseO.user_response_timing_unity_timestamp.ToString()
@@ -1393,10 +1393,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseO.user_response_timing_host_timestamp
                     + "]"
-                + "\n - O_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseO.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - O_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseO.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - O_user_response_value"  
                     + "[" 
                     + this.PhaseO.user_response_value.ToString()
@@ -1421,14 +1421,14 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseP.timing_on_exit_host_timestamp
                     + "]"
-                + "\n - P_timing_on_entry_varjo_timestamp" 
-                    + "[" 
-                    + this.PhaseP.timing_on_entry_varjo_timestamp.ToString()
-                    + "]"
-                + "\n - P_timing_on_exit_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseP.timing_on_exit_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - P_timing_on_entry_varjo_timestamp" 
+                //     + "[" 
+                //     + this.PhaseP.timing_on_entry_varjo_timestamp.ToString()
+                //     + "]"
+                // + "\n - P_timing_on_exit_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseP.timing_on_exit_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - P_user_response_timing_unity_timestamp"  
                     + "[" 
                     + this.PhaseP.user_response_timing_unity_timestamp.ToString()
@@ -1437,10 +1437,10 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "[" 
                     + this.PhaseP.user_response_timing_host_timestamp
                     + "]"
-                + "\n - P_user_response_timing_varjo_timestamp"  
-                    + "[" 
-                    + this.PhaseP.user_response_timing_varjo_timestamp.ToString()
-                    + "]"
+                // + "\n - P_user_response_timing_varjo_timestamp"  
+                //     + "[" 
+                //     + this.PhaseP.user_response_timing_varjo_timestamp.ToString()
+                //     + "]"
                 + "\n - P_user_response_value"  
                     + "[" 
                     + this.PhaseP.user_response_value.ToString()

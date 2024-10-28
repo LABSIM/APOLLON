@@ -46,7 +46,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
             // save timestamps
             this.FSM.CurrentResults.PhaseC.timing_on_entry_host_timestamp  = apollon.ApollonHighResolutionTime.Now.ToString();
-            this.FSM.CurrentResults.PhaseC.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
+            // this.FSM.CurrentResults.PhaseC.timing_on_entry_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseC.timing_on_entry_unity_timestamp = UnityEngine.Time.time;
 
             var checkpoint_manager
@@ -131,7 +131,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             
             // save timestamps
             this.FSM.CurrentResults.PhaseC.timing_on_exit_host_timestamp  = apollon.ApollonHighResolutionTime.Now.ToString();
-            this.FSM.CurrentResults.PhaseC.timing_on_exit_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
+            // this.FSM.CurrentResults.PhaseC.timing_on_exit_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp();
             this.FSM.CurrentResults.PhaseC.timing_on_exit_unity_timestamp = UnityEngine.Time.time;
 
             // log

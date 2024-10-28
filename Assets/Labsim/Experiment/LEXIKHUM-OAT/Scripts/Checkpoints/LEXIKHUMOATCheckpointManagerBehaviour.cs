@@ -219,9 +219,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "\n - timing_host_timestamp[" 
                         + checkpoint.timing_host_timestamp
                     + "]"
-                    + "\n - timing_varjo_timestamp[" 
-                        + checkpoint.timing_varjo_timestamp.ToString()
-                    + "]"
+                    // + "\n - timing_varjo_timestamp[" 
+                    //     + checkpoint.timing_varjo_timestamp.ToString()
+                    // + "]"
                     + "\n - local_position[" 
                         + "[" + System.String.Join(";", checkpoint.local_position) + "]"
                     + "]"
@@ -253,9 +253,9 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     + "\n - timing_host_timestamp[" 
                         + checkpoint.timing_host_timestamp
                     + "]"
-                    + "\n - timing_varjo_timestamp[" 
-                        + checkpoint.timing_varjo_timestamp.ToString()
-                    + "]"
+                    // + "\n - timing_varjo_timestamp[" 
+                    //     + checkpoint.timing_varjo_timestamp.ToString()
+                    // + "]"
                     + "\n - local_position[" 
                         + "[" + System.String.Join(";", checkpoint.local_position) + "]"
                     + "]"

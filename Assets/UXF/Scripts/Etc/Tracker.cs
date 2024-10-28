@@ -12,7 +12,7 @@ namespace UXF
     public abstract class Tracker : MonoBehaviour
     {
         private bool recording = false;
-        private static string[] baseHeaders = new string[] { "host_timestamp", "unity_timestamp", "varjo_timestamp" };
+        private static string[] baseHeaders = new string[] { "host_timestamp", "unity_timestamp" /*, "varjo_timestamp"*/ };
 
         /// <summary>
         /// Name of the object used in saving
@@ -80,7 +80,7 @@ namespace UXF
             UXFDataRow newRow = GetCurrentValues();
             newRow.Add(("host_timestamp", Labsim.apollon.ApollonHighResolutionTime.Now.ToString()));
 			newRow.Add(("unity_timestamp", Time.time.ToString()));
-			newRow.Add(("varjo_timestamp", Varjo.XR.VarjoTime.GetVarjoTimestamp().ToString()));
+			//newRow.Add(("varjo_timestamp", Varjo.XR.VarjoTime.GetVarjoTimestamp().ToString()));
             Data.AddCompleteRow(newRow);
         }
 

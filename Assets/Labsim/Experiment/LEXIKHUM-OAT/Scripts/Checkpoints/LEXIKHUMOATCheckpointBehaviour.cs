@@ -80,7 +80,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     side                   = this.CheckpointSide,
                     timing_unity_timestamp = UnityEngine.Time.time,
                     timing_host_timestamp  = apollon.ApollonHighResolutionTime.Now.ToString(),
-                    timing_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp(),
+                    // timing_varjo_timestamp = Varjo.XR.VarjoTime.GetVarjoTimestamp(),
                     world_position         = new float[3]{ world_pos.x, world_pos.y, world_pos.z },
                     local_position         = new float[3]{ local_pos.x, local_pos.y, local_pos.z }
                 }
