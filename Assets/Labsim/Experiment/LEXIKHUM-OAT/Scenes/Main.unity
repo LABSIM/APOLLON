@@ -2122,12 +2122,12 @@ MonoBehaviour:
     m_commandObject: {fileID: 1493945391}
     m_sensorObject: {fileID: 1350263921}
   m_downstreamFactor:
-    m_translation: {x: 0, y: 0, z: 0}
-    m_rotation: {x: 0, y: 0, z: 0}
+    m_translation: {x: 1, y: 1, z: 1}
+    m_rotation: {x: 1, y: 1, z: 1}
     m_scale: {x: 1, y: 1, z: 1}
   m_upstreamFactor:
-    m_translation: {x: 0, y: 0, z: 0}
-    m_rotation: {x: 0, y: 0, z: 0}
+    m_translation: {x: 1, y: 1, z: 1}
+    m_rotation: {x: 1, y: 1, z: 1}
     m_scale: {x: 1, y: 1, z: 1}
 --- !u!1 &376599996
 GameObject:
@@ -3275,12 +3275,12 @@ MonoBehaviour:
     m_commandObject: {fileID: 2045767171}
     m_sensorObject: {fileID: 1290780168}
   m_downstreamFactor:
-    m_translation: {x: 0, y: 0, z: 0}
-    m_rotation: {x: 0, y: 0, z: 0}
+    m_translation: {x: 1, y: 1, z: 1}
+    m_rotation: {x: 1, y: 1, z: 1}
     m_scale: {x: 1, y: 1, z: 1}
   m_upstreamFactor:
-    m_translation: {x: 0, y: 0, z: 0}
-    m_rotation: {x: 0, y: 0, z: 0}
+    m_translation: {x: 1, y: 1, z: 1}
+    m_rotation: {x: 1, y: 1, z: 1}
     m_scale: {x: 1, y: 1, z: 1}
 --- !u!224 &549138921 stripped
 RectTransform:
@@ -7784,12 +7784,12 @@ MonoBehaviour:
     m_commandObject: {fileID: 1533598034}
     m_sensorObject: {fileID: 1710112534}
   m_downstreamFactor:
-    m_translation: {x: 0, y: 0, z: 0}
-    m_rotation: {x: 0, y: 0, z: 0}
+    m_translation: {x: 1, y: 1, z: 1}
+    m_rotation: {x: 1, y: 1, z: 1}
     m_scale: {x: 1, y: 1, z: 1}
   m_upstreamFactor:
-    m_translation: {x: 0, y: 0, z: 0}
-    m_rotation: {x: 0, y: 0, z: 0}
+    m_translation: {x: 1, y: 1, z: 1}
+    m_rotation: {x: 1, y: 1, z: 1}
     m_scale: {x: 1, y: 1, z: 1}
 --- !u!1 &1102091333
 GameObject:

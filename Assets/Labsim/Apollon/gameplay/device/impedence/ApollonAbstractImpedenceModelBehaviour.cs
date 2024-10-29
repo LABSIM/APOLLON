@@ -142,7 +142,7 @@ namespace Labsim.apollon.gameplay.device.impedence
              // simply process upstream & downstream
             this.Tick();
             
-        } /* Update() */
+        } /* LateUpdate() */
 
         #endregion
 

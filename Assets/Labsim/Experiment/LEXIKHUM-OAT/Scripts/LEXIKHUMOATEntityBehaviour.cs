@@ -429,7 +429,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                 this._impedence_ref.VirtualWorld.Sensor.transform.localScale = this._parent.transform.localScale;
 
                 // upstream
-                // => only use x axis (closed loop) 
+                // => only use x (horizontal) axis (closed loop) 
                 this._parent.transform.position.Set(
                     this._impedence_ref.VirtualWorld.Command.transform.position.x,
                     this._parent.transform.position.y,

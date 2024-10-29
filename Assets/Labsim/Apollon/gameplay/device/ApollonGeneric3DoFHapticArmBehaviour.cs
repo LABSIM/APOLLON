@@ -54,7 +54,7 @@ namespace Labsim.apollon.gameplay.device
 
         #region controllers implemantion
 
-        internal class  InitController
+        internal class InitController
             : UnityEngine.MonoBehaviour
         {
             private ApollonGeneric3DoFHapticArmBehaviour _parent = null;
@@ -129,6 +129,14 @@ namespace Labsim.apollon.gameplay.device
                         this._parent.InitialRotation
                     )
                 );
+
+                // // disable
+                // this._parent.EffectorImpedence.gameObject.SetActive(false);
+                // this._parent.EffectorImpedence.enabled = false;
+                // this._parent.ForceFeedbackObjectiveImpedence.gameObject.SetActive(false);
+                // this._parent.ForceFeedbackObjectiveImpedence.enabled = false;
+                // this._parent.ForceFeedbackGragiantImpedence.gameObject.SetActive(false);
+                // this._parent.ForceFeedbackGragiantImpedence.enabled = false;
 
                 // log
                 UnityEngine.Debug.Log(
@@ -273,6 +281,14 @@ namespace Labsim.apollon.gameplay.device
                     return;
 
                 } /* if() */
+
+                // // enable
+                // this._parent.EffectorImpedence.gameObject.SetActive(true);
+                // this._parent.EffectorImpedence.enabled = true;
+                // this._parent.ForceFeedbackObjectiveImpedence.gameObject.SetActive(true);
+                // this._parent.ForceFeedbackObjectiveImpedence.enabled = true;
+                // this._parent.ForceFeedbackGragiantImpedence.gameObject.SetActive(true);
+                // this._parent.ForceFeedbackGragiantImpedence.enabled = true;
                 
                 // log
                 UnityEngine.Debug.Log(
@@ -356,6 +372,14 @@ namespace Labsim.apollon.gameplay.device
                     return;
 
                 } /* if() */
+
+                // // disable
+                // this._parent.EffectorImpedence.gameObject.SetActive(false);
+                // this._parent.EffectorImpedence.enabled = false;
+                // this._parent.ForceFeedbackObjectiveImpedence.gameObject.SetActive(false);
+                // this._parent.ForceFeedbackObjectiveImpedence.enabled = false;
+                // this._parent.ForceFeedbackGragiantImpedence.gameObject.SetActive(false);
+                // this._parent.ForceFeedbackGragiantImpedence.enabled = false;
 
                 // log
                 UnityEngine.Debug.Log(

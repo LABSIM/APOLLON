@@ -40,10 +40,24 @@ namespace Labsim.apollon.gameplay.device.impedence
             {                
                 return;
             }
-            
-            this.VirtualWorld.Command.transform.position   = this.UpstreamFactor.TRS * this.PhysicalWorld.Sensor.transform.position;
-            this.VirtualWorld.Command.transform.rotation   = this.UpstreamFactor.TRS.rotation * this.PhysicalWorld.Sensor.transform.rotation;
-            this.VirtualWorld.Command.transform.localScale = this.UpstreamFactor.TRS * this.PhysicalWorld.Sensor.transform.lossyScale;
+
+            this.VirtualWorld.Command.transform.position 
+                = UnityEngine.Vector3.Scale(
+                    this.PhysicalWorld.Sensor.transform.position,   
+                    this.UpstreamFactor.TranslationFactor
+                );
+            this.VirtualWorld.Command.transform.rotation 
+                = UnityEngine.Quaternion.Euler(
+                    UnityEngine.Vector3.Scale(
+                        this.PhysicalWorld.Sensor.transform.rotation.eulerAngles, 
+                        this.UpstreamFactor.RotationFactor
+                    )
+                );
+            this.VirtualWorld.Command.transform.localScale 
+                = UnityEngine.Vector3.Scale(
+                    this.PhysicalWorld.Sensor.transform.lossyScale, 
+                    this.UpstreamFactor.ScaleFactor
+                );
 
         } /* UpstreamProcessing() */
 
@@ -55,9 +69,23 @@ namespace Labsim.apollon.gameplay.device.impedence
                 return;
             }
 
-            this.PhysicalWorld.Command.transform.position   = this.DownstreamFactor.TRS * this.VirtualWorld.Sensor.transform.position;
-            this.PhysicalWorld.Command.transform.rotation   = this.DownstreamFactor.TRS.rotation * this.VirtualWorld.Sensor.transform.rotation;
-            this.PhysicalWorld.Command.transform.localScale = this.DownstreamFactor.TRS * this.VirtualWorld.Sensor.transform.lossyScale;
+            this.PhysicalWorld.Command.transform.position 
+                = UnityEngine.Vector3.Scale(
+                    this.VirtualWorld.Sensor.transform.position,   
+                    this.DownstreamFactor.TranslationFactor
+                );
+            this.PhysicalWorld.Command.transform.rotation 
+                = UnityEngine.Quaternion.Euler(
+                    UnityEngine.Vector3.Scale(
+                        this.VirtualWorld.Sensor.transform.rotation.eulerAngles, 
+                        this.DownstreamFactor.RotationFactor
+                    )
+                );
+            this.PhysicalWorld.Command.transform.localScale 
+                = UnityEngine.Vector3.Scale(
+                    this.VirtualWorld.Sensor.transform.lossyScale, 
+                    this.DownstreamFactor.ScaleFactor
+                );
 
         } /* DownstreamProcessing() */
 

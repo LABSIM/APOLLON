@@ -40,24 +40,24 @@ namespace Labsim.apollon.gameplay.device.impedence
     {
 
         [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_translation = UnityEngine.Vector3.zero;
+        private UnityEngine.Vector3 m_translationFactor = UnityEngine.Vector3.one;
 
         [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_rotation = UnityEngine.Vector3.zero;
+        private UnityEngine.Vector3 m_rotationFactor = UnityEngine.Vector3.one;
 
         [UnityEngine.SerializeField]
-        private UnityEngine.Vector3 m_scale = UnityEngine.Vector3.one;
+        private UnityEngine.Vector3 m_scaleFactor = UnityEngine.Vector3.one;
 
-        public UnityEngine.Vector3 Translation => this.m_translation;
-        public UnityEngine.Vector3 Rotation => this.m_rotation;
-        public UnityEngine.Vector3 Scale => this.m_scale;
+        public UnityEngine.Vector3 TranslationFactor => this.m_translationFactor;
+        public UnityEngine.Vector3 RotationFactor => this.m_rotationFactor;
+        public UnityEngine.Vector3 ScaleFactor => this.m_scaleFactor;
 
-        public UnityEngine.Matrix4x4 TRS 
-            => UnityEngine.Matrix4x4.TRS(
-                this.Translation,
-                UnityEngine.Quaternion.Euler(this.Rotation),
-                this.Scale
-            );
+        // public UnityEngine.Matrix4x4 TRS 
+        //     => UnityEngine.Matrix4x4.TRS(
+        //         this.Translation,
+        //         UnityEngine.Quaternion.Euler(this.Rotation),
+        //         this.Scale
+        //     );
 
     } /* class ApollonStandardTRSImpedenceFactor */
 
