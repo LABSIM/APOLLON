@@ -351,6 +351,76 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     // ================================
                     // +- [prefab]
                     // | +- offset
+                    // | | +- Cylinder [3DObj]
+                    // | | +- ExternalCylinder [3DObj]
+                    // | | +- Cue [Collider]           <==
+                    // | | +- Left [Collider]
+                    // | | +- Right [Collider] 
+                    // | +
+                    // +
+                    var cue = next_behaviour.transform.parent.Find("Cue");
+
+                    if(cue != null)
+                    {
+
+                        // so center it at z deepness & infinite width
+                        backend.NextGateWorldPosition       
+                            = new(0.0f, 0.0f, cue.position.z);
+                        backend.NextGateWidth 
+                            = float.PositiveInfinity;
+                            
+                    }
+                    else
+                    {
+
+                        // log
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find Cue reference object..."
+                        );
+                            
+                    } /* if() */
+                
+                }
+                else if(next_behaviour.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival)
+                {
+                    
+                    // Arrival/Departure prefab structure :
+                    // ================================
+                    // +- [prefab]
+                    // | +- offset
+                    // | | +- Plane [Collider] <==
+                    // | +
+                    // +
+                    var plane = next_behaviour.transform.parent.Find("Plane");
+
+                    if(plane != null)
+                    {
+
+                        // so center it at z deepness & infinite width
+                        backend.NextGateWorldPosition       
+                            = new(0.0f, 0.0f, plane.position.z);
+                        backend.NextGateWidth 
+                            = float.PositiveInfinity;
+                            
+                    }
+                    else
+                    {
+
+                        // log
+                        UnityEngine.Debug.LogError(
+                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find Plane reference object..."
+                        );
+                            
+                    } /* if() */
+                
+                }
+                else
+                {
+                    
+                    // Obstacle base prefab structure :
+                    // ================================
+                    // +- [prefab]
+                    // | +- offset
                     // | | +- Cylinder [3DObj]         <==
                     // | | +- ExternalCylinder [3DObj] <==
                     // | | +- Cue [Collider]
@@ -392,76 +462,6 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             + ", external:"
                             + external_cylinder != null ? "found" : "not_found"
                             + ")"
-                        );
-                            
-                    } /* if() */
-                
-                }
-                else if(next_behaviour.CheckpointKind == LEXIKHUMOATResults.PhaseCResults.Checkpoint.KindIDType.Arrival)
-                {
-                    
-                    // Arrival/Departure prefab structure :
-                    // ================================
-                    // +- [prefab]
-                    // | +- offset
-                    // | | +- Plane [Collider] <==
-                    // | +
-                    // +
-                    var plane = next_behaviour.transform.parent.Find("Plane");
-
-                    if(plane != null)
-                    {
-
-                        // so center it at z deepness & infinite width
-                        backend.NextGateWorldPosition       
-                            = new(0.0f, 0.0f, plane.position.z);
-                        backend.NextGateWidth 
-                            = float.PositiveInfinity;
-                            
-                    }
-                    else
-                    {
-
-                        // log
-                        UnityEngine.Debug.LogError(
-                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find Plane reference object..."
-                        );
-                            
-                    } /* if() */
-                
-                }
-                else
-                {
-                
-                    // Obstacle base prefab structure :
-                    // ================================
-                    // +- [prefab]
-                    // | +- offset
-                    // | | +- Cylinder [3DObj]
-                    // | | +- ExternalCylinder [3DObj]
-                    // | | +- Cue [Collider]           <==
-                    // | | +- Left [Collider]
-                    // | | +- Right [Collider] 
-                    // | +
-                    // +
-                    var cue = next_behaviour.transform.parent.Find("Cue");
-
-                    if(cue != null)
-                    {
-
-                        // so center it at z deepness & infinite width
-                        backend.NextGateWorldPosition       
-                            = new(0.0f, 0.0f, cue.position.z);
-                        backend.NextGateWidth 
-                            = float.PositiveInfinity;
-                            
-                    }
-                    else
-                    {
-
-                        // log
-                        UnityEngine.Debug.LogError(
-                            "<color=Red>Error: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : error, could not find Cue reference object..."
                         );
                             
                     } /* if() */
