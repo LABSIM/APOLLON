@@ -430,10 +430,18 @@ namespace Labsim.experiment.LEXIKHUM_OAT
 
                 // upstream
                 // => only use x (horizontal) axis (closed loop) 
-                this._parent.transform.position.Set(
-                    this._impedence_ref.VirtualWorld.Command.transform.position.x,
-                    this._parent.transform.position.y,
-                    this._parent.transform.position.z
+                // this._parent.transform.position.Set(
+                //     this._impedence_ref.VirtualWorld.Command.transform.position.x,
+                //     this._parent.transform.position.y,
+                //     this._parent.transform.position.z
+                // );
+
+                this._rigidbody.MovePosition(
+                    new UnityEngine.Vector3(
+                        this._impedence_ref.VirtualWorld.Command.transform.position.y,
+                        this._parent.transform.position.y,
+                        this._parent.transform.position.z
+                    )                    
                 );
                 
             } /* FixedUpdate() */
