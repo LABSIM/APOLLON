@@ -10,10 +10,10 @@ namespace Experiment
         // Positions prédéfinies
         private static readonly Dictionary<string, Vector3> positionMap 
             = new() {
-                { "R",  new Vector3(1, 0, 0)  },
-                { "SR", new Vector3(2, 0, 0)  },
-                { "L",  new Vector3(-1, 0, 0) },
-                { "SL", new Vector3(-2, 0, 0) }
+                { "R",  new Vector3(1.5f, 0, 0)  },
+                { "SR", new Vector3(2.5f, 0, 0)  },
+                { "L",  new Vector3(-1.5f, 0, 0) },
+                { "SL", new Vector3(-2.5f, 0, 0) }
             };
 
         // Chemins de base des prefabs
@@ -21,7 +21,7 @@ namespace Experiment
         private static string cuePath       = basePath + "Cue/";
         private static string strongCuePath = basePath + "StrongCue/";
 
-        [MenuItem("Tools/Place Objects in Scenes")]
+        [MenuItem("Tools/APOLLON/LEXIKHUM - Place obstacles in ID scenes")]
         public static void PlaceObjectsInScenes()
         {
 
@@ -133,22 +133,22 @@ namespace Experiment
                     string prefabPath;
                     if (posKey == "R")
                     {
-                        prefabPath = cuePath + "Obstacle_RS5.prefab";
+                        prefabPath = cuePath + "Obstacle_RS15.prefab";
                     }
                     else if (posKey == "L")
                     {
-                        prefabPath = cuePath + "Obstacle_LS5.prefab";
+                        prefabPath = cuePath + "Obstacle_LS15.prefab";
                     }
                     else if (posKey == "SR")
                     {
-                        prefabPath = strongCuePath + "Obstacle_SRS5.prefab";
+                        prefabPath = strongCuePath + "Obstacle_SRS15.prefab";
                     }
                     else // posKey == "SL"
                     {
-                        prefabPath = strongCuePath + "Obstacle_SLS5.prefab";
+                        prefabPath = strongCuePath + "Obstacle_SLS15.prefab";
                     }
 
-                    PlacePrefab(patternParent, prefabPath, position);
+                    PlacePrefab(patternParent, prefabPath, position, zIndex);
                 }
                 else
                 {
@@ -157,13 +157,14 @@ namespace Experiment
             }
         }
 
-        private static void PlacePrefab(GameObject parent, string prefabPath, Vector3 position)
+        private static void PlacePrefab(GameObject parent, string prefabPath, Vector3 position, int index)
         {
             // Charger le prefab à partir du chemin spécifié
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab != null)
             {
                 GameObject obj = PrefabUtility.InstantiatePrefab(prefab, parent.transform) as GameObject;
+                obj.name = index + "_" + obj.name ;
                 if (obj != null)
                 {
                     obj.transform.localPosition = position;

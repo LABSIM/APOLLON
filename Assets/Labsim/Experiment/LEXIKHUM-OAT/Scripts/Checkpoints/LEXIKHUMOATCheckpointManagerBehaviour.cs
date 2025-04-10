@@ -325,6 +325,19 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         ? LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Undefined
                         : next_behaviour.CheckpointSide
                     );
+                // iff. pos. offset ?
+                backend.NextGateOffset
+                    = UnityEngine.Mathf.RoundToInt(
+                        UnityEngine.Mathf.Clamp(
+                            (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile)
+                                .CurrentSettings
+                                .PhaseC
+                                .shared_intention_offset, 
+                            /* extract only positive value or clamp to 0 */
+                            .0f, 
+                            float.MaxValue
+                        )
+                    ).ToString("0000");
                 backend.SharedIntentionMode
                     = apollon.ApollonEngine.GetEnumDescription(
                             bLast 

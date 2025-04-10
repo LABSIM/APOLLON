@@ -80,17 +80,30 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             apollon.ApollonEngine.Schedule(
                 async () => {
 
-                    // offset ?
-                    await apollon.ApollonHighResolutionTime.DoSleep( 
-                        (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile).CurrentSettings.PhaseC.shared_intention_offset
-                    );
+                    // iff. neg. offset ?
+                    var offset 
+                        = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile)
+                            .CurrentSettings
+                            .PhaseC
+                            .shared_intention_offset;
+                    if(UnityEngine.Mathf.Sign(offset) < .0f)
+                    {
+
+                        await apollon.ApollonHighResolutionTime.DoSleep(
+                            UnityEngine.Mathf.Abs(offset)
+                        );
+
+                    } /* if() */
 
                     // show cue !
                     dynamicEntityBehaviour.References[entityTag].SetActive(true);
 
-                    // tieout
+                    // tiemout
                     await apollon.ApollonHighResolutionTime.DoSleep( 
-                        (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile).CurrentSettings.PhaseC.shared_intention_duration
+                        (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile)
+                            .CurrentSettings
+                            .PhaseC
+                            .shared_intention_duration
                     );
 
                     // finally, hide

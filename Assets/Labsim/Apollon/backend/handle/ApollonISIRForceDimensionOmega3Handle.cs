@@ -50,8 +50,10 @@ namespace Labsim.apollon.backend.handle
         private UnityEngine.GameObject ForceFeedbackObjectiveSensorObject { get; set; } = null;
         private UnityEngine.GameObject ForceFeedbackObjectiveCommandObject { get; set; } = null;
 
+
         public string NextGateSide { get; set; } = null;
         public string NextGateKind { get; set; } = null;
+        public string NextGateOffset { get; set; } = null;
         public float NextGateWidth { get; set; } = float.NaN;
         public UnityEngine.Vector3 NextGateWorldPosition { get; set; } = UnityEngine.Vector3.zero;
 
@@ -77,7 +79,7 @@ namespace Labsim.apollon.backend.handle
                 private set => this.m_ROS2DownstreamTopicName = value; 
             }
 
-            private float m_ROS2DownstreamMessagePeriod = 0.1f;
+            private float m_ROS2DownstreamMessagePeriod = 0.01f;
             public float DownstreamMessagePeriod 
             { 
                 get => this.m_ROS2DownstreamMessagePeriod; 
@@ -173,7 +175,7 @@ namespace Labsim.apollon.backend.handle
                 current_mode :
                     this.SharedIntentionMode,
                 current_phase:
-                    this.NextGateKind + "_" + this.NextGateSide
+                    this.NextGateKind + "_" + this.NextGateSide + "_" + NextGateOffset
             );
         }
 

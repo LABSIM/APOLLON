@@ -19,8 +19,8 @@
             "performance_criteria_value_percent": 0.0,
             "performance_max_try_count": 1,
 
-            "fog_start_distance_m" : 1000.0,
-            "fog_end_distance_m" : 10000.0,
+            "fog_start_distance_m" : 0.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -30,10 +30,10 @@
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 5.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 15.0 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 30.0 ],
 
             "phase_C_shared_intention_name" : "None",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 3000.0,
@@ -57,7 +57,7 @@
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -67,10 +67,10 @@
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 5.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 15.0 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 30.0 ],
 
             "phase_C_shared_intention_name" : "None",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 3000.0,
@@ -94,7 +94,7 @@
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -104,10 +104,10 @@
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 5.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 15.0 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 30.0 ],
 
             "phase_C_shared_intention_name" : "None",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 3000.0,
@@ -124,14 +124,14 @@
             "is_catch_try_condition": false,
             "is_active_condition": true,
 
-            "scene_name": "Familiarisation",
-            "visual_name": "Familiarisation",
+            "scene_name": "ID35",
+            "visual_name": "A",
 
             "performance_criteria_value_percent": 0.0,
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -141,10 +141,10 @@
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 5.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 15.0 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 30.0 ],
 
             "phase_C_shared_intention_name" : "Auditive",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 3000.0,
@@ -161,14 +161,14 @@
             "is_catch_try_condition": false,
             "is_active_condition": true,
 
-            "scene_name": "Familiarisation",
-            "visual_name": "Familiarisation",
+            "scene_name": "ID24",
+            "visual_name": "C",
 
             "performance_criteria_value_percent": 0.0,
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -178,10 +178,10 @@
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 5.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 15.0 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 30.0 ],
 
             "phase_C_shared_intention_name" : "Haptic",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 3000.0,
@@ -198,14 +198,14 @@
             "is_catch_try_condition": false,
             "is_active_condition": true,
 
-            "scene_name": "Familiarisation",
-            "visual_name": "Familiarisation",
+            "scene_name": "ID5",
+            "visual_name": "A",
 
             "performance_criteria_value_percent": 0.0,
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 30.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -215,10 +215,10 @@
             "phase_B_angular_acceleration_target_deg_per_s2": [ 0.0, 0.0, 0.0 ],
             "phase_B_angular_velocity_saturation_threshold_deg_per_s": [ 0.0, 0.0, 0.0 ],
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 5.0 ],
-            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 15.0 ],
+            "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 30.0 ],
 
             "phase_C_shared_intention_name" : "Visual",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 3000.0,
@@ -242,7 +242,7 @@
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 2500.0,
@@ -255,7 +255,7 @@
             "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
 
             "phase_C_shared_intention_name" : "Haptic",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 1500.0,
@@ -279,7 +279,7 @@
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 30.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 2500.0,
@@ -329,7 +329,7 @@
             "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 10.0 ],
 
             "phase_C_shared_intention_name" : "Visual",
-            "phase_C_shared_intention_offset_ms" : 150.0,
+            "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
             "phase_D_decceleration_duration_ms": 1500.0,
@@ -350,13 +350,19 @@
       "block_test": {
   
         "is_practice_condition": true,
-        "is_draft_bucket_randomized": true,
+        "is_draft_bucket_randomized": false,
 
         "trial_max_retry_per_draw" : 1,
         
         "trial_draft_bucket": [
 
-            "test_pattern_FAM_FAM_None",
+            "test_pattern_FAM_FAM_Visual",
+            "test_pattern_FAM_FAM_Visual",
+            "test_pattern_FAM_FAM_Haptic",
+            "test_pattern_FAM_FAM_Auditive",
+            "test_pattern_FAM_FAM_Visual",
+            "test_pattern_FAM_FAM_Haptic",
+            "test_pattern_FAM_FAM_Auditive",
             "test_pattern_FAM_FAM_Visual",
             "test_pattern_FAM_FAM_Haptic",
             "test_pattern_FAM_FAM_Auditive"

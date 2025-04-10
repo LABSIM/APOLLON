@@ -209,6 +209,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // init session
             backend.NextGateKind          = "Initialize";
             backend.NextGateSide          = "Session";
+            backend.NextGateOffset        = "0000";
             backend.SharedIntentionMode   = "";
             backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
             backend.NextGateWidth         = 0.0f;
@@ -243,6 +244,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // end session
             backend.NextGateKind          = "End";
             backend.NextGateSide          = "Session";
+            backend.NextGateOffset        = "0000";
             backend.SharedIntentionMode   = "";
             backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
             backend.NextGateWidth         = 0.0f;

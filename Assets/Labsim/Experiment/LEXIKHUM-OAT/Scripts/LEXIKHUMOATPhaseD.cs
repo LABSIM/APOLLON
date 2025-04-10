@@ -298,6 +298,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
             // end trial
             backend.NextGateKind          = "End";
             backend.NextGateSide          = "Trial";
+            backend.NextGateOffset        = "0000";
             backend.SharedIntentionMode   = "";
             backend.NextGateWorldPosition = new(0.0f, 0.0f, 0.0f);
             backend.NextGateWidth         = 0.0f;
