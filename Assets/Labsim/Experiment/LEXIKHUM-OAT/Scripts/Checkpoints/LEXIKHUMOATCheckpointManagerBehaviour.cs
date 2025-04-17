@@ -436,7 +436,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             ) / 1000.0f
                             * UnityEngine.Mathf.Clamp(
                                 /* z */ 
-                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f)
+                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f),
                                 .0f, 
                                 /* cap at max linear z speed  */ 
                                 profile.CurrentSettings.PhaseB.linear_velocity_saturation_threshold[2]
