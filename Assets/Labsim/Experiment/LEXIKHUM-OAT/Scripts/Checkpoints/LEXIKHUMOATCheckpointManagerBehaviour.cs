@@ -425,9 +425,30 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     if(plane != null)
                     {
 
-                        // so center it at z deepness & infinite width
+                        var profile 
+                            = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile);
+                        var offset 
+                            = UnityEngine.Mathf.Clamp(
+                                profile.CurrentSettings.PhaseC.shared_intention_offset, 
+                                /* extract only positive value or clamp to 0 */
+                                .0f, 
+                                float.MaxValue
+                            ) / 1000.0f
+                            * UnityEngine.Mathf.Clamp(
+                                /* z */ 
+                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f)
+                                .0f, 
+                                /* cap at max linear z speed  */ 
+                                profile.CurrentSettings.PhaseB.linear_velocity_saturation_threshold[2]
+                            );
+
+                        // so center it at (z + offset) deepness & infinite width
                         backend.NextGateWorldPosition       
-                            = new(0.0f, 0.0f, plane.position.z);
+                            = new(
+                                0.0f, 
+                                0.0f, 
+                                plane.position.z + offset
+                            );
                         backend.NextGateWidth 
                             = float.PositiveInfinity;
                             
