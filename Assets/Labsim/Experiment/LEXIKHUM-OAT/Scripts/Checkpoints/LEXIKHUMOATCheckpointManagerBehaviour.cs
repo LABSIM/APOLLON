@@ -325,19 +325,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                         ? LEXIKHUMOATResults.PhaseCResults.Checkpoint.SideIDType.Undefined
                         : next_behaviour.CheckpointSide
                     );
-                // iff. pos. offset ?
                 backend.NextGateOffset
-                    = UnityEngine.Mathf.RoundToInt(
-                        UnityEngine.Mathf.Clamp(
-                            (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile)
-                                .CurrentSettings
-                                .PhaseC
-                                .shared_intention_offset, 
-                            /* extract only positive value or clamp to 0 */
-                            .0f, 
-                            float.MaxValue
-                        )
-                    ).ToString("0000");
+                    = "000000";
                 backend.SharedIntentionMode
                     = apollon.ApollonEngine.GetEnumDescription(
                             bLast 
@@ -425,29 +414,12 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     if(plane != null)
                     {
 
-                        var profile 
-                            = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile);
-                        var offset 
-                            = UnityEngine.Mathf.Clamp(
-                                profile.CurrentSettings.PhaseC.shared_intention_offset, 
-                                /* extract only positive value or clamp to 0 */
-                                .0f, 
-                                float.MaxValue
-                            ) / 1000.0f
-                            * UnityEngine.Mathf.Clamp(
-                                /* z */ 
-                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f),
-                                .0f, 
-                                /* cap at max linear z speed  */ 
-                                profile.CurrentSettings.PhaseB.linear_velocity_saturation_threshold[2]
-                            );
-
-                        // so center it at (z + offset) deepness & infinite width
+                        // so center it at z deepness & infinite width
                         backend.NextGateWorldPosition       
                             = new(
                                 0.0f, 
                                 0.0f, 
-                                plane.position.z + offset
+                                plane.position.z
                             );
                         backend.NextGateWidth 
                             = float.PositiveInfinity;
@@ -483,11 +455,50 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     if(cue != null)
                     {
 
-                        // so center it at z deepness & infinite width
+                        var profile 
+                            = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile);
+                        var offset 
+                            = UnityEngine.Mathf.Clamp(
+                                profile.CurrentSettings.PhaseC.shared_intention_offset, 
+                                /* extract only positive value or clamp to 0 */
+                                .0f, 
+                                float.MaxValue
+                            ) / 1000.0f
+                            * UnityEngine.Mathf.Clamp(
+                                /* z */ 
+                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f),
+                                .0f, 
+                                /* cap at max linear z speed  */ 
+                                profile.CurrentSettings.PhaseB.linear_velocity_saturation_threshold[2]
+                            );
+
+                        // iff. pos. offset in mm ?
+                        backend.NextGateOffset
+                            = UnityEngine.Mathf.RoundToInt(
+                                UnityEngine.Mathf.Clamp(
+                                    offset * 1000.0f, 
+                                    .0f, 
+                                    float.MaxValue
+                                )
+                            ).ToString("000000");
+
+                        // so center it at (z + offset) deepness & infinite width
                         backend.NextGateWorldPosition       
-                            = new(0.0f, 0.0f, cue.position.z);
+                            = new(
+                                0.0f, 
+                                0.0f, 
+                                cue.position.z /*+ offset*/
+                            );
                         backend.NextGateWidth 
                             = float.PositiveInfinity;
+
+                        UnityEngine.Debug.Log(
+                            "<color=Blue>Info: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : offset["
+                            + backend.NextGateOffset
+                            + "] / next cue pos ["
+                            + backend.NextGateWorldPosition
+                            + "]"
+                        );
                             
                     }
                     else
