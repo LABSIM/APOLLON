@@ -487,7 +487,7 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             = new(
                                 0.0f, 
                                 0.0f, 
-                                cue.position.z /*+ offset*/
+                                cue.position.z + offset
                             );
                         backend.NextGateWidth 
                             = float.PositiveInfinity;
