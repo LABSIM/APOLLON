@@ -4098,6 +4098,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 649626483310620401, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 756001294809792247, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4458,6 +4463,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[UXF_Rig]'
       objectReference: {fileID: 0}
+    - target: {fileID: 4078564333658012186, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4145026459681906534, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4566,37 +4576,37 @@ PrefabInstance:
     - target: {fileID: 5571343678153082995, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5571343678153082995, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5571343678153082995, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 395
       objectReference: {fileID: 0}
     - target: {fileID: 5571343678153082995, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5571343678153082995, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 207.5
       objectReference: {fileID: 0}
     - target: {fileID: 5571343678153082995, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 5641967343268162433, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5845497496661049451, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
@@ -4736,7 +4746,7 @@ PrefabInstance:
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.size
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
@@ -4747,47 +4757,47 @@ PrefabInstance:
         type: 3}
       propertyPath: trackedObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 1619845797}
+      objectReference: {fileID: 1187789568}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 1187789568}
+      objectReference: {fileID: 1496393760}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[3]
       value: 
-      objectReference: {fileID: 1496393760}
+      objectReference: {fileID: 2045767173}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[4]
       value: 
-      objectReference: {fileID: 2045767173}
+      objectReference: {fileID: 1290780170}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[5]
       value: 
-      objectReference: {fileID: 1290780170}
+      objectReference: {fileID: 0}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[6]
       value: 
-      objectReference: {fileID: 1235758611}
+      objectReference: {fileID: 0}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[7]
       value: 
-      objectReference: {fileID: 1710112536}
+      objectReference: {fileID: 0}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[8]
       value: 
-      objectReference: {fileID: 1522708081}
+      objectReference: {fileID: 0}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: trackedObjects.Array.data[9]
       value: 
-      objectReference: {fileID: 1350263923}
+      objectReference: {fileID: 0}
     - target: {fileID: 6549263584064871019, guid: 4e6550e16209c5642b1ab4af55e3a0e6,
         type: 3}
       propertyPath: onTrialEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -50355,7 +50365,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1235758610}
-  - component: {fileID: 1235758611}
   m_Layer: 0
   m_Name: Command
   m_TagString: Untagged
@@ -50378,20 +50387,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1410849856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1235758611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235758609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackGradiantVirtualCommand
-  updateType: 0
 --- !u!1 &1238949756
 GameObject:
   m_ObjectHideFlags: 0
@@ -51651,7 +51646,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1350263922}
-  - component: {fileID: 1350263923}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -51674,20 +51668,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014950866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1350263923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350263921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackObjectivePhysicalSensor
-  updateType: 0
 --- !u!1 &1358660164
 GameObject:
   m_ObjectHideFlags: 0
@@ -51744,7 +51724,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1360072913}
-  - component: {fileID: 1360072914}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -51767,20 +51746,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563388845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1360072914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360072912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackObjectiveVirtualSensor
-  updateType: 0
 --- !u!1 &1366394799
 GameObject:
   m_ObjectHideFlags: 0
@@ -52749,7 +52714,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493945392}
-  - component: {fileID: 1493945393}
   m_Layer: 0
   m_Name: Command
   m_TagString: Untagged
@@ -52772,20 +52736,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014950866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1493945393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493945391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackObjectivePhysicalCommand
-  updateType: 0
 --- !u!1 &1496393758
 GameObject:
   m_ObjectHideFlags: 0
@@ -52928,7 +52878,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1522708080}
-  - component: {fileID: 1522708081}
   m_Layer: 0
   m_Name: Command
   m_TagString: Untagged
@@ -52951,20 +52900,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563388845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1522708081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522708079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackObjectiveVirtualCommand
-  updateType: 0
 --- !u!1001 &1532089142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53105,7 +53040,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1533598035}
-  - component: {fileID: 1533598036}
   m_Layer: 0
   m_Name: Command
   m_TagString: Untagged
@@ -53128,20 +53062,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1891402204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1533598036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1533598034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackGradiantPhysicalCommand
-  updateType: 0
 --- !u!1 &1539655968
 GameObject:
   m_ObjectHideFlags: 0
@@ -53380,7 +53300,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1563081774}
-  - component: {fileID: 1563081775}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -53403,20 +53322,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1410849856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1563081775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563081773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackGradiantVirtualSensor
-  updateType: 0
 --- !u!1 &1563388844
 GameObject:
   m_ObjectHideFlags: 0
@@ -53694,6 +53599,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1264004452}
     m_Modifications:
+    - target: {fileID: 634507342297852257, guid: 90f628996bb053f4a9029d11cc08933c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1638687788369180717, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_SensorReference
@@ -53810,32 +53720,32 @@ PrefabInstance:
     - target: {fileID: 5380626893340563016, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5380626893340563016, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5380626893340563016, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1720
       objectReference: {fileID: 0}
     - target: {fileID: 5380626893340563016, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5380626893340563016, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 860
       objectReference: {fileID: 0}
     - target: {fileID: 5380626893340563016, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6615709801887342380, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
@@ -53856,42 +53766,42 @@ PrefabInstance:
     - target: {fileID: 6626285717075242430, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6626285717075242430, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6626285717075242430, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1183.75
       objectReference: {fileID: 0}
     - target: {fileID: 6626285717075242430, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 8111962036363728241, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8111962036363728241, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8111962036363728241, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 336.25
       objectReference: {fileID: 0}
     - target: {fileID: 8111962036363728241, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 8291859017577908764, guid: 90f628996bb053f4a9029d11cc08933c,
         type: 3}
@@ -54079,7 +53989,7 @@ PrefabInstance:
     - target: {fileID: 5134337110067430218, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6565433511482092768, guid: 4aa3c45fcdf9c1c49a1a0294d5d3421f,
         type: 3}
@@ -54697,7 +54607,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1710112535}
-  - component: {fileID: 1710112536}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -54720,20 +54629,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1891402204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1710112536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710112534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720d7abca4c811a49ad2f8ba501bd1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectName: ForceFeedbackGradiantPhysicalSensor
-  updateType: 0
 --- !u!1 &1745390997
 GameObject:
   m_ObjectHideFlags: 0
@@ -58728,6 +58623,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1619845798}
     m_Modifications:
+    - target: {fileID: 385754977454553178, guid: 94a5fbd61861cb3448d4b5d8ccf64bac,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 385754977454553178, guid: 94a5fbd61861cb3448d4b5d8ccf64bac,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 385754977454553178, guid: 94a5fbd61861cb3448d4b5d8ccf64bac,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3554426855398497805, guid: 94a5fbd61861cb3448d4b5d8ccf64bac,
         type: 3}
       propertyPath: m_Pivot.x
@@ -58832,6 +58742,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Question02GUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842599474440935461, guid: 94a5fbd61861cb3448d4b5d8ccf64bac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
