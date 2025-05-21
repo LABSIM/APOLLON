@@ -396,13 +396,13 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                             ).ToString("000000");
 
                         // find gate center position (use y to send z offset) & width
-                        backend.NextGateWorldPosition       
+                        var center
                             = UnityEngine.Vector3.Lerp(
-                                center_cylinder.position, 
-                                external_cylinder.position, 
+                                center_cylinder.position,
+                                external_cylinder.position,
                                 0.5f
                             );
-                        backend.NextGateWorldPosition.y = offset;
+                        backend.NextGateWorldPosition.Set(center.x, offset, center.z);
                         
                         backend.NextGateWidth 
                             = UnityEngine.Mathf.Abs(
