@@ -368,13 +368,42 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     )
                     {
 
-                        // find gate center position & width
+                        var profile 
+                            = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile);
+                        var offset 
+                            = UnityEngine.Mathf.Clamp(
+                                profile.CurrentSettings.PhaseC.shared_intention_offset, 
+                                /* extract only positive value or clamp to 0 */
+                                .0f, 
+                                float.MaxValue
+                            ) / 1000.0f
+                            * UnityEngine.Mathf.Clamp(
+                                /* z */ 
+                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f),
+                                .0f, 
+                                /* cap at max linear z speed  */ 
+                                profile.CurrentSettings.PhaseB.linear_velocity_saturation_threshold[2]
+                            );
+
+                        // iff. pos. offset in mm ?
+                        backend.NextGateOffset
+                            = UnityEngine.Mathf.RoundToInt(
+                                UnityEngine.Mathf.Clamp(
+                                    offset * 1000.0f, 
+                                    .0f, 
+                                    float.MaxValue
+                                )
+                            ).ToString("000000");
+
+                        // find gate center position (use y to send z offset) & width
                         backend.NextGateWorldPosition       
                             = UnityEngine.Vector3.Lerp(
                                 center_cylinder.position, 
                                 external_cylinder.position, 
                                 0.5f
                             );
+                        backend.NextGateWorldPosition.y = offset;
+                        
                         backend.NextGateWidth 
                             = UnityEngine.Mathf.Abs(
                                 UnityEngine.Vector3.Distance(
@@ -455,50 +484,15 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                     if(cue != null)
                     {
 
-                        var profile 
-                            = (apollon.experiment.ApollonExperimentManager.Instance.Profile as LEXIKHUMOATProfile);
-                        var offset 
-                            = UnityEngine.Mathf.Clamp(
-                                profile.CurrentSettings.PhaseC.shared_intention_offset, 
-                                /* extract only positive value or clamp to 0 */
-                                .0f, 
-                                float.MaxValue
-                            ) / 1000.0f
-                            * UnityEngine.Mathf.Clamp(
-                                /* z */ 
-                                profile.CurrentSettings.PhaseB.linear_acceleration_target[2] * (profile.CurrentSettings.PhaseB.acceleration_duration / 1000.0f),
-                                .0f, 
-                                /* cap at max linear z speed  */ 
-                                profile.CurrentSettings.PhaseB.linear_velocity_saturation_threshold[2]
-                            );
-
-                        // iff. pos. offset in mm ?
-                        backend.NextGateOffset
-                            = UnityEngine.Mathf.RoundToInt(
-                                UnityEngine.Mathf.Clamp(
-                                    offset * 1000.0f, 
-                                    .0f, 
-                                    float.MaxValue
-                                )
-                            ).ToString("000000");
-
-                        // so center it at (z + offset) deepness & infinite width
+                        // so center it at z deepness & infinite width
                         backend.NextGateWorldPosition       
                             = new(
                                 0.0f, 
                                 0.0f, 
-                                cue.position.z + offset
+                                cue.position.z // + offset
                             );
                         backend.NextGateWidth 
                             = float.PositiveInfinity;
-
-                        UnityEngine.Debug.Log(
-                            "<color=Blue>Info: </color> LEXIKHUMOATCheckpointManagerBehaviour.OnCheckpointReached() : offset["
-                            + backend.NextGateOffset
-                            + "] / next cue pos ["
-                            + backend.NextGateWorldPosition
-                            + "]"
-                        );
                             
                     }
                     else

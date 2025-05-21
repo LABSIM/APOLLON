@@ -175,7 +175,7 @@ namespace Labsim.apollon.backend.handle
                 current_mode :
                     this.SharedIntentionMode,
                 current_phase:
-                    this.NextGateKind + "_" + this.NextGateSide + "_" + NextGateOffset
+                    this.NextGateKind + "_" + this.NextGateSide // + "_" + NextGateOffset
             );
         }
 
