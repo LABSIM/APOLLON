@@ -193,7 +193,7 @@
 
         },
 
-        "test_pattern_FAM_FAM_Visual_Fog100": {
+        "test_pattern_ID5_None_Fog15": {
   
             "is_catch_try_condition": false,
             "is_active_condition": true,
@@ -205,7 +205,7 @@
             "performance_max_try_count": 1,
 
             "fog_start_distance_m" : 0.0,
-            "fog_end_distance_m" : 100.0,
+            "fog_end_distance_m" : 15.0,
             "fog_color_rvb" : [ 1.0, 1.0, 1.0 ],
 
             "phase_A_duration_ms": 1500.0,
@@ -217,7 +217,7 @@
             "phase_B_linear_acceleration_target_m_per_s2": [ 0.0, 0.0, 100.0 ],
             "phase_B_linear_velocity_saturation_threshold_m_per_s": [ 0.0, 0.0, 20.0 ],
 
-            "phase_C_shared_intention_name" : "Visual",
+            "phase_C_shared_intention_name" : "None",
             "phase_C_shared_intention_offset_ms" : 1500.0,
             "phase_C_shared_intention_duration_ms" : 500.0,
 
@@ -520,7 +520,7 @@
         "trial_max_retry_per_draw" : 1,
         
         "trial_draft_bucket": [
-
+            "test_pattern_ID5_None_Fog15",
             "test_pattern_FAM_FAM_Haptic_Fog55",
             "test_pattern_FAM_FAM_Haptic_Fog55",
             "test_pattern_FAM_FAM_Haptic_Fog55"

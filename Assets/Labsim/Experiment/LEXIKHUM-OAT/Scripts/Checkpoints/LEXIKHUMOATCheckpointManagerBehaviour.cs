@@ -402,7 +402,8 @@ namespace Labsim.experiment.LEXIKHUM_OAT
                                 external_cylinder.position,
                                 0.5f
                             );
-                        backend.NextGateWorldPosition.Set(center.x, offset, center.z);
+                        backend.NextGateWorldPosition
+                            = new UnityEngine.Vector3(center.x, offset, center.z);
                         
                         backend.NextGateWidth 
                             = UnityEngine.Mathf.Abs(
